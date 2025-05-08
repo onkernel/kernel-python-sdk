@@ -26,6 +26,18 @@ from ._exceptions import (
 )
 from ._base_client import DefaultHttpxClient, DefaultAsyncHttpxClient
 from ._utils._logs import setup_logging as _setup_logging
+from .app_framework import (
+    App,
+    Browser,
+    Browsers,
+    KernelApp,
+    KernelAction,
+    KernelContext,
+    KernelAppRegistry,
+    browsers,
+    app_registry,
+    export_registry,
+)
 
 __all__ = [
     "types",
@@ -66,6 +78,16 @@ __all__ = [
     "DEFAULT_CONNECTION_LIMITS",
     "DefaultHttpxClient",
     "DefaultAsyncHttpxClient",
+    "KernelContext",
+    "Browser",
+    "KernelAction",
+    "KernelApp",
+    "KernelAppRegistry",
+    "Browsers",
+    "browsers",
+    "App",
+    "app_registry",
+    "export_registry",
 ]
 
 _setup_logging()
