@@ -1,6 +1,6 @@
 # Kernel Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/kernel-sdk.svg)](https://pypi.org/project/kernel-sdk/)
+[![PyPI version](https://img.shields.io/pypi/v/kernel.svg)](https://pypi.org/project/kernel/)
 
 The Kernel Python library provides convenient access to the Kernel REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -16,7 +16,7 @@ The full API of this library can be found in [api.md](api.md).
 
 ```sh
 # install from PyPI
-pip install --pre kernel-sdk
+pip install --pre kernel
 ```
 
 ## Usage
