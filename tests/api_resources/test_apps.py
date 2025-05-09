@@ -76,6 +76,7 @@ class TestApps:
     @parametrize
     def test_method_invoke(self, client: Kernel) -> None:
         app = client.apps.invoke(
+            action_name="analyze",
             app_name="my-awesome-app",
             payload='{ "data": "example input" }',
             version="1.0.0",
@@ -86,6 +87,7 @@ class TestApps:
     @parametrize
     def test_raw_response_invoke(self, client: Kernel) -> None:
         response = client.apps.with_raw_response.invoke(
+            action_name="analyze",
             app_name="my-awesome-app",
             payload='{ "data": "example input" }',
             version="1.0.0",
@@ -100,6 +102,7 @@ class TestApps:
     @parametrize
     def test_streaming_response_invoke(self, client: Kernel) -> None:
         with client.apps.with_streaming_response.invoke(
+            action_name="analyze",
             app_name="my-awesome-app",
             payload='{ "data": "example input" }',
             version="1.0.0",
@@ -213,6 +216,7 @@ class TestAsyncApps:
     @parametrize
     async def test_method_invoke(self, async_client: AsyncKernel) -> None:
         app = await async_client.apps.invoke(
+            action_name="analyze",
             app_name="my-awesome-app",
             payload='{ "data": "example input" }',
             version="1.0.0",
@@ -223,6 +227,7 @@ class TestAsyncApps:
     @parametrize
     async def test_raw_response_invoke(self, async_client: AsyncKernel) -> None:
         response = await async_client.apps.with_raw_response.invoke(
+            action_name="analyze",
             app_name="my-awesome-app",
             payload='{ "data": "example input" }',
             version="1.0.0",
@@ -237,6 +242,7 @@ class TestAsyncApps:
     @parametrize
     async def test_streaming_response_invoke(self, async_client: AsyncKernel) -> None:
         async with async_client.apps.with_streaming_response.invoke(
+            action_name="analyze",
             app_name="my-awesome-app",
             payload='{ "data": "example input" }',
             version="1.0.0",
