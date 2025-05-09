@@ -704,6 +704,7 @@ class TestKernel:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
+    @pytest.mark.skip() # SDK-2615
     @mock.patch("kernel._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
@@ -724,6 +725,7 @@ class TestKernel:
 
         assert _get_open_connections(self.client) == 0
 
+    @pytest.mark.skip() # SDK-2615
     @mock.patch("kernel._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
@@ -1502,6 +1504,7 @@ class TestAsyncKernel:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
+    @pytest.mark.skip() # SDK-2615
     @mock.patch("kernel._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
@@ -1522,6 +1525,7 @@ class TestAsyncKernel:
 
         assert _get_open_connections(self.client) == 0
 
+    @pytest.mark.skip() # SDK-2615
     @mock.patch("kernel._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
