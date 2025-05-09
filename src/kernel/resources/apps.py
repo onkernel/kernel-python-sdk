@@ -105,6 +105,7 @@ class AppsResource(SyncAPIResource):
     def invoke(
         self,
         *,
+        action_name: str,
         app_name: str,
         payload: object,
         version: str,
@@ -119,6 +120,8 @@ class AppsResource(SyncAPIResource):
         Invoke an application
 
         Args:
+          action_name: Name of the action to invoke
+
           app_name: Name of the application
 
           payload: Input data for the application
@@ -137,6 +140,7 @@ class AppsResource(SyncAPIResource):
             "/apps/invoke",
             body=maybe_transform(
                 {
+                    "action_name": action_name,
                     "app_name": app_name,
                     "payload": payload,
                     "version": version,
@@ -263,6 +267,7 @@ class AsyncAppsResource(AsyncAPIResource):
     async def invoke(
         self,
         *,
+        action_name: str,
         app_name: str,
         payload: object,
         version: str,
@@ -277,6 +282,8 @@ class AsyncAppsResource(AsyncAPIResource):
         Invoke an application
 
         Args:
+          action_name: Name of the action to invoke
+
           app_name: Name of the application
 
           payload: Input data for the application
@@ -295,6 +302,7 @@ class AsyncAppsResource(AsyncAPIResource):
             "/apps/invoke",
             body=await async_maybe_transform(
                 {
+                    "action_name": action_name,
                     "app_name": app_name,
                     "payload": payload,
                     "version": version,
