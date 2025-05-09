@@ -10,6 +10,9 @@ __all__ = ["AppInvokeParams"]
 
 
 class AppInvokeParams(TypedDict, total=False):
+    action_name: Required[Annotated[str, PropertyInfo(alias="actionName")]]
+    """Name of the action to invoke"""
+
     app_name: Required[Annotated[str, PropertyInfo(alias="appName")]]
     """Name of the application"""
 
