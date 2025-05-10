@@ -29,6 +29,8 @@ from kernel import Kernel
 
 client = Kernel(
     api_key=os.environ.get("KERNEL_API_KEY"),  # This is the default and can be omitted
+    # defaults to "production".
+    environment="development",
 )
 
 response = client.apps.deploy(
@@ -55,6 +57,8 @@ from kernel import AsyncKernel
 
 client = AsyncKernel(
     api_key=os.environ.get("KERNEL_API_KEY"),  # This is the default and can be omitted
+    # defaults to "production".
+    environment="development",
 )
 
 
