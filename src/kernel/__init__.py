@@ -28,6 +28,18 @@ from ._exceptions import (
 )
 from ._base_client import DefaultHttpxClient, DefaultAsyncHttpxClient
 from ._utils._logs import setup_logging as _setup_logging
+from .app_framework import (
+    App,
+    KernelApp,
+    KernelJson,
+    KernelAction,
+    KernelAppJson,
+    KernelContext,
+    KernelActionJson,
+    KernelAppRegistry,
+    app_registry,
+    export_registry,
+)
 
 __all__ = [
     "types",
@@ -68,6 +80,16 @@ __all__ = [
     "DEFAULT_CONNECTION_LIMITS",
     "DefaultHttpxClient",
     "DefaultAsyncHttpxClient",
+    "KernelContext",
+    "KernelAction",
+    "KernelActionJson",
+    "KernelAppJson",
+    "KernelJson",
+    "KernelApp",
+    "KernelAppRegistry",
+    "App",
+    "app_registry",
+    "export_registry",
 ]
 
 if not _t.TYPE_CHECKING:

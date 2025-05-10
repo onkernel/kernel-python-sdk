@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.4 (2025-05-10)
+
+Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/onkernel/kernel-python-sdk/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
+
+### Features
+
+* **api:** update via SDK Studio ([d93116e](https://github.com/onkernel/kernel-python-sdk/commit/d93116e633eb9503647acfbe3e9769f33fdd19ed))
+
 ## 0.1.0-alpha.3 (2025-05-10)
 
 Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/onkernel/kernel-python-sdk/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
