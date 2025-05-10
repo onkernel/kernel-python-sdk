@@ -553,6 +553,14 @@ class TestKernel:
             client = Kernel(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
+        # explicit environment arg requires explicitness
+        with update_env(KERNEL_BASE_URL="http://localhost:5000/from/env"):
+            with pytest.raises(ValueError, match=r"you must pass base_url=None"):
+                Kernel(api_key=api_key, _strict_response_validation=True, environment="production")
+
+            client = Kernel(base_url=None, api_key=api_key, _strict_response_validation=True, environment="production")
+            assert str(client.base_url).startswith("https://api.onkernel.com/")
+
     @pytest.mark.parametrize(
         "client",
         [
@@ -1338,6 +1346,16 @@ class TestAsyncKernel:
         with update_env(KERNEL_BASE_URL="http://localhost:5000/from/env"):
             client = AsyncKernel(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
+
+        # explicit environment arg requires explicitness
+        with update_env(KERNEL_BASE_URL="http://localhost:5000/from/env"):
+            with pytest.raises(ValueError, match=r"you must pass base_url=None"):
+                AsyncKernel(api_key=api_key, _strict_response_validation=True, environment="production")
+
+            client = AsyncKernel(
+                base_url=None, api_key=api_key, _strict_response_validation=True, environment="production"
+            )
+            assert str(client.base_url).startswith("https://api.onkernel.com/")
 
     @pytest.mark.parametrize(
         "client",
