@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2025-05-10)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/onkernel/kernel-python-sdk/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Bug Fixes
+
+* **package:** support direct resource imports ([679b117](https://github.com/onkernel/kernel-python-sdk/commit/679b11723a5699be2b6b50ccce2b84a88d1e0a7b))
+* **tests:** skip broken binary tests for now ([69638c0](https://github.com/onkernel/kernel-python-sdk/commit/69638c0d0da19a74a91e182a209c3de06985e112))
+
 ## 0.1.0-alpha.2 (2025-05-09)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/onkernel/kernel-python-sdk/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
