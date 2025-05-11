@@ -20,6 +20,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.app_deploy_response import AppDeployResponse
 from ..types.app_invoke_response import AppInvokeResponse
+from ..types.app_retrieve_invocation_response import AppRetrieveInvocationResponse
 
 __all__ = ["AppsResource", "AsyncAppsResource"]
 
@@ -152,6 +153,39 @@ class AppsResource(SyncAPIResource):
             cast_to=AppInvokeResponse,
         )
 
+    def retrieve_invocation(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AppRetrieveInvocationResponse:
+        """
+        Get an app invocation by id
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._get(
+            f"/apps/invocations/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AppRetrieveInvocationResponse,
+        )
+
 
 class AsyncAppsResource(AsyncAPIResource):
     @cached_property
@@ -281,6 +315,39 @@ class AsyncAppsResource(AsyncAPIResource):
             cast_to=AppInvokeResponse,
         )
 
+    async def retrieve_invocation(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AppRetrieveInvocationResponse:
+        """
+        Get an app invocation by id
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._get(
+            f"/apps/invocations/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AppRetrieveInvocationResponse,
+        )
+
 
 class AppsResourceWithRawResponse:
     def __init__(self, apps: AppsResource) -> None:
@@ -291,6 +358,9 @@ class AppsResourceWithRawResponse:
         )
         self.invoke = to_raw_response_wrapper(
             apps.invoke,
+        )
+        self.retrieve_invocation = to_raw_response_wrapper(
+            apps.retrieve_invocation,
         )
 
 
@@ -304,6 +374,9 @@ class AsyncAppsResourceWithRawResponse:
         self.invoke = async_to_raw_response_wrapper(
             apps.invoke,
         )
+        self.retrieve_invocation = async_to_raw_response_wrapper(
+            apps.retrieve_invocation,
+        )
 
 
 class AppsResourceWithStreamingResponse:
@@ -316,6 +389,9 @@ class AppsResourceWithStreamingResponse:
         self.invoke = to_streamed_response_wrapper(
             apps.invoke,
         )
+        self.retrieve_invocation = to_streamed_response_wrapper(
+            apps.retrieve_invocation,
+        )
 
 
 class AsyncAppsResourceWithStreamingResponse:
@@ -327,4 +403,7 @@ class AsyncAppsResourceWithStreamingResponse:
         )
         self.invoke = async_to_streamed_response_wrapper(
             apps.invoke,
+        )
+        self.retrieve_invocation = async_to_streamed_response_wrapper(
+            apps.retrieve_invocation,
         )

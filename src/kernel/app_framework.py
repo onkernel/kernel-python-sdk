@@ -35,7 +35,6 @@ class KernelAppJson:
 class KernelJson:
     """JSON representation of Kernel manifest"""
     apps: List[KernelAppJson]
-    entrypoint: str
 
 # App class
 class KernelApp:
@@ -127,14 +126,14 @@ class KernelAppRegistry:
     def get_app_by_name(self, name: str) -> Optional[KernelApp]:
         return self.apps.get(name)
         
-    def export(self, entrypoint_relpath: str) -> KernelJson:
+    def export(self) -> KernelJson:
         """Export the registry as a KernelJson object"""
         apps = [app.to_dict() for app in self.get_apps()]
-        return KernelJson(apps=apps, entrypoint=entrypoint_relpath)
+        return KernelJson(apps=apps)
 
-    def export_json(self, entrypoint_relpath: str) -> str:
+    def export_json(self) -> str:
         """Export the registry as JSON"""
-        kernel_json = self.export(entrypoint_relpath)
+        kernel_json = self.export()
         return json.dumps(kernel_json.__dict__, indent=2)
 
 
@@ -150,6 +149,6 @@ def App(name: str) -> KernelApp:
 app_registry = _app_registry
 
 # Function to export registry as JSON
-def export_registry(entrypoint_relpath: str) -> str:
+def export_registry() -> str:
     """Export the registry as JSON"""
-    return _app_registry.export_json(entrypoint_relpath)
+    return _app_registry.export_json()
