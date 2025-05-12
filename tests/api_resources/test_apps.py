@@ -25,9 +25,7 @@ class TestApps:
     @parametrize
     def test_method_deploy(self, client: Kernel) -> None:
         app = client.apps.deploy(
-            app_name="my-awesome-app",
             file=b"raw file contents",
-            version="1.0.0",
         )
         assert_matches_type(AppDeployResponse, app, path=["response"])
 
@@ -35,10 +33,11 @@ class TestApps:
     @parametrize
     def test_method_deploy_with_all_params(self, client: Kernel) -> None:
         app = client.apps.deploy(
-            app_name="my-awesome-app",
             file=b"raw file contents",
-            version="1.0.0",
+            entrypoint_rel_path="app.py",
+            force="false",
             region="aws.us-east-1a",
+            version="1.0.0",
         )
         assert_matches_type(AppDeployResponse, app, path=["response"])
 
@@ -46,9 +45,7 @@ class TestApps:
     @parametrize
     def test_raw_response_deploy(self, client: Kernel) -> None:
         response = client.apps.with_raw_response.deploy(
-            app_name="my-awesome-app",
             file=b"raw file contents",
-            version="1.0.0",
         )
 
         assert response.is_closed is True
@@ -60,9 +57,7 @@ class TestApps:
     @parametrize
     def test_streaming_response_deploy(self, client: Kernel) -> None:
         with client.apps.with_streaming_response.deploy(
-            app_name="my-awesome-app",
             file=b"raw file contents",
-            version="1.0.0",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -78,7 +73,7 @@ class TestApps:
         app = client.apps.invoke(
             action_name="analyze",
             app_name="my-awesome-app",
-            payload='{ "data": "example input" }',
+            payload={"data": "example input"},
             version="1.0.0",
         )
         assert_matches_type(AppInvokeResponse, app, path=["response"])
@@ -89,7 +84,7 @@ class TestApps:
         response = client.apps.with_raw_response.invoke(
             action_name="analyze",
             app_name="my-awesome-app",
-            payload='{ "data": "example input" }',
+            payload={"data": "example input"},
             version="1.0.0",
         )
 
@@ -104,7 +99,7 @@ class TestApps:
         with client.apps.with_streaming_response.invoke(
             action_name="analyze",
             app_name="my-awesome-app",
-            payload='{ "data": "example input" }',
+            payload={"data": "example input"},
             version="1.0.0",
         ) as response:
             assert not response.is_closed
@@ -165,9 +160,7 @@ class TestAsyncApps:
     @parametrize
     async def test_method_deploy(self, async_client: AsyncKernel) -> None:
         app = await async_client.apps.deploy(
-            app_name="my-awesome-app",
             file=b"raw file contents",
-            version="1.0.0",
         )
         assert_matches_type(AppDeployResponse, app, path=["response"])
 
@@ -175,10 +168,11 @@ class TestAsyncApps:
     @parametrize
     async def test_method_deploy_with_all_params(self, async_client: AsyncKernel) -> None:
         app = await async_client.apps.deploy(
-            app_name="my-awesome-app",
             file=b"raw file contents",
-            version="1.0.0",
+            entrypoint_rel_path="app.py",
+            force="false",
             region="aws.us-east-1a",
+            version="1.0.0",
         )
         assert_matches_type(AppDeployResponse, app, path=["response"])
 
@@ -186,9 +180,7 @@ class TestAsyncApps:
     @parametrize
     async def test_raw_response_deploy(self, async_client: AsyncKernel) -> None:
         response = await async_client.apps.with_raw_response.deploy(
-            app_name="my-awesome-app",
             file=b"raw file contents",
-            version="1.0.0",
         )
 
         assert response.is_closed is True
@@ -200,9 +192,7 @@ class TestAsyncApps:
     @parametrize
     async def test_streaming_response_deploy(self, async_client: AsyncKernel) -> None:
         async with async_client.apps.with_streaming_response.deploy(
-            app_name="my-awesome-app",
             file=b"raw file contents",
-            version="1.0.0",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -218,7 +208,7 @@ class TestAsyncApps:
         app = await async_client.apps.invoke(
             action_name="analyze",
             app_name="my-awesome-app",
-            payload='{ "data": "example input" }',
+            payload={"data": "example input"},
             version="1.0.0",
         )
         assert_matches_type(AppInvokeResponse, app, path=["response"])
@@ -229,7 +219,7 @@ class TestAsyncApps:
         response = await async_client.apps.with_raw_response.invoke(
             action_name="analyze",
             app_name="my-awesome-app",
-            payload='{ "data": "example input" }',
+            payload={"data": "example input"},
             version="1.0.0",
         )
 
@@ -244,7 +234,7 @@ class TestAsyncApps:
         async with async_client.apps.with_streaming_response.invoke(
             action_name="analyze",
             app_name="my-awesome-app",
-            payload='{ "data": "example input" }',
+            payload={"data": "example input"},
             version="1.0.0",
         ) as response:
             assert not response.is_closed
