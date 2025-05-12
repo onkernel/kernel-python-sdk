@@ -22,4 +22,4 @@ from kernel.types import BrowserCreateSessionResponse
 
 Methods:
 
-- <code title="post /browser">client.browser.<a href="./src/kernel/resources/browser.py">create_session</a>() -> <a href="./src/kernel/types/browser_create_session_response.py">BrowserCreateSessionResponse</a></code>
+- <code title="post /browser">client.browser.<a href="./src/kernel/resources/browser.py">create_session</a>(\*\*<a href="src/kernel/types/browser_create_session_params.py">params</a>) -> <a href="./src/kernel/types/browser_create_session_response.py">BrowserCreateSessionResponse</a></code>

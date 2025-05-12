@@ -34,11 +34,10 @@ client = Kernel(
 )
 
 response = client.apps.deploy(
-    app_name="REPLACE_ME",
     file=b"REPLACE_ME",
     version="REPLACE_ME",
 )
-print(response.id)
+print(response.apps)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -64,11 +63,10 @@ client = AsyncKernel(
 
 async def main() -> None:
     response = await client.apps.deploy(
-        app_name="REPLACE_ME",
         file=b"REPLACE_ME",
         version="REPLACE_ME",
     )
-    print(response.id)
+    print(response.apps)
 
 
 asyncio.run(main())
@@ -96,9 +94,7 @@ from kernel import Kernel
 client = Kernel()
 
 client.apps.deploy(
-    app_name="my-awesome-app",
     file=Path("/path/to/file"),
-    version="1.0.0",
 )
 ```
 
@@ -121,7 +117,6 @@ client = Kernel()
 
 try:
     client.apps.deploy(
-        app_name="REPLACE_ME",
         file=b"REPLACE_ME",
         version="REPLACE_ME",
     )
@@ -168,7 +163,6 @@ client = Kernel(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).apps.deploy(
-    app_name="REPLACE_ME",
     file=b"REPLACE_ME",
     version="REPLACE_ME",
 )
@@ -195,7 +189,6 @@ client = Kernel(
 
 # Override per-request:
 client.with_options(timeout=5.0).apps.deploy(
-    app_name="REPLACE_ME",
     file=b"REPLACE_ME",
     version="REPLACE_ME",
 )
@@ -240,14 +233,13 @@ from kernel import Kernel
 
 client = Kernel()
 response = client.apps.with_raw_response.deploy(
-    app_name="REPLACE_ME",
     file=b"REPLACE_ME",
     version="REPLACE_ME",
 )
 print(response.headers.get('X-My-Header'))
 
 app = response.parse()  # get the object that `apps.deploy()` would have returned
-print(app.id)
+print(app.apps)
 ```
 
 These methods return an [`APIResponse`](https://github.com/onkernel/kernel-python-sdk/tree/main/src/kernel/_response.py) object.
@@ -262,7 +254,6 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.apps.with_streaming_response.deploy(
-    app_name="REPLACE_ME",
     file=b"REPLACE_ME",
     version="REPLACE_ME",
 ) as response:

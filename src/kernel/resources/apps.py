@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Mapping, cast
+from typing_extensions import Literal
 
 import httpx
 
@@ -48,10 +49,11 @@ class AppsResource(SyncAPIResource):
     def deploy(
         self,
         *,
-        app_name: str,
         file: FileTypes,
-        version: str,
-        region: str | NotGiven = NOT_GIVEN,
+        entrypoint_rel_path: str | NotGiven = NOT_GIVEN,
+        force: Literal["true", "false"] | NotGiven = NOT_GIVEN,
+        region: Literal["aws.us-east-1a"] | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -63,13 +65,15 @@ class AppsResource(SyncAPIResource):
         Deploy a new application
 
         Args:
-          app_name: Name of the application
+          file: ZIP file containing the application source directory
 
-          file: ZIP file containing the application
+          entrypoint_rel_path: Relative path to the entrypoint of the application
 
-          version: Version of the application
+          force: Allow overwriting an existing app version
 
-          region: AWS region for deployment (e.g. "aws.us-east-1a")
+          region: Region for deployment. Currently we only support "aws.us-east-1a"
+
+          version: Version of the application. Can be any string.
 
           extra_headers: Send extra headers
 
@@ -81,10 +85,11 @@ class AppsResource(SyncAPIResource):
         """
         body = deepcopy_minimal(
             {
-                "app_name": app_name,
                 "file": file,
-                "version": version,
+                "entrypoint_rel_path": entrypoint_rel_path,
+                "force": force,
                 "region": region,
+                "version": version,
             }
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
@@ -210,10 +215,11 @@ class AsyncAppsResource(AsyncAPIResource):
     async def deploy(
         self,
         *,
-        app_name: str,
         file: FileTypes,
-        version: str,
-        region: str | NotGiven = NOT_GIVEN,
+        entrypoint_rel_path: str | NotGiven = NOT_GIVEN,
+        force: Literal["true", "false"] | NotGiven = NOT_GIVEN,
+        region: Literal["aws.us-east-1a"] | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -225,13 +231,15 @@ class AsyncAppsResource(AsyncAPIResource):
         Deploy a new application
 
         Args:
-          app_name: Name of the application
+          file: ZIP file containing the application source directory
 
-          file: ZIP file containing the application
+          entrypoint_rel_path: Relative path to the entrypoint of the application
 
-          version: Version of the application
+          force: Allow overwriting an existing app version
 
-          region: AWS region for deployment (e.g. "aws.us-east-1a")
+          region: Region for deployment. Currently we only support "aws.us-east-1a"
+
+          version: Version of the application. Can be any string.
 
           extra_headers: Send extra headers
 
@@ -243,10 +251,11 @@ class AsyncAppsResource(AsyncAPIResource):
         """
         body = deepcopy_minimal(
             {
-                "app_name": app_name,
                 "file": file,
-                "version": version,
+                "entrypoint_rel_path": entrypoint_rel_path,
+                "force": force,
                 "region": region,
+                "version": version,
             }
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])

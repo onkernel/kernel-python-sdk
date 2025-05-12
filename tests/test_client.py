@@ -720,12 +720,7 @@ class TestKernel:
         with pytest.raises(APITimeoutError):
             self.client.post(
                 "/apps/deploy",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(app_name="REPLACE_ME", file=b"REPLACE_ME", version="REPLACE_ME"), AppDeployParams
-                    ),
-                ),
+                body=cast(object, maybe_transform(dict(file=b"REPLACE_ME", version="REPLACE_ME"), AppDeployParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -740,12 +735,7 @@ class TestKernel:
         with pytest.raises(APIStatusError):
             self.client.post(
                 "/apps/deploy",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(app_name="REPLACE_ME", file=b"REPLACE_ME", version="REPLACE_ME"), AppDeployParams
-                    ),
-                ),
+                body=cast(object, maybe_transform(dict(file=b"REPLACE_ME", version="REPLACE_ME"), AppDeployParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -778,9 +768,7 @@ class TestKernel:
 
         respx_mock.post("/apps/deploy").mock(side_effect=retry_handler)
 
-        response = client.apps.with_raw_response.deploy(
-            app_name="my-awesome-app", file=b"raw file contents", version="1.0.0"
-        )
+        response = client.apps.with_raw_response.deploy(file=b"raw file contents")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -805,10 +793,7 @@ class TestKernel:
         respx_mock.post("/apps/deploy").mock(side_effect=retry_handler)
 
         response = client.apps.with_raw_response.deploy(
-            app_name="my-awesome-app",
-            file=b"raw file contents",
-            version="1.0.0",
-            extra_headers={"x-stainless-retry-count": Omit()},
+            file=b"raw file contents", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -833,10 +818,7 @@ class TestKernel:
         respx_mock.post("/apps/deploy").mock(side_effect=retry_handler)
 
         response = client.apps.with_raw_response.deploy(
-            app_name="my-awesome-app",
-            file=b"raw file contents",
-            version="1.0.0",
-            extra_headers={"x-stainless-retry-count": "42"},
+            file=b"raw file contents", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
@@ -1528,12 +1510,7 @@ class TestAsyncKernel:
         with pytest.raises(APITimeoutError):
             await self.client.post(
                 "/apps/deploy",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(app_name="REPLACE_ME", file=b"REPLACE_ME", version="REPLACE_ME"), AppDeployParams
-                    ),
-                ),
+                body=cast(object, maybe_transform(dict(file=b"REPLACE_ME", version="REPLACE_ME"), AppDeployParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1548,12 +1525,7 @@ class TestAsyncKernel:
         with pytest.raises(APIStatusError):
             await self.client.post(
                 "/apps/deploy",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(app_name="REPLACE_ME", file=b"REPLACE_ME", version="REPLACE_ME"), AppDeployParams
-                    ),
-                ),
+                body=cast(object, maybe_transform(dict(file=b"REPLACE_ME", version="REPLACE_ME"), AppDeployParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1587,9 +1559,7 @@ class TestAsyncKernel:
 
         respx_mock.post("/apps/deploy").mock(side_effect=retry_handler)
 
-        response = await client.apps.with_raw_response.deploy(
-            app_name="my-awesome-app", file=b"raw file contents", version="1.0.0"
-        )
+        response = await client.apps.with_raw_response.deploy(file=b"raw file contents")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1615,10 +1585,7 @@ class TestAsyncKernel:
         respx_mock.post("/apps/deploy").mock(side_effect=retry_handler)
 
         response = await client.apps.with_raw_response.deploy(
-            app_name="my-awesome-app",
-            file=b"raw file contents",
-            version="1.0.0",
-            extra_headers={"x-stainless-retry-count": Omit()},
+            file=b"raw file contents", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1644,10 +1611,7 @@ class TestAsyncKernel:
         respx_mock.post("/apps/deploy").mock(side_effect=retry_handler)
 
         response = await client.apps.with_raw_response.deploy(
-            app_name="my-awesome-app",
-            file=b"raw file contents",
-            version="1.0.0",
-            extra_headers={"x-stainless-retry-count": "42"},
+            file=b"raw file contents", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
