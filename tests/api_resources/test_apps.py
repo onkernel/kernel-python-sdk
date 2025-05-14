@@ -25,6 +25,7 @@ class TestApps:
     @parametrize
     def test_method_deploy(self, client: Kernel) -> None:
         app = client.apps.deploy(
+            entrypoint_rel_path="app.py",
             file=b"raw file contents",
         )
         assert_matches_type(AppDeployResponse, app, path=["response"])
@@ -33,8 +34,8 @@ class TestApps:
     @parametrize
     def test_method_deploy_with_all_params(self, client: Kernel) -> None:
         app = client.apps.deploy(
-            file=b"raw file contents",
             entrypoint_rel_path="app.py",
+            file=b"raw file contents",
             force="false",
             region="aws.us-east-1a",
             version="1.0.0",
@@ -45,6 +46,7 @@ class TestApps:
     @parametrize
     def test_raw_response_deploy(self, client: Kernel) -> None:
         response = client.apps.with_raw_response.deploy(
+            entrypoint_rel_path="app.py",
             file=b"raw file contents",
         )
 
@@ -57,6 +59,7 @@ class TestApps:
     @parametrize
     def test_streaming_response_deploy(self, client: Kernel) -> None:
         with client.apps.with_streaming_response.deploy(
+            entrypoint_rel_path="app.py",
             file=b"raw file contents",
         ) as response:
             assert not response.is_closed
@@ -160,6 +163,7 @@ class TestAsyncApps:
     @parametrize
     async def test_method_deploy(self, async_client: AsyncKernel) -> None:
         app = await async_client.apps.deploy(
+            entrypoint_rel_path="app.py",
             file=b"raw file contents",
         )
         assert_matches_type(AppDeployResponse, app, path=["response"])
@@ -168,8 +172,8 @@ class TestAsyncApps:
     @parametrize
     async def test_method_deploy_with_all_params(self, async_client: AsyncKernel) -> None:
         app = await async_client.apps.deploy(
-            file=b"raw file contents",
             entrypoint_rel_path="app.py",
+            file=b"raw file contents",
             force="false",
             region="aws.us-east-1a",
             version="1.0.0",
@@ -180,6 +184,7 @@ class TestAsyncApps:
     @parametrize
     async def test_raw_response_deploy(self, async_client: AsyncKernel) -> None:
         response = await async_client.apps.with_raw_response.deploy(
+            entrypoint_rel_path="app.py",
             file=b"raw file contents",
         )
 
@@ -192,6 +197,7 @@ class TestAsyncApps:
     @parametrize
     async def test_streaming_response_deploy(self, async_client: AsyncKernel) -> None:
         async with async_client.apps.with_streaming_response.deploy(
+            entrypoint_rel_path="app.py",
             file=b"raw file contents",
         ) as response:
             assert not response.is_closed
