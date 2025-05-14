@@ -34,6 +34,7 @@ client = Kernel(
 )
 
 response = client.apps.deploy(
+    entrypoint_rel_path="app.py",
     file=b"REPLACE_ME",
     version="REPLACE_ME",
 )
@@ -63,6 +64,7 @@ client = AsyncKernel(
 
 async def main() -> None:
     response = await client.apps.deploy(
+        entrypoint_rel_path="app.py",
         file=b"REPLACE_ME",
         version="REPLACE_ME",
     )
@@ -94,6 +96,7 @@ from kernel import Kernel
 client = Kernel()
 
 client.apps.deploy(
+    entrypoint_rel_path="app.py",
     file=Path("/path/to/file"),
 )
 ```
@@ -117,6 +120,7 @@ client = Kernel()
 
 try:
     client.apps.deploy(
+        entrypoint_rel_path="app.py",
         file=b"REPLACE_ME",
         version="REPLACE_ME",
     )
@@ -163,6 +167,7 @@ client = Kernel(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).apps.deploy(
+    entrypoint_rel_path="app.py",
     file=b"REPLACE_ME",
     version="REPLACE_ME",
 )
@@ -189,6 +194,7 @@ client = Kernel(
 
 # Override per-request:
 client.with_options(timeout=5.0).apps.deploy(
+    entrypoint_rel_path="app.py",
     file=b"REPLACE_ME",
     version="REPLACE_ME",
 )
@@ -233,6 +239,7 @@ from kernel import Kernel
 
 client = Kernel()
 response = client.apps.with_raw_response.deploy(
+    entrypoint_rel_path="app.py",
     file=b"REPLACE_ME",
     version="REPLACE_ME",
 )
@@ -254,6 +261,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.apps.with_streaming_response.deploy(
+    entrypoint_rel_path="app.py",
     file=b"REPLACE_ME",
     version="REPLACE_ME",
 ) as response:

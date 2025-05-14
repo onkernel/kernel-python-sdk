@@ -11,11 +11,11 @@ __all__ = ["AppDeployParams"]
 
 
 class AppDeployParams(TypedDict, total=False):
+    entrypoint_rel_path: Required[Annotated[str, PropertyInfo(alias="entrypointRelPath")]]
+    """Relative path to the entrypoint of the application"""
+
     file: Required[FileTypes]
     """ZIP file containing the application source directory"""
-
-    entrypoint_rel_path: Annotated[str, PropertyInfo(alias="entrypointRelPath")]
-    """Relative path to the entrypoint of the application"""
 
     force: Literal["true", "false"]
     """Allow overwriting an existing app version"""

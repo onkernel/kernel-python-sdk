@@ -49,8 +49,8 @@ class AppsResource(SyncAPIResource):
     def deploy(
         self,
         *,
+        entrypoint_rel_path: str,
         file: FileTypes,
-        entrypoint_rel_path: str | NotGiven = NOT_GIVEN,
         force: Literal["true", "false"] | NotGiven = NOT_GIVEN,
         region: Literal["aws.us-east-1a"] | NotGiven = NOT_GIVEN,
         version: str | NotGiven = NOT_GIVEN,
@@ -65,9 +65,9 @@ class AppsResource(SyncAPIResource):
         Deploy a new application
 
         Args:
-          file: ZIP file containing the application source directory
-
           entrypoint_rel_path: Relative path to the entrypoint of the application
+
+          file: ZIP file containing the application source directory
 
           force: Allow overwriting an existing app version
 
@@ -85,8 +85,8 @@ class AppsResource(SyncAPIResource):
         """
         body = deepcopy_minimal(
             {
-                "file": file,
                 "entrypoint_rel_path": entrypoint_rel_path,
+                "file": file,
                 "force": force,
                 "region": region,
                 "version": version,
@@ -215,8 +215,8 @@ class AsyncAppsResource(AsyncAPIResource):
     async def deploy(
         self,
         *,
+        entrypoint_rel_path: str,
         file: FileTypes,
-        entrypoint_rel_path: str | NotGiven = NOT_GIVEN,
         force: Literal["true", "false"] | NotGiven = NOT_GIVEN,
         region: Literal["aws.us-east-1a"] | NotGiven = NOT_GIVEN,
         version: str | NotGiven = NOT_GIVEN,
@@ -231,9 +231,9 @@ class AsyncAppsResource(AsyncAPIResource):
         Deploy a new application
 
         Args:
-          file: ZIP file containing the application source directory
-
           entrypoint_rel_path: Relative path to the entrypoint of the application
+
+          file: ZIP file containing the application source directory
 
           force: Allow overwriting an existing app version
 
@@ -251,8 +251,8 @@ class AsyncAppsResource(AsyncAPIResource):
         """
         body = deepcopy_minimal(
             {
-                "file": file,
                 "entrypoint_rel_path": entrypoint_rel_path,
+                "file": file,
                 "force": force,
                 "region": region,
                 "version": version,
