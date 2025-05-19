@@ -1,16 +1,27 @@
 # Apps
 
+Types:
+
+```python
+from kernel.types import AppListResponse
+```
+
+Methods:
+
+- <code title="get /apps">client.apps.<a href="./src/kernel/resources/apps/apps.py">list</a>(\*\*<a href="src/kernel/types/app_list_params.py">params</a>) -> <a href="./src/kernel/types/app_list_response.py">AppListResponse</a></code>
+
 ## Deployments
 
 Types:
 
 ```python
-from kernel.types.apps import DeploymentCreateResponse
+from kernel.types.apps import DeploymentCreateResponse, DeploymentFollowResponse
 ```
 
 Methods:
 
 - <code title="post /deploy">client.apps.deployments.<a href="./src/kernel/resources/apps/deployments.py">create</a>(\*\*<a href="src/kernel/types/apps/deployment_create_params.py">params</a>) -> <a href="./src/kernel/types/apps/deployment_create_response.py">DeploymentCreateResponse</a></code>
+- <code title="get /apps/{id}/events">client.apps.deployments.<a href="./src/kernel/resources/apps/deployments.py">follow</a>(id) -> <a href="./src/kernel/types/apps/deployment_follow_response.py">DeploymentFollowResponse</a></code>
 
 ## Invocations
 
