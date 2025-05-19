@@ -33,12 +33,12 @@ client = Kernel(
     environment="development",
 )
 
-response = client.apps.deploy(
-    entrypoint_rel_path="app.py",
+deployment = client.apps.deployments.create(
+    entrypoint_rel_path="main.ts",
     file=b"REPLACE_ME",
-    version="REPLACE_ME",
+    version="1.0.0",
 )
-print(response.apps)
+print(deployment.apps)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -63,12 +63,12 @@ client = AsyncKernel(
 
 
 async def main() -> None:
-    response = await client.apps.deploy(
-        entrypoint_rel_path="app.py",
+    deployment = await client.apps.deployments.create(
+        entrypoint_rel_path="main.ts",
         file=b"REPLACE_ME",
-        version="REPLACE_ME",
+        version="1.0.0",
     )
-    print(response.apps)
+    print(deployment.apps)
 
 
 asyncio.run(main())
@@ -95,8 +95,8 @@ from kernel import Kernel
 
 client = Kernel()
 
-client.apps.deploy(
-    entrypoint_rel_path="app.py",
+client.apps.deployments.create(
+    entrypoint_rel_path="src/app.py",
     file=Path("/path/to/file"),
 )
 ```
@@ -119,10 +119,8 @@ from kernel import Kernel
 client = Kernel()
 
 try:
-    client.apps.deploy(
-        entrypoint_rel_path="app.py",
-        file=b"REPLACE_ME",
-        version="REPLACE_ME",
+    client.browsers.create(
+        invocation_id="REPLACE_ME",
     )
 except kernel.APIConnectionError as e:
     print("The server could not be reached")
@@ -166,10 +164,8 @@ client = Kernel(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).apps.deploy(
-    entrypoint_rel_path="app.py",
-    file=b"REPLACE_ME",
-    version="REPLACE_ME",
+client.with_options(max_retries=5).browsers.create(
+    invocation_id="REPLACE_ME",
 )
 ```
 
@@ -193,10 +189,8 @@ client = Kernel(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).apps.deploy(
-    entrypoint_rel_path="app.py",
-    file=b"REPLACE_ME",
-    version="REPLACE_ME",
+client.with_options(timeout=5.0).browsers.create(
+    invocation_id="REPLACE_ME",
 )
 ```
 
@@ -238,15 +232,13 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from kernel import Kernel
 
 client = Kernel()
-response = client.apps.with_raw_response.deploy(
-    entrypoint_rel_path="app.py",
-    file=b"REPLACE_ME",
-    version="REPLACE_ME",
+response = client.browsers.with_raw_response.create(
+    invocation_id="REPLACE_ME",
 )
 print(response.headers.get('X-My-Header'))
 
-app = response.parse()  # get the object that `apps.deploy()` would have returned
-print(app.apps)
+browser = response.parse()  # get the object that `browsers.create()` would have returned
+print(browser.session_id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/onkernel/kernel-python-sdk/tree/main/src/kernel/_response.py) object.
@@ -260,10 +252,8 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.apps.with_streaming_response.deploy(
-    entrypoint_rel_path="app.py",
-    file=b"REPLACE_ME",
-    version="REPLACE_ME",
+with client.browsers.with_streaming_response.create(
+    invocation_id="REPLACE_ME",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

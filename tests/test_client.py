@@ -28,7 +28,7 @@ from kernel._models import BaseModel, FinalRequestOptions
 from kernel._constants import RAW_RESPONSE_HEADER
 from kernel._exceptions import KernelError, APIStatusError, APITimeoutError, APIResponseValidationError
 from kernel._base_client import DEFAULT_TIMEOUT, HTTPX_DEFAULT_TIMEOUT, BaseClient, make_request_options
-from kernel.types.app_deploy_params import AppDeployParams
+from kernel.types.browser_create_params import BrowserCreateParams
 
 from .utils import update_env
 
@@ -716,17 +716,12 @@ class TestKernel:
     @mock.patch("kernel._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/apps/deploy").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/browsers").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             self.client.post(
-                "/apps/deploy",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(entrypoint_rel_path="app.py", file=b"REPLACE_ME", version="REPLACE_ME"), AppDeployParams
-                    ),
-                ),
+                "/browsers",
+                body=cast(object, maybe_transform(dict(invocation_id="REPLACE_ME"), BrowserCreateParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -737,17 +732,12 @@ class TestKernel:
     @mock.patch("kernel._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/apps/deploy").mock(return_value=httpx.Response(500))
+        respx_mock.post("/browsers").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             self.client.post(
-                "/apps/deploy",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(entrypoint_rel_path="app.py", file=b"REPLACE_ME", version="REPLACE_ME"), AppDeployParams
-                    ),
-                ),
+                "/browsers",
+                body=cast(object, maybe_transform(dict(invocation_id="REPLACE_ME"), BrowserCreateParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -778,9 +768,9 @@ class TestKernel:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/apps/deploy").mock(side_effect=retry_handler)
+        respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
-        response = client.apps.with_raw_response.deploy(entrypoint_rel_path="app.py", file=b"raw file contents")
+        response = client.browsers.with_raw_response.create(invocation_id="ckqwer3o20000jb9s7abcdef")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -802,10 +792,10 @@ class TestKernel:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/apps/deploy").mock(side_effect=retry_handler)
+        respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
-        response = client.apps.with_raw_response.deploy(
-            entrypoint_rel_path="app.py", file=b"raw file contents", extra_headers={"x-stainless-retry-count": Omit()}
+        response = client.browsers.with_raw_response.create(
+            invocation_id="ckqwer3o20000jb9s7abcdef", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -827,10 +817,10 @@ class TestKernel:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/apps/deploy").mock(side_effect=retry_handler)
+        respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
-        response = client.apps.with_raw_response.deploy(
-            entrypoint_rel_path="app.py", file=b"raw file contents", extra_headers={"x-stainless-retry-count": "42"}
+        response = client.browsers.with_raw_response.create(
+            invocation_id="ckqwer3o20000jb9s7abcdef", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
@@ -1518,17 +1508,12 @@ class TestAsyncKernel:
     @mock.patch("kernel._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/apps/deploy").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/browsers").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             await self.client.post(
-                "/apps/deploy",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(entrypoint_rel_path="app.py", file=b"REPLACE_ME", version="REPLACE_ME"), AppDeployParams
-                    ),
-                ),
+                "/browsers",
+                body=cast(object, maybe_transform(dict(invocation_id="REPLACE_ME"), BrowserCreateParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1539,17 +1524,12 @@ class TestAsyncKernel:
     @mock.patch("kernel._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/apps/deploy").mock(return_value=httpx.Response(500))
+        respx_mock.post("/browsers").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             await self.client.post(
-                "/apps/deploy",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(entrypoint_rel_path="app.py", file=b"REPLACE_ME", version="REPLACE_ME"), AppDeployParams
-                    ),
-                ),
+                "/browsers",
+                body=cast(object, maybe_transform(dict(invocation_id="REPLACE_ME"), BrowserCreateParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1581,9 +1561,9 @@ class TestAsyncKernel:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/apps/deploy").mock(side_effect=retry_handler)
+        respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
-        response = await client.apps.with_raw_response.deploy(entrypoint_rel_path="app.py", file=b"raw file contents")
+        response = await client.browsers.with_raw_response.create(invocation_id="ckqwer3o20000jb9s7abcdef")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1606,10 +1586,10 @@ class TestAsyncKernel:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/apps/deploy").mock(side_effect=retry_handler)
+        respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
-        response = await client.apps.with_raw_response.deploy(
-            entrypoint_rel_path="app.py", file=b"raw file contents", extra_headers={"x-stainless-retry-count": Omit()}
+        response = await client.browsers.with_raw_response.create(
+            invocation_id="ckqwer3o20000jb9s7abcdef", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1632,10 +1612,10 @@ class TestAsyncKernel:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/apps/deploy").mock(side_effect=retry_handler)
+        respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
-        response = await client.apps.with_raw_response.deploy(
-            entrypoint_rel_path="app.py", file=b"raw file contents", extra_headers={"x-stainless-retry-count": "42"}
+        response = await client.browsers.with_raw_response.create(
+            invocation_id="ckqwer3o20000jb9s7abcdef", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"

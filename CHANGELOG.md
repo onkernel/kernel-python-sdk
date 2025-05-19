@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.0-alpha.10 (2025-05-19)
+
+Full Changelog: [v0.1.0-alpha.9...v0.1.0-alpha.10](https://github.com/onkernel/kernel-python-sdk/compare/v0.1.0-alpha.9...v0.1.0-alpha.10)
+
+### Features
+
+* **api:** update via SDK Studio ([a382570](https://github.com/onkernel/kernel-python-sdk/commit/a382570e96f3bae625cb176e746038fcdf0e8e73))
+
+
+### Chores
+
+* **ci:** fix installation instructions ([c897375](https://github.com/onkernel/kernel-python-sdk/commit/c8973750a1ae58f7c8eee588bbe874862dbbb46d))
+* **ci:** upload sdks to package manager ([03d0f7f](https://github.com/onkernel/kernel-python-sdk/commit/03d0f7f19be9614f5a81bd5c31117febd68ec5e9))
+* **internal:** codegen related update ([49143bd](https://github.com/onkernel/kernel-python-sdk/commit/49143bdcb6635ae79b1c4c5fddc9017d8d81b4d7))
+
 ## 0.1.0-alpha.9 (2025-05-14)
 
 Full Changelog: [v0.1.0-alpha.8...v0.1.0-alpha.9](https://github.com/onkernel/kernel-python-sdk/compare/v0.1.0-alpha.8...v0.1.0-alpha.9)
