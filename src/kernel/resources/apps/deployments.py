@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Mapping, cast
+from typing import Dict, Mapping, cast
 from typing_extensions import Literal
 
 import httpx
@@ -49,6 +49,7 @@ class DeploymentsResource(SyncAPIResource):
         *,
         entrypoint_rel_path: str,
         file: FileTypes,
+        env_vars: Dict[str, str] | NotGiven = NOT_GIVEN,
         force: bool | NotGiven = NOT_GIVEN,
         region: Literal["aws.us-east-1a"] | NotGiven = NOT_GIVEN,
         version: str | NotGiven = NOT_GIVEN,
@@ -66,6 +67,9 @@ class DeploymentsResource(SyncAPIResource):
           entrypoint_rel_path: Relative path to the entrypoint of the application
 
           file: ZIP file containing the application source directory
+
+          env_vars: Map of environment variables to set for the deployed application. Each key-value
+              pair represents an environment variable.
 
           force: Allow overwriting an existing app version
 
@@ -85,6 +89,7 @@ class DeploymentsResource(SyncAPIResource):
             {
                 "entrypoint_rel_path": entrypoint_rel_path,
                 "file": file,
+                "env_vars": env_vars,
                 "force": force,
                 "region": region,
                 "version": version,
@@ -131,6 +136,7 @@ class AsyncDeploymentsResource(AsyncAPIResource):
         *,
         entrypoint_rel_path: str,
         file: FileTypes,
+        env_vars: Dict[str, str] | NotGiven = NOT_GIVEN,
         force: bool | NotGiven = NOT_GIVEN,
         region: Literal["aws.us-east-1a"] | NotGiven = NOT_GIVEN,
         version: str | NotGiven = NOT_GIVEN,
@@ -148,6 +154,9 @@ class AsyncDeploymentsResource(AsyncAPIResource):
           entrypoint_rel_path: Relative path to the entrypoint of the application
 
           file: ZIP file containing the application source directory
+
+          env_vars: Map of environment variables to set for the deployed application. Each key-value
+              pair represents an environment variable.
 
           force: Allow overwriting an existing app version
 
@@ -167,6 +176,7 @@ class AsyncDeploymentsResource(AsyncAPIResource):
             {
                 "entrypoint_rel_path": entrypoint_rel_path,
                 "file": file,
+                "env_vars": env_vars,
                 "force": force,
                 "region": region,
                 "version": version,
