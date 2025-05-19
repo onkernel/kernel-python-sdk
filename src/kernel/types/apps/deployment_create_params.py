@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Dict
 from typing_extensions import Literal, Required, TypedDict
 
 from ..._types import FileTypes
@@ -15,6 +16,12 @@ class DeploymentCreateParams(TypedDict, total=False):
 
     file: Required[FileTypes]
     """ZIP file containing the application source directory"""
+
+    env_vars: Dict[str, str]
+    """Map of environment variables to set for the deployed application.
+
+    Each key-value pair represents an environment variable.
+    """
 
     force: bool
     """Allow overwriting an existing app version"""

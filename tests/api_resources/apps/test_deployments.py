@@ -32,6 +32,7 @@ class TestDeployments:
         deployment = client.apps.deployments.create(
             entrypoint_rel_path="src/app.py",
             file=b"raw file contents",
+            env_vars={"foo": "string"},
             force=False,
             region="aws.us-east-1a",
             version="1.0.0",
@@ -85,6 +86,7 @@ class TestAsyncDeployments:
         deployment = await async_client.apps.deployments.create(
             entrypoint_rel_path="src/app.py",
             file=b"raw file contents",
+            env_vars={"foo": "string"},
             force=False,
             region="aws.us-east-1a",
             version="1.0.0",

@@ -36,6 +36,7 @@ client = Kernel(
 deployment = client.apps.deployments.create(
     entrypoint_rel_path="main.ts",
     file=b"REPLACE_ME",
+    env_vars={"OPENAI_API_KEY": "x"},
     version="1.0.0",
 )
 print(deployment.apps)
@@ -66,6 +67,7 @@ async def main() -> None:
     deployment = await client.apps.deployments.create(
         entrypoint_rel_path="main.ts",
         file=b"REPLACE_ME",
+        env_vars={"OPENAI_API_KEY": "x"},
         version="1.0.0",
     )
     print(deployment.apps)
