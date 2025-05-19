@@ -8,13 +8,13 @@ from .apps import (
     AppsResourceWithStreamingResponse,
     AsyncAppsResourceWithStreamingResponse,
 )
-from .browser import (
-    BrowserResource,
-    AsyncBrowserResource,
-    BrowserResourceWithRawResponse,
-    AsyncBrowserResourceWithRawResponse,
-    BrowserResourceWithStreamingResponse,
-    AsyncBrowserResourceWithStreamingResponse,
+from .browsers import (
+    BrowsersResource,
+    AsyncBrowsersResource,
+    BrowsersResourceWithRawResponse,
+    AsyncBrowsersResourceWithRawResponse,
+    BrowsersResourceWithStreamingResponse,
+    AsyncBrowsersResourceWithStreamingResponse,
 )
 
 __all__ = [
@@ -24,10 +24,10 @@ __all__ = [
     "AsyncAppsResourceWithRawResponse",
     "AppsResourceWithStreamingResponse",
     "AsyncAppsResourceWithStreamingResponse",
-    "BrowserResource",
-    "AsyncBrowserResource",
-    "BrowserResourceWithRawResponse",
-    "AsyncBrowserResourceWithRawResponse",
-    "BrowserResourceWithStreamingResponse",
-    "AsyncBrowserResourceWithStreamingResponse",
+    "BrowsersResource",
+    "AsyncBrowsersResource",
+    "BrowsersResourceWithRawResponse",
+    "AsyncBrowsersResourceWithRawResponse",
+    "BrowsersResourceWithStreamingResponse",
+    "AsyncBrowsersResourceWithStreamingResponse",
 ]

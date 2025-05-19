@@ -2,22 +2,21 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
-from .._types import FileTypes
-from .._utils import PropertyInfo
+from ..._types import FileTypes
 
-__all__ = ["AppDeployParams"]
+__all__ = ["DeploymentCreateParams"]
 
 
-class AppDeployParams(TypedDict, total=False):
-    entrypoint_rel_path: Required[Annotated[str, PropertyInfo(alias="entrypointRelPath")]]
+class DeploymentCreateParams(TypedDict, total=False):
+    entrypoint_rel_path: Required[str]
     """Relative path to the entrypoint of the application"""
 
     file: Required[FileTypes]
     """ZIP file containing the application source directory"""
 
-    force: Literal["true", "false"]
+    force: bool
     """Allow overwriting an existing app version"""
 
     region: Literal["aws.us-east-1a"]
