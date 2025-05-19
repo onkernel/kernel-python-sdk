@@ -17,9 +17,11 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ..._streaming import Stream, AsyncStream
 from ...types.apps import deployment_create_params
 from ..._base_client import make_request_options
 from ...types.apps.deployment_create_response import DeploymentCreateResponse
+from ...types.apps.deployment_follow_response import DeploymentFollowResponse
 
 __all__ = ["DeploymentsResource", "AsyncDeploymentsResource"]
 
@@ -110,6 +112,44 @@ class DeploymentsResource(SyncAPIResource):
             cast_to=DeploymentCreateResponse,
         )
 
+    def follow(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Stream[DeploymentFollowResponse]:
+        """
+        Establishes a Server-Sent Events (SSE) stream that delivers real-time logs and
+        status updates for a deployed application. The stream terminates automatically
+        once the application reaches a terminal state.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
+        return self._get(
+            f"/apps/{id}/events",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DeploymentFollowResponse,
+            stream=True,
+            stream_cls=Stream[DeploymentFollowResponse],
+        )
+
 
 class AsyncDeploymentsResource(AsyncAPIResource):
     @cached_property
@@ -197,6 +237,44 @@ class AsyncDeploymentsResource(AsyncAPIResource):
             cast_to=DeploymentCreateResponse,
         )
 
+    async def follow(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncStream[DeploymentFollowResponse]:
+        """
+        Establishes a Server-Sent Events (SSE) stream that delivers real-time logs and
+        status updates for a deployed application. The stream terminates automatically
+        once the application reaches a terminal state.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
+        return await self._get(
+            f"/apps/{id}/events",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=DeploymentFollowResponse,
+            stream=True,
+            stream_cls=AsyncStream[DeploymentFollowResponse],
+        )
+
 
 class DeploymentsResourceWithRawResponse:
     def __init__(self, deployments: DeploymentsResource) -> None:
@@ -204,6 +282,9 @@ class DeploymentsResourceWithRawResponse:
 
         self.create = to_raw_response_wrapper(
             deployments.create,
+        )
+        self.follow = to_raw_response_wrapper(
+            deployments.follow,
         )
 
 
@@ -214,6 +295,9 @@ class AsyncDeploymentsResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             deployments.create,
         )
+        self.follow = async_to_raw_response_wrapper(
+            deployments.follow,
+        )
 
 
 class DeploymentsResourceWithStreamingResponse:
@@ -223,6 +307,9 @@ class DeploymentsResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             deployments.create,
         )
+        self.follow = to_streamed_response_wrapper(
+            deployments.follow,
+        )
 
 
 class AsyncDeploymentsResourceWithStreamingResponse:
@@ -231,4 +318,7 @@ class AsyncDeploymentsResourceWithStreamingResponse:
 
         self.create = async_to_streamed_response_wrapper(
             deployments.create,
+        )
+        self.follow = async_to_streamed_response_wrapper(
+            deployments.follow,
         )
