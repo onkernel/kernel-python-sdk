@@ -21,7 +21,6 @@ from ..._streaming import Stream, AsyncStream
 from ...types.apps import deployment_create_params
 from ..._base_client import make_request_options
 from ...types.apps.deployment_create_response import DeploymentCreateResponse
-from ...types.apps.deployment_follow_response import DeploymentFollowResponse
 
 __all__ = ["DeploymentsResource", "AsyncDeploymentsResource"]
 
@@ -122,7 +121,7 @@ class DeploymentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Stream[DeploymentFollowResponse]:
+    ) -> Stream[object]:
         """
         Establishes a Server-Sent Events (SSE) stream that delivers real-time logs and
         status updates for a deployed application. The stream terminates automatically
@@ -145,9 +144,9 @@ class DeploymentsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=DeploymentFollowResponse,
+            cast_to=object,
             stream=True,
-            stream_cls=Stream[DeploymentFollowResponse],
+            stream_cls=Stream[object],
         )
 
 
@@ -247,7 +246,7 @@ class AsyncDeploymentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncStream[DeploymentFollowResponse]:
+    ) -> AsyncStream[object]:
         """
         Establishes a Server-Sent Events (SSE) stream that delivers real-time logs and
         status updates for a deployed application. The stream terminates automatically
@@ -270,9 +269,9 @@ class AsyncDeploymentsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=DeploymentFollowResponse,
+            cast_to=object,
             stream=True,
-            stream_cls=AsyncStream[DeploymentFollowResponse],
+            stream_cls=AsyncStream[object],
         )
 
 
