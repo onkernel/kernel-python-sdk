@@ -1,15 +1,5 @@
 # Apps
 
-Types:
-
-```python
-from kernel.types import AppListResponse
-```
-
-Methods:
-
-- <code title="get /apps">client.apps.<a href="./src/kernel/resources/apps/apps.py">list</a>(\*\*<a href="src/kernel/types/app_list_params.py">params</a>) -> <a href="./src/kernel/types/app_list_response.py">AppListResponse</a></code>
-
 ## Deployments
 
 Types:
