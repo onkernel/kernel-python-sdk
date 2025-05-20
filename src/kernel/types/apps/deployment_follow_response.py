@@ -1,22 +1,16 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypeAlias
 
 from ..._utils import PropertyInfo
 from ..._models import BaseModel
 
-__all__ = [
-    "DeploymentFollowResponse",
-    "DeploymentFollowResponseItem",
-    "DeploymentFollowResponseItemStateEvent",
-    "DeploymentFollowResponseItemStateUpdateEvent",
-    "DeploymentFollowResponseItemLogEvent",
-]
+__all__ = ["DeploymentFollowResponse", "StateEvent", "StateUpdateEvent", "LogEvent"]
 
 
-class DeploymentFollowResponseItemStateEvent(BaseModel):
+class StateEvent(BaseModel):
     event: Literal["state"]
     """Event type identifier (always "state")."""
 
@@ -29,7 +23,7 @@ class DeploymentFollowResponseItemStateEvent(BaseModel):
     """Time the state was reported."""
 
 
-class DeploymentFollowResponseItemStateUpdateEvent(BaseModel):
+class StateUpdateEvent(BaseModel):
     event: Literal["state_update"]
     """Event type identifier (always "state_update")."""
 
@@ -40,7 +34,7 @@ class DeploymentFollowResponseItemStateUpdateEvent(BaseModel):
     """Time the state change occurred."""
 
 
-class DeploymentFollowResponseItemLogEvent(BaseModel):
+class LogEvent(BaseModel):
     event: Literal["log"]
     """Event type identifier (always "log")."""
 
@@ -51,13 +45,6 @@ class DeploymentFollowResponseItemLogEvent(BaseModel):
     """Time the log entry was produced."""
 
 
-DeploymentFollowResponseItem: TypeAlias = Annotated[
-    Union[
-        DeploymentFollowResponseItemStateEvent,
-        DeploymentFollowResponseItemStateUpdateEvent,
-        DeploymentFollowResponseItemLogEvent,
-    ],
-    PropertyInfo(discriminator="event"),
+DeploymentFollowResponse: TypeAlias = Annotated[
+    Union[StateEvent, StateUpdateEvent, LogEvent], PropertyInfo(discriminator="event")
 ]
-
-DeploymentFollowResponse: TypeAlias = List[DeploymentFollowResponseItem]
