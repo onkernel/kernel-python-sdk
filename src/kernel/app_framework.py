@@ -1,7 +1,7 @@
 import json
 import inspect
 import functools
-from typing import Any, Dict, List, Union, TypeVar, Callable, Optional
+from typing import Any, Dict, List, TypeVar, Callable, Optional
 from dataclasses import dataclass
 
 T = TypeVar("T")
@@ -44,53 +44,58 @@ class KernelApp:
         # Register this app in the global registry
         _app_registry.register_app(self)
 
-    def action(self, name_or_handler: Optional[Union[str, Callable[..., Any]]] = None) -> Callable[..., Any]:
-        """Decorator to register an action with the app"""
-        if name_or_handler is None:
-            # This is the @app.action() case, which should return the decorator
-            def decorator(f: Callable[..., Any]) -> Callable[..., Any]:
-                return self._register_action(f.__name__, f)
-            return decorator
-        elif callable(name_or_handler):
-            # This is the @app.action case (handler passed directly)
-            return self._register_action(name_or_handler.__name__, name_or_handler)
-        else:
-            # This is the @app.action("name") case (name_or_handler is a string)
-            def decorator(f: Callable[..., Any]) -> Callable[..., Any]:
-                return self._register_action(name_or_handler, f)  # name_or_handler is the name string here
-            return decorator
+    def action(self, name: str) -> Callable[..., Any]:
+        """
+        Decorator to register an action with the app
+        
+        Usage:
+            @app.action("action-name")
+            def my_handler(ctx: KernelContext):
+                # ...
+                
+            @app.action("action-with-payload")
+            def my_handler(ctx: KernelContext, payload: dict):
+                # ...
+        """
+        def decorator(handler: Callable[..., Any]) -> Callable[..., Any]:
+            return self._register_action(name, handler)
+        return decorator
 
     def _register_action(self, name: str, handler: Callable[..., Any]) -> Callable[..., Any]:
         """Internal method to register an action"""
+        # Validate handler signature
+        sig = inspect.signature(handler)
+        param_count = len(sig.parameters)
+        
+        if param_count == 0:
+            raise TypeError("Action handler must accept at least the context parameter")
+        elif param_count > 2:
+            raise TypeError("Action handler can only accept context and payload parameters")
+            
+        param_names = list(sig.parameters.keys())
 
         @functools.wraps(handler)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-            # Determine if the original handler accepts context as first argument
-            sig = inspect.signature(handler)
-            param_names = list(sig.parameters.keys())
-            param_count = len(param_names)
-
+            # Ensure the first argument is the context
+            if not args or not isinstance(args[0], KernelContext):
+                raise TypeError("First argument to action handler must be a KernelContext")
+                
+            ctx = args[0]
+            
             if param_count == 1:
-                actual_input = None
-                # The handler only takes input
-                if len(args) > 0:  # Prioritize args if context was implicitly passed
-                    # If context (args[0]) and input (args[1]) were provided, or just input (args[0])
-                    actual_input = args[1] if len(args) > 1 else args[0]
-                elif kwargs:
-                    # Attempt to find the single expected kwarg
-                    if param_names:  # Should always be true if param_count == 1
-                        param_name = param_names[0]
-                        if param_name in kwargs:
-                            actual_input = kwargs[param_name]
-                        elif kwargs:  # Fallback if name doesn't match but kwargs exist
-                            actual_input = next(iter(kwargs.values()))
-                    elif kwargs:  # param_names is empty but kwargs exist (unlikely for param_count==1)
-                        actual_input = next(iter(kwargs.values()))
-                # If no args/kwargs, actual_input remains None, handler might raise error or accept None
-                return handler(actual_input)
-            else:  # param_count == 0 or param_count > 1
-                # Handler takes context and input (or more), or no args
-                return handler(*args, **kwargs)
+                # Handler takes only context
+                return handler(ctx)
+            else:  # param_count == 2
+                # Handler takes context and payload
+                if len(args) >= 2:
+                    return handler(ctx, args[1])
+                else:
+                    # Try to find payload in kwargs
+                    payload_name = param_names[1]
+                    if payload_name in kwargs:
+                        return handler(ctx, kwargs[payload_name])
+                    else:
+                        raise TypeError(f"Missing required payload parameter '{payload_name}'")
 
         action = KernelAction(name=name, handler=wrapper)
         self.actions[name] = action
