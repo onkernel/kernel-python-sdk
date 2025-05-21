@@ -16,7 +16,7 @@ The REST API documentation can be found on [docs.onkernel.com](https://docs.onke
 
 ```sh
 # install from PyPI
-pip install --pre kernel
+pip install kernel
 ```
 
 ## Usage
@@ -36,7 +36,10 @@ client = Kernel(
 deployment = client.apps.deployments.create(
     entrypoint_rel_path="main.ts",
     file=b"REPLACE_ME",
-    env_vars={"OPENAI_API_KEY": "x"},
+    env_vars={
+        "OPENAI_API_KEY": "x",
+        "LOG_LEVEL": "debug",
+    },
     version="1.0.0",
 )
 print(deployment.apps)
@@ -67,7 +70,10 @@ async def main() -> None:
     deployment = await client.apps.deployments.create(
         entrypoint_rel_path="main.ts",
         file=b"REPLACE_ME",
-        env_vars={"OPENAI_API_KEY": "x"},
+        env_vars={
+            "OPENAI_API_KEY": "x",
+            "LOG_LEVEL": "debug",
+        },
         version="1.0.0",
     )
     print(deployment.apps)
