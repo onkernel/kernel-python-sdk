@@ -16,7 +16,7 @@ The REST API documentation can be found on [docs.onkernel.com](https://docs.onke
 
 ```sh
 # install from PyPI
-pip install --pre kernel
+pip install kernel
 ```
 
 ## Usage
