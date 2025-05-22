@@ -27,6 +27,15 @@ class TestBrowsers:
 
     @pytest.mark.skip()
     @parametrize
+    def test_method_create_with_all_params(self, client: Kernel) -> None:
+        browser = client.browsers.create(
+            invocation_id="ckqwer3o20000jb9s7abcdef",
+            persistence={"id": "my-shared-browser"},
+        )
+        assert_matches_type(BrowserCreateResponse, browser, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
     def test_raw_response_create(self, client: Kernel) -> None:
         response = client.browsers.with_raw_response.create(
             invocation_id="ckqwer3o20000jb9s7abcdef",
@@ -102,6 +111,15 @@ class TestAsyncBrowsers:
     async def test_method_create(self, async_client: AsyncKernel) -> None:
         browser = await async_client.browsers.create(
             invocation_id="ckqwer3o20000jb9s7abcdef",
+        )
+        assert_matches_type(BrowserCreateResponse, browser, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncKernel) -> None:
+        browser = await async_client.browsers.create(
+            invocation_id="ckqwer3o20000jb9s7abcdef",
+            persistence={"id": "my-shared-browser"},
         )
         assert_matches_type(BrowserCreateResponse, browser, path=["response"])
 

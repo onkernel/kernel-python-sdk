@@ -46,6 +46,7 @@ class BrowsersResource(SyncAPIResource):
         self,
         *,
         invocation_id: str,
+        persistence: browser_create_params.Persistence | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -59,6 +60,8 @@ class BrowsersResource(SyncAPIResource):
         Args:
           invocation_id: action invocation ID
 
+          persistence: Optional persistence configuration for the browser session.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -69,7 +72,13 @@ class BrowsersResource(SyncAPIResource):
         """
         return self._post(
             "/browsers",
-            body=maybe_transform({"invocation_id": invocation_id}, browser_create_params.BrowserCreateParams),
+            body=maybe_transform(
+                {
+                    "invocation_id": invocation_id,
+                    "persistence": persistence,
+                },
+                browser_create_params.BrowserCreateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -134,6 +143,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         self,
         *,
         invocation_id: str,
+        persistence: browser_create_params.Persistence | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -147,6 +157,8 @@ class AsyncBrowsersResource(AsyncAPIResource):
         Args:
           invocation_id: action invocation ID
 
+          persistence: Optional persistence configuration for the browser session.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -158,7 +170,11 @@ class AsyncBrowsersResource(AsyncAPIResource):
         return await self._post(
             "/browsers",
             body=await async_maybe_transform(
-                {"invocation_id": invocation_id}, browser_create_params.BrowserCreateParams
+                {
+                    "invocation_id": invocation_id,
+                    "persistence": persistence,
+                },
+                browser_create_params.BrowserCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
