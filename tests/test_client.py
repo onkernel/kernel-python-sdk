@@ -720,7 +720,13 @@ class TestKernel:
         with pytest.raises(APITimeoutError):
             self.client.post(
                 "/browsers",
-                body=cast(object, maybe_transform(dict(invocation_id="REPLACE_ME"), BrowserCreateParams)),
+                body=cast(
+                    object,
+                    maybe_transform(
+                        dict(invocation_id="REPLACE_ME", persistence={"id": "browser-for-user-1234"}),
+                        BrowserCreateParams,
+                    ),
+                ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -735,7 +741,13 @@ class TestKernel:
         with pytest.raises(APIStatusError):
             self.client.post(
                 "/browsers",
-                body=cast(object, maybe_transform(dict(invocation_id="REPLACE_ME"), BrowserCreateParams)),
+                body=cast(
+                    object,
+                    maybe_transform(
+                        dict(invocation_id="REPLACE_ME", persistence={"id": "browser-for-user-1234"}),
+                        BrowserCreateParams,
+                    ),
+                ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1510,7 +1522,13 @@ class TestAsyncKernel:
         with pytest.raises(APITimeoutError):
             await self.client.post(
                 "/browsers",
-                body=cast(object, maybe_transform(dict(invocation_id="REPLACE_ME"), BrowserCreateParams)),
+                body=cast(
+                    object,
+                    maybe_transform(
+                        dict(invocation_id="REPLACE_ME", persistence={"id": "browser-for-user-1234"}),
+                        BrowserCreateParams,
+                    ),
+                ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1525,7 +1543,13 @@ class TestAsyncKernel:
         with pytest.raises(APIStatusError):
             await self.client.post(
                 "/browsers",
-                body=cast(object, maybe_transform(dict(invocation_id="REPLACE_ME"), BrowserCreateParams)),
+                body=cast(
+                    object,
+                    maybe_transform(
+                        dict(invocation_id="REPLACE_ME", persistence={"id": "browser-for-user-1234"}),
+                        BrowserCreateParams,
+                    ),
+                ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
