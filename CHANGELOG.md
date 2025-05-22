@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.3.0 (2025-05-22)
+
+Full Changelog: [v0.2.0...v0.3.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.2.0...v0.3.0)
+
+### Features
+
+* **api:** update via SDK Studio ([e87dc0f](https://github.com/onkernel/kernel-python-sdk/commit/e87dc0f7ab8eac43664050e0325fca9225b12c16))
+* **api:** update via SDK Studio ([e4b0438](https://github.com/onkernel/kernel-python-sdk/commit/e4b0438d63b71ea30feae04328f32ddbcdd2b15e))
+* **api:** update via SDK Studio ([4a8f812](https://github.com/onkernel/kernel-python-sdk/commit/4a8f812a39dcf768ac753c77d1d2d31881d8c4ec))
+* **api:** update via SDK Studio ([260f1a2](https://github.com/onkernel/kernel-python-sdk/commit/260f1a2e5e877e91c066935533c376c341612557))
+
+
+### Chores
+
+* **docs:** grammar improvements ([f0f0e85](https://github.com/onkernel/kernel-python-sdk/commit/f0f0e855505db93ad22cea24ec73acf13b4f8ed5))
+
 ## 0.2.0 (2025-05-21)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.1.0...v0.2.0)
