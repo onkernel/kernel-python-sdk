@@ -721,7 +721,13 @@ class TestKernel:
         with pytest.raises(APITimeoutError):
             self.client.post(
                 "/browsers",
-                body=cast(object, maybe_transform(dict(invocation_id="REPLACE_ME"), BrowserCreateParams)),
+                body=cast(
+                    object,
+                    maybe_transform(
+                        dict(invocation_id="REPLACE_ME", persistence={"id": "browser-for-user-1234"}),
+                        BrowserCreateParams,
+                    ),
+                ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -737,7 +743,13 @@ class TestKernel:
         with pytest.raises(APIStatusError):
             self.client.post(
                 "/browsers",
-                body=cast(object, maybe_transform(dict(invocation_id="REPLACE_ME"), BrowserCreateParams)),
+                body=cast(
+                    object,
+                    maybe_transform(
+                        dict(invocation_id="REPLACE_ME", persistence={"id": "browser-for-user-1234"}),
+                        BrowserCreateParams,
+                    ),
+                ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -770,7 +782,7 @@ class TestKernel:
 
         respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
-        response = client.browsers.with_raw_response.create(invocation_id="ckqwer3o20000jb9s7abcdef")
+        response = client.browsers.with_raw_response.create(invocation_id="rr33xuugxj9h0bkf1rdt2bet")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -795,7 +807,7 @@ class TestKernel:
         respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
         response = client.browsers.with_raw_response.create(
-            invocation_id="ckqwer3o20000jb9s7abcdef", extra_headers={"x-stainless-retry-count": Omit()}
+            invocation_id="rr33xuugxj9h0bkf1rdt2bet", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -820,7 +832,7 @@ class TestKernel:
         respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
         response = client.browsers.with_raw_response.create(
-            invocation_id="ckqwer3o20000jb9s7abcdef", extra_headers={"x-stainless-retry-count": "42"}
+            invocation_id="rr33xuugxj9h0bkf1rdt2bet", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
@@ -1513,7 +1525,13 @@ class TestAsyncKernel:
         with pytest.raises(APITimeoutError):
             await self.client.post(
                 "/browsers",
-                body=cast(object, maybe_transform(dict(invocation_id="REPLACE_ME"), BrowserCreateParams)),
+                body=cast(
+                    object,
+                    maybe_transform(
+                        dict(invocation_id="REPLACE_ME", persistence={"id": "browser-for-user-1234"}),
+                        BrowserCreateParams,
+                    ),
+                ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1529,7 +1547,13 @@ class TestAsyncKernel:
         with pytest.raises(APIStatusError):
             await self.client.post(
                 "/browsers",
-                body=cast(object, maybe_transform(dict(invocation_id="REPLACE_ME"), BrowserCreateParams)),
+                body=cast(
+                    object,
+                    maybe_transform(
+                        dict(invocation_id="REPLACE_ME", persistence={"id": "browser-for-user-1234"}),
+                        BrowserCreateParams,
+                    ),
+                ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1563,7 +1587,7 @@ class TestAsyncKernel:
 
         respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
-        response = await client.browsers.with_raw_response.create(invocation_id="ckqwer3o20000jb9s7abcdef")
+        response = await client.browsers.with_raw_response.create(invocation_id="rr33xuugxj9h0bkf1rdt2bet")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1589,7 +1613,7 @@ class TestAsyncKernel:
         respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
         response = await client.browsers.with_raw_response.create(
-            invocation_id="ckqwer3o20000jb9s7abcdef", extra_headers={"x-stainless-retry-count": Omit()}
+            invocation_id="rr33xuugxj9h0bkf1rdt2bet", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1615,7 +1639,7 @@ class TestAsyncKernel:
         respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
         response = await client.browsers.with_raw_response.create(
-            invocation_id="ckqwer3o20000jb9s7abcdef", extra_headers={"x-stainless-retry-count": "42"}
+            invocation_id="rr33xuugxj9h0bkf1rdt2bet", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"

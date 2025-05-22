@@ -41,10 +41,18 @@ Methods:
 Types:
 
 ```python
-from kernel.types import BrowserCreateResponse, BrowserRetrieveResponse
+from kernel.types import (
+    BrowserPersistence,
+    BrowserCreateResponse,
+    BrowserRetrieveResponse,
+    BrowserListResponse,
+)
 ```
 
 Methods:
 
 - <code title="post /browsers">client.browsers.<a href="./src/kernel/resources/browsers.py">create</a>(\*\*<a href="src/kernel/types/browser_create_params.py">params</a>) -> <a href="./src/kernel/types/browser_create_response.py">BrowserCreateResponse</a></code>
 - <code title="get /browsers/{id}">client.browsers.<a href="./src/kernel/resources/browsers.py">retrieve</a>(id) -> <a href="./src/kernel/types/browser_retrieve_response.py">BrowserRetrieveResponse</a></code>
+- <code title="get /browsers">client.browsers.<a href="./src/kernel/resources/browsers.py">list</a>() -> <a href="./src/kernel/types/browser_list_response.py">BrowserListResponse</a></code>
+- <code title="delete /browsers">client.browsers.<a href="./src/kernel/resources/browsers.py">delete</a>(\*\*<a href="src/kernel/types/browser_delete_params.py">params</a>) -> None</code>
+- <code title="delete /browsers/{id}">client.browsers.<a href="./src/kernel/resources/browsers.py">delete_by_id</a>(id) -> None</code>

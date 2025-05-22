@@ -1,6 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Optional
+
 from .._models import BaseModel
+from .browser_persistence import BrowserPersistence
 
 __all__ = ["BrowserCreateResponse"]
 
@@ -14,3 +17,6 @@ class BrowserCreateResponse(BaseModel):
 
     session_id: str
     """Unique identifier for the browser session"""
+
+    persistence: Optional[BrowserPersistence] = None
+    """Optional persistence configuration for the browser session."""

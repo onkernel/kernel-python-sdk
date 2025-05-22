@@ -87,6 +87,22 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
+## Nested params
+
+Nested parameters are dictionaries, typed using `TypedDict`, for example:
+
+```python
+from kernel import Kernel
+
+client = Kernel()
+
+browser = client.browsers.create(
+    invocation_id="rr33xuugxj9h0bkf1rdt2bet",
+    persistence={"id": "my-awesome-browser-for-user-1234"},
+)
+print(browser.persistence)
+```
+
 ## File uploads
 
 Request parameters that correspond to file uploads can be passed as `bytes`, or a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
@@ -123,6 +139,7 @@ client = Kernel()
 try:
     client.browsers.create(
         invocation_id="REPLACE_ME",
+        persistence={"id": "browser-for-user-1234"},
     )
 except kernel.APIConnectionError as e:
     print("The server could not be reached")
@@ -168,6 +185,7 @@ client = Kernel(
 # Or, configure per-request:
 client.with_options(max_retries=5).browsers.create(
     invocation_id="REPLACE_ME",
+    persistence={"id": "browser-for-user-1234"},
 )
 ```
 
@@ -193,6 +211,7 @@ client = Kernel(
 # Override per-request:
 client.with_options(timeout=5.0).browsers.create(
     invocation_id="REPLACE_ME",
+    persistence={"id": "browser-for-user-1234"},
 )
 ```
 
@@ -236,6 +255,9 @@ from kernel import Kernel
 client = Kernel()
 response = client.browsers.with_raw_response.create(
     invocation_id="REPLACE_ME",
+    persistence={
+        "id": "browser-for-user-1234"
+    },
 )
 print(response.headers.get('X-My-Header'))
 
@@ -256,6 +278,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 ```python
 with client.browsers.with_streaming_response.create(
     invocation_id="REPLACE_ME",
+    persistence={"id": "browser-for-user-1234"},
 ) as response:
     print(response.headers.get("X-My-Header"))
 
