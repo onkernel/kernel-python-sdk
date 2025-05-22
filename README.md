@@ -139,6 +139,7 @@ client = Kernel()
 try:
     client.browsers.create(
         invocation_id="REPLACE_ME",
+        persistence={"id": "browser-for-user-1234"},
     )
 except kernel.APIConnectionError as e:
     print("The server could not be reached")
@@ -184,6 +185,7 @@ client = Kernel(
 # Or, configure per-request:
 client.with_options(max_retries=5).browsers.create(
     invocation_id="REPLACE_ME",
+    persistence={"id": "browser-for-user-1234"},
 )
 ```
 
@@ -209,6 +211,7 @@ client = Kernel(
 # Override per-request:
 client.with_options(timeout=5.0).browsers.create(
     invocation_id="REPLACE_ME",
+    persistence={"id": "browser-for-user-1234"},
 )
 ```
 
@@ -252,6 +255,9 @@ from kernel import Kernel
 client = Kernel()
 response = client.browsers.with_raw_response.create(
     invocation_id="REPLACE_ME",
+    persistence={
+        "id": "browser-for-user-1234"
+    },
 )
 print(response.headers.get('X-My-Header'))
 
@@ -272,6 +278,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 ```python
 with client.browsers.with_streaming_response.create(
     invocation_id="REPLACE_ME",
+    persistence={"id": "browser-for-user-1234"},
 ) as response:
     print(response.headers.get("X-My-Header"))
 
