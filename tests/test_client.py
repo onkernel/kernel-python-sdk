@@ -770,7 +770,7 @@ class TestKernel:
 
         respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
-        response = client.browsers.with_raw_response.create(invocation_id="ckqwer3o20000jb9s7abcdef")
+        response = client.browsers.with_raw_response.create(invocation_id="rr33xuugxj9h0bkf1rdt2bet")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -795,7 +795,7 @@ class TestKernel:
         respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
         response = client.browsers.with_raw_response.create(
-            invocation_id="ckqwer3o20000jb9s7abcdef", extra_headers={"x-stainless-retry-count": Omit()}
+            invocation_id="rr33xuugxj9h0bkf1rdt2bet", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -820,7 +820,7 @@ class TestKernel:
         respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
         response = client.browsers.with_raw_response.create(
-            invocation_id="ckqwer3o20000jb9s7abcdef", extra_headers={"x-stainless-retry-count": "42"}
+            invocation_id="rr33xuugxj9h0bkf1rdt2bet", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
@@ -1563,7 +1563,7 @@ class TestAsyncKernel:
 
         respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
-        response = await client.browsers.with_raw_response.create(invocation_id="ckqwer3o20000jb9s7abcdef")
+        response = await client.browsers.with_raw_response.create(invocation_id="rr33xuugxj9h0bkf1rdt2bet")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1589,7 +1589,7 @@ class TestAsyncKernel:
         respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
         response = await client.browsers.with_raw_response.create(
-            invocation_id="ckqwer3o20000jb9s7abcdef", extra_headers={"x-stainless-retry-count": Omit()}
+            invocation_id="rr33xuugxj9h0bkf1rdt2bet", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1615,7 +1615,7 @@ class TestAsyncKernel:
         respx_mock.post("/browsers").mock(side_effect=retry_handler)
 
         response = await client.browsers.with_raw_response.create(
-            invocation_id="ckqwer3o20000jb9s7abcdef", extra_headers={"x-stainless-retry-count": "42"}
+            invocation_id="rr33xuugxj9h0bkf1rdt2bet", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
