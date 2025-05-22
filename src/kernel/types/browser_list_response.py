@@ -1,14 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
+from typing_extensions import TypeAlias
 
 from .._models import BaseModel
 from .browser_persistence import BrowserPersistence
 
-__all__ = ["BrowserRetrieveResponse"]
+__all__ = ["BrowserListResponse", "BrowserListResponseItem"]
 
 
-class BrowserRetrieveResponse(BaseModel):
+class BrowserListResponseItem(BaseModel):
     browser_live_view_url: str
     """Remote URL for live viewing the browser session"""
 
@@ -20,3 +21,6 @@ class BrowserRetrieveResponse(BaseModel):
 
     persistence: Optional[BrowserPersistence] = None
     """Optional persistence configuration for the browser session."""
+
+
+BrowserListResponse: TypeAlias = List[BrowserListResponseItem]

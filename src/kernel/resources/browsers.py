@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import browser_create_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..types import browser_create_params, browser_delete_params
+from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -16,7 +16,9 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.browser_list_response import BrowserListResponse
 from ..types.browser_create_response import BrowserCreateResponse
+from ..types.browser_persistence_param import BrowserPersistenceParam
 from ..types.browser_retrieve_response import BrowserRetrieveResponse
 
 __all__ = ["BrowsersResource", "AsyncBrowsersResource"]
@@ -46,7 +48,7 @@ class BrowsersResource(SyncAPIResource):
         self,
         *,
         invocation_id: str,
-        persistence: browser_create_params.Persistence | NotGiven = NOT_GIVEN,
+        persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -118,6 +120,97 @@ class BrowsersResource(SyncAPIResource):
             cast_to=BrowserRetrieveResponse,
         )
 
+    def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> BrowserListResponse:
+        """List active browser sessions for the authenticated user"""
+        return self._get(
+            "/browsers",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BrowserListResponse,
+        )
+
+    def delete(
+        self,
+        *,
+        persistent_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Delete a persistent browser session by persistent_id query parameter.
+
+        Args:
+          persistent_id: Persistent browser identifier
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._delete(
+            "/browsers",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"persistent_id": persistent_id}, browser_delete_params.BrowserDeleteParams),
+            ),
+            cast_to=NoneType,
+        )
+
+    def delete_by_id(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Delete Browser Session by ID
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._delete(
+            f"/browsers/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class AsyncBrowsersResource(AsyncAPIResource):
     @cached_property
@@ -143,7 +236,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         self,
         *,
         invocation_id: str,
-        persistence: browser_create_params.Persistence | NotGiven = NOT_GIVEN,
+        persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -215,6 +308,99 @@ class AsyncBrowsersResource(AsyncAPIResource):
             cast_to=BrowserRetrieveResponse,
         )
 
+    async def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> BrowserListResponse:
+        """List active browser sessions for the authenticated user"""
+        return await self._get(
+            "/browsers",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BrowserListResponse,
+        )
+
+    async def delete(
+        self,
+        *,
+        persistent_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Delete a persistent browser session by persistent_id query parameter.
+
+        Args:
+          persistent_id: Persistent browser identifier
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._delete(
+            "/browsers",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"persistent_id": persistent_id}, browser_delete_params.BrowserDeleteParams
+                ),
+            ),
+            cast_to=NoneType,
+        )
+
+    async def delete_by_id(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Delete Browser Session by ID
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._delete(
+            f"/browsers/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class BrowsersResourceWithRawResponse:
     def __init__(self, browsers: BrowsersResource) -> None:
@@ -225,6 +411,15 @@ class BrowsersResourceWithRawResponse:
         )
         self.retrieve = to_raw_response_wrapper(
             browsers.retrieve,
+        )
+        self.list = to_raw_response_wrapper(
+            browsers.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            browsers.delete,
+        )
+        self.delete_by_id = to_raw_response_wrapper(
+            browsers.delete_by_id,
         )
 
 
@@ -238,6 +433,15 @@ class AsyncBrowsersResourceWithRawResponse:
         self.retrieve = async_to_raw_response_wrapper(
             browsers.retrieve,
         )
+        self.list = async_to_raw_response_wrapper(
+            browsers.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            browsers.delete,
+        )
+        self.delete_by_id = async_to_raw_response_wrapper(
+            browsers.delete_by_id,
+        )
 
 
 class BrowsersResourceWithStreamingResponse:
@@ -250,6 +454,15 @@ class BrowsersResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             browsers.retrieve,
         )
+        self.list = to_streamed_response_wrapper(
+            browsers.list,
+        )
+        self.delete = to_streamed_response_wrapper(
+            browsers.delete,
+        )
+        self.delete_by_id = to_streamed_response_wrapper(
+            browsers.delete_by_id,
+        )
 
 
 class AsyncBrowsersResourceWithStreamingResponse:
@@ -261,4 +474,13 @@ class AsyncBrowsersResourceWithStreamingResponse:
         )
         self.retrieve = async_to_streamed_response_wrapper(
             browsers.retrieve,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            browsers.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            browsers.delete,
+        )
+        self.delete_by_id = async_to_streamed_response_wrapper(
+            browsers.delete_by_id,
         )
