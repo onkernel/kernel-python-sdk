@@ -28,13 +28,18 @@ Methods:
 Types:
 
 ```python
-from kernel.types.apps import InvocationCreateResponse, InvocationRetrieveResponse
+from kernel.types.apps import (
+    InvocationCreateResponse,
+    InvocationRetrieveResponse,
+    InvocationUpdateResponse,
+)
 ```
 
 Methods:
 
 - <code title="post /invocations">client.apps.invocations.<a href="./src/kernel/resources/apps/invocations.py">create</a>(\*\*<a href="src/kernel/types/apps/invocation_create_params.py">params</a>) -> <a href="./src/kernel/types/apps/invocation_create_response.py">InvocationCreateResponse</a></code>
 - <code title="get /invocations/{id}">client.apps.invocations.<a href="./src/kernel/resources/apps/invocations.py">retrieve</a>(id) -> <a href="./src/kernel/types/apps/invocation_retrieve_response.py">InvocationRetrieveResponse</a></code>
+- <code title="patch /invocations/{id}">client.apps.invocations.<a href="./src/kernel/resources/apps/invocations.py">update</a>(id, \*\*<a href="src/kernel/types/apps/invocation_update_params.py">params</a>) -> <a href="./src/kernel/types/apps/invocation_update_response.py">InvocationUpdateResponse</a></code>
 
 # Browsers
 

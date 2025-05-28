@@ -4,7 +4,9 @@ from __future__ import annotations
 
 from .deployment_create_params import DeploymentCreateParams as DeploymentCreateParams
 from .invocation_create_params import InvocationCreateParams as InvocationCreateParams
+from .invocation_update_params import InvocationUpdateParams as InvocationUpdateParams
 from .deployment_create_response import DeploymentCreateResponse as DeploymentCreateResponse
 from .deployment_follow_response import DeploymentFollowResponse as DeploymentFollowResponse
 from .invocation_create_response import InvocationCreateResponse as InvocationCreateResponse
+from .invocation_update_response import InvocationUpdateResponse as InvocationUpdateResponse
 from .invocation_retrieve_response import InvocationRetrieveResponse as InvocationRetrieveResponse
