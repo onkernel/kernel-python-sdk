@@ -9,7 +9,11 @@ import pytest
 
 from kernel import Kernel, AsyncKernel
 from tests.utils import assert_matches_type
-from kernel.types.apps import InvocationCreateResponse, InvocationRetrieveResponse
+from kernel.types.apps import (
+    InvocationCreateResponse,
+    InvocationUpdateResponse,
+    InvocationRetrieveResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -34,6 +38,7 @@ class TestInvocations:
             action_name="analyze",
             app_name="my-app",
             version="1.0.0",
+            async_=True,
             payload='{"data":"example input"}',
         )
         assert_matches_type(InvocationCreateResponse, invocation, path=["response"])
@@ -110,6 +115,62 @@ class TestInvocations:
                 "",
             )
 
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_update(self, client: Kernel) -> None:
+        invocation = client.apps.invocations.update(
+            id="id",
+            status="succeeded",
+        )
+        assert_matches_type(InvocationUpdateResponse, invocation, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_update_with_all_params(self, client: Kernel) -> None:
+        invocation = client.apps.invocations.update(
+            id="id",
+            status="succeeded",
+            output="output",
+        )
+        assert_matches_type(InvocationUpdateResponse, invocation, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_raw_response_update(self, client: Kernel) -> None:
+        response = client.apps.invocations.with_raw_response.update(
+            id="id",
+            status="succeeded",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invocation = response.parse()
+        assert_matches_type(InvocationUpdateResponse, invocation, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_streaming_response_update(self, client: Kernel) -> None:
+        with client.apps.invocations.with_streaming_response.update(
+            id="id",
+            status="succeeded",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invocation = response.parse()
+            assert_matches_type(InvocationUpdateResponse, invocation, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_path_params_update(self, client: Kernel) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.apps.invocations.with_raw_response.update(
+                id="",
+                status="succeeded",
+            )
+
 
 class TestAsyncInvocations:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -131,6 +192,7 @@ class TestAsyncInvocations:
             action_name="analyze",
             app_name="my-app",
             version="1.0.0",
+            async_=True,
             payload='{"data":"example input"}',
         )
         assert_matches_type(InvocationCreateResponse, invocation, path=["response"])
@@ -205,4 +267,60 @@ class TestAsyncInvocations:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.apps.invocations.with_raw_response.retrieve(
                 "",
+            )
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_update(self, async_client: AsyncKernel) -> None:
+        invocation = await async_client.apps.invocations.update(
+            id="id",
+            status="succeeded",
+        )
+        assert_matches_type(InvocationUpdateResponse, invocation, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncKernel) -> None:
+        invocation = await async_client.apps.invocations.update(
+            id="id",
+            status="succeeded",
+            output="output",
+        )
+        assert_matches_type(InvocationUpdateResponse, invocation, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_raw_response_update(self, async_client: AsyncKernel) -> None:
+        response = await async_client.apps.invocations.with_raw_response.update(
+            id="id",
+            status="succeeded",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invocation = await response.parse()
+        assert_matches_type(InvocationUpdateResponse, invocation, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_streaming_response_update(self, async_client: AsyncKernel) -> None:
+        async with async_client.apps.invocations.with_streaming_response.update(
+            id="id",
+            status="succeeded",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invocation = await response.parse()
+            assert_matches_type(InvocationUpdateResponse, invocation, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_path_params_update(self, async_client: AsyncKernel) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.apps.invocations.with_raw_response.update(
+                id="",
+                status="succeeded",
             )
