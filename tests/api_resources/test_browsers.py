@@ -35,6 +35,7 @@ class TestBrowsers:
         browser = client.browsers.create(
             invocation_id="rr33xuugxj9h0bkf1rdt2bet",
             persistence={"id": "my-awesome-browser-for-user-1234"},
+            stealth=True,
         )
         assert_matches_type(BrowserCreateResponse, browser, path=["response"])
 
@@ -228,6 +229,7 @@ class TestAsyncBrowsers:
         browser = await async_client.browsers.create(
             invocation_id="rr33xuugxj9h0bkf1rdt2bet",
             persistence={"id": "my-awesome-browser-for-user-1234"},
+            stealth=True,
         )
         assert_matches_type(BrowserCreateResponse, browser, path=["response"])
 
