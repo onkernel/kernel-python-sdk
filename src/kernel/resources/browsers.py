@@ -49,6 +49,7 @@ class BrowsersResource(SyncAPIResource):
         *,
         invocation_id: str,
         persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
+        stealth: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -64,6 +65,9 @@ class BrowsersResource(SyncAPIResource):
 
           persistence: Optional persistence configuration for the browser session.
 
+          stealth: If true, launches the browser in stealth mode to reduce detection by anti-bot
+              mechanisms.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -78,6 +82,7 @@ class BrowsersResource(SyncAPIResource):
                 {
                     "invocation_id": invocation_id,
                     "persistence": persistence,
+                    "stealth": stealth,
                 },
                 browser_create_params.BrowserCreateParams,
             ),
@@ -237,6 +242,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         *,
         invocation_id: str,
         persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
+        stealth: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -252,6 +258,9 @@ class AsyncBrowsersResource(AsyncAPIResource):
 
           persistence: Optional persistence configuration for the browser session.
 
+          stealth: If true, launches the browser in stealth mode to reduce detection by anti-bot
+              mechanisms.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -266,6 +275,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
                 {
                     "invocation_id": invocation_id,
                     "persistence": persistence,
+                    "stealth": stealth,
                 },
                 browser_create_params.BrowserCreateParams,
             ),
