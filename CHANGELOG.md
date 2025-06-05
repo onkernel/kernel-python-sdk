@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.5.0 (2025-06-03)
+
+Full Changelog: [v0.4.0...v0.5.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.4.0...v0.5.0)
+
+### Features
+
+* **api:** update via SDK Studio ([6bc85d1](https://github.com/onkernel/kernel-python-sdk/commit/6bc85d1fb74d7c496c02c1bde19129ae07892af7))
+* **api:** update via SDK Studio ([007cb3c](https://github.com/onkernel/kernel-python-sdk/commit/007cb3cafc3697743131489bfd46651f246c2e87))
+* **client:** add follow_redirects request option ([4db3b7f](https://github.com/onkernel/kernel-python-sdk/commit/4db3b7f7a19af62ac986fcf4482cfe0a5454ca50))
+
+
+### Chores
+
+* **docs:** remove reference to rye shell ([1f9ea78](https://github.com/onkernel/kernel-python-sdk/commit/1f9ea78913d336137e76aa4d8c83e708ee6b9fd6))
+
 ## 0.4.0 (2025-05-28)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.3.0...v0.4.0)

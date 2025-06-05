@@ -49,6 +49,7 @@ class BrowsersResource(SyncAPIResource):
         *,
         invocation_id: str,
         persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
+        stealth: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -57,12 +58,15 @@ class BrowsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> BrowserCreateResponse:
         """
-        Create Browser Session
+        Create a new browser session from within an action.
 
         Args:
           invocation_id: action invocation ID
 
           persistence: Optional persistence configuration for the browser session.
+
+          stealth: If true, launches the browser in stealth mode to reduce detection by anti-bot
+              mechanisms.
 
           extra_headers: Send extra headers
 
@@ -78,6 +82,7 @@ class BrowsersResource(SyncAPIResource):
                 {
                     "invocation_id": invocation_id,
                     "persistence": persistence,
+                    "stealth": stealth,
                 },
                 browser_create_params.BrowserCreateParams,
             ),
@@ -99,7 +104,7 @@ class BrowsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> BrowserRetrieveResponse:
         """
-        Get Browser Session by ID
+        Get information about a browser session.
 
         Args:
           extra_headers: Send extra headers
@@ -130,7 +135,7 @@ class BrowsersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> BrowserListResponse:
-        """List active browser sessions for the authenticated user"""
+        """List active browser sessions"""
         return self._get(
             "/browsers",
             options=make_request_options(
@@ -151,7 +156,7 @@ class BrowsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
         """
-        Delete a persistent browser session by persistent_id query parameter.
+        Delete a persistent browser session by its persistent_id.
 
         Args:
           persistent_id: Persistent browser identifier
@@ -189,7 +194,7 @@ class BrowsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
         """
-        Delete Browser Session by ID
+        Delete a browser session by ID
 
         Args:
           extra_headers: Send extra headers
@@ -237,6 +242,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         *,
         invocation_id: str,
         persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
+        stealth: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -245,12 +251,15 @@ class AsyncBrowsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> BrowserCreateResponse:
         """
-        Create Browser Session
+        Create a new browser session from within an action.
 
         Args:
           invocation_id: action invocation ID
 
           persistence: Optional persistence configuration for the browser session.
+
+          stealth: If true, launches the browser in stealth mode to reduce detection by anti-bot
+              mechanisms.
 
           extra_headers: Send extra headers
 
@@ -266,6 +275,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
                 {
                     "invocation_id": invocation_id,
                     "persistence": persistence,
+                    "stealth": stealth,
                 },
                 browser_create_params.BrowserCreateParams,
             ),
@@ -287,7 +297,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> BrowserRetrieveResponse:
         """
-        Get Browser Session by ID
+        Get information about a browser session.
 
         Args:
           extra_headers: Send extra headers
@@ -318,7 +328,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> BrowserListResponse:
-        """List active browser sessions for the authenticated user"""
+        """List active browser sessions"""
         return await self._get(
             "/browsers",
             options=make_request_options(
@@ -339,7 +349,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
         """
-        Delete a persistent browser session by persistent_id query parameter.
+        Delete a persistent browser session by its persistent_id.
 
         Args:
           persistent_id: Persistent browser identifier
@@ -379,7 +389,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
         """
-        Delete Browser Session by ID
+        Delete a browser session by ID
 
         Args:
           extra_headers: Send extra headers

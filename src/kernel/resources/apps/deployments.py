@@ -63,7 +63,7 @@ class DeploymentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> DeploymentCreateResponse:
         """
-        Deploy a new application
+        Deploy a new application and associated actions to Kernel.
 
         Args:
           entrypoint_rel_path: Relative path to the entrypoint of the application
@@ -190,7 +190,7 @@ class AsyncDeploymentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> DeploymentCreateResponse:
         """
-        Deploy a new application
+        Deploy a new application and associated actions to Kernel.
 
         Args:
           entrypoint_rel_path: Relative path to the entrypoint of the application

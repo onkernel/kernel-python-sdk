@@ -61,7 +61,7 @@ class InvocationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> InvocationCreateResponse:
         """
-        Invoke an application
+        Invoke an action.
 
         Args:
           action_name: Name of the action to invoke
@@ -113,7 +113,7 @@ class InvocationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> InvocationRetrieveResponse:
         """
-        Get an app invocation by id
+        Get details about an invocation's status and output.
 
         Args:
           extra_headers: Send extra headers
@@ -148,7 +148,7 @@ class InvocationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> InvocationUpdateResponse:
         """
-        Update invocation status or output
+        Update an invocation's status or output.
 
         Args:
           status: New status for the invocation.
@@ -217,7 +217,7 @@ class AsyncInvocationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> InvocationCreateResponse:
         """
-        Invoke an application
+        Invoke an action.
 
         Args:
           action_name: Name of the action to invoke
@@ -269,7 +269,7 @@ class AsyncInvocationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> InvocationRetrieveResponse:
         """
-        Get an app invocation by id
+        Get details about an invocation's status and output.
 
         Args:
           extra_headers: Send extra headers
@@ -304,7 +304,7 @@ class AsyncInvocationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> InvocationUpdateResponse:
         """
-        Update invocation status or output
+        Update an invocation's status or output.
 
         Args:
           status: New status for the invocation.

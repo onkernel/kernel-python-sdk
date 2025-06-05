@@ -77,10 +77,9 @@ class AppsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AppListResponse:
-        """List application versions for the authenticated user.
+        """List applications.
 
-        Optionally filter by app
-        name and/or version label.
+        Optionally filter by app name and/or version label.
 
         Args:
           app_name: Filter results by application name.
@@ -154,10 +153,9 @@ class AsyncAppsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AppListResponse:
-        """List application versions for the authenticated user.
+        """List applications.
 
-        Optionally filter by app
-        name and/or version label.
+        Optionally filter by app name and/or version label.
 
         Args:
           app_name: Filter results by application name.
