@@ -38,7 +38,7 @@ class DeploymentStateEventDeployment(BaseModel):
     created_at: datetime
     """Timestamp when the deployment was created"""
 
-    region: str
+    region: Literal["aws.us-east-1a"]
     """Deployment region code"""
 
     status: Literal["queued", "in_progress", "running", "failed", "stopped"]
@@ -78,7 +78,7 @@ class AppVersionSummaryEvent(BaseModel):
     event: Literal["app_version_summary"]
     """Event type identifier (always "app_version_summary")."""
 
-    region: str
+    region: Literal["aws.us-east-1a"]
     """Deployment region code"""
 
     timestamp: datetime
