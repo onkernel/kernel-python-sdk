@@ -87,6 +87,9 @@ class AppVersionSummaryEvent(BaseModel):
     version: str
     """Version label for the application"""
 
+    actions: Optional[List[str]] = None
+    """List of actions available on the app"""
+
     env_vars: Optional[Dict[str, str]] = None
     """Environment variables configured for this app version"""
 
