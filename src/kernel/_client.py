@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import browsers
+from .resources import browsers, deployments
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import KernelError, APIStatusError
 from ._base_client import (
@@ -50,6 +50,7 @@ ENVIRONMENTS: Dict[str, str] = {
 
 
 class Kernel(SyncAPIClient):
+    deployments: deployments.DeploymentsResource
     apps: apps.AppsResource
     browsers: browsers.BrowsersResource
     with_raw_response: KernelWithRawResponse
@@ -133,6 +134,7 @@ class Kernel(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self.deployments = deployments.DeploymentsResource(self)
         self.apps = apps.AppsResource(self)
         self.browsers = browsers.BrowsersResource(self)
         self.with_raw_response = KernelWithRawResponse(self)
@@ -246,6 +248,7 @@ class Kernel(SyncAPIClient):
 
 
 class AsyncKernel(AsyncAPIClient):
+    deployments: deployments.AsyncDeploymentsResource
     apps: apps.AsyncAppsResource
     browsers: browsers.AsyncBrowsersResource
     with_raw_response: AsyncKernelWithRawResponse
@@ -329,6 +332,7 @@ class AsyncKernel(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self.deployments = deployments.AsyncDeploymentsResource(self)
         self.apps = apps.AsyncAppsResource(self)
         self.browsers = browsers.AsyncBrowsersResource(self)
         self.with_raw_response = AsyncKernelWithRawResponse(self)
@@ -443,24 +447,28 @@ class AsyncKernel(AsyncAPIClient):
 
 class KernelWithRawResponse:
     def __init__(self, client: Kernel) -> None:
+        self.deployments = deployments.DeploymentsResourceWithRawResponse(client.deployments)
         self.apps = apps.AppsResourceWithRawResponse(client.apps)
         self.browsers = browsers.BrowsersResourceWithRawResponse(client.browsers)
 
 
 class AsyncKernelWithRawResponse:
     def __init__(self, client: AsyncKernel) -> None:
+        self.deployments = deployments.AsyncDeploymentsResourceWithRawResponse(client.deployments)
         self.apps = apps.AsyncAppsResourceWithRawResponse(client.apps)
         self.browsers = browsers.AsyncBrowsersResourceWithRawResponse(client.browsers)
 
 
 class KernelWithStreamedResponse:
     def __init__(self, client: Kernel) -> None:
+        self.deployments = deployments.DeploymentsResourceWithStreamingResponse(client.deployments)
         self.apps = apps.AppsResourceWithStreamingResponse(client.apps)
         self.browsers = browsers.BrowsersResourceWithStreamingResponse(client.browsers)
 
 
 class AsyncKernelWithStreamedResponse:
     def __init__(self, client: AsyncKernel) -> None:
+        self.deployments = deployments.AsyncDeploymentsResourceWithStreamingResponse(client.deployments)
         self.apps = apps.AsyncAppsResourceWithStreamingResponse(client.apps)
         self.browsers = browsers.AsyncBrowsersResourceWithStreamingResponse(client.browsers)
 
