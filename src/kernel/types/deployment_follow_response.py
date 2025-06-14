@@ -72,6 +72,9 @@ class AppVersionSummaryEvent(BaseModel):
     id: str
     """Unique identifier for the app version"""
 
+    actions: List[str]
+    """List of actions available on the app"""
+
     app_name: str
     """Name of the application"""
 
@@ -86,9 +89,6 @@ class AppVersionSummaryEvent(BaseModel):
 
     version: str
     """Version label for the application"""
-
-    actions: Optional[List[str]] = None
-    """List of actions available on the app"""
 
     env_vars: Optional[Dict[str, str]] = None
     """Environment variables configured for this app version"""
