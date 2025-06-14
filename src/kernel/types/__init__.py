@@ -9,5 +9,9 @@ from .browser_create_params import BrowserCreateParams as BrowserCreateParams
 from .browser_delete_params import BrowserDeleteParams as BrowserDeleteParams
 from .browser_list_response import BrowserListResponse as BrowserListResponse
 from .browser_create_response import BrowserCreateResponse as BrowserCreateResponse
+from .deployment_create_params import DeploymentCreateParams as DeploymentCreateParams
 from .browser_persistence_param import BrowserPersistenceParam as BrowserPersistenceParam
 from .browser_retrieve_response import BrowserRetrieveResponse as BrowserRetrieveResponse
+from .deployment_create_response import DeploymentCreateResponse as DeploymentCreateResponse
+from .deployment_follow_response import DeploymentFollowResponse as DeploymentFollowResponse
+from .deployment_retrieve_response import DeploymentRetrieveResponse as DeploymentRetrieveResponse
