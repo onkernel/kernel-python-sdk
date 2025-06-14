@@ -27,7 +27,7 @@ class LogEvent(BaseModel):
     message: str
     """Log message text."""
 
-    timestamp: Optional[datetime] = None
+    timestamp: datetime
     """Time the log entry was produced."""
 
 
@@ -64,28 +64,31 @@ class DeploymentStateEvent(BaseModel):
     event: Literal["deployment_state"]
     """Event type identifier (always "deployment_state")."""
 
-    timestamp: Optional[datetime] = None
+    timestamp: datetime
     """Time the state was reported."""
 
 
 class AppVersionSummaryEvent(BaseModel):
-    id: Optional[str] = None
+    id: str
     """Unique identifier for the app version"""
 
-    app_name: Optional[str] = None
+    app_name: str
     """Name of the application"""
+
+    event: Literal["app_version_summary"]
+    """Event type identifier (always "app_version_summary")."""
+
+    region: str
+    """Deployment region code"""
+
+    timestamp: datetime
+    """Time the state was reported."""
+
+    version: str
+    """Version label for the application"""
 
     env_vars: Optional[Dict[str, str]] = None
     """Environment variables configured for this app version"""
-
-    event: Optional[Literal["app_version_summary"]] = None
-    """Event type identifier (always "app_version_summary")."""
-
-    region: Optional[str] = None
-    """Deployment region code"""
-
-    version: Optional[str] = None
-    """Version label for the application"""
 
 
 class ErrorEventErrorDetail(BaseModel):
@@ -118,10 +121,13 @@ class ErrorEventError(BaseModel):
 
 
 class ErrorEvent(BaseModel):
-    error: Optional[ErrorEventError] = None
+    error: ErrorEventError
 
-    event: Optional[Literal["error"]] = None
+    event: Literal["error"]
     """Event type identifier (always "error")."""
+
+    timestamp: datetime
+    """Time the error occurred."""
 
 
 DeploymentFollowResponse: TypeAlias = Annotated[
