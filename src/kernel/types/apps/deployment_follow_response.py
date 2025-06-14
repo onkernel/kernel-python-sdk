@@ -41,7 +41,7 @@ class LogEvent(BaseModel):
     message: str
     """Log message text."""
 
-    timestamp: Optional[datetime] = None
+    timestamp: datetime
     """Time the log entry was produced."""
 
 
