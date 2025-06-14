@@ -13,6 +13,7 @@ __all__ = [
     "DeploymentStateEvent",
     "DeploymentStateEventDeployment",
     "AppVersionSummaryEvent",
+    "AppVersionSummaryEventAction",
     "ErrorEvent",
     "ErrorEventError",
     "ErrorEventErrorDetail",
@@ -68,11 +69,16 @@ class DeploymentStateEvent(BaseModel):
     """Time the state was reported."""
 
 
+class AppVersionSummaryEventAction(BaseModel):
+    name: str
+    """Name of the action"""
+
+
 class AppVersionSummaryEvent(BaseModel):
     id: str
     """Unique identifier for the app version"""
 
-    actions: List[str]
+    actions: List[AppVersionSummaryEventAction]
     """List of actions available on the app"""
 
     app_name: str
