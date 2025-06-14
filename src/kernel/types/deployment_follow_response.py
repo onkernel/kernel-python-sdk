@@ -70,7 +70,7 @@ class DeploymentStateEvent(BaseModel):
 
 
 class AppVersionSummaryEventAction(BaseModel):
-    name: Optional[str] = None
+    name: str
     """Name of the action"""
 
 
