@@ -16,7 +16,7 @@ class DeploymentRetrieveResponse(BaseModel):
     created_at: datetime
     """Timestamp when the deployment was created"""
 
-    region: str
+    region: Literal["aws.us-east-1a"]
     """Deployment region code"""
 
     status: Literal["queued", "in_progress", "running", "failed", "stopped"]
