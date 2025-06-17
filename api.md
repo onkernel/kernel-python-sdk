@@ -1,7 +1,7 @@
 # Shared Types
 
 ```python
-from kernel.types import ErrorDetail, LogEvent
+from kernel.types import Error, ErrorDetail, ErrorEvent, LogEvent
 ```
 
 # Deployments
