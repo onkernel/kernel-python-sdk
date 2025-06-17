@@ -2,25 +2,28 @@
 
 from __future__ import annotations
 
+from typing import Any, cast
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ..._utils import maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
+from ..types import invocation_create_params, invocation_update_params
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._utils import maybe_transform, async_maybe_transform
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.apps import invocation_create_params, invocation_update_params
-from ..._base_client import make_request_options
-from ...types.apps.invocation_create_response import InvocationCreateResponse
-from ...types.apps.invocation_update_response import InvocationUpdateResponse
-from ...types.apps.invocation_retrieve_response import InvocationRetrieveResponse
+from .._streaming import Stream, AsyncStream
+from .._base_client import make_request_options
+from ..types.invocation_create_response import InvocationCreateResponse
+from ..types.invocation_follow_response import InvocationFollowResponse
+from ..types.invocation_update_response import InvocationUpdateResponse
+from ..types.invocation_retrieve_response import InvocationRetrieveResponse
 
 __all__ = ["InvocationsResource", "AsyncInvocationsResource"]
 
@@ -180,6 +183,46 @@ class InvocationsResource(SyncAPIResource):
             cast_to=InvocationUpdateResponse,
         )
 
+    def follow(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Stream[InvocationFollowResponse]:
+        """
+        Establishes a Server-Sent Events (SSE) stream that delivers real-time logs and
+        status updates for an invocation. The stream terminates automatically once the
+        invocation reaches a terminal state.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
+        return self._get(
+            f"/invocations/{id}/events",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=cast(
+                Any, InvocationFollowResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+            stream=True,
+            stream_cls=Stream[InvocationFollowResponse],
+        )
+
 
 class AsyncInvocationsResource(AsyncAPIResource):
     @cached_property
@@ -336,6 +379,46 @@ class AsyncInvocationsResource(AsyncAPIResource):
             cast_to=InvocationUpdateResponse,
         )
 
+    async def follow(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncStream[InvocationFollowResponse]:
+        """
+        Establishes a Server-Sent Events (SSE) stream that delivers real-time logs and
+        status updates for an invocation. The stream terminates automatically once the
+        invocation reaches a terminal state.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
+        return await self._get(
+            f"/invocations/{id}/events",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=cast(
+                Any, InvocationFollowResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+            stream=True,
+            stream_cls=AsyncStream[InvocationFollowResponse],
+        )
+
 
 class InvocationsResourceWithRawResponse:
     def __init__(self, invocations: InvocationsResource) -> None:
@@ -349,6 +432,9 @@ class InvocationsResourceWithRawResponse:
         )
         self.update = to_raw_response_wrapper(
             invocations.update,
+        )
+        self.follow = to_raw_response_wrapper(
+            invocations.follow,
         )
 
 
@@ -365,6 +451,9 @@ class AsyncInvocationsResourceWithRawResponse:
         self.update = async_to_raw_response_wrapper(
             invocations.update,
         )
+        self.follow = async_to_raw_response_wrapper(
+            invocations.follow,
+        )
 
 
 class InvocationsResourceWithStreamingResponse:
@@ -380,6 +469,9 @@ class InvocationsResourceWithStreamingResponse:
         self.update = to_streamed_response_wrapper(
             invocations.update,
         )
+        self.follow = to_streamed_response_wrapper(
+            invocations.follow,
+        )
 
 
 class AsyncInvocationsResourceWithStreamingResponse:
@@ -394,4 +486,7 @@ class AsyncInvocationsResourceWithStreamingResponse:
         )
         self.update = async_to_streamed_response_wrapper(
             invocations.update,
+        )
+        self.follow = async_to_streamed_response_wrapper(
+            invocations.follow,
         )
