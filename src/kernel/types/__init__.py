@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from .shared import Error as Error, LogEvent as LogEvent, ErrorEvent as ErrorEvent, ErrorDetail as ErrorDetail
+from .shared import LogEvent as LogEvent, ErrorEvent as ErrorEvent, ErrorDetail as ErrorDetail
 from .app_list_params import AppListParams as AppListParams
 from .app_list_response import AppListResponse as AppListResponse
 from .browser_persistence import BrowserPersistence as BrowserPersistence
