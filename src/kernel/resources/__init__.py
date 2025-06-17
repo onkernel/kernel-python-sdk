@@ -24,6 +24,14 @@ from .deployments import (
     DeploymentsResourceWithStreamingResponse,
     AsyncDeploymentsResourceWithStreamingResponse,
 )
+from .invocations import (
+    InvocationsResource,
+    AsyncInvocationsResource,
+    InvocationsResourceWithRawResponse,
+    AsyncInvocationsResourceWithRawResponse,
+    InvocationsResourceWithStreamingResponse,
+    AsyncInvocationsResourceWithStreamingResponse,
+)
 
 __all__ = [
     "DeploymentsResource",
@@ -38,6 +46,12 @@ __all__ = [
     "AsyncAppsResourceWithRawResponse",
     "AppsResourceWithStreamingResponse",
     "AsyncAppsResourceWithStreamingResponse",
+    "InvocationsResource",
+    "AsyncInvocationsResource",
+    "InvocationsResourceWithRawResponse",
+    "AsyncInvocationsResourceWithRawResponse",
+    "InvocationsResourceWithStreamingResponse",
+    "AsyncInvocationsResourceWithStreamingResponse",
     "BrowsersResource",
     "AsyncBrowsersResource",
     "BrowsersResourceWithRawResponse",

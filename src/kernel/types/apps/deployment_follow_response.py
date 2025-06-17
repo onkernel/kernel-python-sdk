@@ -6,8 +6,9 @@ from typing_extensions import Literal, Annotated, TypeAlias
 
 from ..._utils import PropertyInfo
 from ..._models import BaseModel
+from ..shared.log_event import LogEvent
 
-__all__ = ["DeploymentFollowResponse", "StateEvent", "StateUpdateEvent", "LogEvent"]
+__all__ = ["DeploymentFollowResponse", "StateEvent", "StateUpdateEvent"]
 
 
 class StateEvent(BaseModel):
@@ -32,17 +33,6 @@ class StateUpdateEvent(BaseModel):
 
     timestamp: Optional[datetime] = None
     """Time the state change occurred."""
-
-
-class LogEvent(BaseModel):
-    event: Literal["log"]
-    """Event type identifier (always "log")."""
-
-    message: str
-    """Log message text."""
-
-    timestamp: datetime
-    """Time the log entry was produced."""
 
 
 DeploymentFollowResponse: TypeAlias = Annotated[
