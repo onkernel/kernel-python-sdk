@@ -23,9 +23,7 @@ from pydantic import ValidationError
 
 from kernel import Kernel, AsyncKernel, APIResponseValidationError
 from kernel._types import Omit
-from kernel._utils import maybe_transform
 from kernel._models import BaseModel, FinalRequestOptions
-from kernel._constants import RAW_RESPONSE_HEADER
 from kernel._exceptions import KernelError, APIStatusError, APITimeoutError, APIResponseValidationError
 from kernel._base_client import (
     DEFAULT_TIMEOUT,
@@ -35,7 +33,6 @@ from kernel._base_client import (
     DefaultAsyncHttpxClient,
     make_request_options,
 )
-from kernel.types.browser_create_params import BrowserCreateParams
 
 from .utils import update_env
 
@@ -721,44 +718,21 @@ class TestKernel:
 
     @mock.patch("kernel._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: Kernel) -> None:
         respx_mock.post("/browsers").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            self.client.post(
-                "/browsers",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(invocation_id="REPLACE_ME", persistence={"id": "browser-for-user-1234"}),
-                        BrowserCreateParams,
-                    ),
-                ),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
+            client.browsers.with_streaming_response.create(invocation_id="rr33xuugxj9h0bkf1rdt2bet").__enter__()
 
         assert _get_open_connections(self.client) == 0
 
     @mock.patch("kernel._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: Kernel) -> None:
         respx_mock.post("/browsers").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            self.client.post(
-                "/browsers",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(invocation_id="REPLACE_ME", persistence={"id": "browser-for-user-1234"}),
-                        BrowserCreateParams,
-                    ),
-                ),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
-
+            client.browsers.with_streaming_response.create(invocation_id="rr33xuugxj9h0bkf1rdt2bet").__enter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1572,44 +1546,25 @@ class TestAsyncKernel:
 
     @mock.patch("kernel._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncKernel) -> None:
         respx_mock.post("/browsers").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await self.client.post(
-                "/browsers",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(invocation_id="REPLACE_ME", persistence={"id": "browser-for-user-1234"}),
-                        BrowserCreateParams,
-                    ),
-                ),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
+            await async_client.browsers.with_streaming_response.create(
+                invocation_id="rr33xuugxj9h0bkf1rdt2bet"
+            ).__aenter__()
 
         assert _get_open_connections(self.client) == 0
 
     @mock.patch("kernel._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncKernel) -> None:
         respx_mock.post("/browsers").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await self.client.post(
-                "/browsers",
-                body=cast(
-                    object,
-                    maybe_transform(
-                        dict(invocation_id="REPLACE_ME", persistence={"id": "browser-for-user-1234"}),
-                        BrowserCreateParams,
-                    ),
-                ),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
-
+            await async_client.browsers.with_streaming_response.create(
+                invocation_id="rr33xuugxj9h0bkf1rdt2bet"
+            ).__aenter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
