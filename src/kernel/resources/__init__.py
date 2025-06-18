@@ -16,14 +16,42 @@ from .browsers import (
     BrowsersResourceWithStreamingResponse,
     AsyncBrowsersResourceWithStreamingResponse,
 )
+from .deployments import (
+    DeploymentsResource,
+    AsyncDeploymentsResource,
+    DeploymentsResourceWithRawResponse,
+    AsyncDeploymentsResourceWithRawResponse,
+    DeploymentsResourceWithStreamingResponse,
+    AsyncDeploymentsResourceWithStreamingResponse,
+)
+from .invocations import (
+    InvocationsResource,
+    AsyncInvocationsResource,
+    InvocationsResourceWithRawResponse,
+    AsyncInvocationsResourceWithRawResponse,
+    InvocationsResourceWithStreamingResponse,
+    AsyncInvocationsResourceWithStreamingResponse,
+)
 
 __all__ = [
+    "DeploymentsResource",
+    "AsyncDeploymentsResource",
+    "DeploymentsResourceWithRawResponse",
+    "AsyncDeploymentsResourceWithRawResponse",
+    "DeploymentsResourceWithStreamingResponse",
+    "AsyncDeploymentsResourceWithStreamingResponse",
     "AppsResource",
     "AsyncAppsResource",
     "AppsResourceWithRawResponse",
     "AsyncAppsResourceWithRawResponse",
     "AppsResourceWithStreamingResponse",
     "AsyncAppsResourceWithStreamingResponse",
+    "InvocationsResource",
+    "AsyncInvocationsResource",
+    "InvocationsResourceWithRawResponse",
+    "AsyncInvocationsResourceWithRawResponse",
+    "InvocationsResourceWithStreamingResponse",
+    "AsyncInvocationsResourceWithStreamingResponse",
     "BrowsersResource",
     "AsyncBrowsersResource",
     "BrowsersResourceWithRawResponse",

@@ -4,12 +4,12 @@ from typing import Optional
 from datetime import datetime
 from typing_extensions import Literal
 
-from ..._models import BaseModel
+from .._models import BaseModel
 
-__all__ = ["InvocationRetrieveResponse"]
+__all__ = ["InvocationStateEvent", "Invocation"]
 
 
-class InvocationRetrieveResponse(BaseModel):
+class Invocation(BaseModel):
     id: str
     """ID of the invocation"""
 
@@ -45,3 +45,13 @@ class InvocationRetrieveResponse(BaseModel):
 
     status_reason: Optional[str] = None
     """Status reason"""
+
+
+class InvocationStateEvent(BaseModel):
+    event: Literal["invocation_state"]
+    """Event type identifier (always "invocation_state")."""
+
+    invocation: Invocation
+
+    timestamp: datetime
+    """Time the state was reported."""

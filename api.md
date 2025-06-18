@@ -1,3 +1,28 @@
+# Shared Types
+
+```python
+from kernel.types import ErrorDetail, ErrorEvent, ErrorModel, LogEvent
+```
+
+# Deployments
+
+Types:
+
+```python
+from kernel.types import (
+    DeploymentStateEvent,
+    DeploymentCreateResponse,
+    DeploymentRetrieveResponse,
+    DeploymentFollowResponse,
+)
+```
+
+Methods:
+
+- <code title="post /deployments">client.deployments.<a href="./src/kernel/resources/deployments.py">create</a>(\*\*<a href="src/kernel/types/deployment_create_params.py">params</a>) -> <a href="./src/kernel/types/deployment_create_response.py">DeploymentCreateResponse</a></code>
+- <code title="get /deployments/{id}">client.deployments.<a href="./src/kernel/resources/deployments.py">retrieve</a>(id) -> <a href="./src/kernel/types/deployment_retrieve_response.py">DeploymentRetrieveResponse</a></code>
+- <code title="get /deployments/{id}/events">client.deployments.<a href="./src/kernel/resources/deployments.py">follow</a>(id) -> <a href="./src/kernel/types/deployment_follow_response.py">DeploymentFollowResponse</a></code>
+
 # Apps
 
 Types:
@@ -23,23 +48,26 @@ Methods:
 - <code title="post /deploy">client.apps.deployments.<a href="./src/kernel/resources/apps/deployments.py">create</a>(\*\*<a href="src/kernel/types/apps/deployment_create_params.py">params</a>) -> <a href="./src/kernel/types/apps/deployment_create_response.py">DeploymentCreateResponse</a></code>
 - <code title="get /apps/{id}/events">client.apps.deployments.<a href="./src/kernel/resources/apps/deployments.py">follow</a>(id) -> <a href="./src/kernel/types/apps/deployment_follow_response.py">DeploymentFollowResponse</a></code>
 
-## Invocations
+# Invocations
 
 Types:
 
 ```python
-from kernel.types.apps import (
+from kernel.types import (
+    InvocationStateEvent,
     InvocationCreateResponse,
     InvocationRetrieveResponse,
     InvocationUpdateResponse,
+    InvocationFollowResponse,
 )
 ```
 
 Methods:
 
-- <code title="post /invocations">client.apps.invocations.<a href="./src/kernel/resources/apps/invocations.py">create</a>(\*\*<a href="src/kernel/types/apps/invocation_create_params.py">params</a>) -> <a href="./src/kernel/types/apps/invocation_create_response.py">InvocationCreateResponse</a></code>
-- <code title="get /invocations/{id}">client.apps.invocations.<a href="./src/kernel/resources/apps/invocations.py">retrieve</a>(id) -> <a href="./src/kernel/types/apps/invocation_retrieve_response.py">InvocationRetrieveResponse</a></code>
-- <code title="patch /invocations/{id}">client.apps.invocations.<a href="./src/kernel/resources/apps/invocations.py">update</a>(id, \*\*<a href="src/kernel/types/apps/invocation_update_params.py">params</a>) -> <a href="./src/kernel/types/apps/invocation_update_response.py">InvocationUpdateResponse</a></code>
+- <code title="post /invocations">client.invocations.<a href="./src/kernel/resources/invocations.py">create</a>(\*\*<a href="src/kernel/types/invocation_create_params.py">params</a>) -> <a href="./src/kernel/types/invocation_create_response.py">InvocationCreateResponse</a></code>
+- <code title="get /invocations/{id}">client.invocations.<a href="./src/kernel/resources/invocations.py">retrieve</a>(id) -> <a href="./src/kernel/types/invocation_retrieve_response.py">InvocationRetrieveResponse</a></code>
+- <code title="patch /invocations/{id}">client.invocations.<a href="./src/kernel/resources/invocations.py">update</a>(id, \*\*<a href="src/kernel/types/invocation_update_params.py">params</a>) -> <a href="./src/kernel/types/invocation_update_response.py">InvocationUpdateResponse</a></code>
+- <code title="get /invocations/{id}/events">client.invocations.<a href="./src/kernel/resources/invocations.py">follow</a>(id) -> <a href="./src/kernel/types/invocation_follow_response.py">InvocationFollowResponse</a></code>
 
 # Browsers
 

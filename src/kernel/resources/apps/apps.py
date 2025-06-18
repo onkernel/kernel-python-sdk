@@ -23,14 +23,6 @@ from .deployments import (
     DeploymentsResourceWithStreamingResponse,
     AsyncDeploymentsResourceWithStreamingResponse,
 )
-from .invocations import (
-    InvocationsResource,
-    AsyncInvocationsResource,
-    InvocationsResourceWithRawResponse,
-    AsyncInvocationsResourceWithRawResponse,
-    InvocationsResourceWithStreamingResponse,
-    AsyncInvocationsResourceWithStreamingResponse,
-)
 from ..._base_client import make_request_options
 from ...types.app_list_response import AppListResponse
 
@@ -41,10 +33,6 @@ class AppsResource(SyncAPIResource):
     @cached_property
     def deployments(self) -> DeploymentsResource:
         return DeploymentsResource(self._client)
-
-    @cached_property
-    def invocations(self) -> InvocationsResource:
-        return InvocationsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AppsResourceWithRawResponse:
@@ -117,10 +105,6 @@ class AsyncAppsResource(AsyncAPIResource):
     @cached_property
     def deployments(self) -> AsyncDeploymentsResource:
         return AsyncDeploymentsResource(self._client)
-
-    @cached_property
-    def invocations(self) -> AsyncInvocationsResource:
-        return AsyncInvocationsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncAppsResourceWithRawResponse:
@@ -201,10 +185,6 @@ class AppsResourceWithRawResponse:
     def deployments(self) -> DeploymentsResourceWithRawResponse:
         return DeploymentsResourceWithRawResponse(self._apps.deployments)
 
-    @cached_property
-    def invocations(self) -> InvocationsResourceWithRawResponse:
-        return InvocationsResourceWithRawResponse(self._apps.invocations)
-
 
 class AsyncAppsResourceWithRawResponse:
     def __init__(self, apps: AsyncAppsResource) -> None:
@@ -217,10 +197,6 @@ class AsyncAppsResourceWithRawResponse:
     @cached_property
     def deployments(self) -> AsyncDeploymentsResourceWithRawResponse:
         return AsyncDeploymentsResourceWithRawResponse(self._apps.deployments)
-
-    @cached_property
-    def invocations(self) -> AsyncInvocationsResourceWithRawResponse:
-        return AsyncInvocationsResourceWithRawResponse(self._apps.invocations)
 
 
 class AppsResourceWithStreamingResponse:
@@ -235,10 +211,6 @@ class AppsResourceWithStreamingResponse:
     def deployments(self) -> DeploymentsResourceWithStreamingResponse:
         return DeploymentsResourceWithStreamingResponse(self._apps.deployments)
 
-    @cached_property
-    def invocations(self) -> InvocationsResourceWithStreamingResponse:
-        return InvocationsResourceWithStreamingResponse(self._apps.invocations)
-
 
 class AsyncAppsResourceWithStreamingResponse:
     def __init__(self, apps: AsyncAppsResource) -> None:
@@ -251,7 +223,3 @@ class AsyncAppsResourceWithStreamingResponse:
     @cached_property
     def deployments(self) -> AsyncDeploymentsResourceWithStreamingResponse:
         return AsyncDeploymentsResourceWithStreamingResponse(self._apps.deployments)
-
-    @cached_property
-    def invocations(self) -> AsyncInvocationsResourceWithStreamingResponse:
-        return AsyncInvocationsResourceWithStreamingResponse(self._apps.invocations)

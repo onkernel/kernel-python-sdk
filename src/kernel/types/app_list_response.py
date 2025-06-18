@@ -1,7 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, List, Optional
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
 
@@ -15,7 +15,7 @@ class AppListResponseItem(BaseModel):
     app_name: str
     """Name of the application"""
 
-    region: str
+    region: Literal["aws.us-east-1a"]
     """Deployment region code"""
 
     version: str
