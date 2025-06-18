@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.1 (2025-06-18)
+
+Full Changelog: [v0.6.0...v0.6.1](https://github.com/onkernel/kernel-python-sdk/compare/v0.6.0...v0.6.1)
+
+### Features
+
+* **api:** add delete_browsers endpoint ([1d378d3](https://github.com/onkernel/kernel-python-sdk/commit/1d378d3a505c2bce7453a7da3fc70ce78f8349cf))
+
 ## 0.6.0 (2025-06-18)
 
 Full Changelog: [v0.5.0...v0.6.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.5.0...v0.6.0)

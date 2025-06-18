@@ -171,6 +171,48 @@ class TestInvocations:
                 status="succeeded",
             )
 
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_delete_browsers(self, client: Kernel) -> None:
+        invocation = client.invocations.delete_browsers(
+            "id",
+        )
+        assert invocation is None
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_raw_response_delete_browsers(self, client: Kernel) -> None:
+        response = client.invocations.with_raw_response.delete_browsers(
+            "id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invocation = response.parse()
+        assert invocation is None
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_streaming_response_delete_browsers(self, client: Kernel) -> None:
+        with client.invocations.with_streaming_response.delete_browsers(
+            "id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invocation = response.parse()
+            assert invocation is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_path_params_delete_browsers(self, client: Kernel) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.invocations.with_raw_response.delete_browsers(
+                "",
+            )
+
     @pytest.mark.skip(
         reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
     )
@@ -372,6 +414,48 @@ class TestAsyncInvocations:
             await async_client.invocations.with_raw_response.update(
                 id="",
                 status="succeeded",
+            )
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_delete_browsers(self, async_client: AsyncKernel) -> None:
+        invocation = await async_client.invocations.delete_browsers(
+            "id",
+        )
+        assert invocation is None
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_raw_response_delete_browsers(self, async_client: AsyncKernel) -> None:
+        response = await async_client.invocations.with_raw_response.delete_browsers(
+            "id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invocation = await response.parse()
+        assert invocation is None
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_streaming_response_delete_browsers(self, async_client: AsyncKernel) -> None:
+        async with async_client.invocations.with_streaming_response.delete_browsers(
+            "id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invocation = await response.parse()
+            assert invocation is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_path_params_delete_browsers(self, async_client: AsyncKernel) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.invocations.with_raw_response.delete_browsers(
+                "",
             )
 
     @pytest.mark.skip(
