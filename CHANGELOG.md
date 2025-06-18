@@ -1,5 +1,40 @@
 # Changelog
 
+## 0.6.0 (2025-06-18)
+
+Full Changelog: [v0.5.0...v0.6.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.5.0...v0.6.0)
+
+### Features
+
+* **api:** update via SDK Studio ([a811017](https://github.com/onkernel/kernel-python-sdk/commit/a81101709db8cb64b4cb6af6b749b55f86c24be6))
+* **api:** update via SDK Studio ([0c8937a](https://github.com/onkernel/kernel-python-sdk/commit/0c8937a4d8891357223c41fadcb05a6dd1f359b1))
+* **api:** update via SDK Studio ([dff3e39](https://github.com/onkernel/kernel-python-sdk/commit/dff3e3965fc710beadac2410a8a065d81b889d43))
+* **api:** update via SDK Studio ([d26c519](https://github.com/onkernel/kernel-python-sdk/commit/d26c519a798d8bf66baaef49af818b4108c3d92a))
+* **api:** update via SDK Studio ([ff07935](https://github.com/onkernel/kernel-python-sdk/commit/ff0793585ded6d9ea6c50947b9915f560221ed0f))
+* **api:** update via SDK Studio ([fe8d70b](https://github.com/onkernel/kernel-python-sdk/commit/fe8d70b1f0a0725c37c794aeb5a7a466bc13cdf3))
+* **api:** update via SDK Studio ([8073db6](https://github.com/onkernel/kernel-python-sdk/commit/8073db60205835e3abb6c494e24bb034283c55f2))
+* **api:** update via SDK Studio ([c1cdbcc](https://github.com/onkernel/kernel-python-sdk/commit/c1cdbcc6e555ab5fc7ecc229095ff7d0bf272e1a))
+* **api:** update via SDK Studio ([eed8e67](https://github.com/onkernel/kernel-python-sdk/commit/eed8e6769fd4982cadb277aa4c271c211992077a))
+* **api:** update via SDK Studio ([7699111](https://github.com/onkernel/kernel-python-sdk/commit/76991114e757c0c054e89d614619e38b2ec7d918))
+* **api:** update via SDK Studio ([d51332b](https://github.com/onkernel/kernel-python-sdk/commit/d51332b18af547affb215d9a7596bbbdb7ccff24))
+* **api:** update via SDK Studio ([452e83c](https://github.com/onkernel/kernel-python-sdk/commit/452e83c41d808b97e1ff54cdfa79d74abccfc9b5))
+* **api:** update via SDK Studio ([496e5cd](https://github.com/onkernel/kernel-python-sdk/commit/496e5cd31745446c16234120f9299be4a9830bb5))
+
+
+### Bug Fixes
+
+* **client:** correctly parse binary response | stream ([0079349](https://github.com/onkernel/kernel-python-sdk/commit/007934910a1ec8e17a6be821feacef9b42a2c142))
+* **tests:** fix: tests which call HTTP endpoints directly with the example parameters ([53d6547](https://github.com/onkernel/kernel-python-sdk/commit/53d65471447af6f764aa48bd708c540215c8fd4a))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([fb3fba1](https://github.com/onkernel/kernel-python-sdk/commit/fb3fba16b9149449f8327b909210d42ee7744ba4))
+* **internal:** update conftest.py ([bcfcef2](https://github.com/onkernel/kernel-python-sdk/commit/bcfcef2eb9cd584ad6ec508956d59b34211d2e14))
+* **readme:** update badges ([099868c](https://github.com/onkernel/kernel-python-sdk/commit/099868c0c2fbb92a4b9e97cda89bf4e71781d76f))
+* **tests:** add tests for httpx client instantiation & proxies ([235bf24](https://github.com/onkernel/kernel-python-sdk/commit/235bf248a71505c9d5d536f1b6a7120e43b9cedc))
+* **tests:** run tests in parallel ([83e4f2c](https://github.com/onkernel/kernel-python-sdk/commit/83e4f2c26f02a7df56917e993af1e1d85ba241e6))
+
 ## 0.5.0 (2025-06-03)
 
 Full Changelog: [v0.4.0...v0.5.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.4.0...v0.5.0)
