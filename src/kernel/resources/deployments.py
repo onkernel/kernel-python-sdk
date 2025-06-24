@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import deployment_create_params
+from ..types import deployment_create_params, deployment_follow_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes
 from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
@@ -150,6 +150,7 @@ class DeploymentsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        since: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -163,6 +164,8 @@ class DeploymentsResource(SyncAPIResource):
         deployment reaches a terminal state.
 
         Args:
+          since: Show logs since the given time (RFC timestamps or durations like 5m).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -177,7 +180,11 @@ class DeploymentsResource(SyncAPIResource):
         return self._get(
             f"/deployments/{id}/events",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"since": since}, deployment_follow_params.DeploymentFollowParams),
             ),
             cast_to=cast(
                 Any, DeploymentFollowResponse
@@ -310,6 +317,7 @@ class AsyncDeploymentsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        since: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -323,6 +331,8 @@ class AsyncDeploymentsResource(AsyncAPIResource):
         deployment reaches a terminal state.
 
         Args:
+          since: Show logs since the given time (RFC timestamps or durations like 5m).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -337,7 +347,11 @@ class AsyncDeploymentsResource(AsyncAPIResource):
         return await self._get(
             f"/deployments/{id}/events",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"since": since}, deployment_follow_params.DeploymentFollowParams),
             ),
             cast_to=cast(
                 Any, DeploymentFollowResponse

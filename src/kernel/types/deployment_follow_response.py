@@ -9,6 +9,7 @@ from .._models import BaseModel
 from .shared.log_event import LogEvent
 from .shared.error_event import ErrorEvent
 from .deployment_state_event import DeploymentStateEvent
+from .shared.heartbeat_event import HeartbeatEvent
 
 __all__ = ["DeploymentFollowResponse", "AppVersionSummaryEvent", "AppVersionSummaryEventAction"]
 
@@ -45,5 +46,6 @@ class AppVersionSummaryEvent(BaseModel):
 
 
 DeploymentFollowResponse: TypeAlias = Annotated[
-    Union[LogEvent, DeploymentStateEvent, AppVersionSummaryEvent, ErrorEvent], PropertyInfo(discriminator="event")
+    Union[LogEvent, DeploymentStateEvent, AppVersionSummaryEvent, ErrorEvent, HeartbeatEvent],
+    PropertyInfo(discriminator="event"),
 ]

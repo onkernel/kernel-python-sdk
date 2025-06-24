@@ -7,6 +7,7 @@ from typing_extensions import Literal, Annotated, TypeAlias
 from ..._utils import PropertyInfo
 from ..._models import BaseModel
 from ..shared.log_event import LogEvent
+from ..shared.heartbeat_event import HeartbeatEvent
 
 __all__ = ["DeploymentFollowResponse", "StateEvent", "StateUpdateEvent"]
 
@@ -36,5 +37,5 @@ class StateUpdateEvent(BaseModel):
 
 
 DeploymentFollowResponse: TypeAlias = Annotated[
-    Union[StateEvent, StateUpdateEvent, LogEvent], PropertyInfo(discriminator="event")
+    Union[StateEvent, StateUpdateEvent, LogEvent, HeartbeatEvent], PropertyInfo(discriminator="event")
 ]

@@ -4,3 +4,4 @@ from .log_event import LogEvent as LogEvent
 from .error_event import ErrorEvent as ErrorEvent
 from .error_model import ErrorModel as ErrorModel
 from .error_detail import ErrorDetail as ErrorDetail
+from .heartbeat_event import HeartbeatEvent as HeartbeatEvent
