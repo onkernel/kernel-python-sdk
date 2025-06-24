@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.6.2 (2025-06-24)
+
+Full Changelog: [v0.6.1...v0.6.2](https://github.com/onkernel/kernel-python-sdk/compare/v0.6.1...v0.6.2)
+
+### Features
+
+* **api:** add `since` parameter to deployment logs endpoint ([39fb799](https://github.com/onkernel/kernel-python-sdk/commit/39fb79951c1f42c6eb7d07043432179ee132ff2c))
+* **client:** add support for aiohttp ([fbe32a1](https://github.com/onkernel/kernel-python-sdk/commit/fbe32a143a69f45cc8f93aab70d8fd555a337a9d))
+
+
+### Chores
+
+* **tests:** skip some failing tests on the latest python versions ([9441e05](https://github.com/onkernel/kernel-python-sdk/commit/9441e056d0a162b77149d717d83d75b67baf912b))
+
+
+### Documentation
+
+* **client:** fix httpx.Timeout documentation reference ([f3c0127](https://github.com/onkernel/kernel-python-sdk/commit/f3c0127bb4132bcf19ce2fd3016776c556386ffb))
+
 ## 0.6.1 (2025-06-18)
 
 Full Changelog: [v0.6.0...v0.6.1](https://github.com/onkernel/kernel-python-sdk/compare/v0.6.0...v0.6.1)
