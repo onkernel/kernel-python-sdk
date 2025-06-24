@@ -15,6 +15,9 @@ class AppListResponseItem(BaseModel):
     app_name: str
     """Name of the application"""
 
+    deployment: str
+    """Deployment ID"""
+
     region: Literal["aws.us-east-1a"]
     """Deployment region code"""
 

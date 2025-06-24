@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 
-from .shared import LogEvent as LogEvent, ErrorEvent as ErrorEvent, ErrorModel as ErrorModel, ErrorDetail as ErrorDetail
+from .shared import (
+    LogEvent as LogEvent,
+    ErrorEvent as ErrorEvent,
+    ErrorModel as ErrorModel,
+    ErrorDetail as ErrorDetail,
+    HeartbeatEvent as HeartbeatEvent,
+)
 from .app_list_params import AppListParams as AppListParams
 from .app_list_response import AppListResponse as AppListResponse
 from .browser_persistence import BrowserPersistence as BrowserPersistence
@@ -13,6 +19,7 @@ from .deployment_state_event import DeploymentStateEvent as DeploymentStateEvent
 from .invocation_state_event import InvocationStateEvent as InvocationStateEvent
 from .browser_create_response import BrowserCreateResponse as BrowserCreateResponse
 from .deployment_create_params import DeploymentCreateParams as DeploymentCreateParams
+from .deployment_follow_params import DeploymentFollowParams as DeploymentFollowParams
 from .invocation_create_params import InvocationCreateParams as InvocationCreateParams
 from .invocation_update_params import InvocationUpdateParams as InvocationUpdateParams
 from .browser_persistence_param import BrowserPersistenceParam as BrowserPersistenceParam
