@@ -1,7 +1,7 @@
 # Shared Types
 
 ```python
-from kernel.types import ErrorDetail, ErrorEvent, ErrorModel, LogEvent
+from kernel.types import ErrorDetail, ErrorEvent, ErrorModel, HeartbeatEvent, LogEvent
 ```
 
 # Deployments
@@ -21,7 +21,7 @@ Methods:
 
 - <code title="post /deployments">client.deployments.<a href="./src/kernel/resources/deployments.py">create</a>(\*\*<a href="src/kernel/types/deployment_create_params.py">params</a>) -> <a href="./src/kernel/types/deployment_create_response.py">DeploymentCreateResponse</a></code>
 - <code title="get /deployments/{id}">client.deployments.<a href="./src/kernel/resources/deployments.py">retrieve</a>(id) -> <a href="./src/kernel/types/deployment_retrieve_response.py">DeploymentRetrieveResponse</a></code>
-- <code title="get /deployments/{id}/events">client.deployments.<a href="./src/kernel/resources/deployments.py">follow</a>(id) -> <a href="./src/kernel/types/deployment_follow_response.py">DeploymentFollowResponse</a></code>
+- <code title="get /deployments/{id}/events">client.deployments.<a href="./src/kernel/resources/deployments.py">follow</a>(id, \*\*<a href="src/kernel/types/deployment_follow_params.py">params</a>) -> <a href="./src/kernel/types/deployment_follow_response.py">DeploymentFollowResponse</a></code>
 
 # Apps
 
