@@ -24,9 +24,7 @@ class TestBrowsers:
     @pytest.mark.skip()
     @parametrize
     def test_method_create(self, client: Kernel) -> None:
-        browser = client.browsers.create(
-            invocation_id="rr33xuugxj9h0bkf1rdt2bet",
-        )
+        browser = client.browsers.create()
         assert_matches_type(BrowserCreateResponse, browser, path=["response"])
 
     @pytest.mark.skip()
@@ -42,9 +40,7 @@ class TestBrowsers:
     @pytest.mark.skip()
     @parametrize
     def test_raw_response_create(self, client: Kernel) -> None:
-        response = client.browsers.with_raw_response.create(
-            invocation_id="rr33xuugxj9h0bkf1rdt2bet",
-        )
+        response = client.browsers.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -54,9 +50,7 @@ class TestBrowsers:
     @pytest.mark.skip()
     @parametrize
     def test_streaming_response_create(self, client: Kernel) -> None:
-        with client.browsers.with_streaming_response.create(
-            invocation_id="rr33xuugxj9h0bkf1rdt2bet",
-        ) as response:
+        with client.browsers.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -220,9 +214,7 @@ class TestAsyncBrowsers:
     @pytest.mark.skip()
     @parametrize
     async def test_method_create(self, async_client: AsyncKernel) -> None:
-        browser = await async_client.browsers.create(
-            invocation_id="rr33xuugxj9h0bkf1rdt2bet",
-        )
+        browser = await async_client.browsers.create()
         assert_matches_type(BrowserCreateResponse, browser, path=["response"])
 
     @pytest.mark.skip()
@@ -238,9 +230,7 @@ class TestAsyncBrowsers:
     @pytest.mark.skip()
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncKernel) -> None:
-        response = await async_client.browsers.with_raw_response.create(
-            invocation_id="rr33xuugxj9h0bkf1rdt2bet",
-        )
+        response = await async_client.browsers.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -250,9 +240,7 @@ class TestAsyncBrowsers:
     @pytest.mark.skip()
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncKernel) -> None:
-        async with async_client.browsers.with_streaming_response.create(
-            invocation_id="rr33xuugxj9h0bkf1rdt2bet",
-        ) as response:
+        async with async_client.browsers.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

@@ -134,7 +134,6 @@ from kernel import Kernel
 client = Kernel()
 
 browser = client.browsers.create(
-    invocation_id="rr33xuugxj9h0bkf1rdt2bet",
     persistence={"id": "my-awesome-browser-for-user-1234"},
 )
 print(browser.persistence)
