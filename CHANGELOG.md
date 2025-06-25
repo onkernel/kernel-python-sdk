@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.3 (2025-06-25)
+
+Full Changelog: [v0.6.2...v0.6.3](https://github.com/onkernel/kernel-python-sdk/compare/v0.6.2...v0.6.3)
+
+### Features
+
+* **api:** /browsers no longer requires invocation id ([d1ff453](https://github.com/onkernel/kernel-python-sdk/commit/d1ff4534a930e11b12055629dbb98db7d4c63ad5))
+
 ## 0.6.2 (2025-06-24)
 
 Full Changelog: [v0.6.1...v0.6.2](https://github.com/onkernel/kernel-python-sdk/compare/v0.6.1...v0.6.2)
