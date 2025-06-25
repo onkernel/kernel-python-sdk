@@ -47,7 +47,7 @@ class BrowsersResource(SyncAPIResource):
     def create(
         self,
         *,
-        invocation_id: str,
+        invocation_id: str | NotGiven = NOT_GIVEN,
         persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
         stealth: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -240,7 +240,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        invocation_id: str,
+        invocation_id: str | NotGiven = NOT_GIVEN,
         persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
         stealth: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

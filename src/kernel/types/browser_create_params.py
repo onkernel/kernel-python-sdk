@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing_extensions import TypedDict
 
 from .browser_persistence_param import BrowserPersistenceParam
 
@@ -10,7 +10,7 @@ __all__ = ["BrowserCreateParams"]
 
 
 class BrowserCreateParams(TypedDict, total=False):
-    invocation_id: Required[str]
+    invocation_id: str
     """action invocation ID"""
 
     persistence: BrowserPersistenceParam
