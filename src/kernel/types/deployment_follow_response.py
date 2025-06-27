@@ -7,23 +7,19 @@ from typing_extensions import Literal, Annotated, TypeAlias
 from .._utils import PropertyInfo
 from .._models import BaseModel
 from .shared.log_event import LogEvent
+from .shared.app_action import AppAction
 from .shared.error_event import ErrorEvent
 from .deployment_state_event import DeploymentStateEvent
 from .shared.heartbeat_event import HeartbeatEvent
 
-__all__ = ["DeploymentFollowResponse", "AppVersionSummaryEvent", "AppVersionSummaryEventAction"]
-
-
-class AppVersionSummaryEventAction(BaseModel):
-    name: str
-    """Name of the action"""
+__all__ = ["DeploymentFollowResponse", "AppVersionSummaryEvent"]
 
 
 class AppVersionSummaryEvent(BaseModel):
     id: str
     """Unique identifier for the app version"""
 
-    actions: List[AppVersionSummaryEventAction]
+    actions: List[AppAction]
     """List of actions available on the app"""
 
     app_name: str
