@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import deployment_create_params, deployment_follow_params
+from ..types import deployment_list_params, deployment_create_params, deployment_follow_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes
 from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
@@ -20,6 +20,7 @@ from .._response import (
 )
 from .._streaming import Stream, AsyncStream
 from .._base_client import make_request_options
+from ..types.deployment_list_response import DeploymentListResponse
 from ..types.deployment_create_response import DeploymentCreateResponse
 from ..types.deployment_follow_response import DeploymentFollowResponse
 from ..types.deployment_retrieve_response import DeploymentRetrieveResponse
@@ -144,6 +145,44 @@ class DeploymentsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DeploymentRetrieveResponse,
+        )
+
+    def list(
+        self,
+        *,
+        app_name: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> DeploymentListResponse:
+        """List deployments.
+
+        Optionally filter by application name.
+
+        Args:
+          app_name: Filter results by application name.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/deployments",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"app_name": app_name}, deployment_list_params.DeploymentListParams),
+            ),
+            cast_to=DeploymentListResponse,
         )
 
     def follow(
@@ -313,6 +352,44 @@ class AsyncDeploymentsResource(AsyncAPIResource):
             cast_to=DeploymentRetrieveResponse,
         )
 
+    async def list(
+        self,
+        *,
+        app_name: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> DeploymentListResponse:
+        """List deployments.
+
+        Optionally filter by application name.
+
+        Args:
+          app_name: Filter results by application name.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/deployments",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"app_name": app_name}, deployment_list_params.DeploymentListParams),
+            ),
+            cast_to=DeploymentListResponse,
+        )
+
     async def follow(
         self,
         id: str,
@@ -371,6 +448,9 @@ class DeploymentsResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             deployments.retrieve,
         )
+        self.list = to_raw_response_wrapper(
+            deployments.list,
+        )
         self.follow = to_raw_response_wrapper(
             deployments.follow,
         )
@@ -385,6 +465,9 @@ class AsyncDeploymentsResourceWithRawResponse:
         )
         self.retrieve = async_to_raw_response_wrapper(
             deployments.retrieve,
+        )
+        self.list = async_to_raw_response_wrapper(
+            deployments.list,
         )
         self.follow = async_to_raw_response_wrapper(
             deployments.follow,
@@ -401,6 +484,9 @@ class DeploymentsResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             deployments.retrieve,
         )
+        self.list = to_streamed_response_wrapper(
+            deployments.list,
+        )
         self.follow = to_streamed_response_wrapper(
             deployments.follow,
         )
@@ -415,6 +501,9 @@ class AsyncDeploymentsResourceWithStreamingResponse:
         )
         self.retrieve = async_to_streamed_response_wrapper(
             deployments.retrieve,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            deployments.list,
         )
         self.follow = async_to_streamed_response_wrapper(
             deployments.follow,

@@ -4,13 +4,9 @@ from typing import List, Optional
 from typing_extensions import Literal
 
 from ..._models import BaseModel
+from ..shared.app_action import AppAction
 
-__all__ = ["DeploymentCreateResponse", "App", "AppAction"]
-
-
-class AppAction(BaseModel):
-    name: str
-    """Name of the action"""
+__all__ = ["DeploymentCreateResponse", "App"]
 
 
 class App(BaseModel):
