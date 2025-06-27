@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.6.4 (2025-06-27)
+
+Full Changelog: [v0.6.3...v0.6.4](https://github.com/onkernel/kernel-python-sdk/compare/v0.6.3...v0.6.4)
+
+### Features
+
+* **api:** add GET deployments endpoint ([ade7884](https://github.com/onkernel/kernel-python-sdk/commit/ade788484f181ebfb516d831ee01aba9b9ef4037))
+* **api:** deployments ([681895c](https://github.com/onkernel/kernel-python-sdk/commit/681895c60447b9ac6deaa32cf4031618a242f274))
+* **api:** manual updates ([93870c1](https://github.com/onkernel/kernel-python-sdk/commit/93870c158c0b5b638483b0fa94ce1c2b1484db48))
+
+
+### Bug Fixes
+
+* **ci:** release-doctor — report correct token name ([ab1f806](https://github.com/onkernel/kernel-python-sdk/commit/ab1f806916ffa510799f2780ba1e770baedc0933))
+
 ## 0.6.3 (2025-06-25)
 
 Full Changelog: [v0.6.2...v0.6.3](https://github.com/onkernel/kernel-python-sdk/compare/v0.6.2...v0.6.3)
