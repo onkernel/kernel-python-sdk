@@ -10,6 +10,7 @@ import pytest
 from kernel import Kernel, AsyncKernel
 from tests.utils import assert_matches_type
 from kernel.types import (
+    DeploymentListResponse,
     DeploymentCreateResponse,
     DeploymentRetrieveResponse,
 )
@@ -111,6 +112,42 @@ class TestDeployments:
             client.deployments.with_raw_response.retrieve(
                 "",
             )
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_list(self, client: Kernel) -> None:
+        deployment = client.deployments.list()
+        assert_matches_type(DeploymentListResponse, deployment, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_list_with_all_params(self, client: Kernel) -> None:
+        deployment = client.deployments.list(
+            app_name="app_name",
+        )
+        assert_matches_type(DeploymentListResponse, deployment, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_raw_response_list(self, client: Kernel) -> None:
+        response = client.deployments.with_raw_response.list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        deployment = response.parse()
+        assert_matches_type(DeploymentListResponse, deployment, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_streaming_response_list(self, client: Kernel) -> None:
+        with client.deployments.with_streaming_response.list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            deployment = response.parse()
+            assert_matches_type(DeploymentListResponse, deployment, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(
         reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
@@ -269,6 +306,42 @@ class TestAsyncDeployments:
             await async_client.deployments.with_raw_response.retrieve(
                 "",
             )
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_list(self, async_client: AsyncKernel) -> None:
+        deployment = await async_client.deployments.list()
+        assert_matches_type(DeploymentListResponse, deployment, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncKernel) -> None:
+        deployment = await async_client.deployments.list(
+            app_name="app_name",
+        )
+        assert_matches_type(DeploymentListResponse, deployment, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_raw_response_list(self, async_client: AsyncKernel) -> None:
+        response = await async_client.deployments.with_raw_response.list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        deployment = await response.parse()
+        assert_matches_type(DeploymentListResponse, deployment, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_streaming_response_list(self, async_client: AsyncKernel) -> None:
+        async with async_client.deployments.with_streaming_response.list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            deployment = await response.parse()
+            assert_matches_type(DeploymentListResponse, deployment, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(
         reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
