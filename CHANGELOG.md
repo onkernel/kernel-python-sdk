@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.5 (2025-06-28)
+
+Full Changelog: [v0.6.4...v0.6.5](https://github.com/onkernel/kernel-python-sdk/compare/v0.6.4...v0.6.5)
+
+### Chores
+
+* **ci:** only run for pushes and fork pull requests ([e9a45fd](https://github.com/onkernel/kernel-python-sdk/commit/e9a45fd655812a9bf2c3edec3cccdbde3ab89f73))
+
 ## 0.6.4 (2025-06-27)
 
 Full Changelog: [v0.6.3...v0.6.4](https://github.com/onkernel/kernel-python-sdk/compare/v0.6.3...v0.6.4)
