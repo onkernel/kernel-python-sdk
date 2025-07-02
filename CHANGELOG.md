@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.7.0 (2025-07-02)
+
+Full Changelog: [v0.6.4...v0.7.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.6.4...v0.7.0)
+
+### Features
+
+* **api:** headless browsers ([de0b235](https://github.com/onkernel/kernel-python-sdk/commit/de0b235998be2299459b54df15e83dd9dc8c0b7f))
+
+
+### Bug Fixes
+
+* **ci:** correct conditional ([1167795](https://github.com/onkernel/kernel-python-sdk/commit/116779521b08014f5be7588f1e0a7975c13e8e05))
+
+
+### Chores
+
+* **ci:** change upload type ([dabede0](https://github.com/onkernel/kernel-python-sdk/commit/dabede0456032d69d0c4b05c740d04002fc900a9))
+* **ci:** only run for pushes and fork pull requests ([e9a45fd](https://github.com/onkernel/kernel-python-sdk/commit/e9a45fd655812a9bf2c3edec3cccdbde3ab89f73))
+
 ## 0.6.4 (2025-06-27)
 
 Full Changelog: [v0.6.3...v0.6.4](https://github.com/onkernel/kernel-python-sdk/compare/v0.6.3...v0.6.4)
