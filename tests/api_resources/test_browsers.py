@@ -31,6 +31,7 @@ class TestBrowsers:
     @parametrize
     def test_method_create_with_all_params(self, client: Kernel) -> None:
         browser = client.browsers.create(
+            headless=False,
             invocation_id="rr33xuugxj9h0bkf1rdt2bet",
             persistence={"id": "my-awesome-browser-for-user-1234"},
             stealth=True,
@@ -221,6 +222,7 @@ class TestAsyncBrowsers:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncKernel) -> None:
         browser = await async_client.browsers.create(
+            headless=False,
             invocation_id="rr33xuugxj9h0bkf1rdt2bet",
             persistence={"id": "my-awesome-browser-for-user-1234"},
             stealth=True,
