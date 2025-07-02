@@ -10,6 +10,12 @@ __all__ = ["BrowserCreateParams"]
 
 
 class BrowserCreateParams(TypedDict, total=False):
+    headless: bool
+    """If true, launches the browser using a headless image (no VNC/GUI).
+
+    Defaults to false.
+    """
+
     invocation_id: str
     """action invocation ID"""
 
