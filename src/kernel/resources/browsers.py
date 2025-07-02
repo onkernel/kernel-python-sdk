@@ -47,6 +47,7 @@ class BrowsersResource(SyncAPIResource):
     def create(
         self,
         *,
+        headless: bool | NotGiven = NOT_GIVEN,
         invocation_id: str | NotGiven = NOT_GIVEN,
         persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
         stealth: bool | NotGiven = NOT_GIVEN,
@@ -61,6 +62,9 @@ class BrowsersResource(SyncAPIResource):
         Create a new browser session from within an action.
 
         Args:
+          headless: If true, launches the browser using a headless image (no VNC/GUI). Defaults to
+              false.
+
           invocation_id: action invocation ID
 
           persistence: Optional persistence configuration for the browser session.
@@ -80,6 +84,7 @@ class BrowsersResource(SyncAPIResource):
             "/browsers",
             body=maybe_transform(
                 {
+                    "headless": headless,
                     "invocation_id": invocation_id,
                     "persistence": persistence,
                     "stealth": stealth,
@@ -240,6 +245,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        headless: bool | NotGiven = NOT_GIVEN,
         invocation_id: str | NotGiven = NOT_GIVEN,
         persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
         stealth: bool | NotGiven = NOT_GIVEN,
@@ -254,6 +260,9 @@ class AsyncBrowsersResource(AsyncAPIResource):
         Create a new browser session from within an action.
 
         Args:
+          headless: If true, launches the browser using a headless image (no VNC/GUI). Defaults to
+              false.
+
           invocation_id: action invocation ID
 
           persistence: Optional persistence configuration for the browser session.
@@ -273,6 +282,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
             "/browsers",
             body=await async_maybe_transform(
                 {
+                    "headless": headless,
                     "invocation_id": invocation_id,
                     "persistence": persistence,
                     "stealth": stealth,
