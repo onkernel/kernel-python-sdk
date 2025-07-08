@@ -5,7 +5,9 @@ from __future__ import annotations
 import os
 from typing import Any, cast
 
+import httpx
 import pytest
+from respx import MockRouter
 
 from kernel import Kernel, AsyncKernel
 from tests.utils import assert_matches_type
@@ -13,6 +15,12 @@ from kernel.types import (
     BrowserListResponse,
     BrowserCreateResponse,
     BrowserRetrieveResponse,
+)
+from kernel._response import (
+    BinaryAPIResponse,
+    AsyncBinaryAPIResponse,
+    StreamedBinaryAPIResponse,
+    AsyncStreamedBinaryAPIResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -34,6 +42,7 @@ class TestBrowsers:
             headless=False,
             invocation_id="rr33xuugxj9h0bkf1rdt2bet",
             persistence={"id": "my-awesome-browser-for-user-1234"},
+            replay=True,
             stealth=True,
         )
         assert_matches_type(BrowserCreateResponse, browser, path=["response"])
@@ -206,6 +215,66 @@ class TestBrowsers:
                 "",
             )
 
+    @pytest.mark.skip()
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_method_retrieve_replay(self, client: Kernel, respx_mock: MockRouter) -> None:
+        respx_mock.get("/browsers/htzv5orfit78e1m2biiifpbv/replay").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        browser = client.browsers.retrieve_replay(
+            "id",
+        )
+        assert browser.is_closed
+        assert browser.json() == {"foo": "bar"}
+        assert cast(Any, browser.is_closed) is True
+        assert isinstance(browser, BinaryAPIResponse)
+
+    @pytest.mark.skip()
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_raw_response_retrieve_replay(self, client: Kernel, respx_mock: MockRouter) -> None:
+        respx_mock.get("/browsers/htzv5orfit78e1m2biiifpbv/replay").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+
+        browser = client.browsers.with_raw_response.retrieve_replay(
+            "id",
+        )
+
+        assert browser.is_closed is True
+        assert browser.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert browser.json() == {"foo": "bar"}
+        assert isinstance(browser, BinaryAPIResponse)
+
+    @pytest.mark.skip()
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_streaming_response_retrieve_replay(self, client: Kernel, respx_mock: MockRouter) -> None:
+        respx_mock.get("/browsers/htzv5orfit78e1m2biiifpbv/replay").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        with client.browsers.with_streaming_response.retrieve_replay(
+            "id",
+        ) as browser:
+            assert not browser.is_closed
+            assert browser.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            assert browser.json() == {"foo": "bar"}
+            assert cast(Any, browser.is_closed) is True
+            assert isinstance(browser, StreamedBinaryAPIResponse)
+
+        assert cast(Any, browser.is_closed) is True
+
+    @pytest.mark.skip()
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_path_params_retrieve_replay(self, client: Kernel) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.browsers.with_raw_response.retrieve_replay(
+                "",
+            )
+
 
 class TestAsyncBrowsers:
     parametrize = pytest.mark.parametrize(
@@ -225,6 +294,7 @@ class TestAsyncBrowsers:
             headless=False,
             invocation_id="rr33xuugxj9h0bkf1rdt2bet",
             persistence={"id": "my-awesome-browser-for-user-1234"},
+            replay=True,
             stealth=True,
         )
         assert_matches_type(BrowserCreateResponse, browser, path=["response"])
@@ -394,5 +464,65 @@ class TestAsyncBrowsers:
     async def test_path_params_delete_by_id(self, async_client: AsyncKernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.browsers.with_raw_response.delete_by_id(
+                "",
+            )
+
+    @pytest.mark.skip()
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_method_retrieve_replay(self, async_client: AsyncKernel, respx_mock: MockRouter) -> None:
+        respx_mock.get("/browsers/htzv5orfit78e1m2biiifpbv/replay").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        browser = await async_client.browsers.retrieve_replay(
+            "id",
+        )
+        assert browser.is_closed
+        assert await browser.json() == {"foo": "bar"}
+        assert cast(Any, browser.is_closed) is True
+        assert isinstance(browser, AsyncBinaryAPIResponse)
+
+    @pytest.mark.skip()
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_raw_response_retrieve_replay(self, async_client: AsyncKernel, respx_mock: MockRouter) -> None:
+        respx_mock.get("/browsers/htzv5orfit78e1m2biiifpbv/replay").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+
+        browser = await async_client.browsers.with_raw_response.retrieve_replay(
+            "id",
+        )
+
+        assert browser.is_closed is True
+        assert browser.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert await browser.json() == {"foo": "bar"}
+        assert isinstance(browser, AsyncBinaryAPIResponse)
+
+    @pytest.mark.skip()
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_streaming_response_retrieve_replay(self, async_client: AsyncKernel, respx_mock: MockRouter) -> None:
+        respx_mock.get("/browsers/htzv5orfit78e1m2biiifpbv/replay").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
+        async with async_client.browsers.with_streaming_response.retrieve_replay(
+            "id",
+        ) as browser:
+            assert not browser.is_closed
+            assert browser.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            assert await browser.json() == {"foo": "bar"}
+            assert cast(Any, browser.is_closed) is True
+            assert isinstance(browser, AsyncStreamedBinaryAPIResponse)
+
+        assert cast(Any, browser.is_closed) is True
+
+    @pytest.mark.skip()
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_path_params_retrieve_replay(self, async_client: AsyncKernel) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.browsers.with_raw_response.retrieve_replay(
                 "",
             )

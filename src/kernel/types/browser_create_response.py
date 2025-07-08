@@ -23,3 +23,6 @@ class BrowserCreateResponse(BaseModel):
 
     persistence: Optional[BrowserPersistence] = None
     """Optional persistence configuration for the browser session."""
+
+    replay_view_url: Optional[str] = None
+    """Remote URL for viewing the browser session replay if enabled"""
