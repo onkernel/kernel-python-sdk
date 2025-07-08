@@ -9,14 +9,20 @@ __all__ = ["BrowserRetrieveResponse"]
 
 
 class BrowserRetrieveResponse(BaseModel):
-    browser_live_view_url: str
-    """Remote URL for live viewing the browser session"""
-
     cdp_ws_url: str
     """Websocket URL for Chrome DevTools Protocol connections to the browser session"""
 
     session_id: str
     """Unique identifier for the browser session"""
 
+    browser_live_view_url: Optional[str] = None
+    """Remote URL for live viewing the browser session.
+
+    Only available for non-headless browsers.
+    """
+
     persistence: Optional[BrowserPersistence] = None
     """Optional persistence configuration for the browser session."""
+
+    replay_view_url: Optional[str] = None
+    """Remote URL for viewing the browser session replay if enabled"""

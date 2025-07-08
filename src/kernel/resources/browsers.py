@@ -10,10 +10,18 @@ from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
+    BinaryAPIResponse,
+    AsyncBinaryAPIResponse,
+    StreamedBinaryAPIResponse,
+    AsyncStreamedBinaryAPIResponse,
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
+    to_custom_raw_response_wrapper,
     async_to_streamed_response_wrapper,
+    to_custom_streamed_response_wrapper,
+    async_to_custom_raw_response_wrapper,
+    async_to_custom_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
 from ..types.browser_list_response import BrowserListResponse
@@ -47,8 +55,10 @@ class BrowsersResource(SyncAPIResource):
     def create(
         self,
         *,
+        headless: bool | NotGiven = NOT_GIVEN,
         invocation_id: str | NotGiven = NOT_GIVEN,
         persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
+        replay: bool | NotGiven = NOT_GIVEN,
         stealth: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -61,9 +71,14 @@ class BrowsersResource(SyncAPIResource):
         Create a new browser session from within an action.
 
         Args:
+          headless: If true, launches the browser using a headless image (no VNC/GUI). Defaults to
+              false.
+
           invocation_id: action invocation ID
 
           persistence: Optional persistence configuration for the browser session.
+
+          replay: If true, enables replay recording of the browser session. Defaults to false.
 
           stealth: If true, launches the browser in stealth mode to reduce detection by anti-bot
               mechanisms.
@@ -80,8 +95,10 @@ class BrowsersResource(SyncAPIResource):
             "/browsers",
             body=maybe_transform(
                 {
+                    "headless": headless,
                     "invocation_id": invocation_id,
                     "persistence": persistence,
+                    "replay": replay,
                     "stealth": stealth,
                 },
                 browser_create_params.BrowserCreateParams,
@@ -216,6 +233,40 @@ class BrowsersResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def retrieve_replay(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> BinaryAPIResponse:
+        """
+        Get browser session replay.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "video/mp4", **(extra_headers or {})}
+        return self._get(
+            f"/browsers/{id}/replay",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BinaryAPIResponse,
+        )
+
 
 class AsyncBrowsersResource(AsyncAPIResource):
     @cached_property
@@ -240,8 +291,10 @@ class AsyncBrowsersResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        headless: bool | NotGiven = NOT_GIVEN,
         invocation_id: str | NotGiven = NOT_GIVEN,
         persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
+        replay: bool | NotGiven = NOT_GIVEN,
         stealth: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -254,9 +307,14 @@ class AsyncBrowsersResource(AsyncAPIResource):
         Create a new browser session from within an action.
 
         Args:
+          headless: If true, launches the browser using a headless image (no VNC/GUI). Defaults to
+              false.
+
           invocation_id: action invocation ID
 
           persistence: Optional persistence configuration for the browser session.
+
+          replay: If true, enables replay recording of the browser session. Defaults to false.
 
           stealth: If true, launches the browser in stealth mode to reduce detection by anti-bot
               mechanisms.
@@ -273,8 +331,10 @@ class AsyncBrowsersResource(AsyncAPIResource):
             "/browsers",
             body=await async_maybe_transform(
                 {
+                    "headless": headless,
                     "invocation_id": invocation_id,
                     "persistence": persistence,
+                    "replay": replay,
                     "stealth": stealth,
                 },
                 browser_create_params.BrowserCreateParams,
@@ -411,6 +471,40 @@ class AsyncBrowsersResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def retrieve_replay(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncBinaryAPIResponse:
+        """
+        Get browser session replay.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "video/mp4", **(extra_headers or {})}
+        return await self._get(
+            f"/browsers/{id}/replay",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AsyncBinaryAPIResponse,
+        )
+
 
 class BrowsersResourceWithRawResponse:
     def __init__(self, browsers: BrowsersResource) -> None:
@@ -430,6 +524,10 @@ class BrowsersResourceWithRawResponse:
         )
         self.delete_by_id = to_raw_response_wrapper(
             browsers.delete_by_id,
+        )
+        self.retrieve_replay = to_custom_raw_response_wrapper(
+            browsers.retrieve_replay,
+            BinaryAPIResponse,
         )
 
 
@@ -452,6 +550,10 @@ class AsyncBrowsersResourceWithRawResponse:
         self.delete_by_id = async_to_raw_response_wrapper(
             browsers.delete_by_id,
         )
+        self.retrieve_replay = async_to_custom_raw_response_wrapper(
+            browsers.retrieve_replay,
+            AsyncBinaryAPIResponse,
+        )
 
 
 class BrowsersResourceWithStreamingResponse:
@@ -473,6 +575,10 @@ class BrowsersResourceWithStreamingResponse:
         self.delete_by_id = to_streamed_response_wrapper(
             browsers.delete_by_id,
         )
+        self.retrieve_replay = to_custom_streamed_response_wrapper(
+            browsers.retrieve_replay,
+            StreamedBinaryAPIResponse,
+        )
 
 
 class AsyncBrowsersResourceWithStreamingResponse:
@@ -493,4 +599,8 @@ class AsyncBrowsersResourceWithStreamingResponse:
         )
         self.delete_by_id = async_to_streamed_response_wrapper(
             browsers.delete_by_id,
+        )
+        self.retrieve_replay = async_to_custom_streamed_response_wrapper(
+            browsers.retrieve_replay,
+            AsyncStreamedBinaryAPIResponse,
         )
