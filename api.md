@@ -92,3 +92,4 @@ Methods:
 - <code title="get /browsers">client.browsers.<a href="./src/kernel/resources/browsers.py">list</a>() -> <a href="./src/kernel/types/browser_list_response.py">BrowserListResponse</a></code>
 - <code title="delete /browsers">client.browsers.<a href="./src/kernel/resources/browsers.py">delete</a>(\*\*<a href="src/kernel/types/browser_delete_params.py">params</a>) -> None</code>
 - <code title="delete /browsers/{id}">client.browsers.<a href="./src/kernel/resources/browsers.py">delete_by_id</a>(id) -> None</code>
+- <code title="get /browsers/{id}/replay">client.browsers.<a href="./src/kernel/resources/browsers.py">retrieve_replay</a>(id) -> BinaryAPIResponse</code>
