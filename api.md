@@ -87,9 +87,23 @@ from kernel.types import (
 
 Methods:
 
-- <code title="post /browsers">client.browsers.<a href="./src/kernel/resources/browsers.py">create</a>(\*\*<a href="src/kernel/types/browser_create_params.py">params</a>) -> <a href="./src/kernel/types/browser_create_response.py">BrowserCreateResponse</a></code>
-- <code title="get /browsers/{id}">client.browsers.<a href="./src/kernel/resources/browsers.py">retrieve</a>(id) -> <a href="./src/kernel/types/browser_retrieve_response.py">BrowserRetrieveResponse</a></code>
-- <code title="get /browsers">client.browsers.<a href="./src/kernel/resources/browsers.py">list</a>() -> <a href="./src/kernel/types/browser_list_response.py">BrowserListResponse</a></code>
-- <code title="delete /browsers">client.browsers.<a href="./src/kernel/resources/browsers.py">delete</a>(\*\*<a href="src/kernel/types/browser_delete_params.py">params</a>) -> None</code>
-- <code title="delete /browsers/{id}">client.browsers.<a href="./src/kernel/resources/browsers.py">delete_by_id</a>(id) -> None</code>
-- <code title="get /browsers/{id}/replay">client.browsers.<a href="./src/kernel/resources/browsers.py">retrieve_replay</a>(id) -> BinaryAPIResponse</code>
+- <code title="post /browsers">client.browsers.<a href="./src/kernel/resources/browsers/browsers.py">create</a>(\*\*<a href="src/kernel/types/browser_create_params.py">params</a>) -> <a href="./src/kernel/types/browser_create_response.py">BrowserCreateResponse</a></code>
+- <code title="get /browsers/{id}">client.browsers.<a href="./src/kernel/resources/browsers/browsers.py">retrieve</a>(id) -> <a href="./src/kernel/types/browser_retrieve_response.py">BrowserRetrieveResponse</a></code>
+- <code title="get /browsers">client.browsers.<a href="./src/kernel/resources/browsers/browsers.py">list</a>() -> <a href="./src/kernel/types/browser_list_response.py">BrowserListResponse</a></code>
+- <code title="delete /browsers">client.browsers.<a href="./src/kernel/resources/browsers/browsers.py">delete</a>(\*\*<a href="src/kernel/types/browser_delete_params.py">params</a>) -> None</code>
+- <code title="delete /browsers/{id}">client.browsers.<a href="./src/kernel/resources/browsers/browsers.py">delete_by_id</a>(id) -> None</code>
+
+## Replays
+
+Types:
+
+```python
+from kernel.types.browsers import ReplayListResponse, ReplayStartResponse
+```
+
+Methods:
+
+- <code title="get /browsers/{id}/replays">client.browsers.replays.<a href="./src/kernel/resources/browsers/replays.py">list</a>(id) -> <a href="./src/kernel/types/browsers/replay_list_response.py">ReplayListResponse</a></code>
+- <code title="get /browsers/{id}/replays/{replay_id}">client.browsers.replays.<a href="./src/kernel/resources/browsers/replays.py">download</a>(replay_id, \*, id) -> BinaryAPIResponse</code>
+- <code title="post /browsers/{id}/replays">client.browsers.replays.<a href="./src/kernel/resources/browsers/replays.py">start</a>(id, \*\*<a href="src/kernel/types/browsers/replay_start_params.py">params</a>) -> <a href="./src/kernel/types/browsers/replay_start_response.py">ReplayStartResponse</a></code>
+- <code title="post /browsers/{id}/replays/{replay_id}/stop">client.browsers.replays.<a href="./src/kernel/resources/browsers/replays.py">stop</a>(replay_id, \*, id) -> None</code>

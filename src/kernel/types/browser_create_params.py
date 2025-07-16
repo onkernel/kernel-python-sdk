@@ -22,9 +22,6 @@ class BrowserCreateParams(TypedDict, total=False):
     persistence: BrowserPersistenceParam
     """Optional persistence configuration for the browser session."""
 
-    replay: bool
-    """If true, enables replay recording of the browser session. Defaults to false."""
-
     stealth: bool
     """
     If true, launches the browser in stealth mode to reduce detection by anti-bot
