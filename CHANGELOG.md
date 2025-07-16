@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.8.0 (2025-07-16)
+
+Full Changelog: [v0.7.1...v0.8.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.7.1...v0.8.0)
+
+### Features
+
+* **api:** manual updates ([cd2b694](https://github.com/onkernel/kernel-python-sdk/commit/cd2b694c97b354c4eab38ed06eba04bf56218f97))
+* clean up environment call outs ([c31b1a2](https://github.com/onkernel/kernel-python-sdk/commit/c31b1a21a86381a5ee8162327e43934be4d661d2))
+
+
+### Bug Fixes
+
+* **client:** don't send Content-Type header on GET requests ([b44aeee](https://github.com/onkernel/kernel-python-sdk/commit/b44aeee6397b8a418c65a624c71f8a2c5272fdc2))
+* **parsing:** correctly handle nested discriminated unions ([7b25900](https://github.com/onkernel/kernel-python-sdk/commit/7b25900b5e12030c814231b1a212a95b090a977e))
+
+
+### Chores
+
+* **internal:** bump pinned h11 dep ([352aae2](https://github.com/onkernel/kernel-python-sdk/commit/352aae28c4cf9345c808910e13d7423613a6d80b))
+* **package:** mark python 3.13 as supported ([5ddf6d0](https://github.com/onkernel/kernel-python-sdk/commit/5ddf6d0b28a8108a6e0f7de628438c33857cc6dc))
+* **readme:** fix version rendering on pypi ([760753f](https://github.com/onkernel/kernel-python-sdk/commit/760753f31a974cac63ee5a8dc39462bbfb925249))
+
 ## 0.7.1 (2025-07-08)
 
 Full Changelog: [v0.6.4...v0.7.1](https://github.com/onkernel/kernel-python-sdk/compare/v0.6.4...v0.7.1)
