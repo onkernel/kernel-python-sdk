@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import browsers, deployments, invocations
+from .resources import deployments, invocations
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import KernelError, APIStatusError
 from ._base_client import (
@@ -30,6 +30,7 @@ from ._base_client import (
     AsyncAPIClient,
 )
 from .resources.apps import apps
+from .resources.browsers import browsers
 
 __all__ = [
     "ENVIRONMENTS",
