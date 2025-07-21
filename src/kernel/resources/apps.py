@@ -4,36 +4,24 @@ from __future__ import annotations
 
 import httpx
 
-from ...types import app_list_params
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ..._utils import maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
+from ..types import app_list_params
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._utils import maybe_transform, async_maybe_transform
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .deployments import (
-    DeploymentsResource,
-    AsyncDeploymentsResource,
-    DeploymentsResourceWithRawResponse,
-    AsyncDeploymentsResourceWithRawResponse,
-    DeploymentsResourceWithStreamingResponse,
-    AsyncDeploymentsResourceWithStreamingResponse,
-)
-from ..._base_client import make_request_options
-from ...types.app_list_response import AppListResponse
+from .._base_client import make_request_options
+from ..types.app_list_response import AppListResponse
 
 __all__ = ["AppsResource", "AsyncAppsResource"]
 
 
 class AppsResource(SyncAPIResource):
-    @cached_property
-    def deployments(self) -> DeploymentsResource:
-        return DeploymentsResource(self._client)
-
     @cached_property
     def with_raw_response(self) -> AppsResourceWithRawResponse:
         """
@@ -102,10 +90,6 @@ class AppsResource(SyncAPIResource):
 
 
 class AsyncAppsResource(AsyncAPIResource):
-    @cached_property
-    def deployments(self) -> AsyncDeploymentsResource:
-        return AsyncDeploymentsResource(self._client)
-
     @cached_property
     def with_raw_response(self) -> AsyncAppsResourceWithRawResponse:
         """
@@ -181,10 +165,6 @@ class AppsResourceWithRawResponse:
             apps.list,
         )
 
-    @cached_property
-    def deployments(self) -> DeploymentsResourceWithRawResponse:
-        return DeploymentsResourceWithRawResponse(self._apps.deployments)
-
 
 class AsyncAppsResourceWithRawResponse:
     def __init__(self, apps: AsyncAppsResource) -> None:
@@ -193,10 +173,6 @@ class AsyncAppsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             apps.list,
         )
-
-    @cached_property
-    def deployments(self) -> AsyncDeploymentsResourceWithRawResponse:
-        return AsyncDeploymentsResourceWithRawResponse(self._apps.deployments)
 
 
 class AppsResourceWithStreamingResponse:
@@ -207,10 +183,6 @@ class AppsResourceWithStreamingResponse:
             apps.list,
         )
 
-    @cached_property
-    def deployments(self) -> DeploymentsResourceWithStreamingResponse:
-        return DeploymentsResourceWithStreamingResponse(self._apps.deployments)
-
 
 class AsyncAppsResourceWithStreamingResponse:
     def __init__(self, apps: AsyncAppsResource) -> None:
@@ -219,7 +191,3 @@ class AsyncAppsResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             apps.list,
         )
-
-    @cached_property
-    def deployments(self) -> AsyncDeploymentsResourceWithStreamingResponse:
-        return AsyncDeploymentsResourceWithStreamingResponse(self._apps.deployments)
