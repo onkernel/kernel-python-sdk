@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.1 (2025-07-21)
+
+Full Changelog: [v0.8.0...v0.8.1](https://github.com/onkernel/kernel-python-sdk/compare/v0.8.0...v0.8.1)
+
+### Chores
+
+* **api:** remove deprecated endpoints ([348e40a](https://github.com/onkernel/kernel-python-sdk/commit/348e40a5f610769a5ec59d4f4e40b79d166cdf57))
+
 ## 0.8.0 (2025-07-16)
 
 Full Changelog: [v0.7.1...v0.8.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.7.1...v0.8.0)
