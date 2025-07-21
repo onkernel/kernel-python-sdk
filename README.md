@@ -34,13 +34,10 @@ client = Kernel(
     environment="development",
 )
 
-deployment = client.apps.deployments.create(
-    entrypoint_rel_path="main.ts",
-    file=b"REPLACE_ME",
-    env_vars={"OPENAI_API_KEY": "x"},
-    version="1.0.0",
+browser = client.browsers.create(
+    persistence={"id": "browser-for-user-1234"},
 )
-print(deployment.apps)
+print(browser.session_id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -65,13 +62,10 @@ client = AsyncKernel(
 
 
 async def main() -> None:
-    deployment = await client.apps.deployments.create(
-        entrypoint_rel_path="main.ts",
-        file=b"REPLACE_ME",
-        env_vars={"OPENAI_API_KEY": "x"},
-        version="1.0.0",
+    browser = await client.browsers.create(
+        persistence={"id": "browser-for-user-1234"},
     )
-    print(deployment.apps)
+    print(browser.session_id)
 
 
 asyncio.run(main())
@@ -103,13 +97,10 @@ async def main() -> None:
         api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
-        deployment = await client.apps.deployments.create(
-            entrypoint_rel_path="main.ts",
-            file=b"REPLACE_ME",
-            env_vars={"OPENAI_API_KEY": "x"},
-            version="1.0.0",
+        browser = await client.browsers.create(
+            persistence={"id": "browser-for-user-1234"},
         )
-        print(deployment.apps)
+        print(browser.session_id)
 
 
 asyncio.run(main())
@@ -149,7 +140,7 @@ from kernel import Kernel
 
 client = Kernel()
 
-client.apps.deployments.create(
+client.deployments.create(
     entrypoint_rel_path="src/app.py",
     file=Path("/path/to/file"),
 )
@@ -174,7 +165,6 @@ client = Kernel()
 
 try:
     client.browsers.create(
-        invocation_id="REPLACE_ME",
         persistence={"id": "browser-for-user-1234"},
     )
 except kernel.APIConnectionError as e:
@@ -220,7 +210,6 @@ client = Kernel(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).browsers.create(
-    invocation_id="REPLACE_ME",
     persistence={"id": "browser-for-user-1234"},
 )
 ```
@@ -246,7 +235,6 @@ client = Kernel(
 
 # Override per-request:
 client.with_options(timeout=5.0).browsers.create(
-    invocation_id="REPLACE_ME",
     persistence={"id": "browser-for-user-1234"},
 )
 ```
@@ -290,7 +278,6 @@ from kernel import Kernel
 
 client = Kernel()
 response = client.browsers.with_raw_response.create(
-    invocation_id="REPLACE_ME",
     persistence={
         "id": "browser-for-user-1234"
     },
@@ -313,7 +300,6 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.browsers.with_streaming_response.create(
-    invocation_id="REPLACE_ME",
     persistence={"id": "browser-for-user-1234"},
 ) as response:
     print(response.headers.get("X-My-Header"))
