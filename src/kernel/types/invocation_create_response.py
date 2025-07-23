@@ -12,6 +12,9 @@ class InvocationCreateResponse(BaseModel):
     id: str
     """ID of the invocation"""
 
+    action_name: str
+    """Name of the action invoked"""
+
     status: Literal["queued", "running", "succeeded", "failed"]
     """Status of the invocation"""
 
