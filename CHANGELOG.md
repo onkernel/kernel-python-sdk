@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.8.2 (2025-07-23)
+
+Full Changelog: [v0.8.1...v0.8.2](https://github.com/onkernel/kernel-python-sdk/compare/v0.8.1...v0.8.2)
+
+### Features
+
+* **api:** add action name to the response to invoke ([1a485b2](https://github.com/onkernel/kernel-python-sdk/commit/1a485b2ddd3cdbf97fcb67f1d389c07ce0a51d8e))
+
+
+### Bug Fixes
+
+* **parsing:** ignore empty metadata ([d839a20](https://github.com/onkernel/kernel-python-sdk/commit/d839a20c1bb2c0e35aff6fa59196cec9e725d346))
+* **parsing:** parse extra field types ([cb880bc](https://github.com/onkernel/kernel-python-sdk/commit/cb880bc6796acf8e44560580829229fb140586c9))
+
 ## 0.8.1 (2025-07-21)
 
 Full Changelog: [v0.8.0...v0.8.1](https://github.com/onkernel/kernel-python-sdk/compare/v0.8.0...v0.8.1)
