@@ -216,7 +216,7 @@ client.with_options(max_retries=5).browsers.create(
 
 ### Timeouts
 
-By default requests time out after 1 minute. You can configure this with a `timeout` option,
+By default requests time out after 5 seconds. You can configure this with a `timeout` option,
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
@@ -224,7 +224,7 @@ from kernel import Kernel
 
 # Configure the default for all requests:
 client = Kernel(
-    # 20 seconds (default is 1 minute)
+    # 20 seconds (default is 5 seconds)
     timeout=20.0,
 )
 
