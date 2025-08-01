@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.8.3 (2025-08-01)
+
+Full Changelog: [v0.8.2...v0.8.3](https://github.com/onkernel/kernel-python-sdk/compare/v0.8.2...v0.8.3)
+
+### Features
+
+* **api:** lower default timeout to 5s ([6d43e73](https://github.com/onkernel/kernel-python-sdk/commit/6d43e73a5206d3faa99825d6ee49986a5d5919aa))
+* **api:** manual updates ([c6990ba](https://github.com/onkernel/kernel-python-sdk/commit/c6990ba5c9974f96270e1ca86e9d7935d7db03d7))
+* **client:** support file upload requests ([79b06da](https://github.com/onkernel/kernel-python-sdk/commit/79b06da326192ceb5edf703576bd25835cbed031))
+
+
+### Chores
+
+* **project:** add settings file for vscode ([c46aa48](https://github.com/onkernel/kernel-python-sdk/commit/c46aa48e7d07db3317b038c51b3c58a88b2d44d4))
+
 ## 0.8.2 (2025-07-23)
 
 Full Changelog: [v0.8.1...v0.8.2](https://github.com/onkernel/kernel-python-sdk/compare/v0.8.1...v0.8.2)
