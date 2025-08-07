@@ -94,3 +94,37 @@ Methods:
 - <code title="get /browsers/{id}/replays/{replay_id}">client.browsers.replays.<a href="./src/kernel/resources/browsers/replays.py">download</a>(replay_id, \*, id) -> BinaryAPIResponse</code>
 - <code title="post /browsers/{id}/replays">client.browsers.replays.<a href="./src/kernel/resources/browsers/replays.py">start</a>(id, \*\*<a href="src/kernel/types/browsers/replay_start_params.py">params</a>) -> <a href="./src/kernel/types/browsers/replay_start_response.py">ReplayStartResponse</a></code>
 - <code title="post /browsers/{id}/replays/{replay_id}/stop">client.browsers.replays.<a href="./src/kernel/resources/browsers/replays.py">stop</a>(replay_id, \*, id) -> None</code>
+
+## Fs
+
+Types:
+
+```python
+from kernel.types.browsers import FFileInfoResponse, FListFilesResponse
+```
+
+Methods:
+
+- <code title="put /browsers/{id}/fs/create_directory">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">create_directory</a>(id, \*\*<a href="src/kernel/types/browsers/f_create_directory_params.py">params</a>) -> None</code>
+- <code title="put /browsers/{id}/fs/delete_directory">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">delete_directory</a>(id, \*\*<a href="src/kernel/types/browsers/f_delete_directory_params.py">params</a>) -> None</code>
+- <code title="put /browsers/{id}/fs/delete_file">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">delete_file</a>(id, \*\*<a href="src/kernel/types/browsers/f_delete_file_params.py">params</a>) -> None</code>
+- <code title="get /browsers/{id}/fs/file_info">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">file_info</a>(id, \*\*<a href="src/kernel/types/browsers/f_file_info_params.py">params</a>) -> <a href="./src/kernel/types/browsers/f_file_info_response.py">FFileInfoResponse</a></code>
+- <code title="get /browsers/{id}/fs/list_files">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">list_files</a>(id, \*\*<a href="src/kernel/types/browsers/f_list_files_params.py">params</a>) -> <a href="./src/kernel/types/browsers/f_list_files_response.py">FListFilesResponse</a></code>
+- <code title="put /browsers/{id}/fs/move">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">move</a>(id, \*\*<a href="src/kernel/types/browsers/f_move_params.py">params</a>) -> None</code>
+- <code title="get /browsers/{id}/fs/read_file">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">read_file</a>(id, \*\*<a href="src/kernel/types/browsers/f_read_file_params.py">params</a>) -> BinaryAPIResponse</code>
+- <code title="put /browsers/{id}/fs/set_file_permissions">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">set_file_permissions</a>(id, \*\*<a href="src/kernel/types/browsers/f_set_file_permissions_params.py">params</a>) -> None</code>
+- <code title="put /browsers/{id}/fs/write_file">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">write_file</a>(id, contents, \*\*<a href="src/kernel/types/browsers/f_write_file_params.py">params</a>) -> None</code>
+
+### Watch
+
+Types:
+
+```python
+from kernel.types.browsers.fs import WatchEventsResponse, WatchStartResponse
+```
+
+Methods:
+
+- <code title="get /browsers/{id}/fs/watch/{watch_id}/events">client.browsers.fs.watch.<a href="./src/kernel/resources/browsers/fs/watch.py">events</a>(watch_id, \*, id) -> <a href="./src/kernel/types/browsers/fs/watch_events_response.py">WatchEventsResponse</a></code>
+- <code title="post /browsers/{id}/fs/watch">client.browsers.fs.watch.<a href="./src/kernel/resources/browsers/fs/watch.py">start</a>(id, \*\*<a href="src/kernel/types/browsers/fs/watch_start_params.py">params</a>) -> <a href="./src/kernel/types/browsers/fs/watch_start_response.py">WatchStartResponse</a></code>
+- <code title="delete /browsers/{id}/fs/watch/{watch_id}">client.browsers.fs.watch.<a href="./src/kernel/resources/browsers/fs/watch.py">stop</a>(watch_id, \*, id) -> None</code>

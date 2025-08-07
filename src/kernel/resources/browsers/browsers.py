@@ -4,6 +4,14 @@ from __future__ import annotations
 
 import httpx
 
+from .fs.fs import (
+    FsResource,
+    AsyncFsResource,
+    FsResourceWithRawResponse,
+    AsyncFsResourceWithRawResponse,
+    FsResourceWithStreamingResponse,
+    AsyncFsResourceWithStreamingResponse,
+)
 from ...types import browser_create_params, browser_delete_params
 from .replays import (
     ReplaysResource,
@@ -36,6 +44,10 @@ class BrowsersResource(SyncAPIResource):
     @cached_property
     def replays(self) -> ReplaysResource:
         return ReplaysResource(self._client)
+
+    @cached_property
+    def fs(self) -> FsResource:
+        return FsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> BrowsersResourceWithRawResponse:
@@ -238,6 +250,10 @@ class AsyncBrowsersResource(AsyncAPIResource):
     @cached_property
     def replays(self) -> AsyncReplaysResource:
         return AsyncReplaysResource(self._client)
+
+    @cached_property
+    def fs(self) -> AsyncFsResource:
+        return AsyncFsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncBrowsersResourceWithRawResponse:
@@ -462,6 +478,10 @@ class BrowsersResourceWithRawResponse:
     def replays(self) -> ReplaysResourceWithRawResponse:
         return ReplaysResourceWithRawResponse(self._browsers.replays)
 
+    @cached_property
+    def fs(self) -> FsResourceWithRawResponse:
+        return FsResourceWithRawResponse(self._browsers.fs)
+
 
 class AsyncBrowsersResourceWithRawResponse:
     def __init__(self, browsers: AsyncBrowsersResource) -> None:
@@ -486,6 +506,10 @@ class AsyncBrowsersResourceWithRawResponse:
     @cached_property
     def replays(self) -> AsyncReplaysResourceWithRawResponse:
         return AsyncReplaysResourceWithRawResponse(self._browsers.replays)
+
+    @cached_property
+    def fs(self) -> AsyncFsResourceWithRawResponse:
+        return AsyncFsResourceWithRawResponse(self._browsers.fs)
 
 
 class BrowsersResourceWithStreamingResponse:
@@ -512,6 +536,10 @@ class BrowsersResourceWithStreamingResponse:
     def replays(self) -> ReplaysResourceWithStreamingResponse:
         return ReplaysResourceWithStreamingResponse(self._browsers.replays)
 
+    @cached_property
+    def fs(self) -> FsResourceWithStreamingResponse:
+        return FsResourceWithStreamingResponse(self._browsers.fs)
+
 
 class AsyncBrowsersResourceWithStreamingResponse:
     def __init__(self, browsers: AsyncBrowsersResource) -> None:
@@ -536,3 +564,7 @@ class AsyncBrowsersResourceWithStreamingResponse:
     @cached_property
     def replays(self) -> AsyncReplaysResourceWithStreamingResponse:
         return AsyncReplaysResourceWithStreamingResponse(self._browsers.replays)
+
+    @cached_property
+    def fs(self) -> AsyncFsResourceWithStreamingResponse:
+        return AsyncFsResourceWithStreamingResponse(self._browsers.fs)
