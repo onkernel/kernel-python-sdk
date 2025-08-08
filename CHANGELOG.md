@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.9.0 (2025-08-08)
+
+Full Changelog: [v0.8.3...v0.9.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.8.3...v0.9.0)
+
+### Features
+
+* **api:** browser instance file i/o ([14667cd](https://github.com/onkernel/kernel-python-sdk/commit/14667cdfd06540585ffac570b8963b322cf9ef23))
+
+
+### Chores
+
+* **internal:** fix ruff target version ([07b55e4](https://github.com/onkernel/kernel-python-sdk/commit/07b55e4a4b65b403b3b6f69b95b221e2020cf30b))
+
 ## 0.8.3 (2025-08-01)
 
 Full Changelog: [v0.8.2...v0.8.3](https://github.com/onkernel/kernel-python-sdk/compare/v0.8.2...v0.8.3)
