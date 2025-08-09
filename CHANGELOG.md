@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.1 (2025-08-09)
+
+Full Changelog: [v0.9.0...v0.9.1](https://github.com/onkernel/kernel-python-sdk/compare/v0.9.0...v0.9.1)
+
+### Chores
+
+* **internal:** update comment in script ([4279b99](https://github.com/onkernel/kernel-python-sdk/commit/4279b9927f99897dde36c07f5dc39ed2680ad261))
+* update @stainless-api/prism-cli to v5.15.0 ([e78750e](https://github.com/onkernel/kernel-python-sdk/commit/e78750efdc419051c8db37ac89df111e81fa0401))
+
 ## 0.9.0 (2025-08-08)
 
 Full Changelog: [v0.8.3...v0.9.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.8.3...v0.9.0)
