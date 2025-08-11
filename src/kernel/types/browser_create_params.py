@@ -27,3 +27,10 @@ class BrowserCreateParams(TypedDict, total=False):
     If true, launches the browser in stealth mode to reduce detection by anti-bot
     mechanisms.
     """
+
+    timeout_seconds: int
+    """The number of seconds of inactivity before the browser session is terminated.
+
+    Only applicable to non-persistent browsers. Activity includes CDP connections
+    and live view connections. Defaults to 60 seconds.
+    """
