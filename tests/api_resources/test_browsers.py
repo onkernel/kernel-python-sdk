@@ -35,6 +35,7 @@ class TestBrowsers:
             invocation_id="rr33xuugxj9h0bkf1rdt2bet",
             persistence={"id": "my-awesome-browser-for-user-1234"},
             stealth=True,
+            timeout_seconds=0,
         )
         assert_matches_type(BrowserCreateResponse, browser, path=["response"])
 
@@ -226,6 +227,7 @@ class TestAsyncBrowsers:
             invocation_id="rr33xuugxj9h0bkf1rdt2bet",
             persistence={"id": "my-awesome-browser-for-user-1234"},
             stealth=True,
+            timeout_seconds=0,
         )
         assert_matches_type(BrowserCreateResponse, browser, path=["response"])
 
