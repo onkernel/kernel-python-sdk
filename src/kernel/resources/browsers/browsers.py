@@ -75,6 +75,7 @@ class BrowsersResource(SyncAPIResource):
         invocation_id: str | NotGiven = NOT_GIVEN,
         persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
         stealth: bool | NotGiven = NOT_GIVEN,
+        timeout_seconds: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -96,6 +97,10 @@ class BrowsersResource(SyncAPIResource):
           stealth: If true, launches the browser in stealth mode to reduce detection by anti-bot
               mechanisms.
 
+          timeout_seconds: The number of seconds of inactivity before the browser session is terminated.
+              Only applicable to non-persistent browsers. Activity includes CDP connections
+              and live view connections. Defaults to 60 seconds.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -112,6 +117,7 @@ class BrowsersResource(SyncAPIResource):
                     "invocation_id": invocation_id,
                     "persistence": persistence,
                     "stealth": stealth,
+                    "timeout_seconds": timeout_seconds,
                 },
                 browser_create_params.BrowserCreateParams,
             ),
@@ -281,6 +287,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         invocation_id: str | NotGiven = NOT_GIVEN,
         persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
         stealth: bool | NotGiven = NOT_GIVEN,
+        timeout_seconds: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -302,6 +309,10 @@ class AsyncBrowsersResource(AsyncAPIResource):
           stealth: If true, launches the browser in stealth mode to reduce detection by anti-bot
               mechanisms.
 
+          timeout_seconds: The number of seconds of inactivity before the browser session is terminated.
+              Only applicable to non-persistent browsers. Activity includes CDP connections
+              and live view connections. Defaults to 60 seconds.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -318,6 +329,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
                     "invocation_id": invocation_id,
                     "persistence": persistence,
                     "stealth": stealth,
+                    "timeout_seconds": timeout_seconds,
                 },
                 browser_create_params.BrowserCreateParams,
             ),
