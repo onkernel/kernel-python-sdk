@@ -28,7 +28,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestFs:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_directory(self, client: Kernel) -> None:
         f = client.browsers.fs.create_directory(
@@ -37,7 +37,7 @@ class TestFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_directory_with_all_params(self, client: Kernel) -> None:
         f = client.browsers.fs.create_directory(
@@ -47,7 +47,7 @@ class TestFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_create_directory(self, client: Kernel) -> None:
         response = client.browsers.fs.with_raw_response.create_directory(
@@ -60,7 +60,7 @@ class TestFs:
         f = response.parse()
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_create_directory(self, client: Kernel) -> None:
         with client.browsers.fs.with_streaming_response.create_directory(
@@ -75,7 +75,7 @@ class TestFs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_create_directory(self, client: Kernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -84,7 +84,7 @@ class TestFs:
                 path="/J!",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_delete_directory(self, client: Kernel) -> None:
         f = client.browsers.fs.delete_directory(
@@ -93,7 +93,7 @@ class TestFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_delete_directory(self, client: Kernel) -> None:
         response = client.browsers.fs.with_raw_response.delete_directory(
@@ -106,7 +106,7 @@ class TestFs:
         f = response.parse()
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_delete_directory(self, client: Kernel) -> None:
         with client.browsers.fs.with_streaming_response.delete_directory(
@@ -121,7 +121,7 @@ class TestFs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_delete_directory(self, client: Kernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -130,7 +130,7 @@ class TestFs:
                 path="/J!",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_delete_file(self, client: Kernel) -> None:
         f = client.browsers.fs.delete_file(
@@ -139,7 +139,7 @@ class TestFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_delete_file(self, client: Kernel) -> None:
         response = client.browsers.fs.with_raw_response.delete_file(
@@ -152,7 +152,7 @@ class TestFs:
         f = response.parse()
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_delete_file(self, client: Kernel) -> None:
         with client.browsers.fs.with_streaming_response.delete_file(
@@ -167,7 +167,7 @@ class TestFs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_delete_file(self, client: Kernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -176,7 +176,7 @@ class TestFs:
                 path="/J!",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_file_info(self, client: Kernel) -> None:
         f = client.browsers.fs.file_info(
@@ -185,7 +185,7 @@ class TestFs:
         )
         assert_matches_type(FFileInfoResponse, f, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_file_info(self, client: Kernel) -> None:
         response = client.browsers.fs.with_raw_response.file_info(
@@ -198,7 +198,7 @@ class TestFs:
         f = response.parse()
         assert_matches_type(FFileInfoResponse, f, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_file_info(self, client: Kernel) -> None:
         with client.browsers.fs.with_streaming_response.file_info(
@@ -213,7 +213,7 @@ class TestFs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_file_info(self, client: Kernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -222,7 +222,7 @@ class TestFs:
                 path="/J!",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list_files(self, client: Kernel) -> None:
         f = client.browsers.fs.list_files(
@@ -231,7 +231,7 @@ class TestFs:
         )
         assert_matches_type(FListFilesResponse, f, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_list_files(self, client: Kernel) -> None:
         response = client.browsers.fs.with_raw_response.list_files(
@@ -244,7 +244,7 @@ class TestFs:
         f = response.parse()
         assert_matches_type(FListFilesResponse, f, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_list_files(self, client: Kernel) -> None:
         with client.browsers.fs.with_streaming_response.list_files(
@@ -259,7 +259,7 @@ class TestFs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_list_files(self, client: Kernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -268,7 +268,7 @@ class TestFs:
                 path="/J!",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_move(self, client: Kernel) -> None:
         f = client.browsers.fs.move(
@@ -278,7 +278,7 @@ class TestFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_move(self, client: Kernel) -> None:
         response = client.browsers.fs.with_raw_response.move(
@@ -292,7 +292,7 @@ class TestFs:
         f = response.parse()
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_move(self, client: Kernel) -> None:
         with client.browsers.fs.with_streaming_response.move(
@@ -308,7 +308,7 @@ class TestFs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_move(self, client: Kernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -318,7 +318,6 @@ class TestFs:
                 src_path="/J!",
             )
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_method_read_file(self, client: Kernel, respx_mock: MockRouter) -> None:
@@ -332,7 +331,6 @@ class TestFs:
         assert cast(Any, f.is_closed) is True
         assert isinstance(f, BinaryAPIResponse)
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response_read_file(self, client: Kernel, respx_mock: MockRouter) -> None:
@@ -348,7 +346,6 @@ class TestFs:
         assert f.json() == {"foo": "bar"}
         assert isinstance(f, BinaryAPIResponse)
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_streaming_response_read_file(self, client: Kernel, respx_mock: MockRouter) -> None:
@@ -366,7 +363,6 @@ class TestFs:
 
         assert cast(Any, f.is_closed) is True
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_path_params_read_file(self, client: Kernel) -> None:
@@ -376,7 +372,7 @@ class TestFs:
                 path="/J!",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_set_file_permissions(self, client: Kernel) -> None:
         f = client.browsers.fs.set_file_permissions(
@@ -386,7 +382,7 @@ class TestFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_set_file_permissions_with_all_params(self, client: Kernel) -> None:
         f = client.browsers.fs.set_file_permissions(
@@ -398,7 +394,7 @@ class TestFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_set_file_permissions(self, client: Kernel) -> None:
         response = client.browsers.fs.with_raw_response.set_file_permissions(
@@ -412,7 +408,7 @@ class TestFs:
         f = response.parse()
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_set_file_permissions(self, client: Kernel) -> None:
         with client.browsers.fs.with_streaming_response.set_file_permissions(
@@ -428,7 +424,7 @@ class TestFs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_set_file_permissions(self, client: Kernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -438,7 +434,7 @@ class TestFs:
                 path="/J!",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_write_file(self, client: Kernel) -> None:
         f = client.browsers.fs.write_file(
@@ -448,7 +444,7 @@ class TestFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_write_file_with_all_params(self, client: Kernel) -> None:
         f = client.browsers.fs.write_file(
@@ -459,7 +455,7 @@ class TestFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_write_file(self, client: Kernel) -> None:
         response = client.browsers.fs.with_raw_response.write_file(
@@ -473,7 +469,7 @@ class TestFs:
         f = response.parse()
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_write_file(self, client: Kernel) -> None:
         with client.browsers.fs.with_streaming_response.write_file(
@@ -489,7 +485,7 @@ class TestFs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_write_file(self, client: Kernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -505,7 +501,7 @@ class TestAsyncFs:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_directory(self, async_client: AsyncKernel) -> None:
         f = await async_client.browsers.fs.create_directory(
@@ -514,7 +510,7 @@ class TestAsyncFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_directory_with_all_params(self, async_client: AsyncKernel) -> None:
         f = await async_client.browsers.fs.create_directory(
@@ -524,7 +520,7 @@ class TestAsyncFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_create_directory(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.fs.with_raw_response.create_directory(
@@ -537,7 +533,7 @@ class TestAsyncFs:
         f = await response.parse()
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_create_directory(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.fs.with_streaming_response.create_directory(
@@ -552,7 +548,7 @@ class TestAsyncFs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_create_directory(self, async_client: AsyncKernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -561,7 +557,7 @@ class TestAsyncFs:
                 path="/J!",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_delete_directory(self, async_client: AsyncKernel) -> None:
         f = await async_client.browsers.fs.delete_directory(
@@ -570,7 +566,7 @@ class TestAsyncFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_delete_directory(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.fs.with_raw_response.delete_directory(
@@ -583,7 +579,7 @@ class TestAsyncFs:
         f = await response.parse()
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_delete_directory(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.fs.with_streaming_response.delete_directory(
@@ -598,7 +594,7 @@ class TestAsyncFs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_delete_directory(self, async_client: AsyncKernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -607,7 +603,7 @@ class TestAsyncFs:
                 path="/J!",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_delete_file(self, async_client: AsyncKernel) -> None:
         f = await async_client.browsers.fs.delete_file(
@@ -616,7 +612,7 @@ class TestAsyncFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_delete_file(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.fs.with_raw_response.delete_file(
@@ -629,7 +625,7 @@ class TestAsyncFs:
         f = await response.parse()
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_delete_file(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.fs.with_streaming_response.delete_file(
@@ -644,7 +640,7 @@ class TestAsyncFs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_delete_file(self, async_client: AsyncKernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -653,7 +649,7 @@ class TestAsyncFs:
                 path="/J!",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_file_info(self, async_client: AsyncKernel) -> None:
         f = await async_client.browsers.fs.file_info(
@@ -662,7 +658,7 @@ class TestAsyncFs:
         )
         assert_matches_type(FFileInfoResponse, f, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_file_info(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.fs.with_raw_response.file_info(
@@ -675,7 +671,7 @@ class TestAsyncFs:
         f = await response.parse()
         assert_matches_type(FFileInfoResponse, f, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_file_info(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.fs.with_streaming_response.file_info(
@@ -690,7 +686,7 @@ class TestAsyncFs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_file_info(self, async_client: AsyncKernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -699,7 +695,7 @@ class TestAsyncFs:
                 path="/J!",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list_files(self, async_client: AsyncKernel) -> None:
         f = await async_client.browsers.fs.list_files(
@@ -708,7 +704,7 @@ class TestAsyncFs:
         )
         assert_matches_type(FListFilesResponse, f, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_list_files(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.fs.with_raw_response.list_files(
@@ -721,7 +717,7 @@ class TestAsyncFs:
         f = await response.parse()
         assert_matches_type(FListFilesResponse, f, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_list_files(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.fs.with_streaming_response.list_files(
@@ -736,7 +732,7 @@ class TestAsyncFs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_list_files(self, async_client: AsyncKernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -745,7 +741,7 @@ class TestAsyncFs:
                 path="/J!",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_move(self, async_client: AsyncKernel) -> None:
         f = await async_client.browsers.fs.move(
@@ -755,7 +751,7 @@ class TestAsyncFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_move(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.fs.with_raw_response.move(
@@ -769,7 +765,7 @@ class TestAsyncFs:
         f = await response.parse()
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_move(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.fs.with_streaming_response.move(
@@ -785,7 +781,7 @@ class TestAsyncFs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_move(self, async_client: AsyncKernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -795,7 +791,6 @@ class TestAsyncFs:
                 src_path="/J!",
             )
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_method_read_file(self, async_client: AsyncKernel, respx_mock: MockRouter) -> None:
@@ -809,7 +804,6 @@ class TestAsyncFs:
         assert cast(Any, f.is_closed) is True
         assert isinstance(f, AsyncBinaryAPIResponse)
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_raw_response_read_file(self, async_client: AsyncKernel, respx_mock: MockRouter) -> None:
@@ -825,7 +819,6 @@ class TestAsyncFs:
         assert await f.json() == {"foo": "bar"}
         assert isinstance(f, AsyncBinaryAPIResponse)
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_streaming_response_read_file(self, async_client: AsyncKernel, respx_mock: MockRouter) -> None:
@@ -843,7 +836,6 @@ class TestAsyncFs:
 
         assert cast(Any, f.is_closed) is True
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_path_params_read_file(self, async_client: AsyncKernel) -> None:
@@ -853,7 +845,7 @@ class TestAsyncFs:
                 path="/J!",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_set_file_permissions(self, async_client: AsyncKernel) -> None:
         f = await async_client.browsers.fs.set_file_permissions(
@@ -863,7 +855,7 @@ class TestAsyncFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_set_file_permissions_with_all_params(self, async_client: AsyncKernel) -> None:
         f = await async_client.browsers.fs.set_file_permissions(
@@ -875,7 +867,7 @@ class TestAsyncFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_set_file_permissions(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.fs.with_raw_response.set_file_permissions(
@@ -889,7 +881,7 @@ class TestAsyncFs:
         f = await response.parse()
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_set_file_permissions(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.fs.with_streaming_response.set_file_permissions(
@@ -905,7 +897,7 @@ class TestAsyncFs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_set_file_permissions(self, async_client: AsyncKernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -915,7 +907,7 @@ class TestAsyncFs:
                 path="/J!",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_write_file(self, async_client: AsyncKernel) -> None:
         f = await async_client.browsers.fs.write_file(
@@ -925,7 +917,7 @@ class TestAsyncFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_write_file_with_all_params(self, async_client: AsyncKernel) -> None:
         f = await async_client.browsers.fs.write_file(
@@ -936,7 +928,7 @@ class TestAsyncFs:
         )
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_write_file(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.fs.with_raw_response.write_file(
@@ -950,7 +942,7 @@ class TestAsyncFs:
         f = await response.parse()
         assert f is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_write_file(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.fs.with_streaming_response.write_file(
@@ -966,7 +958,7 @@ class TestAsyncFs:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_write_file(self, async_client: AsyncKernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
