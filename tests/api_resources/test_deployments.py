@@ -21,7 +21,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestDeployments:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create(self, client: Kernel) -> None:
         deployment = client.deployments.create(
@@ -30,7 +30,7 @@ class TestDeployments:
         )
         assert_matches_type(DeploymentCreateResponse, deployment, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Kernel) -> None:
         deployment = client.deployments.create(
@@ -43,7 +43,7 @@ class TestDeployments:
         )
         assert_matches_type(DeploymentCreateResponse, deployment, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Kernel) -> None:
         response = client.deployments.with_raw_response.create(
@@ -56,7 +56,7 @@ class TestDeployments:
         deployment = response.parse()
         assert_matches_type(DeploymentCreateResponse, deployment, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Kernel) -> None:
         with client.deployments.with_streaming_response.create(
@@ -71,7 +71,7 @@ class TestDeployments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Kernel) -> None:
         deployment = client.deployments.retrieve(
@@ -79,7 +79,7 @@ class TestDeployments:
         )
         assert_matches_type(DeploymentRetrieveResponse, deployment, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Kernel) -> None:
         response = client.deployments.with_raw_response.retrieve(
@@ -91,7 +91,7 @@ class TestDeployments:
         deployment = response.parse()
         assert_matches_type(DeploymentRetrieveResponse, deployment, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Kernel) -> None:
         with client.deployments.with_streaming_response.retrieve(
@@ -105,7 +105,7 @@ class TestDeployments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Kernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -113,13 +113,13 @@ class TestDeployments:
                 "",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list(self, client: Kernel) -> None:
         deployment = client.deployments.list()
         assert_matches_type(DeploymentListResponse, deployment, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Kernel) -> None:
         deployment = client.deployments.list(
@@ -127,7 +127,7 @@ class TestDeployments:
         )
         assert_matches_type(DeploymentListResponse, deployment, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Kernel) -> None:
         response = client.deployments.with_raw_response.list()
@@ -137,7 +137,7 @@ class TestDeployments:
         deployment = response.parse()
         assert_matches_type(DeploymentListResponse, deployment, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Kernel) -> None:
         with client.deployments.with_streaming_response.list() as response:
@@ -149,9 +149,7 @@ class TestDeployments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
-    )
+    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
     @parametrize
     def test_method_follow(self, client: Kernel) -> None:
         deployment_stream = client.deployments.follow(
@@ -159,9 +157,7 @@ class TestDeployments:
         )
         deployment_stream.response.close()
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
-    )
+    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
     @parametrize
     def test_method_follow_with_all_params(self, client: Kernel) -> None:
         deployment_stream = client.deployments.follow(
@@ -170,9 +166,7 @@ class TestDeployments:
         )
         deployment_stream.response.close()
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
-    )
+    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
     @parametrize
     def test_raw_response_follow(self, client: Kernel) -> None:
         response = client.deployments.with_raw_response.follow(
@@ -183,9 +177,7 @@ class TestDeployments:
         stream = response.parse()
         stream.close()
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
-    )
+    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
     @parametrize
     def test_streaming_response_follow(self, client: Kernel) -> None:
         with client.deployments.with_streaming_response.follow(
@@ -199,9 +191,7 @@ class TestDeployments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
-    )
+    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
     @parametrize
     def test_path_params_follow(self, client: Kernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -215,7 +205,7 @@ class TestAsyncDeployments:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncKernel) -> None:
         deployment = await async_client.deployments.create(
@@ -224,7 +214,7 @@ class TestAsyncDeployments:
         )
         assert_matches_type(DeploymentCreateResponse, deployment, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncKernel) -> None:
         deployment = await async_client.deployments.create(
@@ -237,7 +227,7 @@ class TestAsyncDeployments:
         )
         assert_matches_type(DeploymentCreateResponse, deployment, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncKernel) -> None:
         response = await async_client.deployments.with_raw_response.create(
@@ -250,7 +240,7 @@ class TestAsyncDeployments:
         deployment = await response.parse()
         assert_matches_type(DeploymentCreateResponse, deployment, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncKernel) -> None:
         async with async_client.deployments.with_streaming_response.create(
@@ -265,7 +255,7 @@ class TestAsyncDeployments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncKernel) -> None:
         deployment = await async_client.deployments.retrieve(
@@ -273,7 +263,7 @@ class TestAsyncDeployments:
         )
         assert_matches_type(DeploymentRetrieveResponse, deployment, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncKernel) -> None:
         response = await async_client.deployments.with_raw_response.retrieve(
@@ -285,7 +275,7 @@ class TestAsyncDeployments:
         deployment = await response.parse()
         assert_matches_type(DeploymentRetrieveResponse, deployment, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncKernel) -> None:
         async with async_client.deployments.with_streaming_response.retrieve(
@@ -299,7 +289,7 @@ class TestAsyncDeployments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncKernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -307,13 +297,13 @@ class TestAsyncDeployments:
                 "",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncKernel) -> None:
         deployment = await async_client.deployments.list()
         assert_matches_type(DeploymentListResponse, deployment, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncKernel) -> None:
         deployment = await async_client.deployments.list(
@@ -321,7 +311,7 @@ class TestAsyncDeployments:
         )
         assert_matches_type(DeploymentListResponse, deployment, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncKernel) -> None:
         response = await async_client.deployments.with_raw_response.list()
@@ -331,7 +321,7 @@ class TestAsyncDeployments:
         deployment = await response.parse()
         assert_matches_type(DeploymentListResponse, deployment, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncKernel) -> None:
         async with async_client.deployments.with_streaming_response.list() as response:
@@ -343,9 +333,7 @@ class TestAsyncDeployments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
-    )
+    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
     @parametrize
     async def test_method_follow(self, async_client: AsyncKernel) -> None:
         deployment_stream = await async_client.deployments.follow(
@@ -353,9 +341,7 @@ class TestAsyncDeployments:
         )
         await deployment_stream.response.aclose()
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
-    )
+    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
     @parametrize
     async def test_method_follow_with_all_params(self, async_client: AsyncKernel) -> None:
         deployment_stream = await async_client.deployments.follow(
@@ -364,9 +350,7 @@ class TestAsyncDeployments:
         )
         await deployment_stream.response.aclose()
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
-    )
+    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
     @parametrize
     async def test_raw_response_follow(self, async_client: AsyncKernel) -> None:
         response = await async_client.deployments.with_raw_response.follow(
@@ -377,9 +361,7 @@ class TestAsyncDeployments:
         stream = await response.parse()
         await stream.close()
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
-    )
+    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
     @parametrize
     async def test_streaming_response_follow(self, async_client: AsyncKernel) -> None:
         async with async_client.deployments.with_streaming_response.follow(
@@ -393,9 +375,7 @@ class TestAsyncDeployments:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(
-        reason="currently no good way to test endpoints with content type text/event-stream, Prism mock server will fail"
-    )
+    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
     @parametrize
     async def test_path_params_follow(self, async_client: AsyncKernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
