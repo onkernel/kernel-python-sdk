@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.9.1 (2025-08-15)
+
+Full Changelog: [v0.9.0...v0.9.1](https://github.com/onkernel/kernel-python-sdk/compare/v0.9.0...v0.9.1)
+
+### Features
+
+* **api:** add browser timeouts ([a89eff3](https://github.com/onkernel/kernel-python-sdk/commit/a89eff39afa75499d0efe2c54fe12a0a18cdf90e))
+* **api:** add browser ttls ([ad95f5f](https://github.com/onkernel/kernel-python-sdk/commit/ad95f5f609fead980b2d96b86f871682cad75ae2))
+
+
+### Chores
+
+* **internal:** codegen related update ([024c808](https://github.com/onkernel/kernel-python-sdk/commit/024c80865450277ca40433a7caaff078b5a25486))
+* **internal:** update comment in script ([4279b99](https://github.com/onkernel/kernel-python-sdk/commit/4279b9927f99897dde36c07f5dc39ed2680ad261))
+* update @stainless-api/prism-cli to v5.15.0 ([e78750e](https://github.com/onkernel/kernel-python-sdk/commit/e78750efdc419051c8db37ac89df111e81fa0401))
+
 ## 0.9.0 (2025-08-08)
 
 Full Changelog: [v0.8.3...v0.9.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.8.3...v0.9.0)
