@@ -7,8 +7,6 @@ Full Changelog: [v0.9.0...v0.9.1](https://github.com/onkernel/kernel-python-sdk/
 ### Features
 
 * **api:** add browser timeouts ([a89eff3](https://github.com/onkernel/kernel-python-sdk/commit/a89eff39afa75499d0efe2c54fe12a0a18cdf90e))
-* **api:** add browser ttls ([ad95f5f](https://github.com/onkernel/kernel-python-sdk/commit/ad95f5f609fead980b2d96b86f871682cad75ae2))
-
 
 ### Chores
 
