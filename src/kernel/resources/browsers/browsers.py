@@ -4,6 +4,14 @@ from __future__ import annotations
 
 import httpx
 
+from .logs import (
+    LogsResource,
+    AsyncLogsResource,
+    LogsResourceWithRawResponse,
+    AsyncLogsResourceWithRawResponse,
+    LogsResourceWithStreamingResponse,
+    AsyncLogsResourceWithStreamingResponse,
+)
 from .fs.fs import (
     FsResource,
     AsyncFsResource,
@@ -13,6 +21,14 @@ from .fs.fs import (
     AsyncFsResourceWithStreamingResponse,
 )
 from ...types import browser_create_params, browser_delete_params
+from .process import (
+    ProcessResource,
+    AsyncProcessResource,
+    ProcessResourceWithRawResponse,
+    AsyncProcessResourceWithRawResponse,
+    ProcessResourceWithStreamingResponse,
+    AsyncProcessResourceWithStreamingResponse,
+)
 from .replays import (
     ReplaysResource,
     AsyncReplaysResource,
@@ -48,6 +64,14 @@ class BrowsersResource(SyncAPIResource):
     @cached_property
     def fs(self) -> FsResource:
         return FsResource(self._client)
+
+    @cached_property
+    def process(self) -> ProcessResource:
+        return ProcessResource(self._client)
+
+    @cached_property
+    def logs(self) -> LogsResource:
+        return LogsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> BrowsersResourceWithRawResponse:
@@ -260,6 +284,14 @@ class AsyncBrowsersResource(AsyncAPIResource):
     @cached_property
     def fs(self) -> AsyncFsResource:
         return AsyncFsResource(self._client)
+
+    @cached_property
+    def process(self) -> AsyncProcessResource:
+        return AsyncProcessResource(self._client)
+
+    @cached_property
+    def logs(self) -> AsyncLogsResource:
+        return AsyncLogsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncBrowsersResourceWithRawResponse:
@@ -494,6 +526,14 @@ class BrowsersResourceWithRawResponse:
     def fs(self) -> FsResourceWithRawResponse:
         return FsResourceWithRawResponse(self._browsers.fs)
 
+    @cached_property
+    def process(self) -> ProcessResourceWithRawResponse:
+        return ProcessResourceWithRawResponse(self._browsers.process)
+
+    @cached_property
+    def logs(self) -> LogsResourceWithRawResponse:
+        return LogsResourceWithRawResponse(self._browsers.logs)
+
 
 class AsyncBrowsersResourceWithRawResponse:
     def __init__(self, browsers: AsyncBrowsersResource) -> None:
@@ -522,6 +562,14 @@ class AsyncBrowsersResourceWithRawResponse:
     @cached_property
     def fs(self) -> AsyncFsResourceWithRawResponse:
         return AsyncFsResourceWithRawResponse(self._browsers.fs)
+
+    @cached_property
+    def process(self) -> AsyncProcessResourceWithRawResponse:
+        return AsyncProcessResourceWithRawResponse(self._browsers.process)
+
+    @cached_property
+    def logs(self) -> AsyncLogsResourceWithRawResponse:
+        return AsyncLogsResourceWithRawResponse(self._browsers.logs)
 
 
 class BrowsersResourceWithStreamingResponse:
@@ -552,6 +600,14 @@ class BrowsersResourceWithStreamingResponse:
     def fs(self) -> FsResourceWithStreamingResponse:
         return FsResourceWithStreamingResponse(self._browsers.fs)
 
+    @cached_property
+    def process(self) -> ProcessResourceWithStreamingResponse:
+        return ProcessResourceWithStreamingResponse(self._browsers.process)
+
+    @cached_property
+    def logs(self) -> LogsResourceWithStreamingResponse:
+        return LogsResourceWithStreamingResponse(self._browsers.logs)
+
 
 class AsyncBrowsersResourceWithStreamingResponse:
     def __init__(self, browsers: AsyncBrowsersResource) -> None:
@@ -580,3 +636,11 @@ class AsyncBrowsersResourceWithStreamingResponse:
     @cached_property
     def fs(self) -> AsyncFsResourceWithStreamingResponse:
         return AsyncFsResourceWithStreamingResponse(self._browsers.fs)
+
+    @cached_property
+    def process(self) -> AsyncProcessResourceWithStreamingResponse:
+        return AsyncProcessResourceWithStreamingResponse(self._browsers.process)
+
+    @cached_property
+    def logs(self) -> AsyncLogsResourceWithStreamingResponse:
+        return AsyncLogsResourceWithStreamingResponse(self._browsers.logs)
