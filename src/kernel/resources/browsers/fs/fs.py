@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Mapping, Iterable, cast
+
 import httpx
 
 from .watch import (
@@ -13,8 +15,8 @@ from .watch import (
     AsyncWatchResourceWithStreamingResponse,
 )
 from ...._files import read_file_content, async_read_file_content
-from ...._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, FileContent
-from ...._utils import maybe_transform, async_maybe_transform
+from ...._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, FileTypes, FileContent
+from ...._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -34,13 +36,16 @@ from ...._response import (
 from ...._base_client import make_request_options
 from ....types.browsers import (
     f_move_params,
+    f_upload_params,
     f_file_info_params,
     f_read_file_params,
     f_list_files_params,
+    f_upload_zip_params,
     f_write_file_params,
     f_delete_file_params,
     f_create_directory_params,
     f_delete_directory_params,
+    f_download_dir_zip_params,
     f_set_file_permissions_params,
 )
 from ....types.browsers.f_file_info_response import FFileInfoResponse
@@ -194,6 +199,47 @@ class FsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
+        )
+
+    def download_dir_zip(
+        self,
+        id: str,
+        *,
+        path: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> BinaryAPIResponse:
+        """
+        Returns a ZIP file containing the contents of the specified directory.
+
+        Args:
+          path: Absolute directory path to archive and download.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "application/zip", **(extra_headers or {})}
+        return self._get(
+            f"/browsers/{id}/fs/download_dir_zip",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"path": path}, f_download_dir_zip_params.FDownloadDirZipParams),
+            ),
+            cast_to=BinaryAPIResponse,
         )
 
     def file_info(
@@ -419,6 +465,100 @@ class FsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def upload(
+        self,
+        id: str,
+        *,
+        files: Iterable[f_upload_params.File],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Allows uploading single or multiple files to the remote filesystem.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_minimal({"files": files})
+        extracted_files = extract_files(cast(Mapping[str, object], body), paths=[["files", "<array>", "file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
+        return self._post(
+            f"/browsers/{id}/fs/upload",
+            body=maybe_transform(body, f_upload_params.FUploadParams),
+            files=extracted_files,
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    def upload_zip(
+        self,
+        id: str,
+        *,
+        dest_path: str,
+        zip_file: FileTypes,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Upload a zip file and extract its contents to the specified destination path.
+
+        Args:
+          dest_path: Absolute destination directory to extract the archive to.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_minimal(
+            {
+                "dest_path": dest_path,
+                "zip_file": zip_file,
+            }
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["zip_file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
+        return self._post(
+            f"/browsers/{id}/fs/upload_zip",
+            body=maybe_transform(body, f_upload_zip_params.FUploadZipParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     def write_file(
         self,
         id: str,
@@ -618,6 +758,47 @@ class AsyncFsResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
+        )
+
+    async def download_dir_zip(
+        self,
+        id: str,
+        *,
+        path: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncBinaryAPIResponse:
+        """
+        Returns a ZIP file containing the contents of the specified directory.
+
+        Args:
+          path: Absolute directory path to archive and download.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "application/zip", **(extra_headers or {})}
+        return await self._get(
+            f"/browsers/{id}/fs/download_dir_zip",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"path": path}, f_download_dir_zip_params.FDownloadDirZipParams),
+            ),
+            cast_to=AsyncBinaryAPIResponse,
         )
 
     async def file_info(
@@ -843,6 +1024,100 @@ class AsyncFsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def upload(
+        self,
+        id: str,
+        *,
+        files: Iterable[f_upload_params.File],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Allows uploading single or multiple files to the remote filesystem.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_minimal({"files": files})
+        extracted_files = extract_files(cast(Mapping[str, object], body), paths=[["files", "<array>", "file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
+        return await self._post(
+            f"/browsers/{id}/fs/upload",
+            body=await async_maybe_transform(body, f_upload_params.FUploadParams),
+            files=extracted_files,
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    async def upload_zip(
+        self,
+        id: str,
+        *,
+        dest_path: str,
+        zip_file: FileTypes,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """
+        Upload a zip file and extract its contents to the specified destination path.
+
+        Args:
+          dest_path: Absolute destination directory to extract the archive to.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_minimal(
+            {
+                "dest_path": dest_path,
+                "zip_file": zip_file,
+            }
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["zip_file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
+        return await self._post(
+            f"/browsers/{id}/fs/upload_zip",
+            body=await async_maybe_transform(body, f_upload_zip_params.FUploadZipParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     async def write_file(
         self,
         id: str,
@@ -910,6 +1185,10 @@ class FsResourceWithRawResponse:
         self.delete_file = to_raw_response_wrapper(
             fs.delete_file,
         )
+        self.download_dir_zip = to_custom_raw_response_wrapper(
+            fs.download_dir_zip,
+            BinaryAPIResponse,
+        )
         self.file_info = to_raw_response_wrapper(
             fs.file_info,
         )
@@ -925,6 +1204,12 @@ class FsResourceWithRawResponse:
         )
         self.set_file_permissions = to_raw_response_wrapper(
             fs.set_file_permissions,
+        )
+        self.upload = to_raw_response_wrapper(
+            fs.upload,
+        )
+        self.upload_zip = to_raw_response_wrapper(
+            fs.upload_zip,
         )
         self.write_file = to_raw_response_wrapper(
             fs.write_file,
@@ -948,6 +1233,10 @@ class AsyncFsResourceWithRawResponse:
         self.delete_file = async_to_raw_response_wrapper(
             fs.delete_file,
         )
+        self.download_dir_zip = async_to_custom_raw_response_wrapper(
+            fs.download_dir_zip,
+            AsyncBinaryAPIResponse,
+        )
         self.file_info = async_to_raw_response_wrapper(
             fs.file_info,
         )
@@ -963,6 +1252,12 @@ class AsyncFsResourceWithRawResponse:
         )
         self.set_file_permissions = async_to_raw_response_wrapper(
             fs.set_file_permissions,
+        )
+        self.upload = async_to_raw_response_wrapper(
+            fs.upload,
+        )
+        self.upload_zip = async_to_raw_response_wrapper(
+            fs.upload_zip,
         )
         self.write_file = async_to_raw_response_wrapper(
             fs.write_file,
@@ -986,6 +1281,10 @@ class FsResourceWithStreamingResponse:
         self.delete_file = to_streamed_response_wrapper(
             fs.delete_file,
         )
+        self.download_dir_zip = to_custom_streamed_response_wrapper(
+            fs.download_dir_zip,
+            StreamedBinaryAPIResponse,
+        )
         self.file_info = to_streamed_response_wrapper(
             fs.file_info,
         )
@@ -1001,6 +1300,12 @@ class FsResourceWithStreamingResponse:
         )
         self.set_file_permissions = to_streamed_response_wrapper(
             fs.set_file_permissions,
+        )
+        self.upload = to_streamed_response_wrapper(
+            fs.upload,
+        )
+        self.upload_zip = to_streamed_response_wrapper(
+            fs.upload_zip,
         )
         self.write_file = to_streamed_response_wrapper(
             fs.write_file,
@@ -1024,6 +1329,10 @@ class AsyncFsResourceWithStreamingResponse:
         self.delete_file = async_to_streamed_response_wrapper(
             fs.delete_file,
         )
+        self.download_dir_zip = async_to_custom_streamed_response_wrapper(
+            fs.download_dir_zip,
+            AsyncStreamedBinaryAPIResponse,
+        )
         self.file_info = async_to_streamed_response_wrapper(
             fs.file_info,
         )
@@ -1039,6 +1348,12 @@ class AsyncFsResourceWithStreamingResponse:
         )
         self.set_file_permissions = async_to_streamed_response_wrapper(
             fs.set_file_permissions,
+        )
+        self.upload = async_to_streamed_response_wrapper(
+            fs.upload,
+        )
+        self.upload_zip = async_to_streamed_response_wrapper(
+            fs.upload_zip,
         )
         self.write_file = async_to_streamed_response_wrapper(
             fs.write_file,

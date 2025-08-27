@@ -8,6 +8,22 @@ from .fs import (
     FsResourceWithStreamingResponse,
     AsyncFsResourceWithStreamingResponse,
 )
+from .logs import (
+    LogsResource,
+    AsyncLogsResource,
+    LogsResourceWithRawResponse,
+    AsyncLogsResourceWithRawResponse,
+    LogsResourceWithStreamingResponse,
+    AsyncLogsResourceWithStreamingResponse,
+)
+from .process import (
+    ProcessResource,
+    AsyncProcessResource,
+    ProcessResourceWithRawResponse,
+    AsyncProcessResourceWithRawResponse,
+    ProcessResourceWithStreamingResponse,
+    AsyncProcessResourceWithStreamingResponse,
+)
 from .replays import (
     ReplaysResource,
     AsyncReplaysResource,
@@ -38,6 +54,18 @@ __all__ = [
     "AsyncFsResourceWithRawResponse",
     "FsResourceWithStreamingResponse",
     "AsyncFsResourceWithStreamingResponse",
+    "ProcessResource",
+    "AsyncProcessResource",
+    "ProcessResourceWithRawResponse",
+    "AsyncProcessResourceWithRawResponse",
+    "ProcessResourceWithStreamingResponse",
+    "AsyncProcessResourceWithStreamingResponse",
+    "LogsResource",
+    "AsyncLogsResource",
+    "LogsResourceWithRawResponse",
+    "AsyncLogsResourceWithRawResponse",
+    "LogsResourceWithStreamingResponse",
+    "AsyncLogsResourceWithStreamingResponse",
     "BrowsersResource",
     "AsyncBrowsersResource",
     "BrowsersResourceWithRawResponse",
