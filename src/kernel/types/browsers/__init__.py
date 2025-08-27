@@ -3,16 +3,30 @@
 from __future__ import annotations
 
 from .f_move_params import FMoveParams as FMoveParams
+from .f_upload_params import FUploadParams as FUploadParams
+from .log_stream_params import LogStreamParams as LogStreamParams
 from .f_file_info_params import FFileInfoParams as FFileInfoParams
 from .f_read_file_params import FReadFileParams as FReadFileParams
 from .f_list_files_params import FListFilesParams as FListFilesParams
+from .f_upload_zip_params import FUploadZipParams as FUploadZipParams
 from .f_write_file_params import FWriteFileParams as FWriteFileParams
+from .process_exec_params import ProcessExecParams as ProcessExecParams
+from .process_kill_params import ProcessKillParams as ProcessKillParams
 from .replay_start_params import ReplayStartParams as ReplayStartParams
 from .f_delete_file_params import FDeleteFileParams as FDeleteFileParams
 from .f_file_info_response import FFileInfoResponse as FFileInfoResponse
+from .process_spawn_params import ProcessSpawnParams as ProcessSpawnParams
+from .process_stdin_params import ProcessStdinParams as ProcessStdinParams
 from .replay_list_response import ReplayListResponse as ReplayListResponse
 from .f_list_files_response import FListFilesResponse as FListFilesResponse
+from .process_exec_response import ProcessExecResponse as ProcessExecResponse
+from .process_kill_response import ProcessKillResponse as ProcessKillResponse
 from .replay_start_response import ReplayStartResponse as ReplayStartResponse
+from .process_spawn_response import ProcessSpawnResponse as ProcessSpawnResponse
+from .process_stdin_response import ProcessStdinResponse as ProcessStdinResponse
+from .process_status_response import ProcessStatusResponse as ProcessStatusResponse
 from .f_create_directory_params import FCreateDirectoryParams as FCreateDirectoryParams
 from .f_delete_directory_params import FDeleteDirectoryParams as FDeleteDirectoryParams
+from .f_download_dir_zip_params import FDownloadDirZipParams as FDownloadDirZipParams
 from .f_set_file_permissions_params import FSetFilePermissionsParams as FSetFilePermissionsParams
+from .process_stdout_stream_response import ProcessStdoutStreamResponse as ProcessStdoutStreamResponse

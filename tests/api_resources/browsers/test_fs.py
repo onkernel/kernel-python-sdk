@@ -176,6 +176,60 @@ class TestFs:
                 path="/J!",
             )
 
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_method_download_dir_zip(self, client: Kernel, respx_mock: MockRouter) -> None:
+        respx_mock.get("/browsers/id/fs/download_dir_zip").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        f = client.browsers.fs.download_dir_zip(
+            id="id",
+            path="/J!",
+        )
+        assert f.is_closed
+        assert f.json() == {"foo": "bar"}
+        assert cast(Any, f.is_closed) is True
+        assert isinstance(f, BinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_raw_response_download_dir_zip(self, client: Kernel, respx_mock: MockRouter) -> None:
+        respx_mock.get("/browsers/id/fs/download_dir_zip").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+
+        f = client.browsers.fs.with_raw_response.download_dir_zip(
+            id="id",
+            path="/J!",
+        )
+
+        assert f.is_closed is True
+        assert f.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert f.json() == {"foo": "bar"}
+        assert isinstance(f, BinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_streaming_response_download_dir_zip(self, client: Kernel, respx_mock: MockRouter) -> None:
+        respx_mock.get("/browsers/id/fs/download_dir_zip").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        with client.browsers.fs.with_streaming_response.download_dir_zip(
+            id="id",
+            path="/J!",
+        ) as f:
+            assert not f.is_closed
+            assert f.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            assert f.json() == {"foo": "bar"}
+            assert cast(Any, f.is_closed) is True
+            assert isinstance(f, StreamedBinaryAPIResponse)
+
+        assert cast(Any, f.is_closed) is True
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_path_params_download_dir_zip(self, client: Kernel) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.browsers.fs.with_raw_response.download_dir_zip(
+                id="",
+                path="/J!",
+            )
+
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_file_info(self, client: Kernel) -> None:
@@ -436,6 +490,122 @@ class TestFs:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    def test_method_upload(self, client: Kernel) -> None:
+        f = client.browsers.fs.upload(
+            id="id",
+            files=[
+                {
+                    "dest_path": "/J!",
+                    "file": b"raw file contents",
+                }
+            ],
+        )
+        assert f is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_upload(self, client: Kernel) -> None:
+        response = client.browsers.fs.with_raw_response.upload(
+            id="id",
+            files=[
+                {
+                    "dest_path": "/J!",
+                    "file": b"raw file contents",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        f = response.parse()
+        assert f is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_upload(self, client: Kernel) -> None:
+        with client.browsers.fs.with_streaming_response.upload(
+            id="id",
+            files=[
+                {
+                    "dest_path": "/J!",
+                    "file": b"raw file contents",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            f = response.parse()
+            assert f is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_upload(self, client: Kernel) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.browsers.fs.with_raw_response.upload(
+                id="",
+                files=[
+                    {
+                        "dest_path": "/J!",
+                        "file": b"raw file contents",
+                    }
+                ],
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_upload_zip(self, client: Kernel) -> None:
+        f = client.browsers.fs.upload_zip(
+            id="id",
+            dest_path="/J!",
+            zip_file=b"raw file contents",
+        )
+        assert f is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_upload_zip(self, client: Kernel) -> None:
+        response = client.browsers.fs.with_raw_response.upload_zip(
+            id="id",
+            dest_path="/J!",
+            zip_file=b"raw file contents",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        f = response.parse()
+        assert f is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_upload_zip(self, client: Kernel) -> None:
+        with client.browsers.fs.with_streaming_response.upload_zip(
+            id="id",
+            dest_path="/J!",
+            zip_file=b"raw file contents",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            f = response.parse()
+            assert f is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_upload_zip(self, client: Kernel) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.browsers.fs.with_raw_response.upload_zip(
+                id="",
+                dest_path="/J!",
+                zip_file=b"raw file contents",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     def test_method_write_file(self, client: Kernel) -> None:
         f = client.browsers.fs.write_file(
             id="id",
@@ -645,6 +815,60 @@ class TestAsyncFs:
     async def test_path_params_delete_file(self, async_client: AsyncKernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.browsers.fs.with_raw_response.delete_file(
+                id="",
+                path="/J!",
+            )
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_method_download_dir_zip(self, async_client: AsyncKernel, respx_mock: MockRouter) -> None:
+        respx_mock.get("/browsers/id/fs/download_dir_zip").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        f = await async_client.browsers.fs.download_dir_zip(
+            id="id",
+            path="/J!",
+        )
+        assert f.is_closed
+        assert await f.json() == {"foo": "bar"}
+        assert cast(Any, f.is_closed) is True
+        assert isinstance(f, AsyncBinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_raw_response_download_dir_zip(self, async_client: AsyncKernel, respx_mock: MockRouter) -> None:
+        respx_mock.get("/browsers/id/fs/download_dir_zip").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+
+        f = await async_client.browsers.fs.with_raw_response.download_dir_zip(
+            id="id",
+            path="/J!",
+        )
+
+        assert f.is_closed is True
+        assert f.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert await f.json() == {"foo": "bar"}
+        assert isinstance(f, AsyncBinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_streaming_response_download_dir_zip(self, async_client: AsyncKernel, respx_mock: MockRouter) -> None:
+        respx_mock.get("/browsers/id/fs/download_dir_zip").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        async with async_client.browsers.fs.with_streaming_response.download_dir_zip(
+            id="id",
+            path="/J!",
+        ) as f:
+            assert not f.is_closed
+            assert f.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            assert await f.json() == {"foo": "bar"}
+            assert cast(Any, f.is_closed) is True
+            assert isinstance(f, AsyncStreamedBinaryAPIResponse)
+
+        assert cast(Any, f.is_closed) is True
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_path_params_download_dir_zip(self, async_client: AsyncKernel) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.browsers.fs.with_raw_response.download_dir_zip(
                 id="",
                 path="/J!",
             )
@@ -905,6 +1129,122 @@ class TestAsyncFs:
                 id="",
                 mode="0611",
                 path="/J!",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_upload(self, async_client: AsyncKernel) -> None:
+        f = await async_client.browsers.fs.upload(
+            id="id",
+            files=[
+                {
+                    "dest_path": "/J!",
+                    "file": b"raw file contents",
+                }
+            ],
+        )
+        assert f is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_upload(self, async_client: AsyncKernel) -> None:
+        response = await async_client.browsers.fs.with_raw_response.upload(
+            id="id",
+            files=[
+                {
+                    "dest_path": "/J!",
+                    "file": b"raw file contents",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        f = await response.parse()
+        assert f is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_upload(self, async_client: AsyncKernel) -> None:
+        async with async_client.browsers.fs.with_streaming_response.upload(
+            id="id",
+            files=[
+                {
+                    "dest_path": "/J!",
+                    "file": b"raw file contents",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            f = await response.parse()
+            assert f is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_upload(self, async_client: AsyncKernel) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.browsers.fs.with_raw_response.upload(
+                id="",
+                files=[
+                    {
+                        "dest_path": "/J!",
+                        "file": b"raw file contents",
+                    }
+                ],
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_upload_zip(self, async_client: AsyncKernel) -> None:
+        f = await async_client.browsers.fs.upload_zip(
+            id="id",
+            dest_path="/J!",
+            zip_file=b"raw file contents",
+        )
+        assert f is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_upload_zip(self, async_client: AsyncKernel) -> None:
+        response = await async_client.browsers.fs.with_raw_response.upload_zip(
+            id="id",
+            dest_path="/J!",
+            zip_file=b"raw file contents",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        f = await response.parse()
+        assert f is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_upload_zip(self, async_client: AsyncKernel) -> None:
+        async with async_client.browsers.fs.with_streaming_response.upload_zip(
+            id="id",
+            dest_path="/J!",
+            zip_file=b"raw file contents",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            f = await response.parse()
+            assert f is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_upload_zip(self, async_client: AsyncKernel) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.browsers.fs.with_raw_response.upload_zip(
+                id="",
+                dest_path="/J!",
+                zip_file=b"raw file contents",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
