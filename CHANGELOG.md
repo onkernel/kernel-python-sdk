@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.10.0 (2025-08-27)
+
+Full Changelog: [v0.9.1...v0.10.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.9.1...v0.10.0)
+
+### Features
+
+* **api:** new process, fs, and log endpoints ([48a39b4](https://github.com/onkernel/kernel-python-sdk/commit/48a39b4cc1ab32b4375ad4e33e5f9e4349502072))
+
+
+### Bug Fixes
+
+* avoid newer type syntax ([9ec7c40](https://github.com/onkernel/kernel-python-sdk/commit/9ec7c40b34b264709b904f36e309624bd1161413))
+
+
+### Chores
+
+* **internal:** change ci workflow machines ([3a2969d](https://github.com/onkernel/kernel-python-sdk/commit/3a2969d035b9e0bb4fa39dc27de2db6d4edad6dd))
+* **internal:** update pyright exclude list ([39439aa](https://github.com/onkernel/kernel-python-sdk/commit/39439aaad72c92aa9f4bb74ac055b929c93b6060))
+* update github action ([fff64d0](https://github.com/onkernel/kernel-python-sdk/commit/fff64d001d2c759967f08e7a1932e1fb7d84b126))
+
 ## 0.9.1 (2025-08-15)
 
 Full Changelog: [v0.9.0...v0.9.1](https://github.com/onkernel/kernel-python-sdk/compare/v0.9.0...v0.9.1)
