@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 from typing_extensions import Required, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["ProcessExecParams"]
 
@@ -12,7 +14,7 @@ class ProcessExecParams(TypedDict, total=False):
     command: Required[str]
     """Executable or shell command to run."""
 
-    args: List[str]
+    args: SequenceNotStr[str]
     """Command arguments."""
 
     as_root: bool
