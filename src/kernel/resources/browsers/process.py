@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -55,7 +55,7 @@ class ProcessResource(SyncAPIResource):
         id: str,
         *,
         command: str,
-        args: List[str] | NotGiven = NOT_GIVEN,
+        args: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         as_root: bool | NotGiven = NOT_GIVEN,
         as_user: Optional[str] | NotGiven = NOT_GIVEN,
         cwd: Optional[str] | NotGiven = NOT_GIVEN,
@@ -161,7 +161,7 @@ class ProcessResource(SyncAPIResource):
         id: str,
         *,
         command: str,
-        args: List[str] | NotGiven = NOT_GIVEN,
+        args: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         as_root: bool | NotGiven = NOT_GIVEN,
         as_user: Optional[str] | NotGiven = NOT_GIVEN,
         cwd: Optional[str] | NotGiven = NOT_GIVEN,
@@ -363,7 +363,7 @@ class AsyncProcessResource(AsyncAPIResource):
         id: str,
         *,
         command: str,
-        args: List[str] | NotGiven = NOT_GIVEN,
+        args: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         as_root: bool | NotGiven = NOT_GIVEN,
         as_user: Optional[str] | NotGiven = NOT_GIVEN,
         cwd: Optional[str] | NotGiven = NOT_GIVEN,
@@ -469,7 +469,7 @@ class AsyncProcessResource(AsyncAPIResource):
         id: str,
         *,
         command: str,
-        args: List[str] | NotGiven = NOT_GIVEN,
+        args: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         as_root: bool | NotGiven = NOT_GIVEN,
         as_user: Optional[str] | NotGiven = NOT_GIVEN,
         cwd: Optional[str] | NotGiven = NOT_GIVEN,
