@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.11.0 (2025-09-04)
+
+Full Changelog: [v0.10.0...v0.11.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.10.0...v0.11.0)
+
+### Features
+
+* **api:** adding support for browser profiles ([52bcaa1](https://github.com/onkernel/kernel-python-sdk/commit/52bcaa136a1792fd9a9d06f3f81a622a53a89e9a))
+* improve future compat with pydantic v3 ([72b0862](https://github.com/onkernel/kernel-python-sdk/commit/72b086280f3742cf34ddb7afe2082c4eee37c80a))
+* **types:** replace List[str] with SequenceNotStr in params ([688059b](https://github.com/onkernel/kernel-python-sdk/commit/688059b50a261e84fd1ae125b65a1bd56b6243d2))
+
+
+### Chores
+
+* **internal:** add Sequence related utils ([e833554](https://github.com/onkernel/kernel-python-sdk/commit/e833554e7f222acf915621d5f0fdd2eef17e0738))
+
 ## 0.10.0 (2025-08-27)
 
 Full Changelog: [v0.9.1...v0.10.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.9.1...v0.10.0)
