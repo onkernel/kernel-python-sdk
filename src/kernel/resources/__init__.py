@@ -16,6 +16,14 @@ from .browsers import (
     BrowsersResourceWithStreamingResponse,
     AsyncBrowsersResourceWithStreamingResponse,
 )
+from .profiles import (
+    ProfilesResource,
+    AsyncProfilesResource,
+    ProfilesResourceWithRawResponse,
+    AsyncProfilesResourceWithRawResponse,
+    ProfilesResourceWithStreamingResponse,
+    AsyncProfilesResourceWithStreamingResponse,
+)
 from .deployments import (
     DeploymentsResource,
     AsyncDeploymentsResource,
@@ -58,4 +66,10 @@ __all__ = [
     "AsyncBrowsersResourceWithRawResponse",
     "BrowsersResourceWithStreamingResponse",
     "AsyncBrowsersResourceWithStreamingResponse",
+    "ProfilesResource",
+    "AsyncProfilesResource",
+    "ProfilesResourceWithRawResponse",
+    "AsyncProfilesResourceWithRawResponse",
+    "ProfilesResourceWithStreamingResponse",
+    "AsyncProfilesResourceWithStreamingResponse",
 ]

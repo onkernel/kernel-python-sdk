@@ -66,6 +66,7 @@ Types:
 ```python
 from kernel.types import (
     BrowserPersistence,
+    Profile,
     BrowserCreateResponse,
     BrowserRetrieveResponse,
     BrowserListResponse,
@@ -161,3 +162,19 @@ Methods:
 Methods:
 
 - <code title="get /browsers/{id}/logs/stream">client.browsers.logs.<a href="./src/kernel/resources/browsers/logs.py">stream</a>(id, \*\*<a href="src/kernel/types/browsers/log_stream_params.py">params</a>) -> <a href="./src/kernel/types/shared/log_event.py">LogEvent</a></code>
+
+# Profiles
+
+Types:
+
+```python
+from kernel.types import ProfileListResponse
+```
+
+Methods:
+
+- <code title="post /profiles">client.profiles.<a href="./src/kernel/resources/profiles.py">create</a>(\*\*<a href="src/kernel/types/profile_create_params.py">params</a>) -> <a href="./src/kernel/types/profile.py">Profile</a></code>
+- <code title="get /profiles/{id_or_name}">client.profiles.<a href="./src/kernel/resources/profiles.py">retrieve</a>(id_or_name) -> <a href="./src/kernel/types/profile.py">Profile</a></code>
+- <code title="get /profiles">client.profiles.<a href="./src/kernel/resources/profiles.py">list</a>() -> <a href="./src/kernel/types/profile_list_response.py">ProfileListResponse</a></code>
+- <code title="delete /profiles/{id_or_name}">client.profiles.<a href="./src/kernel/resources/profiles.py">delete</a>(id_or_name) -> None</code>
+- <code title="get /profiles/{id_or_name}/download">client.profiles.<a href="./src/kernel/resources/profiles.py">download</a>(id_or_name) -> BinaryAPIResponse</code>

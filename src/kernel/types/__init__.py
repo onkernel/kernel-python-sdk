@@ -10,12 +10,15 @@ from .shared import (
     ErrorDetail as ErrorDetail,
     HeartbeatEvent as HeartbeatEvent,
 )
+from .profile import Profile as Profile
 from .app_list_params import AppListParams as AppListParams
 from .app_list_response import AppListResponse as AppListResponse
 from .browser_persistence import BrowserPersistence as BrowserPersistence
 from .browser_create_params import BrowserCreateParams as BrowserCreateParams
 from .browser_delete_params import BrowserDeleteParams as BrowserDeleteParams
 from .browser_list_response import BrowserListResponse as BrowserListResponse
+from .profile_create_params import ProfileCreateParams as ProfileCreateParams
+from .profile_list_response import ProfileListResponse as ProfileListResponse
 from .deployment_list_params import DeploymentListParams as DeploymentListParams
 from .deployment_state_event import DeploymentStateEvent as DeploymentStateEvent
 from .invocation_state_event import InvocationStateEvent as InvocationStateEvent
