@@ -4,6 +4,7 @@ from typing import List, Optional
 from datetime import datetime
 from typing_extensions import TypeAlias
 
+from .profile import Profile
 from .._models import BaseModel
 from .browser_persistence import BrowserPersistence
 
@@ -37,6 +38,9 @@ class BrowserListResponseItem(BaseModel):
 
     persistence: Optional[BrowserPersistence] = None
     """Optional persistence configuration for the browser session."""
+
+    profile: Optional[Profile] = None
+    """Browser profile metadata."""
 
 
 BrowserListResponse: TypeAlias = List[BrowserListResponseItem]

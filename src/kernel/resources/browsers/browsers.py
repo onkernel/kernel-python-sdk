@@ -98,6 +98,7 @@ class BrowsersResource(SyncAPIResource):
         headless: bool | NotGiven = NOT_GIVEN,
         invocation_id: str | NotGiven = NOT_GIVEN,
         persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
+        profile: browser_create_params.Profile | NotGiven = NOT_GIVEN,
         stealth: bool | NotGiven = NOT_GIVEN,
         timeout_seconds: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -117,6 +118,10 @@ class BrowsersResource(SyncAPIResource):
           invocation_id: action invocation ID
 
           persistence: Optional persistence configuration for the browser session.
+
+          profile: Profile selection for the browser session. Provide either id or name. If
+              specified, the matching profile will be loaded into the browser session.
+              Profiles must be created beforehand.
 
           stealth: If true, launches the browser in stealth mode to reduce detection by anti-bot
               mechanisms.
@@ -140,6 +145,7 @@ class BrowsersResource(SyncAPIResource):
                     "headless": headless,
                     "invocation_id": invocation_id,
                     "persistence": persistence,
+                    "profile": profile,
                     "stealth": stealth,
                     "timeout_seconds": timeout_seconds,
                 },
@@ -318,6 +324,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         headless: bool | NotGiven = NOT_GIVEN,
         invocation_id: str | NotGiven = NOT_GIVEN,
         persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
+        profile: browser_create_params.Profile | NotGiven = NOT_GIVEN,
         stealth: bool | NotGiven = NOT_GIVEN,
         timeout_seconds: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -337,6 +344,10 @@ class AsyncBrowsersResource(AsyncAPIResource):
           invocation_id: action invocation ID
 
           persistence: Optional persistence configuration for the browser session.
+
+          profile: Profile selection for the browser session. Provide either id or name. If
+              specified, the matching profile will be loaded into the browser session.
+              Profiles must be created beforehand.
 
           stealth: If true, launches the browser in stealth mode to reduce detection by anti-bot
               mechanisms.
@@ -360,6 +371,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
                     "headless": headless,
                     "invocation_id": invocation_id,
                     "persistence": persistence,
+                    "profile": profile,
                     "stealth": stealth,
                     "timeout_seconds": timeout_seconds,
                 },
