@@ -117,9 +117,7 @@ class TestDeployments:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list(self, client: Kernel) -> None:
-        deployment = client.deployments.list(
-            app_name="app_name",
-        )
+        deployment = client.deployments.list()
         assert_matches_type(SyncOffsetPagination[DeploymentListResponse], deployment, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -135,9 +133,7 @@ class TestDeployments:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Kernel) -> None:
-        response = client.deployments.with_raw_response.list(
-            app_name="app_name",
-        )
+        response = client.deployments.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -147,9 +143,7 @@ class TestDeployments:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Kernel) -> None:
-        with client.deployments.with_streaming_response.list(
-            app_name="app_name",
-        ) as response:
+        with client.deployments.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -309,9 +303,7 @@ class TestAsyncDeployments:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncKernel) -> None:
-        deployment = await async_client.deployments.list(
-            app_name="app_name",
-        )
+        deployment = await async_client.deployments.list()
         assert_matches_type(AsyncOffsetPagination[DeploymentListResponse], deployment, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -327,9 +319,7 @@ class TestAsyncDeployments:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncKernel) -> None:
-        response = await async_client.deployments.with_raw_response.list(
-            app_name="app_name",
-        )
+        response = await async_client.deployments.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -339,9 +329,7 @@ class TestAsyncDeployments:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncKernel) -> None:
-        async with async_client.deployments.with_streaming_response.list(
-            app_name="app_name",
-        ) as response:
+        async with async_client.deployments.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
