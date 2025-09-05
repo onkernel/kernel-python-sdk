@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing_extensions import TypedDict
 
 __all__ = ["DeploymentListParams"]
 
 
 class DeploymentListParams(TypedDict, total=False):
-    app_name: Required[str]
+    app_name: str
     """Filter results by application name."""
 
     limit: int

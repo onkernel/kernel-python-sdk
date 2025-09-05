@@ -151,7 +151,7 @@ class DeploymentsResource(SyncAPIResource):
     def list(
         self,
         *,
-        app_name: str,
+        app_name: str | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -370,7 +370,7 @@ class AsyncDeploymentsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        app_name: str,
+        app_name: str | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
