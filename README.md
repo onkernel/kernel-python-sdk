@@ -182,6 +182,10 @@ first_page = await client.deployments.list(
     app_name="YOUR_APP",
     limit=2,
 )
+
+print(
+    f"the current start offset for this page: {first_page.next_offset}"
+)  # => "the current start offset for this page: 1"
 for deployment in first_page.items:
     print(deployment.id)
 
