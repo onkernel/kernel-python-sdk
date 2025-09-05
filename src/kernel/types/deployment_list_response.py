@@ -1,15 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 from datetime import datetime
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["DeploymentListResponse", "DeploymentListResponseItem"]
+__all__ = ["DeploymentListResponse"]
 
 
-class DeploymentListResponseItem(BaseModel):
+class DeploymentListResponse(BaseModel):
     id: str
     """Unique identifier for the deployment"""
 
@@ -33,6 +33,3 @@ class DeploymentListResponseItem(BaseModel):
 
     updated_at: Optional[datetime] = None
     """Timestamp when the deployment was last updated"""
-
-
-DeploymentListResponse: TypeAlias = List[DeploymentListResponseItem]

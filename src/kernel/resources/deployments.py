@@ -19,7 +19,8 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._streaming import Stream, AsyncStream
-from .._base_client import make_request_options
+from ..pagination import SyncOffsetPagination, AsyncOffsetPagination
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.deployment_list_response import DeploymentListResponse
 from ..types.deployment_create_response import DeploymentCreateResponse
 from ..types.deployment_follow_response import DeploymentFollowResponse
@@ -150,20 +151,26 @@ class DeploymentsResource(SyncAPIResource):
     def list(
         self,
         *,
-        app_name: str | NotGiven = NOT_GIVEN,
+        app_name: str,
+        limit: int | NotGiven = NOT_GIVEN,
+        offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DeploymentListResponse:
+    ) -> SyncOffsetPagination[DeploymentListResponse]:
         """List deployments.
 
         Optionally filter by application name.
 
         Args:
           app_name: Filter results by application name.
+
+          limit: Limit the number of deployments to return.
+
+          offset: Offset the number of deployments to return.
 
           extra_headers: Send extra headers
 
@@ -173,16 +180,24 @@ class DeploymentsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/deployments",
+            page=SyncOffsetPagination[DeploymentListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"app_name": app_name}, deployment_list_params.DeploymentListParams),
+                query=maybe_transform(
+                    {
+                        "app_name": app_name,
+                        "limit": limit,
+                        "offset": offset,
+                    },
+                    deployment_list_params.DeploymentListParams,
+                ),
             ),
-            cast_to=DeploymentListResponse,
+            model=DeploymentListResponse,
         )
 
     def follow(
@@ -352,23 +367,29 @@ class AsyncDeploymentsResource(AsyncAPIResource):
             cast_to=DeploymentRetrieveResponse,
         )
 
-    async def list(
+    def list(
         self,
         *,
-        app_name: str | NotGiven = NOT_GIVEN,
+        app_name: str,
+        limit: int | NotGiven = NOT_GIVEN,
+        offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DeploymentListResponse:
+    ) -> AsyncPaginator[DeploymentListResponse, AsyncOffsetPagination[DeploymentListResponse]]:
         """List deployments.
 
         Optionally filter by application name.
 
         Args:
           app_name: Filter results by application name.
+
+          limit: Limit the number of deployments to return.
+
+          offset: Offset the number of deployments to return.
 
           extra_headers: Send extra headers
 
@@ -378,16 +399,24 @@ class AsyncDeploymentsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/deployments",
+            page=AsyncOffsetPagination[DeploymentListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"app_name": app_name}, deployment_list_params.DeploymentListParams),
+                query=maybe_transform(
+                    {
+                        "app_name": app_name,
+                        "limit": limit,
+                        "offset": offset,
+                    },
+                    deployment_list_params.DeploymentListParams,
+                ),
             ),
-            cast_to=DeploymentListResponse,
+            model=DeploymentListResponse,
         )
 
     async def follow(
