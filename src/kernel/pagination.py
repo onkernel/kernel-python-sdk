@@ -5,7 +5,7 @@ from typing_extensions import override
 
 from httpx import Response
 
-from ._utils import is_mapping
+from ._utils import is_mapping, maybe_coerce_boolean, maybe_coerce_integer
 from ._models import BaseModel
 from ._base_client import BasePage, PageInfo, BaseSyncPage, BaseAsyncPage
 
@@ -18,6 +18,8 @@ _T = TypeVar("_T")
 
 class SyncOffsetPagination(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
     items: List[_T]
+    has_more: Optional[bool] = None
+    next_offset: Optional[int] = None
 
     @override
     def _get_page_items(self) -> List[_T]:
@@ -27,13 +29,21 @@ class SyncOffsetPagination(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
         return items
 
     @override
+    def has_next_page(self) -> bool:
+        has_more = self.has_more
+        if has_more is not None and has_more is False:
+            return False
+
+        return super().has_next_page()
+
+    @override
     def next_page_info(self) -> Optional[PageInfo]:
-        offset = self._options.params.get("offset") or 0
-        if not isinstance(offset, int):
-            raise ValueError(f'Expected "offset" param to be an integer but got {offset}')
+        next_offset = self.next_offset
+        if next_offset is None:
+            return None  # type: ignore[unreachable]
 
         length = len(self._get_page_items())
-        current_count = offset + length
+        current_count = next_offset + length
 
         return PageInfo(params={"offset": current_count})
 
@@ -43,12 +53,16 @@ class SyncOffsetPagination(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
             None,
             **{
                 **(cast(Mapping[str, Any], data) if is_mapping(data) else {"items": data}),
+                "has_more": maybe_coerce_boolean(response.headers.get("X-Has-More")),
+                "next_offset": maybe_coerce_integer(response.headers.get("X-Next-Offset")),
             },
         )
 
 
 class AsyncOffsetPagination(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
     items: List[_T]
+    has_more: Optional[bool] = None
+    next_offset: Optional[int] = None
 
     @override
     def _get_page_items(self) -> List[_T]:
@@ -58,13 +72,21 @@ class AsyncOffsetPagination(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
         return items
 
     @override
+    def has_next_page(self) -> bool:
+        has_more = self.has_more
+        if has_more is not None and has_more is False:
+            return False
+
+        return super().has_next_page()
+
+    @override
     def next_page_info(self) -> Optional[PageInfo]:
-        offset = self._options.params.get("offset") or 0
-        if not isinstance(offset, int):
-            raise ValueError(f'Expected "offset" param to be an integer but got {offset}')
+        next_offset = self.next_offset
+        if next_offset is None:
+            return None  # type: ignore[unreachable]
 
         length = len(self._get_page_items())
-        current_count = offset + length
+        current_count = next_offset + length
 
         return PageInfo(params={"offset": current_count})
 
@@ -74,5 +96,7 @@ class AsyncOffsetPagination(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
             None,
             **{
                 **(cast(Mapping[str, Any], data) if is_mapping(data) else {"items": data}),
+                "has_more": maybe_coerce_boolean(response.headers.get("X-Has-More")),
+                "next_offset": maybe_coerce_integer(response.headers.get("X-Next-Offset")),
             },
         )
