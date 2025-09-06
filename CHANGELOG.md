@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.11.1 (2025-09-06)
+
+Full Changelog: [v0.11.0...v0.11.1](https://github.com/onkernel/kernel-python-sdk/compare/v0.11.0...v0.11.1)
+
+### Features
+
+* **api:** add pagination to the deployments endpoint ([e5838f5](https://github.com/onkernel/kernel-python-sdk/commit/e5838f51b9af325700b23d55ff2bb11b6ff3306e))
+* **api:** pagination properties added to response (has_more, next_offset) ([5f2329f](https://github.com/onkernel/kernel-python-sdk/commit/5f2329f8712b9d1865cc95dcde06834fe65622ee))
+* **api:** update API spec with pagination headers ([f64f55b](https://github.com/onkernel/kernel-python-sdk/commit/f64f55b00b0e0fa19dd2162cd914001381254314))
+
+
+### Chores
+
+* **internal:** move mypy configurations to `pyproject.toml` file ([4818d2d](https://github.com/onkernel/kernel-python-sdk/commit/4818d2d6084684529935c8e6b9b109516a1de373))
+* **tests:** simplify `get_platform` test ([cd90a49](https://github.com/onkernel/kernel-python-sdk/commit/cd90a498d24b1f4490583bec64e5e670eb725197))
+
 ## 0.11.0 (2025-09-04)
 
 Full Changelog: [v0.10.0...v0.11.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.10.0...v0.11.0)
