@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -59,7 +59,7 @@ class ReplaysResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ReplayListResponse:
         """
         List all replays for the specified browser session.
@@ -93,7 +93,7 @@ class ReplaysResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BinaryAPIResponse:
         """
         Download or stream the specified replay recording.
@@ -124,14 +124,14 @@ class ReplaysResource(SyncAPIResource):
         self,
         id: str,
         *,
-        framerate: int | NotGiven = NOT_GIVEN,
-        max_duration_in_seconds: int | NotGiven = NOT_GIVEN,
+        framerate: int | Omit = omit,
+        max_duration_in_seconds: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ReplayStartResponse:
         """
         Start recording the browser session and return a replay ID.
@@ -176,7 +176,7 @@ class ReplaysResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Stop the specified replay recording and persist the video.
@@ -233,7 +233,7 @@ class AsyncReplaysResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ReplayListResponse:
         """
         List all replays for the specified browser session.
@@ -267,7 +267,7 @@ class AsyncReplaysResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncBinaryAPIResponse:
         """
         Download or stream the specified replay recording.
@@ -298,14 +298,14 @@ class AsyncReplaysResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        framerate: int | NotGiven = NOT_GIVEN,
-        max_duration_in_seconds: int | NotGiven = NOT_GIVEN,
+        framerate: int | Omit = omit,
+        max_duration_in_seconds: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ReplayStartResponse:
         """
         Start recording the browser session and return a replay ID.
@@ -350,7 +350,7 @@ class AsyncReplaysResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Stop the specified replay recording and persist the video.
