@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import deployment_list_params, deployment_create_params, deployment_follow_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes
+from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, omit, not_given
 from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -54,16 +54,16 @@ class DeploymentsResource(SyncAPIResource):
         *,
         entrypoint_rel_path: str,
         file: FileTypes,
-        env_vars: Dict[str, str] | NotGiven = NOT_GIVEN,
-        force: bool | NotGiven = NOT_GIVEN,
-        region: Literal["aws.us-east-1a"] | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        env_vars: Dict[str, str] | Omit = omit,
+        force: bool | Omit = omit,
+        region: Literal["aws.us-east-1a"] | Omit = omit,
+        version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DeploymentCreateResponse:
         """
         Create a new deployment.
@@ -124,7 +124,7 @@ class DeploymentsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DeploymentRetrieveResponse:
         """
         Get information about a deployment's status.
@@ -151,15 +151,15 @@ class DeploymentsResource(SyncAPIResource):
     def list(
         self,
         *,
-        app_name: str | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
+        app_name: str | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncOffsetPagination[DeploymentListResponse]:
         """List deployments.
 
@@ -204,13 +204,13 @@ class DeploymentsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        since: str | NotGiven = NOT_GIVEN,
+        since: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[DeploymentFollowResponse]:
         """
         Establishes a Server-Sent Events (SSE) stream that delivers real-time logs and
@@ -273,16 +273,16 @@ class AsyncDeploymentsResource(AsyncAPIResource):
         *,
         entrypoint_rel_path: str,
         file: FileTypes,
-        env_vars: Dict[str, str] | NotGiven = NOT_GIVEN,
-        force: bool | NotGiven = NOT_GIVEN,
-        region: Literal["aws.us-east-1a"] | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        env_vars: Dict[str, str] | Omit = omit,
+        force: bool | Omit = omit,
+        region: Literal["aws.us-east-1a"] | Omit = omit,
+        version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DeploymentCreateResponse:
         """
         Create a new deployment.
@@ -343,7 +343,7 @@ class AsyncDeploymentsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DeploymentRetrieveResponse:
         """
         Get information about a deployment's status.
@@ -370,15 +370,15 @@ class AsyncDeploymentsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        app_name: str | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
+        app_name: str | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[DeploymentListResponse, AsyncOffsetPagination[DeploymentListResponse]]:
         """List deployments.
 
@@ -423,13 +423,13 @@ class AsyncDeploymentsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        since: str | NotGiven = NOT_GIVEN,
+        since: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[DeploymentFollowResponse]:
         """
         Establishes a Server-Sent Events (SSE) stream that delivers real-time logs and

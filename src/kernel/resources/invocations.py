@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import invocation_create_params, invocation_update_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -54,14 +54,14 @@ class InvocationsResource(SyncAPIResource):
         action_name: str,
         app_name: str,
         version: str,
-        async_: bool | NotGiven = NOT_GIVEN,
-        payload: str | NotGiven = NOT_GIVEN,
+        async_: bool | Omit = omit,
+        payload: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvocationCreateResponse:
         """
         Invoke an action.
@@ -113,7 +113,7 @@ class InvocationsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvocationRetrieveResponse:
         """
         Get details about an invocation's status and output.
@@ -142,13 +142,13 @@ class InvocationsResource(SyncAPIResource):
         id: str,
         *,
         status: Literal["succeeded", "failed"],
-        output: str | NotGiven = NOT_GIVEN,
+        output: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvocationUpdateResponse:
         """
         Update an invocation's status or output.
@@ -192,7 +192,7 @@ class InvocationsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Delete all browser sessions created within the specified invocation.
@@ -226,7 +226,7 @@ class InvocationsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[InvocationFollowResponse]:
         """
         Establishes a Server-Sent Events (SSE) stream that delivers real-time logs and
@@ -284,14 +284,14 @@ class AsyncInvocationsResource(AsyncAPIResource):
         action_name: str,
         app_name: str,
         version: str,
-        async_: bool | NotGiven = NOT_GIVEN,
-        payload: str | NotGiven = NOT_GIVEN,
+        async_: bool | Omit = omit,
+        payload: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvocationCreateResponse:
         """
         Invoke an action.
@@ -343,7 +343,7 @@ class AsyncInvocationsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvocationRetrieveResponse:
         """
         Get details about an invocation's status and output.
@@ -372,13 +372,13 @@ class AsyncInvocationsResource(AsyncAPIResource):
         id: str,
         *,
         status: Literal["succeeded", "failed"],
-        output: str | NotGiven = NOT_GIVEN,
+        output: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvocationUpdateResponse:
         """
         Update an invocation's status or output.
@@ -422,7 +422,7 @@ class AsyncInvocationsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Delete all browser sessions created within the specified invocation.
@@ -456,7 +456,7 @@ class AsyncInvocationsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[InvocationFollowResponse]:
         """
         Establishes a Server-Sent Events (SSE) stream that delivers real-time logs and
