@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -55,18 +55,18 @@ class ProcessResource(SyncAPIResource):
         id: str,
         *,
         command: str,
-        args: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        as_root: bool | NotGiven = NOT_GIVEN,
-        as_user: Optional[str] | NotGiven = NOT_GIVEN,
-        cwd: Optional[str] | NotGiven = NOT_GIVEN,
-        env: Dict[str, str] | NotGiven = NOT_GIVEN,
-        timeout_sec: Optional[int] | NotGiven = NOT_GIVEN,
+        args: SequenceNotStr[str] | Omit = omit,
+        as_root: bool | Omit = omit,
+        as_user: Optional[str] | Omit = omit,
+        cwd: Optional[str] | Omit = omit,
+        env: Dict[str, str] | Omit = omit,
+        timeout_sec: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProcessExecResponse:
         """
         Execute a command synchronously
@@ -127,7 +127,7 @@ class ProcessResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProcessKillResponse:
         """
         Send signal to process
@@ -161,18 +161,18 @@ class ProcessResource(SyncAPIResource):
         id: str,
         *,
         command: str,
-        args: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        as_root: bool | NotGiven = NOT_GIVEN,
-        as_user: Optional[str] | NotGiven = NOT_GIVEN,
-        cwd: Optional[str] | NotGiven = NOT_GIVEN,
-        env: Dict[str, str] | NotGiven = NOT_GIVEN,
-        timeout_sec: Optional[int] | NotGiven = NOT_GIVEN,
+        args: SequenceNotStr[str] | Omit = omit,
+        as_root: bool | Omit = omit,
+        as_user: Optional[str] | Omit = omit,
+        cwd: Optional[str] | Omit = omit,
+        env: Dict[str, str] | Omit = omit,
+        timeout_sec: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProcessSpawnResponse:
         """
         Execute a command asynchronously
@@ -232,7 +232,7 @@ class ProcessResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProcessStatusResponse:
         """
         Get process status
@@ -269,7 +269,7 @@ class ProcessResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProcessStdinResponse:
         """
         Write to process stdin
@@ -308,7 +308,7 @@ class ProcessResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[ProcessStdoutStreamResponse]:
         """
         Stream process stdout via SSE
@@ -363,18 +363,18 @@ class AsyncProcessResource(AsyncAPIResource):
         id: str,
         *,
         command: str,
-        args: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        as_root: bool | NotGiven = NOT_GIVEN,
-        as_user: Optional[str] | NotGiven = NOT_GIVEN,
-        cwd: Optional[str] | NotGiven = NOT_GIVEN,
-        env: Dict[str, str] | NotGiven = NOT_GIVEN,
-        timeout_sec: Optional[int] | NotGiven = NOT_GIVEN,
+        args: SequenceNotStr[str] | Omit = omit,
+        as_root: bool | Omit = omit,
+        as_user: Optional[str] | Omit = omit,
+        cwd: Optional[str] | Omit = omit,
+        env: Dict[str, str] | Omit = omit,
+        timeout_sec: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProcessExecResponse:
         """
         Execute a command synchronously
@@ -435,7 +435,7 @@ class AsyncProcessResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProcessKillResponse:
         """
         Send signal to process
@@ -469,18 +469,18 @@ class AsyncProcessResource(AsyncAPIResource):
         id: str,
         *,
         command: str,
-        args: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        as_root: bool | NotGiven = NOT_GIVEN,
-        as_user: Optional[str] | NotGiven = NOT_GIVEN,
-        cwd: Optional[str] | NotGiven = NOT_GIVEN,
-        env: Dict[str, str] | NotGiven = NOT_GIVEN,
-        timeout_sec: Optional[int] | NotGiven = NOT_GIVEN,
+        args: SequenceNotStr[str] | Omit = omit,
+        as_root: bool | Omit = omit,
+        as_user: Optional[str] | Omit = omit,
+        cwd: Optional[str] | Omit = omit,
+        env: Dict[str, str] | Omit = omit,
+        timeout_sec: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProcessSpawnResponse:
         """
         Execute a command asynchronously
@@ -540,7 +540,7 @@ class AsyncProcessResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProcessStatusResponse:
         """
         Get process status
@@ -577,7 +577,7 @@ class AsyncProcessResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProcessStdinResponse:
         """
         Write to process stdin
@@ -616,7 +616,7 @@ class AsyncProcessResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[ProcessStdoutStreamResponse]:
         """
         Stream process stdout via SSE

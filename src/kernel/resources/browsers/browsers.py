@@ -37,7 +37,7 @@ from .replays import (
     ReplaysResourceWithStreamingResponse,
     AsyncReplaysResourceWithStreamingResponse,
 )
-from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -95,18 +95,18 @@ class BrowsersResource(SyncAPIResource):
     def create(
         self,
         *,
-        headless: bool | NotGiven = NOT_GIVEN,
-        invocation_id: str | NotGiven = NOT_GIVEN,
-        persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
-        profile: browser_create_params.Profile | NotGiven = NOT_GIVEN,
-        stealth: bool | NotGiven = NOT_GIVEN,
-        timeout_seconds: int | NotGiven = NOT_GIVEN,
+        headless: bool | Omit = omit,
+        invocation_id: str | Omit = omit,
+        persistence: BrowserPersistenceParam | Omit = omit,
+        profile: browser_create_params.Profile | Omit = omit,
+        stealth: bool | Omit = omit,
+        timeout_seconds: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BrowserCreateResponse:
         """
         Create a new browser session from within an action.
@@ -166,7 +166,7 @@ class BrowsersResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BrowserRetrieveResponse:
         """
         Get information about a browser session.
@@ -198,7 +198,7 @@ class BrowsersResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BrowserListResponse:
         """List active browser sessions"""
         return self._get(
@@ -218,7 +218,7 @@ class BrowsersResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Delete a persistent browser session by its persistent_id.
@@ -256,7 +256,7 @@ class BrowsersResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Delete a browser session by ID
@@ -321,18 +321,18 @@ class AsyncBrowsersResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        headless: bool | NotGiven = NOT_GIVEN,
-        invocation_id: str | NotGiven = NOT_GIVEN,
-        persistence: BrowserPersistenceParam | NotGiven = NOT_GIVEN,
-        profile: browser_create_params.Profile | NotGiven = NOT_GIVEN,
-        stealth: bool | NotGiven = NOT_GIVEN,
-        timeout_seconds: int | NotGiven = NOT_GIVEN,
+        headless: bool | Omit = omit,
+        invocation_id: str | Omit = omit,
+        persistence: BrowserPersistenceParam | Omit = omit,
+        profile: browser_create_params.Profile | Omit = omit,
+        stealth: bool | Omit = omit,
+        timeout_seconds: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BrowserCreateResponse:
         """
         Create a new browser session from within an action.
@@ -392,7 +392,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BrowserRetrieveResponse:
         """
         Get information about a browser session.
@@ -424,7 +424,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BrowserListResponse:
         """List active browser sessions"""
         return await self._get(
@@ -444,7 +444,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Delete a persistent browser session by its persistent_id.
@@ -484,7 +484,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Delete a browser session by ID
