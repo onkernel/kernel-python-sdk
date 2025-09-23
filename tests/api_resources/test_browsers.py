@@ -70,7 +70,7 @@ class TestBrowsers:
     @parametrize
     def test_method_retrieve(self, client: Kernel) -> None:
         browser = client.browsers.retrieve(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         )
         assert_matches_type(BrowserRetrieveResponse, browser, path=["response"])
 
@@ -78,7 +78,7 @@ class TestBrowsers:
     @parametrize
     def test_raw_response_retrieve(self, client: Kernel) -> None:
         response = client.browsers.with_raw_response.retrieve(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         )
 
         assert response.is_closed is True
@@ -90,7 +90,7 @@ class TestBrowsers:
     @parametrize
     def test_streaming_response_retrieve(self, client: Kernel) -> None:
         with client.browsers.with_streaming_response.retrieve(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -174,7 +174,7 @@ class TestBrowsers:
     @parametrize
     def test_method_delete_by_id(self, client: Kernel) -> None:
         browser = client.browsers.delete_by_id(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         )
         assert browser is None
 
@@ -182,7 +182,7 @@ class TestBrowsers:
     @parametrize
     def test_raw_response_delete_by_id(self, client: Kernel) -> None:
         response = client.browsers.with_raw_response.delete_by_id(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         )
 
         assert response.is_closed is True
@@ -194,7 +194,7 @@ class TestBrowsers:
     @parametrize
     def test_streaming_response_delete_by_id(self, client: Kernel) -> None:
         with client.browsers.with_streaming_response.delete_by_id(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -267,7 +267,7 @@ class TestAsyncBrowsers:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncKernel) -> None:
         browser = await async_client.browsers.retrieve(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         )
         assert_matches_type(BrowserRetrieveResponse, browser, path=["response"])
 
@@ -275,7 +275,7 @@ class TestAsyncBrowsers:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.with_raw_response.retrieve(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         )
 
         assert response.is_closed is True
@@ -287,7 +287,7 @@ class TestAsyncBrowsers:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.with_streaming_response.retrieve(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -371,7 +371,7 @@ class TestAsyncBrowsers:
     @parametrize
     async def test_method_delete_by_id(self, async_client: AsyncKernel) -> None:
         browser = await async_client.browsers.delete_by_id(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         )
         assert browser is None
 
@@ -379,7 +379,7 @@ class TestAsyncBrowsers:
     @parametrize
     async def test_raw_response_delete_by_id(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.with_raw_response.delete_by_id(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         )
 
         assert response.is_closed is True
@@ -391,7 +391,7 @@ class TestAsyncBrowsers:
     @parametrize
     async def test_streaming_response_delete_by_id(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.with_streaming_response.delete_by_id(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
