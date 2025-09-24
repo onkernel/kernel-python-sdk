@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import invocation_create_params, invocation_update_params
+from ..types import invocation_create_params, invocation_follow_params, invocation_update_params
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -223,6 +223,7 @@ class InvocationsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        since: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -236,6 +237,8 @@ class InvocationsResource(SyncAPIResource):
         invocation reaches a terminal state.
 
         Args:
+          since: Show logs since the given time (RFC timestamps or durations like 5m).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -250,7 +253,11 @@ class InvocationsResource(SyncAPIResource):
         return self._get(
             f"/invocations/{id}/events",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"since": since}, invocation_follow_params.InvocationFollowParams),
             ),
             cast_to=cast(
                 Any, InvocationFollowResponse
@@ -455,6 +462,7 @@ class AsyncInvocationsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        since: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -468,6 +476,8 @@ class AsyncInvocationsResource(AsyncAPIResource):
         invocation reaches a terminal state.
 
         Args:
+          since: Show logs since the given time (RFC timestamps or durations like 5m).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -482,7 +492,11 @@ class AsyncInvocationsResource(AsyncAPIResource):
         return await self._get(
             f"/invocations/{id}/events",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"since": since}, invocation_follow_params.InvocationFollowParams),
             ),
             cast_to=cast(
                 Any, InvocationFollowResponse

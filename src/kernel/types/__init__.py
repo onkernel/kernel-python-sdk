@@ -31,6 +31,7 @@ from .deployment_create_params import DeploymentCreateParams as DeploymentCreate
 from .deployment_follow_params import DeploymentFollowParams as DeploymentFollowParams
 from .deployment_list_response import DeploymentListResponse as DeploymentListResponse
 from .invocation_create_params import InvocationCreateParams as InvocationCreateParams
+from .invocation_follow_params import InvocationFollowParams as InvocationFollowParams
 from .invocation_update_params import InvocationUpdateParams as InvocationUpdateParams
 from .browser_persistence_param import BrowserPersistenceParam as BrowserPersistenceParam
 from .browser_retrieve_response import BrowserRetrieveResponse as BrowserRetrieveResponse
