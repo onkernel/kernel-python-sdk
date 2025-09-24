@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import apps, profiles, deployments, invocations
+from .resources import apps, proxies, profiles, deployments, invocations
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import KernelError, APIStatusError
 from ._base_client import (
@@ -55,6 +55,7 @@ class Kernel(SyncAPIClient):
     invocations: invocations.InvocationsResource
     browsers: browsers.BrowsersResource
     profiles: profiles.ProfilesResource
+    proxies: proxies.ProxiesResource
     with_raw_response: KernelWithRawResponse
     with_streaming_response: KernelWithStreamedResponse
 
@@ -141,6 +142,7 @@ class Kernel(SyncAPIClient):
         self.invocations = invocations.InvocationsResource(self)
         self.browsers = browsers.BrowsersResource(self)
         self.profiles = profiles.ProfilesResource(self)
+        self.proxies = proxies.ProxiesResource(self)
         self.with_raw_response = KernelWithRawResponse(self)
         self.with_streaming_response = KernelWithStreamedResponse(self)
 
@@ -257,6 +259,7 @@ class AsyncKernel(AsyncAPIClient):
     invocations: invocations.AsyncInvocationsResource
     browsers: browsers.AsyncBrowsersResource
     profiles: profiles.AsyncProfilesResource
+    proxies: proxies.AsyncProxiesResource
     with_raw_response: AsyncKernelWithRawResponse
     with_streaming_response: AsyncKernelWithStreamedResponse
 
@@ -343,6 +346,7 @@ class AsyncKernel(AsyncAPIClient):
         self.invocations = invocations.AsyncInvocationsResource(self)
         self.browsers = browsers.AsyncBrowsersResource(self)
         self.profiles = profiles.AsyncProfilesResource(self)
+        self.proxies = proxies.AsyncProxiesResource(self)
         self.with_raw_response = AsyncKernelWithRawResponse(self)
         self.with_streaming_response = AsyncKernelWithStreamedResponse(self)
 
@@ -460,6 +464,7 @@ class KernelWithRawResponse:
         self.invocations = invocations.InvocationsResourceWithRawResponse(client.invocations)
         self.browsers = browsers.BrowsersResourceWithRawResponse(client.browsers)
         self.profiles = profiles.ProfilesResourceWithRawResponse(client.profiles)
+        self.proxies = proxies.ProxiesResourceWithRawResponse(client.proxies)
 
 
 class AsyncKernelWithRawResponse:
@@ -469,6 +474,7 @@ class AsyncKernelWithRawResponse:
         self.invocations = invocations.AsyncInvocationsResourceWithRawResponse(client.invocations)
         self.browsers = browsers.AsyncBrowsersResourceWithRawResponse(client.browsers)
         self.profiles = profiles.AsyncProfilesResourceWithRawResponse(client.profiles)
+        self.proxies = proxies.AsyncProxiesResourceWithRawResponse(client.proxies)
 
 
 class KernelWithStreamedResponse:
@@ -478,6 +484,7 @@ class KernelWithStreamedResponse:
         self.invocations = invocations.InvocationsResourceWithStreamingResponse(client.invocations)
         self.browsers = browsers.BrowsersResourceWithStreamingResponse(client.browsers)
         self.profiles = profiles.ProfilesResourceWithStreamingResponse(client.profiles)
+        self.proxies = proxies.ProxiesResourceWithStreamingResponse(client.proxies)
 
 
 class AsyncKernelWithStreamedResponse:
@@ -487,6 +494,7 @@ class AsyncKernelWithStreamedResponse:
         self.invocations = invocations.AsyncInvocationsResourceWithStreamingResponse(client.invocations)
         self.browsers = browsers.AsyncBrowsersResourceWithStreamingResponse(client.browsers)
         self.profiles = profiles.AsyncProfilesResourceWithStreamingResponse(client.profiles)
+        self.proxies = proxies.AsyncProxiesResourceWithStreamingResponse(client.proxies)
 
 
 Client = Kernel
