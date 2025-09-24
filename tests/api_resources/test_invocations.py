@@ -217,7 +217,16 @@ class TestInvocations:
     @parametrize
     def test_method_follow(self, client: Kernel) -> None:
         invocation_stream = client.invocations.follow(
-            "id",
+            id="id",
+        )
+        invocation_stream.response.close()
+
+    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
+    @parametrize
+    def test_method_follow_with_all_params(self, client: Kernel) -> None:
+        invocation_stream = client.invocations.follow(
+            id="id",
+            since="2025-06-20T12:00:00Z",
         )
         invocation_stream.response.close()
 
@@ -225,7 +234,7 @@ class TestInvocations:
     @parametrize
     def test_raw_response_follow(self, client: Kernel) -> None:
         response = client.invocations.with_raw_response.follow(
-            "id",
+            id="id",
         )
 
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -236,7 +245,7 @@ class TestInvocations:
     @parametrize
     def test_streaming_response_follow(self, client: Kernel) -> None:
         with client.invocations.with_streaming_response.follow(
-            "id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -251,7 +260,7 @@ class TestInvocations:
     def test_path_params_follow(self, client: Kernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.invocations.with_raw_response.follow(
-                "",
+                id="",
             )
 
 
@@ -456,7 +465,16 @@ class TestAsyncInvocations:
     @parametrize
     async def test_method_follow(self, async_client: AsyncKernel) -> None:
         invocation_stream = await async_client.invocations.follow(
-            "id",
+            id="id",
+        )
+        await invocation_stream.response.aclose()
+
+    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
+    @parametrize
+    async def test_method_follow_with_all_params(self, async_client: AsyncKernel) -> None:
+        invocation_stream = await async_client.invocations.follow(
+            id="id",
+            since="2025-06-20T12:00:00Z",
         )
         await invocation_stream.response.aclose()
 
@@ -464,7 +482,7 @@ class TestAsyncInvocations:
     @parametrize
     async def test_raw_response_follow(self, async_client: AsyncKernel) -> None:
         response = await async_client.invocations.with_raw_response.follow(
-            "id",
+            id="id",
         )
 
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -475,7 +493,7 @@ class TestAsyncInvocations:
     @parametrize
     async def test_streaming_response_follow(self, async_client: AsyncKernel) -> None:
         async with async_client.invocations.with_streaming_response.follow(
-            "id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -490,5 +508,5 @@ class TestAsyncInvocations:
     async def test_path_params_follow(self, async_client: AsyncKernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.invocations.with_raw_response.follow(
-                "",
+                id="",
             )
