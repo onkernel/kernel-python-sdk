@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.11.2 (2025-09-24)
+
+Full Changelog: [v0.11.1...v0.11.2](https://github.com/onkernel/kernel-python-sdk/compare/v0.11.1...v0.11.2)
+
+### Features
+
+* Add stainless CI ([9c8ccbf](https://github.com/onkernel/kernel-python-sdk/commit/9c8ccbfb59c6e7f9c5b649193ab10580d1d750e9))
+
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([e7e72e6](https://github.com/onkernel/kernel-python-sdk/commit/e7e72e6642f7587af34f51608d3bde4112d1e711))
+* improve example values ([2ecd936](https://github.com/onkernel/kernel-python-sdk/commit/2ecd936567bb98eda0edab68fb970668548bbc00))
+* **internal:** update pydantic dependency ([45de860](https://github.com/onkernel/kernel-python-sdk/commit/45de860fb92aeeccf5ef44dcb2b5ab4a2b7a0592))
+* **types:** change optional parameter type from NotGiven to Omit ([0b85104](https://github.com/onkernel/kernel-python-sdk/commit/0b85104d500907e1f86ad633403fb4c27fb929c4))
+
 ## 0.11.1 (2025-09-06)
 
 Full Changelog: [v0.11.0...v0.11.1](https://github.com/onkernel/kernel-python-sdk/compare/v0.11.0...v0.11.1)
