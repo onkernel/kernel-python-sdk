@@ -39,8 +39,9 @@ class TestBrowsers:
                 "name": "name",
                 "save_changes": True,
             },
+            proxy_id="proxy_id",
             stealth=True,
-            timeout_seconds=0,
+            timeout_seconds=10,
         )
         assert_matches_type(BrowserCreateResponse, browser, path=["response"])
 
@@ -236,8 +237,9 @@ class TestAsyncBrowsers:
                 "name": "name",
                 "save_changes": True,
             },
+            proxy_id="proxy_id",
             stealth=True,
-            timeout_seconds=0,
+            timeout_seconds=10,
         )
         assert_matches_type(BrowserCreateResponse, browser, path=["response"])
 

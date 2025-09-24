@@ -99,6 +99,7 @@ class BrowsersResource(SyncAPIResource):
         invocation_id: str | Omit = omit,
         persistence: BrowserPersistenceParam | Omit = omit,
         profile: browser_create_params.Profile | Omit = omit,
+        proxy_id: str | Omit = omit,
         stealth: bool | Omit = omit,
         timeout_seconds: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -123,12 +124,18 @@ class BrowsersResource(SyncAPIResource):
               specified, the matching profile will be loaded into the browser session.
               Profiles must be created beforehand.
 
+          proxy_id: Optional proxy to associate to the browser session. Must reference a proxy
+              belonging to the caller's org.
+
           stealth: If true, launches the browser in stealth mode to reduce detection by anti-bot
               mechanisms.
 
           timeout_seconds: The number of seconds of inactivity before the browser session is terminated.
               Only applicable to non-persistent browsers. Activity includes CDP connections
-              and live view connections. Defaults to 60 seconds.
+              and live view connections. Defaults to 60 seconds. Minimum allowed is 10
+              seconds. Maximum allowed is 86400 (24 hours). We check for inactivity every 5
+              seconds, so the actual timeout behavior you will see is +/- 5 seconds around the
+              specified value.
 
           extra_headers: Send extra headers
 
@@ -146,6 +153,7 @@ class BrowsersResource(SyncAPIResource):
                     "invocation_id": invocation_id,
                     "persistence": persistence,
                     "profile": profile,
+                    "proxy_id": proxy_id,
                     "stealth": stealth,
                     "timeout_seconds": timeout_seconds,
                 },
@@ -325,6 +333,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         invocation_id: str | Omit = omit,
         persistence: BrowserPersistenceParam | Omit = omit,
         profile: browser_create_params.Profile | Omit = omit,
+        proxy_id: str | Omit = omit,
         stealth: bool | Omit = omit,
         timeout_seconds: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -349,12 +358,18 @@ class AsyncBrowsersResource(AsyncAPIResource):
               specified, the matching profile will be loaded into the browser session.
               Profiles must be created beforehand.
 
+          proxy_id: Optional proxy to associate to the browser session. Must reference a proxy
+              belonging to the caller's org.
+
           stealth: If true, launches the browser in stealth mode to reduce detection by anti-bot
               mechanisms.
 
           timeout_seconds: The number of seconds of inactivity before the browser session is terminated.
               Only applicable to non-persistent browsers. Activity includes CDP connections
-              and live view connections. Defaults to 60 seconds.
+              and live view connections. Defaults to 60 seconds. Minimum allowed is 10
+              seconds. Maximum allowed is 86400 (24 hours). We check for inactivity every 5
+              seconds, so the actual timeout behavior you will see is +/- 5 seconds around the
+              specified value.
 
           extra_headers: Send extra headers
 
@@ -372,6 +387,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
                     "invocation_id": invocation_id,
                     "persistence": persistence,
                     "profile": profile,
+                    "proxy_id": proxy_id,
                     "stealth": stealth,
                     "timeout_seconds": timeout_seconds,
                 },

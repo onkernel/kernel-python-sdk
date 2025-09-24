@@ -29,6 +29,12 @@ class BrowserCreateParams(TypedDict, total=False):
     into the browser session. Profiles must be created beforehand.
     """
 
+    proxy_id: str
+    """Optional proxy to associate to the browser session.
+
+    Must reference a proxy belonging to the caller's org.
+    """
+
     stealth: bool
     """
     If true, launches the browser in stealth mode to reduce detection by anti-bot
@@ -39,7 +45,10 @@ class BrowserCreateParams(TypedDict, total=False):
     """The number of seconds of inactivity before the browser session is terminated.
 
     Only applicable to non-persistent browsers. Activity includes CDP connections
-    and live view connections. Defaults to 60 seconds.
+    and live view connections. Defaults to 60 seconds. Minimum allowed is 10
+    seconds. Maximum allowed is 86400 (24 hours). We check for inactivity every 5
+    seconds, so the actual timeout behavior you will see is +/- 5 seconds around the
+    specified value.
     """
 
 

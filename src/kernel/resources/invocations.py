@@ -150,8 +150,10 @@ class InvocationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvocationUpdateResponse:
-        """
-        Update an invocation's status or output.
+        """Update an invocation's status or output.
+
+        This can used to cancel an invocation
+        by setting the status to "failed".
 
         Args:
           status: New status for the invocation.
@@ -380,8 +382,10 @@ class AsyncInvocationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvocationUpdateResponse:
-        """
-        Update an invocation's status or output.
+        """Update an invocation's status or output.
+
+        This can used to cancel an invocation
+        by setting the status to "failed".
 
         Args:
           status: New status for the invocation.
