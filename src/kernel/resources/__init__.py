@@ -8,6 +8,14 @@ from .apps import (
     AppsResourceWithStreamingResponse,
     AsyncAppsResourceWithStreamingResponse,
 )
+from .proxies import (
+    ProxiesResource,
+    AsyncProxiesResource,
+    ProxiesResourceWithRawResponse,
+    AsyncProxiesResourceWithRawResponse,
+    ProxiesResourceWithStreamingResponse,
+    AsyncProxiesResourceWithStreamingResponse,
+)
 from .browsers import (
     BrowsersResource,
     AsyncBrowsersResource,
@@ -72,4 +80,10 @@ __all__ = [
     "AsyncProfilesResourceWithRawResponse",
     "ProfilesResourceWithStreamingResponse",
     "AsyncProfilesResourceWithStreamingResponse",
+    "ProxiesResource",
+    "AsyncProxiesResource",
+    "ProxiesResourceWithRawResponse",
+    "AsyncProxiesResourceWithRawResponse",
+    "ProxiesResourceWithStreamingResponse",
+    "AsyncProxiesResourceWithStreamingResponse",
 ]
