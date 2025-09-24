@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.11.3 (2025-09-24)
+
+Full Changelog: [v0.11.2...v0.11.3](https://github.com/onkernel/kernel-python-sdk/compare/v0.11.2...v0.11.3)
+
+### Features
+
+* Per Invocation Logs ([8c116b6](https://github.com/onkernel/kernel-python-sdk/commit/8c116b6e8590709dab14961b7e9c038229f5ace5))
+
 ## 0.11.2 (2025-09-24)
 
 Full Changelog: [v0.11.1...v0.11.2](https://github.com/onkernel/kernel-python-sdk/compare/v0.11.1...v0.11.2)
