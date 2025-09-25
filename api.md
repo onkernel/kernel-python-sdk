@@ -47,6 +47,7 @@ from kernel.types import (
     InvocationCreateResponse,
     InvocationRetrieveResponse,
     InvocationUpdateResponse,
+    InvocationListResponse,
     InvocationFollowResponse,
 )
 ```
@@ -56,6 +57,7 @@ Methods:
 - <code title="post /invocations">client.invocations.<a href="./src/kernel/resources/invocations.py">create</a>(\*\*<a href="src/kernel/types/invocation_create_params.py">params</a>) -> <a href="./src/kernel/types/invocation_create_response.py">InvocationCreateResponse</a></code>
 - <code title="get /invocations/{id}">client.invocations.<a href="./src/kernel/resources/invocations.py">retrieve</a>(id) -> <a href="./src/kernel/types/invocation_retrieve_response.py">InvocationRetrieveResponse</a></code>
 - <code title="patch /invocations/{id}">client.invocations.<a href="./src/kernel/resources/invocations.py">update</a>(id, \*\*<a href="src/kernel/types/invocation_update_params.py">params</a>) -> <a href="./src/kernel/types/invocation_update_response.py">InvocationUpdateResponse</a></code>
+- <code title="get /invocations">client.invocations.<a href="./src/kernel/resources/invocations.py">list</a>(\*\*<a href="src/kernel/types/invocation_list_params.py">params</a>) -> <a href="./src/kernel/types/invocation_list_response.py">SyncOffsetPagination[InvocationListResponse]</a></code>
 - <code title="delete /invocations/{id}/browsers">client.invocations.<a href="./src/kernel/resources/invocations.py">delete_browsers</a>(id) -> None</code>
 - <code title="get /invocations/{id}/events">client.invocations.<a href="./src/kernel/resources/invocations.py">follow</a>(id, \*\*<a href="src/kernel/types/invocation_follow_params.py">params</a>) -> <a href="./src/kernel/types/invocation_follow_response.py">InvocationFollowResponse</a></code>
 

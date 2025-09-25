@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import invocation_create_params, invocation_follow_params, invocation_update_params
+from ..types import invocation_list_params, invocation_create_params, invocation_follow_params, invocation_update_params
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -19,7 +19,9 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._streaming import Stream, AsyncStream
-from .._base_client import make_request_options
+from ..pagination import SyncOffsetPagination, AsyncOffsetPagination
+from .._base_client import AsyncPaginator, make_request_options
+from ..types.invocation_list_response import InvocationListResponse
 from ..types.invocation_create_response import InvocationCreateResponse
 from ..types.invocation_follow_response import InvocationFollowResponse
 from ..types.invocation_update_response import InvocationUpdateResponse
@@ -183,6 +185,76 @@ class InvocationsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=InvocationUpdateResponse,
+        )
+
+    def list(
+        self,
+        *,
+        action_name: str | Omit = omit,
+        app_name: str | Omit = omit,
+        deployment_id: str | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
+        since: str | Omit = omit,
+        status: Literal["queued", "running", "succeeded", "failed"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncOffsetPagination[InvocationListResponse]:
+        """List invocations.
+
+        Optionally filter by application name, action name, status,
+        deployment ID, or start time.
+
+        Args:
+          action_name: Filter results by action name.
+
+          app_name: Filter results by application name.
+
+          deployment_id: Filter results by deployment ID.
+
+          limit: Limit the number of invocations to return.
+
+          offset: Offset the number of invocations to return.
+
+          since: Show invocations that have started since the given time (RFC timestamps or
+              durations like 5m).
+
+          status: Filter results by invocation status.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/invocations",
+            page=SyncOffsetPagination[InvocationListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "action_name": action_name,
+                        "app_name": app_name,
+                        "deployment_id": deployment_id,
+                        "limit": limit,
+                        "offset": offset,
+                        "since": since,
+                        "status": status,
+                    },
+                    invocation_list_params.InvocationListParams,
+                ),
+            ),
+            model=InvocationListResponse,
         )
 
     def delete_browsers(
@@ -424,6 +496,76 @@ class AsyncInvocationsResource(AsyncAPIResource):
             cast_to=InvocationUpdateResponse,
         )
 
+    def list(
+        self,
+        *,
+        action_name: str | Omit = omit,
+        app_name: str | Omit = omit,
+        deployment_id: str | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
+        since: str | Omit = omit,
+        status: Literal["queued", "running", "succeeded", "failed"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[InvocationListResponse, AsyncOffsetPagination[InvocationListResponse]]:
+        """List invocations.
+
+        Optionally filter by application name, action name, status,
+        deployment ID, or start time.
+
+        Args:
+          action_name: Filter results by action name.
+
+          app_name: Filter results by application name.
+
+          deployment_id: Filter results by deployment ID.
+
+          limit: Limit the number of invocations to return.
+
+          offset: Offset the number of invocations to return.
+
+          since: Show invocations that have started since the given time (RFC timestamps or
+              durations like 5m).
+
+          status: Filter results by invocation status.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/invocations",
+            page=AsyncOffsetPagination[InvocationListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "action_name": action_name,
+                        "app_name": app_name,
+                        "deployment_id": deployment_id,
+                        "limit": limit,
+                        "offset": offset,
+                        "since": since,
+                        "status": status,
+                    },
+                    invocation_list_params.InvocationListParams,
+                ),
+            ),
+            model=InvocationListResponse,
+        )
+
     async def delete_browsers(
         self,
         id: str,
@@ -519,6 +661,9 @@ class InvocationsResourceWithRawResponse:
         self.update = to_raw_response_wrapper(
             invocations.update,
         )
+        self.list = to_raw_response_wrapper(
+            invocations.list,
+        )
         self.delete_browsers = to_raw_response_wrapper(
             invocations.delete_browsers,
         )
@@ -539,6 +684,9 @@ class AsyncInvocationsResourceWithRawResponse:
         )
         self.update = async_to_raw_response_wrapper(
             invocations.update,
+        )
+        self.list = async_to_raw_response_wrapper(
+            invocations.list,
         )
         self.delete_browsers = async_to_raw_response_wrapper(
             invocations.delete_browsers,
@@ -561,6 +709,9 @@ class InvocationsResourceWithStreamingResponse:
         self.update = to_streamed_response_wrapper(
             invocations.update,
         )
+        self.list = to_streamed_response_wrapper(
+            invocations.list,
+        )
         self.delete_browsers = to_streamed_response_wrapper(
             invocations.delete_browsers,
         )
@@ -581,6 +732,9 @@ class AsyncInvocationsResourceWithStreamingResponse:
         )
         self.update = async_to_streamed_response_wrapper(
             invocations.update,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            invocations.list,
         )
         self.delete_browsers = async_to_streamed_response_wrapper(
             invocations.delete_browsers,
