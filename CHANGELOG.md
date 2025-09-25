@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.11.4 (2025-09-25)
+
+Full Changelog: [v0.11.3...v0.11.4](https://github.com/onkernel/kernel-python-sdk/compare/v0.11.3...v0.11.4)
+
+### Features
+
+* getInvocations endpoint ([bb39872](https://github.com/onkernel/kernel-python-sdk/commit/bb39872703bd6ace1e588a54420f29a62140144b))
+
 ## 0.11.3 (2025-09-24)
 
 Full Changelog: [v0.11.2...v0.11.3](https://github.com/onkernel/kernel-python-sdk/compare/v0.11.2...v0.11.3)
