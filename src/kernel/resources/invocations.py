@@ -154,8 +154,8 @@ class InvocationsResource(SyncAPIResource):
     ) -> InvocationUpdateResponse:
         """Update an invocation's status or output.
 
-        This can used to cancel an invocation
-        by setting the status to "failed".
+        This can be used to cancel an
+        invocation by setting the status to "failed".
 
         Args:
           status: New status for the invocation.
@@ -463,8 +463,8 @@ class AsyncInvocationsResource(AsyncAPIResource):
     ) -> InvocationUpdateResponse:
         """Update an invocation's status or output.
 
-        This can used to cancel an invocation
-        by setting the status to "failed".
+        This can be used to cancel an
+        invocation by setting the status to "failed".
 
         Args:
           status: New status for the invocation.

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.12.0 (2025-09-26)
+
+Full Changelog: [v0.11.4...v0.12.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.11.4...v0.12.0)
+
+### Features
+
+* Fix my incorrect grammer ([22b2c11](https://github.com/onkernel/kernel-python-sdk/commit/22b2c1138d8739400edc27c245aa744a1d774ec6))
+
 ## 0.11.4 (2025-09-25)
 
 Full Changelog: [v0.11.3...v0.11.4](https://github.com/onkernel/kernel-python-sdk/compare/v0.11.3...v0.11.4)
