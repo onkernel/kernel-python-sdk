@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.11.5 (2025-09-29)
+
+Full Changelog: [v0.11.4...v0.11.5](https://github.com/onkernel/kernel-python-sdk/compare/v0.11.4...v0.11.5)
+
+### Features
+
+* Add App Version to Invocation and add filtering on App Version ([c703d0b](https://github.com/onkernel/kernel-python-sdk/commit/c703d0bc7b785ff8118b3fc4cb80873c21b7640a))
+* Fix my incorrect grammer ([22b2c11](https://github.com/onkernel/kernel-python-sdk/commit/22b2c1138d8739400edc27c245aa744a1d774ec6))
+
 ## 0.11.4 (2025-09-25)
 
 Full Changelog: [v0.11.3...v0.11.4](https://github.com/onkernel/kernel-python-sdk/compare/v0.11.3...v0.11.4)
