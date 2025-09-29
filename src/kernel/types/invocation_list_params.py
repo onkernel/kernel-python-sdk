@@ -31,3 +31,6 @@ class InvocationListParams(TypedDict, total=False):
 
     status: Literal["queued", "running", "succeeded", "failed"]
     """Filter results by invocation status."""
+
+    version: str
+    """Filter results by application version."""

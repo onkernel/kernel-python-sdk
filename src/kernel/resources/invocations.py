@@ -197,6 +197,7 @@ class InvocationsResource(SyncAPIResource):
         offset: int | Omit = omit,
         since: str | Omit = omit,
         status: Literal["queued", "running", "succeeded", "failed"] | Omit = omit,
+        version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -225,6 +226,8 @@ class InvocationsResource(SyncAPIResource):
 
           status: Filter results by invocation status.
 
+          version: Filter results by application version.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -250,6 +253,7 @@ class InvocationsResource(SyncAPIResource):
                         "offset": offset,
                         "since": since,
                         "status": status,
+                        "version": version,
                     },
                     invocation_list_params.InvocationListParams,
                 ),
@@ -506,6 +510,7 @@ class AsyncInvocationsResource(AsyncAPIResource):
         offset: int | Omit = omit,
         since: str | Omit = omit,
         status: Literal["queued", "running", "succeeded", "failed"] | Omit = omit,
+        version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -534,6 +539,8 @@ class AsyncInvocationsResource(AsyncAPIResource):
 
           status: Filter results by invocation status.
 
+          version: Filter results by application version.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -559,6 +566,7 @@ class AsyncInvocationsResource(AsyncAPIResource):
                         "offset": offset,
                         "since": since,
                         "status": status,
+                        "version": version,
                     },
                     invocation_list_params.InvocationListParams,
                 ),

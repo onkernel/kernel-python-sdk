@@ -25,6 +25,9 @@ class InvocationRetrieveResponse(BaseModel):
     status: Literal["queued", "running", "succeeded", "failed"]
     """Status of the invocation"""
 
+    version: str
+    """Version label for the application"""
+
     finished_at: Optional[datetime] = None
     """
     RFC 3339 Nanoseconds timestamp when the invocation finished (null if still

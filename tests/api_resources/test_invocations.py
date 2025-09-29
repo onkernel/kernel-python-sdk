@@ -190,6 +190,7 @@ class TestInvocations:
             offset=0,
             since="2025-06-20T12:00:00Z",
             status="queued",
+            version="version",
         )
         assert_matches_type(SyncOffsetPagination[InvocationListResponse], invocation, path=["response"])
 
@@ -480,6 +481,7 @@ class TestAsyncInvocations:
             offset=0,
             since="2025-06-20T12:00:00Z",
             status="queued",
+            version="version",
         )
         assert_matches_type(AsyncOffsetPagination[InvocationListResponse], invocation, path=["response"])
 
