@@ -42,5 +42,8 @@ class BrowserListResponseItem(BaseModel):
     profile: Optional[Profile] = None
     """Browser profile metadata."""
 
+    proxy_id: Optional[str] = None
+    """ID of the proxy associated with this browser session, if any."""
+
 
 BrowserListResponse: TypeAlias = List[BrowserListResponseItem]
