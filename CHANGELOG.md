@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.12.0 (2025-09-30)
+
+Full Changelog: [v0.11.5...v0.12.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.11.5...v0.12.0)
+
+### Features
+
+* Return proxy ID in browsers response ([2beafcf](https://github.com/onkernel/kernel-python-sdk/commit/2beafcfbd8ee20e83616656b23587d67df9490a9))
+
 ## 0.11.5 (2025-09-29)
 
 Full Changelog: [v0.11.4...v0.11.5](https://github.com/onkernel/kernel-python-sdk/compare/v0.11.4...v0.11.5)
