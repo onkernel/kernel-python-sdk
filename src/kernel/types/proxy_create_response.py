@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Union, Optional
+from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
@@ -175,5 +176,11 @@ class ProxyCreateResponse(BaseModel):
     config: Optional[Config] = None
     """Configuration specific to the selected proxy `type`."""
 
+    last_checked: Optional[datetime] = None
+    """Timestamp of the last health check performed on this proxy."""
+
     name: Optional[str] = None
     """Readable name of the proxy."""
+
+    status: Optional[Literal["available", "unavailable"]] = None
+    """Current health status of the proxy."""
