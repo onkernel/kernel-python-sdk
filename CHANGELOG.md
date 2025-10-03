@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.13.0 (2025-10-03)
+
+Full Changelog: [v0.12.0...v0.13.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.12.0...v0.13.0)
+
+### Features
+
+* Http proxy ([2664172](https://github.com/onkernel/kernel-python-sdk/commit/266417290f174a560ad0f820a22efb3c2eb35a67))
+* Update oAPI and data model for proxy status ([014d704](https://github.com/onkernel/kernel-python-sdk/commit/014d704dc98e19579c7a55a618c6e5e52a42edc6))
+
 ## 0.12.0 (2025-09-30)
 
 Full Changelog: [v0.11.5...v0.12.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.11.5...v0.12.0)
