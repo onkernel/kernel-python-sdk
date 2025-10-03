@@ -32,6 +32,7 @@ class TestProxies:
             type="datacenter",
             config={"country": "US"},
             name="name",
+            protocol="http",
         )
         assert_matches_type(ProxyCreateResponse, proxy, path=["response"])
 
@@ -194,6 +195,7 @@ class TestAsyncProxies:
             type="datacenter",
             config={"country": "US"},
             name="name",
+            protocol="http",
         )
         assert_matches_type(ProxyCreateResponse, proxy, path=["response"])
 
