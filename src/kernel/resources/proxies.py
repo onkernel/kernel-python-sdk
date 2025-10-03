@@ -51,6 +51,7 @@ class ProxiesResource(SyncAPIResource):
         type: Literal["datacenter", "isp", "residential", "mobile", "custom"],
         config: proxy_create_params.Config | Omit = omit,
         name: str | Omit = omit,
+        protocol: Literal["http", "https"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -69,6 +70,8 @@ class ProxiesResource(SyncAPIResource):
 
           name: Readable name of the proxy.
 
+          protocol: Protocol to use for the proxy connection.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -84,6 +87,7 @@ class ProxiesResource(SyncAPIResource):
                     "type": type,
                     "config": config,
                     "name": name,
+                    "protocol": protocol,
                 },
                 proxy_create_params.ProxyCreateParams,
             ),
@@ -207,6 +211,7 @@ class AsyncProxiesResource(AsyncAPIResource):
         type: Literal["datacenter", "isp", "residential", "mobile", "custom"],
         config: proxy_create_params.Config | Omit = omit,
         name: str | Omit = omit,
+        protocol: Literal["http", "https"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -225,6 +230,8 @@ class AsyncProxiesResource(AsyncAPIResource):
 
           name: Readable name of the proxy.
 
+          protocol: Protocol to use for the proxy connection.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -240,6 +247,7 @@ class AsyncProxiesResource(AsyncAPIResource):
                     "type": type,
                     "config": config,
                     "name": name,
+                    "protocol": protocol,
                 },
                 proxy_create_params.ProxyCreateParams,
             ),

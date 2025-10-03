@@ -183,6 +183,9 @@ class ProxyListResponseItem(BaseModel):
     name: Optional[str] = None
     """Readable name of the proxy."""
 
+    protocol: Optional[Literal["http", "https"]] = None
+    """Protocol to use for the proxy connection."""
+
     status: Optional[Literal["available", "unavailable"]] = None
     """Current health status of the proxy."""
 

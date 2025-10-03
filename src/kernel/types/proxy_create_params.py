@@ -30,6 +30,9 @@ class ProxyCreateParams(TypedDict, total=False):
     name: str
     """Readable name of the proxy."""
 
+    protocol: Literal["http", "https"]
+    """Protocol to use for the proxy connection."""
+
 
 class ConfigDatacenterProxyConfig(TypedDict, total=False):
     country: Required[str]
