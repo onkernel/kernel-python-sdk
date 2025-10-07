@@ -31,6 +31,12 @@ class TestBrowsers:
     @parametrize
     def test_method_create_with_all_params(self, client: Kernel) -> None:
         browser = client.browsers.create(
+            extensions=[
+                {
+                    "id": "id",
+                    "name": "name",
+                }
+            ],
             headless=False,
             invocation_id="rr33xuugxj9h0bkf1rdt2bet",
             persistence={"id": "my-awesome-browser-for-user-1234"},
@@ -213,6 +219,72 @@ class TestBrowsers:
                 "",
             )
 
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_upload_extensions(self, client: Kernel) -> None:
+        browser = client.browsers.upload_extensions(
+            id="id",
+            extensions=[
+                {
+                    "name": "name",
+                    "zip_file": b"raw file contents",
+                }
+            ],
+        )
+        assert browser is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_upload_extensions(self, client: Kernel) -> None:
+        response = client.browsers.with_raw_response.upload_extensions(
+            id="id",
+            extensions=[
+                {
+                    "name": "name",
+                    "zip_file": b"raw file contents",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        browser = response.parse()
+        assert browser is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_upload_extensions(self, client: Kernel) -> None:
+        with client.browsers.with_streaming_response.upload_extensions(
+            id="id",
+            extensions=[
+                {
+                    "name": "name",
+                    "zip_file": b"raw file contents",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            browser = response.parse()
+            assert browser is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_upload_extensions(self, client: Kernel) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.browsers.with_raw_response.upload_extensions(
+                id="",
+                extensions=[
+                    {
+                        "name": "name",
+                        "zip_file": b"raw file contents",
+                    }
+                ],
+            )
+
 
 class TestAsyncBrowsers:
     parametrize = pytest.mark.parametrize(
@@ -229,6 +301,12 @@ class TestAsyncBrowsers:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncKernel) -> None:
         browser = await async_client.browsers.create(
+            extensions=[
+                {
+                    "id": "id",
+                    "name": "name",
+                }
+            ],
             headless=False,
             invocation_id="rr33xuugxj9h0bkf1rdt2bet",
             persistence={"id": "my-awesome-browser-for-user-1234"},
@@ -409,4 +487,70 @@ class TestAsyncBrowsers:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.browsers.with_raw_response.delete_by_id(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_upload_extensions(self, async_client: AsyncKernel) -> None:
+        browser = await async_client.browsers.upload_extensions(
+            id="id",
+            extensions=[
+                {
+                    "name": "name",
+                    "zip_file": b"raw file contents",
+                }
+            ],
+        )
+        assert browser is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_upload_extensions(self, async_client: AsyncKernel) -> None:
+        response = await async_client.browsers.with_raw_response.upload_extensions(
+            id="id",
+            extensions=[
+                {
+                    "name": "name",
+                    "zip_file": b"raw file contents",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        browser = await response.parse()
+        assert browser is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_upload_extensions(self, async_client: AsyncKernel) -> None:
+        async with async_client.browsers.with_streaming_response.upload_extensions(
+            id="id",
+            extensions=[
+                {
+                    "name": "name",
+                    "zip_file": b"raw file contents",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            browser = await response.parse()
+            assert browser is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_upload_extensions(self, async_client: AsyncKernel) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.browsers.with_raw_response.upload_extensions(
+                id="",
+                extensions=[
+                    {
+                        "name": "name",
+                        "zip_file": b"raw file contents",
+                    }
+                ],
             )

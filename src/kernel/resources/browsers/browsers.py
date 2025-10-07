@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Mapping, Iterable, cast
+
 import httpx
 
 from .logs import (
@@ -20,7 +22,7 @@ from .fs.fs import (
     FsResourceWithStreamingResponse,
     AsyncFsResourceWithStreamingResponse,
 )
-from ...types import browser_create_params, browser_delete_params
+from ...types import browser_create_params, browser_delete_params, browser_upload_extensions_params
 from .process import (
     ProcessResource,
     AsyncProcessResource,
@@ -38,7 +40,7 @@ from .replays import (
     AsyncReplaysResourceWithStreamingResponse,
 )
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -95,6 +97,7 @@ class BrowsersResource(SyncAPIResource):
     def create(
         self,
         *,
+        extensions: Iterable[browser_create_params.Extension] | Omit = omit,
         headless: bool | Omit = omit,
         invocation_id: str | Omit = omit,
         persistence: BrowserPersistenceParam | Omit = omit,
@@ -113,6 +116,8 @@ class BrowsersResource(SyncAPIResource):
         Create a new browser session from within an action.
 
         Args:
+          extensions: List of browser extensions to load into the session. Provide each by id or name.
+
           headless: If true, launches the browser using a headless image (no VNC/GUI). Defaults to
               false.
 
@@ -149,6 +154,7 @@ class BrowsersResource(SyncAPIResource):
             "/browsers",
             body=maybe_transform(
                 {
+                    "extensions": extensions,
                     "headless": headless,
                     "invocation_id": invocation_id,
                     "persistence": persistence,
@@ -289,6 +295,52 @@ class BrowsersResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def upload_extensions(
+        self,
+        id: str,
+        *,
+        extensions: Iterable[browser_upload_extensions_params.Extension],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Loads one or more unpacked extensions and restarts Chromium on the browser
+        instance.
+
+        Args:
+          extensions: List of extensions to upload and activate
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_minimal({"extensions": extensions})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["extensions", "<array>", "zip_file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
+        return self._post(
+            f"/browsers/{id}/extensions",
+            body=maybe_transform(body, browser_upload_extensions_params.BrowserUploadExtensionsParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class AsyncBrowsersResource(AsyncAPIResource):
     @cached_property
@@ -329,6 +381,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        extensions: Iterable[browser_create_params.Extension] | Omit = omit,
         headless: bool | Omit = omit,
         invocation_id: str | Omit = omit,
         persistence: BrowserPersistenceParam | Omit = omit,
@@ -347,6 +400,8 @@ class AsyncBrowsersResource(AsyncAPIResource):
         Create a new browser session from within an action.
 
         Args:
+          extensions: List of browser extensions to load into the session. Provide each by id or name.
+
           headless: If true, launches the browser using a headless image (no VNC/GUI). Defaults to
               false.
 
@@ -383,6 +438,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
             "/browsers",
             body=await async_maybe_transform(
                 {
+                    "extensions": extensions,
                     "headless": headless,
                     "invocation_id": invocation_id,
                     "persistence": persistence,
@@ -525,6 +581,52 @@ class AsyncBrowsersResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def upload_extensions(
+        self,
+        id: str,
+        *,
+        extensions: Iterable[browser_upload_extensions_params.Extension],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Loads one or more unpacked extensions and restarts Chromium on the browser
+        instance.
+
+        Args:
+          extensions: List of extensions to upload and activate
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        body = deepcopy_minimal({"extensions": extensions})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["extensions", "<array>", "zip_file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers["Content-Type"] = "multipart/form-data"
+        return await self._post(
+            f"/browsers/{id}/extensions",
+            body=await async_maybe_transform(body, browser_upload_extensions_params.BrowserUploadExtensionsParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class BrowsersResourceWithRawResponse:
     def __init__(self, browsers: BrowsersResource) -> None:
@@ -544,6 +646,9 @@ class BrowsersResourceWithRawResponse:
         )
         self.delete_by_id = to_raw_response_wrapper(
             browsers.delete_by_id,
+        )
+        self.upload_extensions = to_raw_response_wrapper(
+            browsers.upload_extensions,
         )
 
     @cached_property
@@ -582,6 +687,9 @@ class AsyncBrowsersResourceWithRawResponse:
         self.delete_by_id = async_to_raw_response_wrapper(
             browsers.delete_by_id,
         )
+        self.upload_extensions = async_to_raw_response_wrapper(
+            browsers.upload_extensions,
+        )
 
     @cached_property
     def replays(self) -> AsyncReplaysResourceWithRawResponse:
@@ -619,6 +727,9 @@ class BrowsersResourceWithStreamingResponse:
         self.delete_by_id = to_streamed_response_wrapper(
             browsers.delete_by_id,
         )
+        self.upload_extensions = to_streamed_response_wrapper(
+            browsers.upload_extensions,
+        )
 
     @cached_property
     def replays(self) -> ReplaysResourceWithStreamingResponse:
@@ -655,6 +766,9 @@ class AsyncBrowsersResourceWithStreamingResponse:
         )
         self.delete_by_id = async_to_streamed_response_wrapper(
             browsers.delete_by_id,
+        )
+        self.upload_extensions = async_to_streamed_response_wrapper(
+            browsers.upload_extensions,
         )
 
     @cached_property

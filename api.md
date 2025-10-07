@@ -82,6 +82,7 @@ Methods:
 - <code title="get /browsers">client.browsers.<a href="./src/kernel/resources/browsers/browsers.py">list</a>() -> <a href="./src/kernel/types/browser_list_response.py">BrowserListResponse</a></code>
 - <code title="delete /browsers">client.browsers.<a href="./src/kernel/resources/browsers/browsers.py">delete</a>(\*\*<a href="src/kernel/types/browser_delete_params.py">params</a>) -> None</code>
 - <code title="delete /browsers/{id}">client.browsers.<a href="./src/kernel/resources/browsers/browsers.py">delete_by_id</a>(id) -> None</code>
+- <code title="post /browsers/{id}/extensions">client.browsers.<a href="./src/kernel/resources/browsers/browsers.py">upload_extensions</a>(id, \*\*<a href="src/kernel/types/browser_upload_extensions_params.py">params</a>) -> None</code>
 
 ## Replays
 
@@ -195,3 +196,19 @@ Methods:
 - <code title="get /proxies/{id}">client.proxies.<a href="./src/kernel/resources/proxies.py">retrieve</a>(id) -> <a href="./src/kernel/types/proxy_retrieve_response.py">ProxyRetrieveResponse</a></code>
 - <code title="get /proxies">client.proxies.<a href="./src/kernel/resources/proxies.py">list</a>() -> <a href="./src/kernel/types/proxy_list_response.py">ProxyListResponse</a></code>
 - <code title="delete /proxies/{id}">client.proxies.<a href="./src/kernel/resources/proxies.py">delete</a>(id) -> None</code>
+
+# Extensions
+
+Types:
+
+```python
+from kernel.types import ExtensionListResponse, ExtensionUploadResponse
+```
+
+Methods:
+
+- <code title="get /extensions">client.extensions.<a href="./src/kernel/resources/extensions.py">list</a>() -> <a href="./src/kernel/types/extension_list_response.py">ExtensionListResponse</a></code>
+- <code title="delete /extensions/{id_or_name}">client.extensions.<a href="./src/kernel/resources/extensions.py">delete</a>(id_or_name) -> None</code>
+- <code title="get /extensions/{id_or_name}">client.extensions.<a href="./src/kernel/resources/extensions.py">download</a>(id_or_name) -> BinaryAPIResponse</code>
+- <code title="get /extensions/from_chrome_store">client.extensions.<a href="./src/kernel/resources/extensions.py">download_from_chrome_store</a>(\*\*<a href="src/kernel/types/extension_download_from_chrome_store_params.py">params</a>) -> BinaryAPIResponse</code>
+- <code title="post /extensions">client.extensions.<a href="./src/kernel/resources/extensions.py">upload</a>(\*\*<a href="src/kernel/types/extension_upload_params.py">params</a>) -> <a href="./src/kernel/types/extension_upload_response.py">ExtensionUploadResponse</a></code>

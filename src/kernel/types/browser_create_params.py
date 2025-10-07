@@ -2,14 +2,21 @@
 
 from __future__ import annotations
 
+from typing import Iterable
 from typing_extensions import TypedDict
 
 from .browser_persistence_param import BrowserPersistenceParam
 
-__all__ = ["BrowserCreateParams", "Profile"]
+__all__ = ["BrowserCreateParams", "Extension", "Profile"]
 
 
 class BrowserCreateParams(TypedDict, total=False):
+    extensions: Iterable[Extension]
+    """List of browser extensions to load into the session.
+
+    Provide each by id or name.
+    """
+
     headless: bool
     """If true, launches the browser using a headless image (no VNC/GUI).
 
@@ -49,6 +56,17 @@ class BrowserCreateParams(TypedDict, total=False):
     seconds. Maximum allowed is 86400 (24 hours). We check for inactivity every 5
     seconds, so the actual timeout behavior you will see is +/- 5 seconds around the
     specified value.
+    """
+
+
+class Extension(TypedDict, total=False):
+    id: str
+    """Extension ID to load for this browser session"""
+
+    name: str
+    """Extension name to load for this browser session (instead of id).
+
+    Must be 1-255 characters, using letters, numbers, dots, underscores, or hyphens.
     """
 
 
