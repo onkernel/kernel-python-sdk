@@ -32,6 +32,14 @@ from .profiles import (
     ProfilesResourceWithStreamingResponse,
     AsyncProfilesResourceWithStreamingResponse,
 )
+from .extensions import (
+    ExtensionsResource,
+    AsyncExtensionsResource,
+    ExtensionsResourceWithRawResponse,
+    AsyncExtensionsResourceWithRawResponse,
+    ExtensionsResourceWithStreamingResponse,
+    AsyncExtensionsResourceWithStreamingResponse,
+)
 from .deployments import (
     DeploymentsResource,
     AsyncDeploymentsResource,
@@ -86,4 +94,10 @@ __all__ = [
     "AsyncProxiesResourceWithRawResponse",
     "ProxiesResourceWithStreamingResponse",
     "AsyncProxiesResourceWithStreamingResponse",
+    "ExtensionsResource",
+    "AsyncExtensionsResource",
+    "ExtensionsResourceWithRawResponse",
+    "AsyncExtensionsResourceWithRawResponse",
+    "ExtensionsResourceWithStreamingResponse",
+    "AsyncExtensionsResourceWithStreamingResponse",
 ]

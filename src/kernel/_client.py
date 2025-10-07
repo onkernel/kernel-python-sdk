@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import apps, proxies, profiles, deployments, invocations
+from .resources import apps, proxies, profiles, extensions, deployments, invocations
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import KernelError, APIStatusError
 from ._base_client import (
@@ -56,6 +56,7 @@ class Kernel(SyncAPIClient):
     browsers: browsers.BrowsersResource
     profiles: profiles.ProfilesResource
     proxies: proxies.ProxiesResource
+    extensions: extensions.ExtensionsResource
     with_raw_response: KernelWithRawResponse
     with_streaming_response: KernelWithStreamedResponse
 
@@ -143,6 +144,7 @@ class Kernel(SyncAPIClient):
         self.browsers = browsers.BrowsersResource(self)
         self.profiles = profiles.ProfilesResource(self)
         self.proxies = proxies.ProxiesResource(self)
+        self.extensions = extensions.ExtensionsResource(self)
         self.with_raw_response = KernelWithRawResponse(self)
         self.with_streaming_response = KernelWithStreamedResponse(self)
 
@@ -260,6 +262,7 @@ class AsyncKernel(AsyncAPIClient):
     browsers: browsers.AsyncBrowsersResource
     profiles: profiles.AsyncProfilesResource
     proxies: proxies.AsyncProxiesResource
+    extensions: extensions.AsyncExtensionsResource
     with_raw_response: AsyncKernelWithRawResponse
     with_streaming_response: AsyncKernelWithStreamedResponse
 
@@ -347,6 +350,7 @@ class AsyncKernel(AsyncAPIClient):
         self.browsers = browsers.AsyncBrowsersResource(self)
         self.profiles = profiles.AsyncProfilesResource(self)
         self.proxies = proxies.AsyncProxiesResource(self)
+        self.extensions = extensions.AsyncExtensionsResource(self)
         self.with_raw_response = AsyncKernelWithRawResponse(self)
         self.with_streaming_response = AsyncKernelWithStreamedResponse(self)
 
@@ -465,6 +469,7 @@ class KernelWithRawResponse:
         self.browsers = browsers.BrowsersResourceWithRawResponse(client.browsers)
         self.profiles = profiles.ProfilesResourceWithRawResponse(client.profiles)
         self.proxies = proxies.ProxiesResourceWithRawResponse(client.proxies)
+        self.extensions = extensions.ExtensionsResourceWithRawResponse(client.extensions)
 
 
 class AsyncKernelWithRawResponse:
@@ -475,6 +480,7 @@ class AsyncKernelWithRawResponse:
         self.browsers = browsers.AsyncBrowsersResourceWithRawResponse(client.browsers)
         self.profiles = profiles.AsyncProfilesResourceWithRawResponse(client.profiles)
         self.proxies = proxies.AsyncProxiesResourceWithRawResponse(client.proxies)
+        self.extensions = extensions.AsyncExtensionsResourceWithRawResponse(client.extensions)
 
 
 class KernelWithStreamedResponse:
@@ -485,6 +491,7 @@ class KernelWithStreamedResponse:
         self.browsers = browsers.BrowsersResourceWithStreamingResponse(client.browsers)
         self.profiles = profiles.ProfilesResourceWithStreamingResponse(client.profiles)
         self.proxies = proxies.ProxiesResourceWithStreamingResponse(client.proxies)
+        self.extensions = extensions.ExtensionsResourceWithStreamingResponse(client.extensions)
 
 
 class AsyncKernelWithStreamedResponse:
@@ -495,6 +502,7 @@ class AsyncKernelWithStreamedResponse:
         self.browsers = browsers.AsyncBrowsersResourceWithStreamingResponse(client.browsers)
         self.profiles = profiles.AsyncProfilesResourceWithStreamingResponse(client.profiles)
         self.proxies = proxies.AsyncProxiesResourceWithStreamingResponse(client.proxies)
+        self.extensions = extensions.AsyncExtensionsResourceWithStreamingResponse(client.extensions)
 
 
 Client = Kernel

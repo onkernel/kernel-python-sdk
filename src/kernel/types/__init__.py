@@ -27,6 +27,8 @@ from .deployment_state_event import DeploymentStateEvent as DeploymentStateEvent
 from .invocation_list_params import InvocationListParams as InvocationListParams
 from .invocation_state_event import InvocationStateEvent as InvocationStateEvent
 from .browser_create_response import BrowserCreateResponse as BrowserCreateResponse
+from .extension_list_response import ExtensionListResponse as ExtensionListResponse
+from .extension_upload_params import ExtensionUploadParams as ExtensionUploadParams
 from .proxy_retrieve_response import ProxyRetrieveResponse as ProxyRetrieveResponse
 from .deployment_create_params import DeploymentCreateParams as DeploymentCreateParams
 from .deployment_follow_params import DeploymentFollowParams as DeploymentFollowParams
@@ -37,6 +39,7 @@ from .invocation_list_response import InvocationListResponse as InvocationListRe
 from .invocation_update_params import InvocationUpdateParams as InvocationUpdateParams
 from .browser_persistence_param import BrowserPersistenceParam as BrowserPersistenceParam
 from .browser_retrieve_response import BrowserRetrieveResponse as BrowserRetrieveResponse
+from .extension_upload_response import ExtensionUploadResponse as ExtensionUploadResponse
 from .deployment_create_response import DeploymentCreateResponse as DeploymentCreateResponse
 from .deployment_follow_response import DeploymentFollowResponse as DeploymentFollowResponse
 from .invocation_create_response import InvocationCreateResponse as InvocationCreateResponse
@@ -44,3 +47,7 @@ from .invocation_follow_response import InvocationFollowResponse as InvocationFo
 from .invocation_update_response import InvocationUpdateResponse as InvocationUpdateResponse
 from .deployment_retrieve_response import DeploymentRetrieveResponse as DeploymentRetrieveResponse
 from .invocation_retrieve_response import InvocationRetrieveResponse as InvocationRetrieveResponse
+from .browser_upload_extensions_params import BrowserUploadExtensionsParams as BrowserUploadExtensionsParams
+from .extension_download_from_chrome_store_params import (
+    ExtensionDownloadFromChromeStoreParams as ExtensionDownloadFromChromeStoreParams,
+)
