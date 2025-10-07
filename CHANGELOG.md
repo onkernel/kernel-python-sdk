@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.14.0 (2025-10-07)
+
+Full Changelog: [v0.13.0...v0.14.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.13.0...v0.14.0)
+
+### Features
+
+* WIP browser extensions ([89bac15](https://github.com/onkernel/kernel-python-sdk/commit/89bac15e58e4892e653a9dafeb2d15c88d7fdbb9))
+
 ## 0.13.0 (2025-10-03)
 
 Full Changelog: [v0.12.0...v0.13.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.12.0...v0.13.0)
