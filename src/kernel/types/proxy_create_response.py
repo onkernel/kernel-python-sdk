@@ -19,12 +19,12 @@ __all__ = [
 
 class ConfigDatacenterProxyConfig(BaseModel):
     country: str
-    """ISO 3166 country code or EU for the proxy exit node."""
+    """ISO 3166 country code."""
 
 
 class ConfigIspProxyConfig(BaseModel):
     country: str
-    """ISO 3166 country code or EU for the proxy exit node."""
+    """ISO 3166 country code."""
 
 
 class ConfigResidentialProxyConfig(BaseModel):
@@ -38,10 +38,7 @@ class ConfigResidentialProxyConfig(BaseModel):
     """
 
     country: Optional[str] = None
-    """ISO 3166 country code or EU for the proxy exit node.
-
-    Required if `city` is provided.
-    """
+    """ISO 3166 country code."""
 
     os: Optional[Literal["windows", "macos", "android"]] = None
     """Operating system of the residential device."""
@@ -128,10 +125,7 @@ class ConfigMobileProxyConfig(BaseModel):
     """
 
     country: Optional[str] = None
-    """ISO 3166 country code or EU for the proxy exit node.
-
-    Required if `city` is provided.
-    """
+    """ISO 3166 country code"""
 
     state: Optional[str] = None
     """Two-letter state code."""

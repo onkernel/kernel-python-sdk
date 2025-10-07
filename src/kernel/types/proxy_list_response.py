@@ -20,12 +20,12 @@ __all__ = [
 
 class ProxyListResponseItemConfigDatacenterProxyConfig(BaseModel):
     country: str
-    """ISO 3166 country code or EU for the proxy exit node."""
+    """ISO 3166 country code."""
 
 
 class ProxyListResponseItemConfigIspProxyConfig(BaseModel):
     country: str
-    """ISO 3166 country code or EU for the proxy exit node."""
+    """ISO 3166 country code."""
 
 
 class ProxyListResponseItemConfigResidentialProxyConfig(BaseModel):
@@ -39,10 +39,7 @@ class ProxyListResponseItemConfigResidentialProxyConfig(BaseModel):
     """
 
     country: Optional[str] = None
-    """ISO 3166 country code or EU for the proxy exit node.
-
-    Required if `city` is provided.
-    """
+    """ISO 3166 country code."""
 
     os: Optional[Literal["windows", "macos", "android"]] = None
     """Operating system of the residential device."""
@@ -129,10 +126,7 @@ class ProxyListResponseItemConfigMobileProxyConfig(BaseModel):
     """
 
     country: Optional[str] = None
-    """ISO 3166 country code or EU for the proxy exit node.
-
-    Required if `city` is provided.
-    """
+    """ISO 3166 country code"""
 
     state: Optional[str] = None
     """Two-letter state code."""

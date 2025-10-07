@@ -36,12 +36,12 @@ class ProxyCreateParams(TypedDict, total=False):
 
 class ConfigDatacenterProxyConfig(TypedDict, total=False):
     country: Required[str]
-    """ISO 3166 country code or EU for the proxy exit node."""
+    """ISO 3166 country code."""
 
 
 class ConfigIspProxyConfig(TypedDict, total=False):
     country: Required[str]
-    """ISO 3166 country code or EU for the proxy exit node."""
+    """ISO 3166 country code."""
 
 
 class ConfigResidentialProxyConfig(TypedDict, total=False):
@@ -55,10 +55,7 @@ class ConfigResidentialProxyConfig(TypedDict, total=False):
     """
 
     country: str
-    """ISO 3166 country code or EU for the proxy exit node.
-
-    Required if `city` is provided.
-    """
+    """ISO 3166 country code."""
 
     os: Literal["windows", "macos", "android"]
     """Operating system of the residential device."""
@@ -143,10 +140,7 @@ class ConfigMobileProxyConfig(TypedDict, total=False):
     """
 
     country: str
-    """ISO 3166 country code or EU for the proxy exit node.
-
-    Required if `city` is provided.
-    """
+    """ISO 3166 country code"""
 
     state: str
     """Two-letter state code."""
