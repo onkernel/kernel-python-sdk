@@ -48,6 +48,11 @@ class TestBrowsers:
             proxy_id="proxy_id",
             stealth=True,
             timeout_seconds=10,
+            viewport={
+                "height": 800,
+                "width": 1280,
+                "refresh_rate": 60,
+            },
         )
         assert_matches_type(BrowserCreateResponse, browser, path=["response"])
 
@@ -221,8 +226,8 @@ class TestBrowsers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_upload_extensions(self, client: Kernel) -> None:
-        browser = client.browsers.upload_extensions(
+    def test_method_load_extensions(self, client: Kernel) -> None:
+        browser = client.browsers.load_extensions(
             id="id",
             extensions=[
                 {
@@ -235,8 +240,8 @@ class TestBrowsers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_upload_extensions(self, client: Kernel) -> None:
-        response = client.browsers.with_raw_response.upload_extensions(
+    def test_raw_response_load_extensions(self, client: Kernel) -> None:
+        response = client.browsers.with_raw_response.load_extensions(
             id="id",
             extensions=[
                 {
@@ -253,8 +258,8 @@ class TestBrowsers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_upload_extensions(self, client: Kernel) -> None:
-        with client.browsers.with_streaming_response.upload_extensions(
+    def test_streaming_response_load_extensions(self, client: Kernel) -> None:
+        with client.browsers.with_streaming_response.load_extensions(
             id="id",
             extensions=[
                 {
@@ -273,9 +278,9 @@ class TestBrowsers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_upload_extensions(self, client: Kernel) -> None:
+    def test_path_params_load_extensions(self, client: Kernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            client.browsers.with_raw_response.upload_extensions(
+            client.browsers.with_raw_response.load_extensions(
                 id="",
                 extensions=[
                     {
@@ -318,6 +323,11 @@ class TestAsyncBrowsers:
             proxy_id="proxy_id",
             stealth=True,
             timeout_seconds=10,
+            viewport={
+                "height": 800,
+                "width": 1280,
+                "refresh_rate": 60,
+            },
         )
         assert_matches_type(BrowserCreateResponse, browser, path=["response"])
 
@@ -491,8 +501,8 @@ class TestAsyncBrowsers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_upload_extensions(self, async_client: AsyncKernel) -> None:
-        browser = await async_client.browsers.upload_extensions(
+    async def test_method_load_extensions(self, async_client: AsyncKernel) -> None:
+        browser = await async_client.browsers.load_extensions(
             id="id",
             extensions=[
                 {
@@ -505,8 +515,8 @@ class TestAsyncBrowsers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_upload_extensions(self, async_client: AsyncKernel) -> None:
-        response = await async_client.browsers.with_raw_response.upload_extensions(
+    async def test_raw_response_load_extensions(self, async_client: AsyncKernel) -> None:
+        response = await async_client.browsers.with_raw_response.load_extensions(
             id="id",
             extensions=[
                 {
@@ -523,8 +533,8 @@ class TestAsyncBrowsers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_upload_extensions(self, async_client: AsyncKernel) -> None:
-        async with async_client.browsers.with_streaming_response.upload_extensions(
+    async def test_streaming_response_load_extensions(self, async_client: AsyncKernel) -> None:
+        async with async_client.browsers.with_streaming_response.load_extensions(
             id="id",
             extensions=[
                 {
@@ -543,9 +553,9 @@ class TestAsyncBrowsers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_upload_extensions(self, async_client: AsyncKernel) -> None:
+    async def test_path_params_load_extensions(self, async_client: AsyncKernel) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            await async_client.browsers.with_raw_response.upload_extensions(
+            await async_client.browsers.with_raw_response.load_extensions(
                 id="",
                 extensions=[
                     {

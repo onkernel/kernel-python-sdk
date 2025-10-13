@@ -7,7 +7,21 @@ from .profile import Profile
 from .._models import BaseModel
 from .browser_persistence import BrowserPersistence
 
-__all__ = ["BrowserCreateResponse"]
+__all__ = ["BrowserCreateResponse", "Viewport"]
+
+
+class Viewport(BaseModel):
+    height: int
+    """Browser window height in pixels."""
+
+    width: int
+    """Browser window width in pixels."""
+
+    refresh_rate: Optional[int] = None
+    """Display refresh rate in Hz.
+
+    If omitted, automatically determined from width and height.
+    """
 
 
 class BrowserCreateResponse(BaseModel):
@@ -43,3 +57,15 @@ class BrowserCreateResponse(BaseModel):
 
     proxy_id: Optional[str] = None
     """ID of the proxy associated with this browser session, if any."""
+
+    viewport: Optional[Viewport] = None
+    """Initial browser window size in pixels with optional refresh rate.
+
+    If omitted, image defaults apply (commonly 1024x768@60). Only specific viewport
+    configurations are supported. The server will reject unsupported combinations.
+    Supported resolutions are: 2560x1440@10, 1920x1080@25, 1920x1200@25,
+    1440x900@25, 1024x768@60 If refresh_rate is not provided, it will be
+    automatically determined from the width and height if they match a supported
+    configuration exactly. Note: Higher resolutions may affect the responsiveness of
+    live view browser
+    """

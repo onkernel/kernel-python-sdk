@@ -7,10 +7,10 @@ from typing_extensions import Required, TypedDict
 
 from .._types import FileTypes
 
-__all__ = ["BrowserUploadExtensionsParams", "Extension"]
+__all__ = ["BrowserLoadExtensionsParams", "Extension"]
 
 
-class BrowserUploadExtensionsParams(TypedDict, total=False):
+class BrowserLoadExtensionsParams(TypedDict, total=False):
     extensions: Required[Iterable[Extension]]
     """List of extensions to upload and activate"""
 

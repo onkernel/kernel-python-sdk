@@ -47,7 +47,7 @@ from .invocation_follow_response import InvocationFollowResponse as InvocationFo
 from .invocation_update_response import InvocationUpdateResponse as InvocationUpdateResponse
 from .deployment_retrieve_response import DeploymentRetrieveResponse as DeploymentRetrieveResponse
 from .invocation_retrieve_response import InvocationRetrieveResponse as InvocationRetrieveResponse
-from .browser_upload_extensions_params import BrowserUploadExtensionsParams as BrowserUploadExtensionsParams
+from .browser_load_extensions_params import BrowserLoadExtensionsParams as BrowserLoadExtensionsParams
 from .extension_download_from_chrome_store_params import (
     ExtensionDownloadFromChromeStoreParams as ExtensionDownloadFromChromeStoreParams,
 )
