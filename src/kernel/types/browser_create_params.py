@@ -3,11 +3,11 @@
 from __future__ import annotations
 
 from typing import Iterable
-from typing_extensions import TypedDict
+from typing_extensions import Required, TypedDict
 
 from .browser_persistence_param import BrowserPersistenceParam
 
-__all__ = ["BrowserCreateParams", "Extension", "Profile"]
+__all__ = ["BrowserCreateParams", "Extension", "Profile", "Viewport"]
 
 
 class BrowserCreateParams(TypedDict, total=False):
@@ -58,6 +58,18 @@ class BrowserCreateParams(TypedDict, total=False):
     specified value.
     """
 
+    viewport: Viewport
+    """Initial browser window size in pixels with optional refresh rate.
+
+    If omitted, image defaults apply (commonly 1024x768@60). Only specific viewport
+    configurations are supported. The server will reject unsupported combinations.
+    Supported resolutions are: 2560x1440@10, 1920x1080@25, 1920x1200@25,
+    1440x900@25, 1024x768@60 If refresh_rate is not provided, it will be
+    automatically determined from the width and height if they match a supported
+    configuration exactly. Note: Higher resolutions may affect the responsiveness of
+    live view browser
+    """
+
 
 class Extension(TypedDict, total=False):
     id: str
@@ -84,4 +96,18 @@ class Profile(TypedDict, total=False):
     """
     If true, save changes made during the session back to the profile when the
     session ends.
+    """
+
+
+class Viewport(TypedDict, total=False):
+    height: Required[int]
+    """Browser window height in pixels."""
+
+    width: Required[int]
+    """Browser window width in pixels."""
+
+    refresh_rate: int
+    """Display refresh rate in Hz.
+
+    If omitted, automatically determined from width and height.
     """
