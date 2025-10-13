@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.14.1 (2025-10-13)
+
+Full Changelog: [v0.14.0...v0.14.1](https://github.com/onkernel/kernel-python-sdk/compare/v0.14.0...v0.14.1)
+
+### Features
+
+* Hide and deprecate mobile proxy type ([bee8d86](https://github.com/onkernel/kernel-python-sdk/commit/bee8d86588ce57de073583fa7e94a5ba38f21b9a))
+* WIP: Configurable Viewport ([60b9961](https://github.com/onkernel/kernel-python-sdk/commit/60b99616dea9fa4ba823f58c2c18ea9dda60b836))
+
+
+### Chores
+
+* **internal:** detect missing future annotations with ruff ([b53927c](https://github.com/onkernel/kernel-python-sdk/commit/b53927c4013a34ad6afee95efe5608b56e34755a))
+
 ## 0.14.0 (2025-10-07)
 
 Full Changelog: [v0.13.0...v0.14.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.13.0...v0.14.0)
