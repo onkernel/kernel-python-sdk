@@ -22,7 +22,7 @@ from .fs.fs import (
     FsResourceWithStreamingResponse,
     AsyncFsResourceWithStreamingResponse,
 )
-from ...types import browser_create_params, browser_delete_params, browser_upload_extensions_params
+from ...types import browser_create_params, browser_delete_params, browser_load_extensions_params
 from .process import (
     ProcessResource,
     AsyncProcessResource,
@@ -105,6 +105,7 @@ class BrowsersResource(SyncAPIResource):
         proxy_id: str | Omit = omit,
         stealth: bool | Omit = omit,
         timeout_seconds: int | Omit = omit,
+        viewport: browser_create_params.Viewport | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -142,6 +143,15 @@ class BrowsersResource(SyncAPIResource):
               seconds, so the actual timeout behavior you will see is +/- 5 seconds around the
               specified value.
 
+          viewport: Initial browser window size in pixels with optional refresh rate. If omitted,
+              image defaults apply (commonly 1024x768@60). Only specific viewport
+              configurations are supported. The server will reject unsupported combinations.
+              Supported resolutions are: 2560x1440@10, 1920x1080@25, 1920x1200@25,
+              1440x900@25, 1024x768@60 If refresh_rate is not provided, it will be
+              automatically determined from the width and height if they match a supported
+              configuration exactly. Note: Higher resolutions may affect the responsiveness of
+              live view browser
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -162,6 +172,7 @@ class BrowsersResource(SyncAPIResource):
                     "proxy_id": proxy_id,
                     "stealth": stealth,
                     "timeout_seconds": timeout_seconds,
+                    "viewport": viewport,
                 },
                 browser_create_params.BrowserCreateParams,
             ),
@@ -295,11 +306,11 @@ class BrowsersResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    def upload_extensions(
+    def load_extensions(
         self,
         id: str,
         *,
-        extensions: Iterable[browser_upload_extensions_params.Extension],
+        extensions: Iterable[browser_load_extensions_params.Extension],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -333,7 +344,7 @@ class BrowsersResource(SyncAPIResource):
         extra_headers["Content-Type"] = "multipart/form-data"
         return self._post(
             f"/browsers/{id}/extensions",
-            body=maybe_transform(body, browser_upload_extensions_params.BrowserUploadExtensionsParams),
+            body=maybe_transform(body, browser_load_extensions_params.BrowserLoadExtensionsParams),
             files=files,
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -389,6 +400,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         proxy_id: str | Omit = omit,
         stealth: bool | Omit = omit,
         timeout_seconds: int | Omit = omit,
+        viewport: browser_create_params.Viewport | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -426,6 +438,15 @@ class AsyncBrowsersResource(AsyncAPIResource):
               seconds, so the actual timeout behavior you will see is +/- 5 seconds around the
               specified value.
 
+          viewport: Initial browser window size in pixels with optional refresh rate. If omitted,
+              image defaults apply (commonly 1024x768@60). Only specific viewport
+              configurations are supported. The server will reject unsupported combinations.
+              Supported resolutions are: 2560x1440@10, 1920x1080@25, 1920x1200@25,
+              1440x900@25, 1024x768@60 If refresh_rate is not provided, it will be
+              automatically determined from the width and height if they match a supported
+              configuration exactly. Note: Higher resolutions may affect the responsiveness of
+              live view browser
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -446,6 +467,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
                     "proxy_id": proxy_id,
                     "stealth": stealth,
                     "timeout_seconds": timeout_seconds,
+                    "viewport": viewport,
                 },
                 browser_create_params.BrowserCreateParams,
             ),
@@ -581,11 +603,11 @@ class AsyncBrowsersResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def upload_extensions(
+    async def load_extensions(
         self,
         id: str,
         *,
-        extensions: Iterable[browser_upload_extensions_params.Extension],
+        extensions: Iterable[browser_load_extensions_params.Extension],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -619,7 +641,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         extra_headers["Content-Type"] = "multipart/form-data"
         return await self._post(
             f"/browsers/{id}/extensions",
-            body=await async_maybe_transform(body, browser_upload_extensions_params.BrowserUploadExtensionsParams),
+            body=await async_maybe_transform(body, browser_load_extensions_params.BrowserLoadExtensionsParams),
             files=files,
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -647,8 +669,8 @@ class BrowsersResourceWithRawResponse:
         self.delete_by_id = to_raw_response_wrapper(
             browsers.delete_by_id,
         )
-        self.upload_extensions = to_raw_response_wrapper(
-            browsers.upload_extensions,
+        self.load_extensions = to_raw_response_wrapper(
+            browsers.load_extensions,
         )
 
     @cached_property
@@ -687,8 +709,8 @@ class AsyncBrowsersResourceWithRawResponse:
         self.delete_by_id = async_to_raw_response_wrapper(
             browsers.delete_by_id,
         )
-        self.upload_extensions = async_to_raw_response_wrapper(
-            browsers.upload_extensions,
+        self.load_extensions = async_to_raw_response_wrapper(
+            browsers.load_extensions,
         )
 
     @cached_property
@@ -727,8 +749,8 @@ class BrowsersResourceWithStreamingResponse:
         self.delete_by_id = to_streamed_response_wrapper(
             browsers.delete_by_id,
         )
-        self.upload_extensions = to_streamed_response_wrapper(
-            browsers.upload_extensions,
+        self.load_extensions = to_streamed_response_wrapper(
+            browsers.load_extensions,
         )
 
     @cached_property
@@ -767,8 +789,8 @@ class AsyncBrowsersResourceWithStreamingResponse:
         self.delete_by_id = async_to_streamed_response_wrapper(
             browsers.delete_by_id,
         )
-        self.upload_extensions = async_to_streamed_response_wrapper(
-            browsers.upload_extensions,
+        self.load_extensions = async_to_streamed_response_wrapper(
+            browsers.load_extensions,
         )
 
     @cached_property
