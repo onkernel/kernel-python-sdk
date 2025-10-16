@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.14.2 (2025-10-16)
+
+Full Changelog: [v0.14.1...v0.14.2](https://github.com/onkernel/kernel-python-sdk/compare/v0.14.1...v0.14.2)
+
+### Features
+
+* Kiosk mode ([1bd1ed2](https://github.com/onkernel/kernel-python-sdk/commit/1bd1ed23b4bc120653e3fb13a670e8598f97d157))
+
 ## 0.14.1 (2025-10-13)
 
 Full Changelog: [v0.14.0...v0.14.1](https://github.com/onkernel/kernel-python-sdk/compare/v0.14.0...v0.14.1)
