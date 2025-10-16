@@ -49,6 +49,9 @@ class BrowserCreateResponse(BaseModel):
     Only available for non-headless browsers.
     """
 
+    kiosk_mode: Optional[bool] = None
+    """Whether the browser session is running in kiosk mode."""
+
     persistence: Optional[BrowserPersistence] = None
     """Optional persistence configuration for the browser session."""
 
