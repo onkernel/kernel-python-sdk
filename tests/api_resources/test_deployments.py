@@ -25,10 +25,7 @@ class TestDeployments:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create(self, client: Kernel) -> None:
-        deployment = client.deployments.create(
-            entrypoint_rel_path="src/app.py",
-            file=b"raw file contents",
-        )
+        deployment = client.deployments.create()
         assert_matches_type(DeploymentCreateResponse, deployment, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -36,10 +33,21 @@ class TestDeployments:
     def test_method_create_with_all_params(self, client: Kernel) -> None:
         deployment = client.deployments.create(
             entrypoint_rel_path="src/app.py",
+            env_vars={"FOO": "bar"},
             file=b"raw file contents",
-            env_vars={"foo": "string"},
             force=False,
             region="aws.us-east-1a",
+            source={
+                "entrypoint": "src/index.ts",
+                "ref": "main",
+                "type": "github",
+                "url": "https://github.com/org/repo",
+                "auth": {
+                    "token": "ghs_***",
+                    "method": "github_token",
+                },
+                "path": "apps/api",
+            },
             version="1.0.0",
         )
         assert_matches_type(DeploymentCreateResponse, deployment, path=["response"])
@@ -47,10 +55,7 @@ class TestDeployments:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Kernel) -> None:
-        response = client.deployments.with_raw_response.create(
-            entrypoint_rel_path="src/app.py",
-            file=b"raw file contents",
-        )
+        response = client.deployments.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -60,10 +65,7 @@ class TestDeployments:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Kernel) -> None:
-        with client.deployments.with_streaming_response.create(
-            entrypoint_rel_path="src/app.py",
-            file=b"raw file contents",
-        ) as response:
+        with client.deployments.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -211,10 +213,7 @@ class TestAsyncDeployments:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncKernel) -> None:
-        deployment = await async_client.deployments.create(
-            entrypoint_rel_path="src/app.py",
-            file=b"raw file contents",
-        )
+        deployment = await async_client.deployments.create()
         assert_matches_type(DeploymentCreateResponse, deployment, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -222,10 +221,21 @@ class TestAsyncDeployments:
     async def test_method_create_with_all_params(self, async_client: AsyncKernel) -> None:
         deployment = await async_client.deployments.create(
             entrypoint_rel_path="src/app.py",
+            env_vars={"FOO": "bar"},
             file=b"raw file contents",
-            env_vars={"foo": "string"},
             force=False,
             region="aws.us-east-1a",
+            source={
+                "entrypoint": "src/index.ts",
+                "ref": "main",
+                "type": "github",
+                "url": "https://github.com/org/repo",
+                "auth": {
+                    "token": "ghs_***",
+                    "method": "github_token",
+                },
+                "path": "apps/api",
+            },
             version="1.0.0",
         )
         assert_matches_type(DeploymentCreateResponse, deployment, path=["response"])
@@ -233,10 +243,7 @@ class TestAsyncDeployments:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncKernel) -> None:
-        response = await async_client.deployments.with_raw_response.create(
-            entrypoint_rel_path="src/app.py",
-            file=b"raw file contents",
-        )
+        response = await async_client.deployments.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -246,10 +253,7 @@ class TestAsyncDeployments:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncKernel) -> None:
-        async with async_client.deployments.with_streaming_response.create(
-            entrypoint_rel_path="src/app.py",
-            file=b"raw file contents",
-        ) as response:
+        async with async_client.deployments.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
