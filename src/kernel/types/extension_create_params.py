@@ -6,10 +6,10 @@ from typing_extensions import Required, TypedDict
 
 from .._types import FileTypes
 
-__all__ = ["ExtensionUploadParams"]
+__all__ = ["ExtensionCreateParams"]
 
 
-class ExtensionUploadParams(TypedDict, total=False):
+class ExtensionCreateParams(TypedDict, total=False):
     file: Required[FileTypes]
     """ZIP file containing the browser extension."""
 
