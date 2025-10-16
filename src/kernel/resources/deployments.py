@@ -52,11 +52,12 @@ class DeploymentsResource(SyncAPIResource):
     def create(
         self,
         *,
-        entrypoint_rel_path: str,
-        file: FileTypes,
+        entrypoint_rel_path: str | Omit = omit,
         env_vars: Dict[str, str] | Omit = omit,
+        file: FileTypes | Omit = omit,
         force: bool | Omit = omit,
         region: Literal["aws.us-east-1a"] | Omit = omit,
+        source: deployment_create_params.Source | Omit = omit,
         version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -71,14 +72,16 @@ class DeploymentsResource(SyncAPIResource):
         Args:
           entrypoint_rel_path: Relative path to the entrypoint of the application
 
-          file: ZIP file containing the application source directory
-
           env_vars: Map of environment variables to set for the deployed application. Each key-value
               pair represents an environment variable.
+
+          file: ZIP file containing the application source directory
 
           force: Allow overwriting an existing app version
 
           region: Region for deployment. Currently we only support "aws.us-east-1a"
+
+          source: Source from which to fetch application code.
 
           version: Version of the application. Can be any string.
 
@@ -93,10 +96,11 @@ class DeploymentsResource(SyncAPIResource):
         body = deepcopy_minimal(
             {
                 "entrypoint_rel_path": entrypoint_rel_path,
-                "file": file,
                 "env_vars": env_vars,
+                "file": file,
                 "force": force,
                 "region": region,
+                "source": source,
                 "version": version,
             }
         )
@@ -271,11 +275,12 @@ class AsyncDeploymentsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        entrypoint_rel_path: str,
-        file: FileTypes,
+        entrypoint_rel_path: str | Omit = omit,
         env_vars: Dict[str, str] | Omit = omit,
+        file: FileTypes | Omit = omit,
         force: bool | Omit = omit,
         region: Literal["aws.us-east-1a"] | Omit = omit,
+        source: deployment_create_params.Source | Omit = omit,
         version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -290,14 +295,16 @@ class AsyncDeploymentsResource(AsyncAPIResource):
         Args:
           entrypoint_rel_path: Relative path to the entrypoint of the application
 
-          file: ZIP file containing the application source directory
-
           env_vars: Map of environment variables to set for the deployed application. Each key-value
               pair represents an environment variable.
+
+          file: ZIP file containing the application source directory
 
           force: Allow overwriting an existing app version
 
           region: Region for deployment. Currently we only support "aws.us-east-1a"
+
+          source: Source from which to fetch application code.
 
           version: Version of the application. Can be any string.
 
@@ -312,10 +319,11 @@ class AsyncDeploymentsResource(AsyncAPIResource):
         body = deepcopy_minimal(
             {
                 "entrypoint_rel_path": entrypoint_rel_path,
-                "file": file,
                 "env_vars": env_vars,
+                "file": file,
                 "force": force,
                 "region": region,
+                "source": source,
                 "version": version,
             }
         )

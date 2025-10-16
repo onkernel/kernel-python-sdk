@@ -5,10 +5,10 @@ from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["ExtensionUploadResponse"]
+__all__ = ["ExtensionCreateResponse"]
 
 
-class ExtensionUploadResponse(BaseModel):
+class ExtensionCreateResponse(BaseModel):
     id: str
     """Unique identifier for the extension"""
 

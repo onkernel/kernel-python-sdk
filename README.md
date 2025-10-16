@@ -218,7 +218,6 @@ from kernel import Kernel
 client = Kernel()
 
 client.deployments.create(
-    entrypoint_rel_path="src/app.py",
     file=Path("/path/to/file"),
 )
 ```
