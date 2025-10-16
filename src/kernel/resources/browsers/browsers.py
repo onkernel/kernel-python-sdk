@@ -100,6 +100,7 @@ class BrowsersResource(SyncAPIResource):
         extensions: Iterable[browser_create_params.Extension] | Omit = omit,
         headless: bool | Omit = omit,
         invocation_id: str | Omit = omit,
+        kiosk_mode: bool | Omit = omit,
         persistence: BrowserPersistenceParam | Omit = omit,
         profile: browser_create_params.Profile | Omit = omit,
         proxy_id: str | Omit = omit,
@@ -123,6 +124,9 @@ class BrowsersResource(SyncAPIResource):
               false.
 
           invocation_id: action invocation ID
+
+          kiosk_mode: If true, launches the browser in kiosk mode to hide address bar and tabs in live
+              view.
 
           persistence: Optional persistence configuration for the browser session.
 
@@ -167,6 +171,7 @@ class BrowsersResource(SyncAPIResource):
                     "extensions": extensions,
                     "headless": headless,
                     "invocation_id": invocation_id,
+                    "kiosk_mode": kiosk_mode,
                     "persistence": persistence,
                     "profile": profile,
                     "proxy_id": proxy_id,
@@ -395,6 +400,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         extensions: Iterable[browser_create_params.Extension] | Omit = omit,
         headless: bool | Omit = omit,
         invocation_id: str | Omit = omit,
+        kiosk_mode: bool | Omit = omit,
         persistence: BrowserPersistenceParam | Omit = omit,
         profile: browser_create_params.Profile | Omit = omit,
         proxy_id: str | Omit = omit,
@@ -418,6 +424,9 @@ class AsyncBrowsersResource(AsyncAPIResource):
               false.
 
           invocation_id: action invocation ID
+
+          kiosk_mode: If true, launches the browser in kiosk mode to hide address bar and tabs in live
+              view.
 
           persistence: Optional persistence configuration for the browser session.
 
@@ -462,6 +471,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
                     "extensions": extensions,
                     "headless": headless,
                     "invocation_id": invocation_id,
+                    "kiosk_mode": kiosk_mode,
                     "persistence": persistence,
                     "profile": profile,
                     "proxy_id": proxy_id,

@@ -26,6 +26,12 @@ class BrowserCreateParams(TypedDict, total=False):
     invocation_id: str
     """action invocation ID"""
 
+    kiosk_mode: bool
+    """
+    If true, launches the browser in kiosk mode to hide address bar and tabs in live
+    view.
+    """
+
     persistence: BrowserPersistenceParam
     """Optional persistence configuration for the browser session."""
 
