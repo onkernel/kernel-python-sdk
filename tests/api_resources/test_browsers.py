@@ -39,6 +39,7 @@ class TestBrowsers:
             ],
             headless=False,
             invocation_id="rr33xuugxj9h0bkf1rdt2bet",
+            kiosk_mode=True,
             persistence={"id": "my-awesome-browser-for-user-1234"},
             profile={
                 "id": "id",
@@ -314,6 +315,7 @@ class TestAsyncBrowsers:
             ],
             headless=False,
             invocation_id="rr33xuugxj9h0bkf1rdt2bet",
+            kiosk_mode=True,
             persistence={"id": "my-awesome-browser-for-user-1234"},
             profile={
                 "id": "id",
