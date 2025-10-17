@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.15.0 (2025-10-17)
+
+Full Changelog: [v0.14.2...v0.15.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.14.2...v0.15.0)
+
+### Features
+
+* click mouse, move mouse, screenshot ([b63f7ad](https://github.com/onkernel/kernel-python-sdk/commit/b63f7adc7cf0da614a4fc3a9eed491f71f7ec742))
+* Phani/deploy with GitHub url ([eb86c27](https://github.com/onkernel/kernel-python-sdk/commit/eb86c27107781172bf740e0af3833eee86b7cb60))
+
 ## 0.14.2 (2025-10-16)
 
 Full Changelog: [v0.14.1...v0.14.2](https://github.com/onkernel/kernel-python-sdk/compare/v0.14.1...v0.14.2)
