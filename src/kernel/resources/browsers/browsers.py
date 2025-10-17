@@ -41,6 +41,14 @@ from .replays import (
 )
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from ..._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
+from .computer import (
+    ComputerResource,
+    AsyncComputerResource,
+    ComputerResourceWithRawResponse,
+    AsyncComputerResourceWithRawResponse,
+    ComputerResourceWithStreamingResponse,
+    AsyncComputerResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -74,6 +82,10 @@ class BrowsersResource(SyncAPIResource):
     @cached_property
     def logs(self) -> LogsResource:
         return LogsResource(self._client)
+
+    @cached_property
+    def computer(self) -> ComputerResource:
+        return ComputerResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> BrowsersResourceWithRawResponse:
@@ -374,6 +386,10 @@ class AsyncBrowsersResource(AsyncAPIResource):
     @cached_property
     def logs(self) -> AsyncLogsResource:
         return AsyncLogsResource(self._client)
+
+    @cached_property
+    def computer(self) -> AsyncComputerResource:
+        return AsyncComputerResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncBrowsersResourceWithRawResponse:
@@ -699,6 +715,10 @@ class BrowsersResourceWithRawResponse:
     def logs(self) -> LogsResourceWithRawResponse:
         return LogsResourceWithRawResponse(self._browsers.logs)
 
+    @cached_property
+    def computer(self) -> ComputerResourceWithRawResponse:
+        return ComputerResourceWithRawResponse(self._browsers.computer)
+
 
 class AsyncBrowsersResourceWithRawResponse:
     def __init__(self, browsers: AsyncBrowsersResource) -> None:
@@ -738,6 +758,10 @@ class AsyncBrowsersResourceWithRawResponse:
     @cached_property
     def logs(self) -> AsyncLogsResourceWithRawResponse:
         return AsyncLogsResourceWithRawResponse(self._browsers.logs)
+
+    @cached_property
+    def computer(self) -> AsyncComputerResourceWithRawResponse:
+        return AsyncComputerResourceWithRawResponse(self._browsers.computer)
 
 
 class BrowsersResourceWithStreamingResponse:
@@ -779,6 +803,10 @@ class BrowsersResourceWithStreamingResponse:
     def logs(self) -> LogsResourceWithStreamingResponse:
         return LogsResourceWithStreamingResponse(self._browsers.logs)
 
+    @cached_property
+    def computer(self) -> ComputerResourceWithStreamingResponse:
+        return ComputerResourceWithStreamingResponse(self._browsers.computer)
+
 
 class AsyncBrowsersResourceWithStreamingResponse:
     def __init__(self, browsers: AsyncBrowsersResource) -> None:
@@ -818,3 +846,7 @@ class AsyncBrowsersResourceWithStreamingResponse:
     @cached_property
     def logs(self) -> AsyncLogsResourceWithStreamingResponse:
         return AsyncLogsResourceWithStreamingResponse(self._browsers.logs)
+
+    @cached_property
+    def computer(self) -> AsyncComputerResourceWithStreamingResponse:
+        return AsyncComputerResourceWithStreamingResponse(self._browsers.computer)

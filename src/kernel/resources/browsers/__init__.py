@@ -40,6 +40,14 @@ from .browsers import (
     BrowsersResourceWithStreamingResponse,
     AsyncBrowsersResourceWithStreamingResponse,
 )
+from .computer import (
+    ComputerResource,
+    AsyncComputerResource,
+    ComputerResourceWithRawResponse,
+    AsyncComputerResourceWithRawResponse,
+    ComputerResourceWithStreamingResponse,
+    AsyncComputerResourceWithStreamingResponse,
+)
 
 __all__ = [
     "ReplaysResource",
@@ -66,6 +74,12 @@ __all__ = [
     "AsyncLogsResourceWithRawResponse",
     "LogsResourceWithStreamingResponse",
     "AsyncLogsResourceWithStreamingResponse",
+    "ComputerResource",
+    "AsyncComputerResource",
+    "ComputerResourceWithRawResponse",
+    "AsyncComputerResourceWithRawResponse",
+    "ComputerResourceWithStreamingResponse",
+    "AsyncComputerResourceWithStreamingResponse",
     "BrowsersResource",
     "AsyncBrowsersResource",
     "BrowsersResourceWithRawResponse",
