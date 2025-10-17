@@ -166,6 +166,18 @@ Methods:
 
 - <code title="get /browsers/{id}/logs/stream">client.browsers.logs.<a href="./src/kernel/resources/browsers/logs.py">stream</a>(id, \*\*<a href="src/kernel/types/browsers/log_stream_params.py">params</a>) -> <a href="./src/kernel/types/shared/log_event.py">LogEvent</a></code>
 
+## Computer
+
+Methods:
+
+- <code title="post /browsers/{id}/computer/screenshot">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">capture_screenshot</a>(id, \*\*<a href="src/kernel/types/browsers/computer_capture_screenshot_params.py">params</a>) -> BinaryAPIResponse</code>
+- <code title="post /browsers/{id}/computer/click_mouse">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">click_mouse</a>(id, \*\*<a href="src/kernel/types/browsers/computer_click_mouse_params.py">params</a>) -> None</code>
+- <code title="post /browsers/{id}/computer/drag_mouse">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">drag_mouse</a>(id, \*\*<a href="src/kernel/types/browsers/computer_drag_mouse_params.py">params</a>) -> None</code>
+- <code title="post /browsers/{id}/computer/move_mouse">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">move_mouse</a>(id, \*\*<a href="src/kernel/types/browsers/computer_move_mouse_params.py">params</a>) -> None</code>
+- <code title="post /browsers/{id}/computer/press_key">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">press_key</a>(id, \*\*<a href="src/kernel/types/browsers/computer_press_key_params.py">params</a>) -> None</code>
+- <code title="post /browsers/{id}/computer/scroll">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">scroll</a>(id, \*\*<a href="src/kernel/types/browsers/computer_scroll_params.py">params</a>) -> None</code>
+- <code title="post /browsers/{id}/computer/type">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">type_text</a>(id, \*\*<a href="src/kernel/types/browsers/computer_type_text_params.py">params</a>) -> None</code>
+
 # Profiles
 
 Types:
@@ -202,13 +214,13 @@ Methods:
 Types:
 
 ```python
-from kernel.types import ExtensionCreateResponse, ExtensionListResponse
+from kernel.types import ExtensionListResponse, ExtensionUploadResponse
 ```
 
 Methods:
 
-- <code title="post /extensions">client.extensions.<a href="./src/kernel/resources/extensions.py">create</a>(\*\*<a href="src/kernel/types/extension_create_params.py">params</a>) -> <a href="./src/kernel/types/extension_create_response.py">ExtensionCreateResponse</a></code>
-- <code title="get /extensions/{id_or_name}">client.extensions.<a href="./src/kernel/resources/extensions.py">retrieve</a>(id_or_name) -> BinaryAPIResponse</code>
 - <code title="get /extensions">client.extensions.<a href="./src/kernel/resources/extensions.py">list</a>() -> <a href="./src/kernel/types/extension_list_response.py">ExtensionListResponse</a></code>
 - <code title="delete /extensions/{id_or_name}">client.extensions.<a href="./src/kernel/resources/extensions.py">delete</a>(id_or_name) -> None</code>
+- <code title="get /extensions/{id_or_name}">client.extensions.<a href="./src/kernel/resources/extensions.py">download</a>(id_or_name) -> BinaryAPIResponse</code>
 - <code title="get /extensions/from_chrome_store">client.extensions.<a href="./src/kernel/resources/extensions.py">download_from_chrome_store</a>(\*\*<a href="src/kernel/types/extension_download_from_chrome_store_params.py">params</a>) -> BinaryAPIResponse</code>
+- <code title="post /extensions">client.extensions.<a href="./src/kernel/resources/extensions.py">upload</a>(\*\*<a href="src/kernel/types/extension_upload_params.py">params</a>) -> <a href="./src/kernel/types/extension_upload_response.py">ExtensionUploadResponse</a></code>
