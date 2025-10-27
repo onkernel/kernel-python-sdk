@@ -18,13 +18,13 @@ __all__ = [
 
 
 class ConfigDatacenterProxyConfig(BaseModel):
-    country: str
-    """ISO 3166 country code."""
+    country: Optional[str] = None
+    """ISO 3166 country code. Defaults to US if not provided."""
 
 
 class ConfigIspProxyConfig(BaseModel):
-    country: str
-    """ISO 3166 country code."""
+    country: Optional[str] = None
+    """ISO 3166 country code. Defaults to US if not provided."""
 
 
 class ConfigResidentialProxyConfig(BaseModel):
