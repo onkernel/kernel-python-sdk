@@ -35,13 +35,13 @@ class ProxyCreateParams(TypedDict, total=False):
 
 
 class ConfigDatacenterProxyConfig(TypedDict, total=False):
-    country: Required[str]
-    """ISO 3166 country code."""
+    country: str
+    """ISO 3166 country code. Defaults to US if not provided."""
 
 
 class ConfigIspProxyConfig(TypedDict, total=False):
-    country: Required[str]
-    """ISO 3166 country code."""
+    country: str
+    """ISO 3166 country code. Defaults to US if not provided."""
 
 
 class ConfigResidentialProxyConfig(TypedDict, total=False):
