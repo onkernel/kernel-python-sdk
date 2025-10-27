@@ -6,7 +6,7 @@ Full Changelog: [v0.16.0...v0.17.0](https://github.com/onkernel/kernel-python-sd
 
 ### Features
 
-* Use ping instead of bright data for ISP proxy ([cd4c025](https://github.com/onkernel/kernel-python-sdk/commit/cd4c025b2e89cbc072a1779418ea1ef234b57026))
+* Make country flag optional for DC and ISP proxies ([cd4c025](https://github.com/onkernel/kernel-python-sdk/commit/cd4c025b2e89cbc072a1779418ea1ef234b57026))
 
 ## 0.16.0 (2025-10-27)
 
