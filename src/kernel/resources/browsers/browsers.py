@@ -50,6 +50,14 @@ from .computer import (
     AsyncComputerResourceWithStreamingResponse,
 )
 from ..._compat import cached_property
+from .playwright import (
+    PlaywrightResource,
+    AsyncPlaywrightResource,
+    PlaywrightResourceWithRawResponse,
+    AsyncPlaywrightResourceWithRawResponse,
+    PlaywrightResourceWithStreamingResponse,
+    AsyncPlaywrightResourceWithStreamingResponse,
+)
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
     to_raw_response_wrapper,
@@ -86,6 +94,10 @@ class BrowsersResource(SyncAPIResource):
     @cached_property
     def computer(self) -> ComputerResource:
         return ComputerResource(self._client)
+
+    @cached_property
+    def playwright(self) -> PlaywrightResource:
+        return PlaywrightResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> BrowsersResourceWithRawResponse:
@@ -390,6 +402,10 @@ class AsyncBrowsersResource(AsyncAPIResource):
     @cached_property
     def computer(self) -> AsyncComputerResource:
         return AsyncComputerResource(self._client)
+
+    @cached_property
+    def playwright(self) -> AsyncPlaywrightResource:
+        return AsyncPlaywrightResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncBrowsersResourceWithRawResponse:
@@ -719,6 +735,10 @@ class BrowsersResourceWithRawResponse:
     def computer(self) -> ComputerResourceWithRawResponse:
         return ComputerResourceWithRawResponse(self._browsers.computer)
 
+    @cached_property
+    def playwright(self) -> PlaywrightResourceWithRawResponse:
+        return PlaywrightResourceWithRawResponse(self._browsers.playwright)
+
 
 class AsyncBrowsersResourceWithRawResponse:
     def __init__(self, browsers: AsyncBrowsersResource) -> None:
@@ -762,6 +782,10 @@ class AsyncBrowsersResourceWithRawResponse:
     @cached_property
     def computer(self) -> AsyncComputerResourceWithRawResponse:
         return AsyncComputerResourceWithRawResponse(self._browsers.computer)
+
+    @cached_property
+    def playwright(self) -> AsyncPlaywrightResourceWithRawResponse:
+        return AsyncPlaywrightResourceWithRawResponse(self._browsers.playwright)
 
 
 class BrowsersResourceWithStreamingResponse:
@@ -807,6 +831,10 @@ class BrowsersResourceWithStreamingResponse:
     def computer(self) -> ComputerResourceWithStreamingResponse:
         return ComputerResourceWithStreamingResponse(self._browsers.computer)
 
+    @cached_property
+    def playwright(self) -> PlaywrightResourceWithStreamingResponse:
+        return PlaywrightResourceWithStreamingResponse(self._browsers.playwright)
+
 
 class AsyncBrowsersResourceWithStreamingResponse:
     def __init__(self, browsers: AsyncBrowsersResource) -> None:
@@ -850,3 +878,7 @@ class AsyncBrowsersResourceWithStreamingResponse:
     @cached_property
     def computer(self) -> AsyncComputerResourceWithStreamingResponse:
         return AsyncComputerResourceWithStreamingResponse(self._browsers.computer)
+
+    @cached_property
+    def playwright(self) -> AsyncPlaywrightResourceWithStreamingResponse:
+        return AsyncPlaywrightResourceWithStreamingResponse(self._browsers.playwright)
