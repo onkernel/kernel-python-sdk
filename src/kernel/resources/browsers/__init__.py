@@ -48,6 +48,14 @@ from .computer import (
     ComputerResourceWithStreamingResponse,
     AsyncComputerResourceWithStreamingResponse,
 )
+from .playwright import (
+    PlaywrightResource,
+    AsyncPlaywrightResource,
+    PlaywrightResourceWithRawResponse,
+    AsyncPlaywrightResourceWithRawResponse,
+    PlaywrightResourceWithStreamingResponse,
+    AsyncPlaywrightResourceWithStreamingResponse,
+)
 
 __all__ = [
     "ReplaysResource",
@@ -80,6 +88,12 @@ __all__ = [
     "AsyncComputerResourceWithRawResponse",
     "ComputerResourceWithStreamingResponse",
     "AsyncComputerResourceWithStreamingResponse",
+    "PlaywrightResource",
+    "AsyncPlaywrightResource",
+    "PlaywrightResourceWithRawResponse",
+    "AsyncPlaywrightResourceWithRawResponse",
+    "PlaywrightResourceWithStreamingResponse",
+    "AsyncPlaywrightResourceWithStreamingResponse",
     "BrowsersResource",
     "AsyncBrowsersResource",
     "BrowsersResourceWithRawResponse",
