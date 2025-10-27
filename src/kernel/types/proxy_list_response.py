@@ -19,13 +19,13 @@ __all__ = [
 
 
 class ProxyListResponseItemConfigDatacenterProxyConfig(BaseModel):
-    country: str
-    """ISO 3166 country code."""
+    country: Optional[str] = None
+    """ISO 3166 country code. Defaults to US if not provided."""
 
 
 class ProxyListResponseItemConfigIspProxyConfig(BaseModel):
-    country: str
-    """ISO 3166 country code."""
+    country: Optional[str] = None
+    """ISO 3166 country code. Defaults to US if not provided."""
 
 
 class ProxyListResponseItemConfigResidentialProxyConfig(BaseModel):
