@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.16.0 (2025-10-27)
+
+Full Changelog: [v0.15.0...v0.16.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.15.0...v0.16.0)
+
+### Features
+
+* ad hoc playwright code exec AP| ([4204ad5](https://github.com/onkernel/kernel-python-sdk/commit/4204ad587838ec90c3b54ca2eaf7d768da570a29))
+
+
+### Chores
+
+* bump `httpx-aiohttp` version to 0.1.9 ([1130759](https://github.com/onkernel/kernel-python-sdk/commit/1130759ebc7eb511d8788332b59e84d0819f9715))
+
 ## 0.15.0 (2025-10-17)
 
 Full Changelog: [v0.14.2...v0.15.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.14.2...v0.15.0)
