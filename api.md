@@ -178,6 +178,18 @@ Methods:
 - <code title="post /browsers/{id}/computer/scroll">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">scroll</a>(id, \*\*<a href="src/kernel/types/browsers/computer_scroll_params.py">params</a>) -> None</code>
 - <code title="post /browsers/{id}/computer/type">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">type_text</a>(id, \*\*<a href="src/kernel/types/browsers/computer_type_text_params.py">params</a>) -> None</code>
 
+## Playwright
+
+Types:
+
+```python
+from kernel.types.browsers import PlaywrightExecuteResponse
+```
+
+Methods:
+
+- <code title="post /browsers/{id}/playwright/execute">client.browsers.playwright.<a href="./src/kernel/resources/browsers/playwright.py">execute</a>(id, \*\*<a href="src/kernel/types/browsers/playwright_execute_params.py">params</a>) -> <a href="./src/kernel/types/browsers/playwright_execute_response.py">PlaywrightExecuteResponse</a></code>
+
 # Profiles
 
 Types:
