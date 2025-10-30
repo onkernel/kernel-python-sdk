@@ -6,7 +6,7 @@ import httpx
 
 from ..types import app_list_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -15,7 +15,8 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
+from ..pagination import SyncOffsetPagination, AsyncOffsetPagination
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.app_list_response import AppListResponse
 
 __all__ = ["AppsResource", "AsyncAppsResource"]
@@ -45,6 +46,8 @@ class AppsResource(SyncAPIResource):
         self,
         *,
         app_name: str | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
         version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -52,13 +55,17 @@ class AppsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AppListResponse:
+    ) -> SyncOffsetPagination[AppListResponse]:
         """List applications.
 
         Optionally filter by app name and/or version label.
 
         Args:
           app_name: Filter results by application name.
+
+          limit: Limit the number of app to return.
+
+          offset: Offset the number of app to return.
 
           version: Filter results by version label.
 
@@ -70,8 +77,9 @@ class AppsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/apps",
+            page=SyncOffsetPagination[AppListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -80,12 +88,14 @@ class AppsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "app_name": app_name,
+                        "limit": limit,
+                        "offset": offset,
                         "version": version,
                     },
                     app_list_params.AppListParams,
                 ),
             ),
-            cast_to=AppListResponse,
+            model=AppListResponse,
         )
 
 
@@ -109,10 +119,12 @@ class AsyncAppsResource(AsyncAPIResource):
         """
         return AsyncAppsResourceWithStreamingResponse(self)
 
-    async def list(
+    def list(
         self,
         *,
         app_name: str | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
         version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -120,13 +132,17 @@ class AsyncAppsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AppListResponse:
+    ) -> AsyncPaginator[AppListResponse, AsyncOffsetPagination[AppListResponse]]:
         """List applications.
 
         Optionally filter by app name and/or version label.
 
         Args:
           app_name: Filter results by application name.
+
+          limit: Limit the number of app to return.
+
+          offset: Offset the number of app to return.
 
           version: Filter results by version label.
 
@@ -138,22 +154,25 @@ class AsyncAppsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/apps",
+            page=AsyncOffsetPagination[AppListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "app_name": app_name,
+                        "limit": limit,
+                        "offset": offset,
                         "version": version,
                     },
                     app_list_params.AppListParams,
                 ),
             ),
-            cast_to=AppListResponse,
+            model=AppListResponse,
         )
 
 
