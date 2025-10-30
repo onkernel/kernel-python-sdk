@@ -11,5 +11,11 @@ class AppListParams(TypedDict, total=False):
     app_name: str
     """Filter results by application name."""
 
+    limit: int
+    """Limit the number of app to return."""
+
+    offset: int
+    """Offset the number of app to return."""
+
     version: str
     """Filter results by version label."""

@@ -1,15 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, List
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .shared.app_action import AppAction
 
-__all__ = ["AppListResponse", "AppListResponseItem"]
+__all__ = ["AppListResponse"]
 
 
-class AppListResponseItem(BaseModel):
+class AppListResponse(BaseModel):
     id: str
     """Unique identifier for the app version"""
 
@@ -30,6 +30,3 @@ class AppListResponseItem(BaseModel):
 
     version: str
     """Version label for the application"""
-
-
-AppListResponse: TypeAlias = List[AppListResponseItem]
