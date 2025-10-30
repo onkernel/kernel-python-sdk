@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.18.0 (2025-10-30)
+
+Full Changelog: [v0.17.0...v0.18.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.17.0...v0.18.0)
+
+### Features
+
+* apps: add offset pagination + headers ([54ea6e7](https://github.com/onkernel/kernel-python-sdk/commit/54ea6e79ba21ba5ab33ab14a1bf257a95bf76bb8))
+
+
+### Bug Fixes
+
+* **client:** close streams without requiring full consumption ([4014c3d](https://github.com/onkernel/kernel-python-sdk/commit/4014c3d53c36627ecd702b8af272a382529aef55))
+
 ## 0.17.0 (2025-10-27)
 
 Full Changelog: [v0.16.0...v0.17.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.16.0...v0.17.0)
