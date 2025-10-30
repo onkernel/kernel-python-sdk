@@ -10,6 +10,7 @@ import pytest
 from kernel import Kernel, AsyncKernel
 from tests.utils import assert_matches_type
 from kernel.types import AppListResponse
+from kernel.pagination import SyncOffsetPagination, AsyncOffsetPagination
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -21,16 +22,18 @@ class TestApps:
     @parametrize
     def test_method_list(self, client: Kernel) -> None:
         app = client.apps.list()
-        assert_matches_type(AppListResponse, app, path=["response"])
+        assert_matches_type(SyncOffsetPagination[AppListResponse], app, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Kernel) -> None:
         app = client.apps.list(
             app_name="app_name",
+            limit=1,
+            offset=0,
             version="version",
         )
-        assert_matches_type(AppListResponse, app, path=["response"])
+        assert_matches_type(SyncOffsetPagination[AppListResponse], app, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -40,7 +43,7 @@ class TestApps:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         app = response.parse()
-        assert_matches_type(AppListResponse, app, path=["response"])
+        assert_matches_type(SyncOffsetPagination[AppListResponse], app, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -50,7 +53,7 @@ class TestApps:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             app = response.parse()
-            assert_matches_type(AppListResponse, app, path=["response"])
+            assert_matches_type(SyncOffsetPagination[AppListResponse], app, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -64,16 +67,18 @@ class TestAsyncApps:
     @parametrize
     async def test_method_list(self, async_client: AsyncKernel) -> None:
         app = await async_client.apps.list()
-        assert_matches_type(AppListResponse, app, path=["response"])
+        assert_matches_type(AsyncOffsetPagination[AppListResponse], app, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncKernel) -> None:
         app = await async_client.apps.list(
             app_name="app_name",
+            limit=1,
+            offset=0,
             version="version",
         )
-        assert_matches_type(AppListResponse, app, path=["response"])
+        assert_matches_type(AsyncOffsetPagination[AppListResponse], app, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -83,7 +88,7 @@ class TestAsyncApps:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         app = await response.parse()
-        assert_matches_type(AppListResponse, app, path=["response"])
+        assert_matches_type(AsyncOffsetPagination[AppListResponse], app, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -93,6 +98,6 @@ class TestAsyncApps:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             app = await response.parse()
-            assert_matches_type(AppListResponse, app, path=["response"])
+            assert_matches_type(AsyncOffsetPagination[AppListResponse], app, path=["response"])
 
         assert cast(Any, response.is_closed) is True
