@@ -63,9 +63,9 @@ class AppsResource(SyncAPIResource):
         Args:
           app_name: Filter results by application name.
 
-          limit: Limit the number of app to return.
+          limit: Limit the number of apps to return.
 
-          offset: Offset the number of app to return.
+          offset: Offset the number of apps to return.
 
           version: Filter results by version label.
 
@@ -140,9 +140,9 @@ class AsyncAppsResource(AsyncAPIResource):
         Args:
           app_name: Filter results by application name.
 
-          limit: Limit the number of app to return.
+          limit: Limit the number of apps to return.
 
-          offset: Offset the number of app to return.
+          offset: Offset the number of apps to return.
 
           version: Filter results by version label.
 
