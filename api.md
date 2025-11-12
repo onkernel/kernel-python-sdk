@@ -168,6 +168,12 @@ Methods:
 
 ## Computer
 
+Types:
+
+```python
+from kernel.types.browsers import ComputerSetCursorVisibilityResponse
+```
+
 Methods:
 
 - <code title="post /browsers/{id}/computer/screenshot">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">capture_screenshot</a>(id, \*\*<a href="src/kernel/types/browsers/computer_capture_screenshot_params.py">params</a>) -> BinaryAPIResponse</code>
@@ -176,6 +182,7 @@ Methods:
 - <code title="post /browsers/{id}/computer/move_mouse">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">move_mouse</a>(id, \*\*<a href="src/kernel/types/browsers/computer_move_mouse_params.py">params</a>) -> None</code>
 - <code title="post /browsers/{id}/computer/press_key">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">press_key</a>(id, \*\*<a href="src/kernel/types/browsers/computer_press_key_params.py">params</a>) -> None</code>
 - <code title="post /browsers/{id}/computer/scroll">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">scroll</a>(id, \*\*<a href="src/kernel/types/browsers/computer_scroll_params.py">params</a>) -> None</code>
+- <code title="post /browsers/{id}/computer/cursor">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">set_cursor_visibility</a>(id, \*\*<a href="src/kernel/types/browsers/computer_set_cursor_visibility_params.py">params</a>) -> <a href="./src/kernel/types/browsers/computer_set_cursor_visibility_response.py">ComputerSetCursorVisibilityResponse</a></code>
 - <code title="post /browsers/{id}/computer/type">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">type_text</a>(id, \*\*<a href="src/kernel/types/browsers/computer_type_text_params.py">params</a>) -> None</code>
 
 ## Playwright
