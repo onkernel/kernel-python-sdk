@@ -10,11 +10,15 @@ import pytest
 from respx import MockRouter
 
 from kernel import Kernel, AsyncKernel
+from tests.utils import assert_matches_type
 from kernel._response import (
     BinaryAPIResponse,
     AsyncBinaryAPIResponse,
     StreamedBinaryAPIResponse,
     AsyncStreamedBinaryAPIResponse,
+)
+from kernel.types.browsers import (
+    ComputerSetCursorVisibilityResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -394,6 +398,52 @@ class TestComputer:
                 id="",
                 x=0,
                 y=0,
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_set_cursor_visibility(self, client: Kernel) -> None:
+        computer = client.browsers.computer.set_cursor_visibility(
+            id="id",
+            hidden=True,
+        )
+        assert_matches_type(ComputerSetCursorVisibilityResponse, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_set_cursor_visibility(self, client: Kernel) -> None:
+        response = client.browsers.computer.with_raw_response.set_cursor_visibility(
+            id="id",
+            hidden=True,
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = response.parse()
+        assert_matches_type(ComputerSetCursorVisibilityResponse, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_set_cursor_visibility(self, client: Kernel) -> None:
+        with client.browsers.computer.with_streaming_response.set_cursor_visibility(
+            id="id",
+            hidden=True,
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = response.parse()
+            assert_matches_type(ComputerSetCursorVisibilityResponse, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_set_cursor_visibility(self, client: Kernel) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.browsers.computer.with_raw_response.set_cursor_visibility(
+                id="",
+                hidden=True,
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -833,6 +883,52 @@ class TestAsyncComputer:
                 id="",
                 x=0,
                 y=0,
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_set_cursor_visibility(self, async_client: AsyncKernel) -> None:
+        computer = await async_client.browsers.computer.set_cursor_visibility(
+            id="id",
+            hidden=True,
+        )
+        assert_matches_type(ComputerSetCursorVisibilityResponse, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_set_cursor_visibility(self, async_client: AsyncKernel) -> None:
+        response = await async_client.browsers.computer.with_raw_response.set_cursor_visibility(
+            id="id",
+            hidden=True,
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = await response.parse()
+        assert_matches_type(ComputerSetCursorVisibilityResponse, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_set_cursor_visibility(self, async_client: AsyncKernel) -> None:
+        async with async_client.browsers.computer.with_streaming_response.set_cursor_visibility(
+            id="id",
+            hidden=True,
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = await response.parse()
+            assert_matches_type(ComputerSetCursorVisibilityResponse, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_set_cursor_visibility(self, async_client: AsyncKernel) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.browsers.computer.with_raw_response.set_cursor_visibility(
+                id="",
+                hidden=True,
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
