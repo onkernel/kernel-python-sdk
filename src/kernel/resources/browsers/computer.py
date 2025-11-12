@@ -34,7 +34,9 @@ from ...types.browsers import (
     computer_move_mouse_params,
     computer_click_mouse_params,
     computer_capture_screenshot_params,
+    computer_set_cursor_visibility_params,
 )
+from ...types.browsers.computer_set_cursor_visibility_response import ComputerSetCursorVisibilityResponse
 
 __all__ = ["ComputerResource", "AsyncComputerResource"]
 
@@ -388,6 +390,45 @@ class ComputerResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
+        )
+
+    def set_cursor_visibility(
+        self,
+        id: str,
+        *,
+        hidden: bool,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ComputerSetCursorVisibilityResponse:
+        """
+        Set cursor visibility
+
+        Args:
+          hidden: Whether the cursor should be hidden or visible
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/browsers/{id}/computer/cursor",
+            body=maybe_transform(
+                {"hidden": hidden}, computer_set_cursor_visibility_params.ComputerSetCursorVisibilityParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ComputerSetCursorVisibilityResponse,
         )
 
     def type_text(
@@ -789,6 +830,45 @@ class AsyncComputerResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def set_cursor_visibility(
+        self,
+        id: str,
+        *,
+        hidden: bool,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ComputerSetCursorVisibilityResponse:
+        """
+        Set cursor visibility
+
+        Args:
+          hidden: Whether the cursor should be hidden or visible
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/browsers/{id}/computer/cursor",
+            body=await async_maybe_transform(
+                {"hidden": hidden}, computer_set_cursor_visibility_params.ComputerSetCursorVisibilityParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ComputerSetCursorVisibilityResponse,
+        )
+
     async def type_text(
         self,
         id: str,
@@ -860,6 +940,9 @@ class ComputerResourceWithRawResponse:
         self.scroll = to_raw_response_wrapper(
             computer.scroll,
         )
+        self.set_cursor_visibility = to_raw_response_wrapper(
+            computer.set_cursor_visibility,
+        )
         self.type_text = to_raw_response_wrapper(
             computer.type_text,
         )
@@ -887,6 +970,9 @@ class AsyncComputerResourceWithRawResponse:
         )
         self.scroll = async_to_raw_response_wrapper(
             computer.scroll,
+        )
+        self.set_cursor_visibility = async_to_raw_response_wrapper(
+            computer.set_cursor_visibility,
         )
         self.type_text = async_to_raw_response_wrapper(
             computer.type_text,
@@ -916,6 +1002,9 @@ class ComputerResourceWithStreamingResponse:
         self.scroll = to_streamed_response_wrapper(
             computer.scroll,
         )
+        self.set_cursor_visibility = to_streamed_response_wrapper(
+            computer.set_cursor_visibility,
+        )
         self.type_text = to_streamed_response_wrapper(
             computer.type_text,
         )
@@ -943,6 +1032,9 @@ class AsyncComputerResourceWithStreamingResponse:
         )
         self.scroll = async_to_streamed_response_wrapper(
             computer.scroll,
+        )
+        self.set_cursor_visibility = async_to_streamed_response_wrapper(
+            computer.set_cursor_visibility,
         )
         self.type_text = async_to_streamed_response_wrapper(
             computer.type_text,

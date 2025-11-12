@@ -39,3 +39,9 @@ from .playwright_execute_response import PlaywrightExecuteResponse as Playwright
 from .f_set_file_permissions_params import FSetFilePermissionsParams as FSetFilePermissionsParams
 from .process_stdout_stream_response import ProcessStdoutStreamResponse as ProcessStdoutStreamResponse
 from .computer_capture_screenshot_params import ComputerCaptureScreenshotParams as ComputerCaptureScreenshotParams
+from .computer_set_cursor_visibility_params import (
+    ComputerSetCursorVisibilityParams as ComputerSetCursorVisibilityParams,
+)
+from .computer_set_cursor_visibility_response import (
+    ComputerSetCursorVisibilityResponse as ComputerSetCursorVisibilityResponse,
+)
