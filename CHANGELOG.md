@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.19.0 (2025-11-12)
+
+Full Changelog: [v0.18.0...v0.19.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.18.0...v0.19.0)
+
+### Features
+
+* feat hide cursor v2 ([5e694ae](https://github.com/onkernel/kernel-python-sdk/commit/5e694aedf67d142bcf2e4e4a018846236c45af69))
+* Remove price gating on computer endpoints ([cbbdaee](https://github.com/onkernel/kernel-python-sdk/commit/cbbdaee2225d593a7abbe04e3bd768476d06340c))
+
+
+### Bug Fixes
+
+* compat with Python 3.14 ([297d7b3](https://github.com/onkernel/kernel-python-sdk/commit/297d7b3069073d8ea98e67abf123505b1b20b140))
+* **compat:** update signatures of `model_dump` and `model_dump_json` for Pydantic v1 ([0e796f3](https://github.com/onkernel/kernel-python-sdk/commit/0e796f368e0eeb3260b3558e89fd26ec32b9567f))
+
+
+### Chores
+
+* **internal/tests:** avoid race condition with implicit client cleanup ([4d011fd](https://github.com/onkernel/kernel-python-sdk/commit/4d011fd41e10e5aaa49bb2447e27b71c8240e205))
+* **internal:** grammar fix (it's -&gt; its) ([fcdf068](https://github.com/onkernel/kernel-python-sdk/commit/fcdf06877b370bf8c2abe047c5dcff7597dfadd9))
+* **package:** drop Python 3.8 support ([5dcea22](https://github.com/onkernel/kernel-python-sdk/commit/5dcea220253de47542381b91401965198c3d3dd2))
+
 ## 0.18.0 (2025-10-30)
 
 Full Changelog: [v0.17.0...v0.18.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.17.0...v0.18.0)
