@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.19.1 (2025-11-13)
+
+Full Changelog: [v0.19.0...v0.19.1](https://github.com/onkernel/kernel-python-sdk/compare/v0.19.0...v0.19.1)
+
+### Features
+
+* works locally ([1a8c6b5](https://github.com/onkernel/kernel-python-sdk/commit/1a8c6b5bbd91ddc2ab36b579f2fbd5552864259b))
+
 ## 0.19.0 (2025-11-12)
 
 Full Changelog: [v0.18.0...v0.19.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.18.0...v0.19.0)
