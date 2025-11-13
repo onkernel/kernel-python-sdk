@@ -6,7 +6,7 @@ Full Changelog: [v0.19.0...v0.19.1](https://github.com/onkernel/kernel-python-sd
 
 ### Features
 
-* works locally ([1a8c6b5](https://github.com/onkernel/kernel-python-sdk/commit/1a8c6b5bbd91ddc2ab36b579f2fbd5552864259b))
+* Add support for 1200x800 ([1a8c6b5](https://github.com/onkernel/kernel-python-sdk/commit/1a8c6b5bbd91ddc2ab36b579f2fbd5552864259b))
 
 ## 0.19.0 (2025-11-12)
 
