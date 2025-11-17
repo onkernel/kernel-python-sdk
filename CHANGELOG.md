@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.19.2 (2025-11-17)
+
+Full Changelog: [v0.19.1...v0.19.2](https://github.com/onkernel/kernel-python-sdk/compare/v0.19.1...v0.19.2)
+
+### Features
+
+* Feat increase max timeout to 72h ([edaaa14](https://github.com/onkernel/kernel-python-sdk/commit/edaaa1445d9551393ce0e026d70ca565890d70cb))
+
 ## 0.19.1 (2025-11-13)
 
 Full Changelog: [v0.19.0...v0.19.1](https://github.com/onkernel/kernel-python-sdk/compare/v0.19.0...v0.19.1)
