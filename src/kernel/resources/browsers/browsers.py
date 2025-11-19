@@ -22,7 +22,12 @@ from .fs.fs import (
     FsResourceWithStreamingResponse,
     AsyncFsResourceWithStreamingResponse,
 )
-from ...types import browser_create_params, browser_delete_params, browser_load_extensions_params
+from ...types import (
+    browser_list_params,
+    browser_create_params,
+    browser_delete_params,
+    browser_load_extensions_params,
+)
 from .process import (
     ProcessResource,
     AsyncProcessResource,
@@ -65,7 +70,8 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
+from ...pagination import SyncOffsetPagination, AsyncOffsetPagination
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.browser_list_response import BrowserListResponse
 from ...types.browser_create_response import BrowserCreateResponse
 from ...types.browser_persistence_param import BrowserPersistenceParam
@@ -247,20 +253,55 @@ class BrowsersResource(SyncAPIResource):
     def list(
         self,
         *,
+        include_deleted: bool | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BrowserListResponse:
-        """List active browser sessions"""
-        return self._get(
+    ) -> SyncOffsetPagination[BrowserListResponse]:
+        """List all browser sessions with pagination support.
+
+        Use include_deleted=true to
+        include soft-deleted sessions in the results.
+
+        Args:
+          include_deleted: When true, includes soft-deleted browser sessions in the results alongside
+              active sessions.
+
+          limit: Maximum number of results to return. Defaults to 20, maximum 100.
+
+          offset: Number of results to skip. Defaults to 0.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
             "/browsers",
+            page=SyncOffsetPagination[BrowserListResponse],
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "include_deleted": include_deleted,
+                        "limit": limit,
+                        "offset": offset,
+                    },
+                    browser_list_params.BrowserListParams,
+                ),
             ),
-            cast_to=BrowserListResponse,
+            model=BrowserListResponse,
         )
 
     def delete(
@@ -552,23 +593,58 @@ class AsyncBrowsersResource(AsyncAPIResource):
             cast_to=BrowserRetrieveResponse,
         )
 
-    async def list(
+    def list(
         self,
         *,
+        include_deleted: bool | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BrowserListResponse:
-        """List active browser sessions"""
-        return await self._get(
+    ) -> AsyncPaginator[BrowserListResponse, AsyncOffsetPagination[BrowserListResponse]]:
+        """List all browser sessions with pagination support.
+
+        Use include_deleted=true to
+        include soft-deleted sessions in the results.
+
+        Args:
+          include_deleted: When true, includes soft-deleted browser sessions in the results alongside
+              active sessions.
+
+          limit: Maximum number of results to return. Defaults to 20, maximum 100.
+
+          offset: Number of results to skip. Defaults to 0.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
             "/browsers",
+            page=AsyncOffsetPagination[BrowserListResponse],
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "include_deleted": include_deleted,
+                        "limit": limit,
+                        "offset": offset,
+                    },
+                    browser_list_params.BrowserListParams,
+                ),
             ),
-            cast_to=BrowserListResponse,
+            model=BrowserListResponse,
         )
 
     async def delete(

@@ -49,6 +49,9 @@ class BrowserRetrieveResponse(BaseModel):
     Only available for non-headless browsers.
     """
 
+    deleted_at: Optional[datetime] = None
+    """When the browser session was soft-deleted. Only present for deleted sessions."""
+
     kiosk_mode: Optional[bool] = None
     """Whether the browser session is running in kiosk mode."""
 

@@ -13,6 +13,7 @@ from .shared import (
 from .profile import Profile as Profile
 from .app_list_params import AppListParams as AppListParams
 from .app_list_response import AppListResponse as AppListResponse
+from .browser_list_params import BrowserListParams as BrowserListParams
 from .browser_persistence import BrowserPersistence as BrowserPersistence
 from .proxy_create_params import ProxyCreateParams as ProxyCreateParams
 from .proxy_list_response import ProxyListResponse as ProxyListResponse

@@ -1,17 +1,16 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Optional
 from datetime import datetime
-from typing_extensions import TypeAlias
 
 from .profile import Profile
 from .._models import BaseModel
 from .browser_persistence import BrowserPersistence
 
-__all__ = ["BrowserListResponse", "BrowserListResponseItem", "BrowserListResponseItemViewport"]
+__all__ = ["BrowserListResponse", "Viewport"]
 
 
-class BrowserListResponseItemViewport(BaseModel):
+class Viewport(BaseModel):
     height: int
     """Browser window height in pixels."""
 
@@ -25,7 +24,7 @@ class BrowserListResponseItemViewport(BaseModel):
     """
 
 
-class BrowserListResponseItem(BaseModel):
+class BrowserListResponse(BaseModel):
     cdp_ws_url: str
     """Websocket URL for Chrome DevTools Protocol connections to the browser session"""
 
@@ -50,6 +49,9 @@ class BrowserListResponseItem(BaseModel):
     Only available for non-headless browsers.
     """
 
+    deleted_at: Optional[datetime] = None
+    """When the browser session was soft-deleted. Only present for deleted sessions."""
+
     kiosk_mode: Optional[bool] = None
     """Whether the browser session is running in kiosk mode."""
 
@@ -62,7 +64,7 @@ class BrowserListResponseItem(BaseModel):
     proxy_id: Optional[str] = None
     """ID of the proxy associated with this browser session, if any."""
 
-    viewport: Optional[BrowserListResponseItemViewport] = None
+    viewport: Optional[Viewport] = None
     """Initial browser window size in pixels with optional refresh rate.
 
     If omitted, image defaults apply (commonly 1024x768@60). Only specific viewport
@@ -73,6 +75,3 @@ class BrowserListResponseItem(BaseModel):
     configuration exactly. Note: Higher resolutions may affect the responsiveness of
     live view browser
     """
-
-
-BrowserListResponse: TypeAlias = List[BrowserListResponseItem]
