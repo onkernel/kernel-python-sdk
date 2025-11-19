@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.20.0 (2025-11-19)
+
+Full Changelog: [v0.19.2...v0.20.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.19.2...v0.20.0)
+
+### Features
+
+* allow get browser to paginate soft deleted browsers ([0bf4d45](https://github.com/onkernel/kernel-python-sdk/commit/0bf4d4546171f7bc2fad9d225b7fcf2be14a6a71))
+
 ## 0.19.2 (2025-11-17)
 
 Full Changelog: [v0.19.1...v0.19.2](https://github.com/onkernel/kernel-python-sdk/compare/v0.19.1...v0.19.2)
