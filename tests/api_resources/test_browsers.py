@@ -14,6 +14,7 @@ from kernel.types import (
     BrowserCreateResponse,
     BrowserRetrieveResponse,
 )
+from kernel.pagination import SyncOffsetPagination, AsyncOffsetPagination
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -125,7 +126,17 @@ class TestBrowsers:
     @parametrize
     def test_method_list(self, client: Kernel) -> None:
         browser = client.browsers.list()
-        assert_matches_type(BrowserListResponse, browser, path=["response"])
+        assert_matches_type(SyncOffsetPagination[BrowserListResponse], browser, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_list_with_all_params(self, client: Kernel) -> None:
+        browser = client.browsers.list(
+            include_deleted=True,
+            limit=1,
+            offset=0,
+        )
+        assert_matches_type(SyncOffsetPagination[BrowserListResponse], browser, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -135,7 +146,7 @@ class TestBrowsers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         browser = response.parse()
-        assert_matches_type(BrowserListResponse, browser, path=["response"])
+        assert_matches_type(SyncOffsetPagination[BrowserListResponse], browser, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -145,7 +156,7 @@ class TestBrowsers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             browser = response.parse()
-            assert_matches_type(BrowserListResponse, browser, path=["response"])
+            assert_matches_type(SyncOffsetPagination[BrowserListResponse], browser, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -401,7 +412,17 @@ class TestAsyncBrowsers:
     @parametrize
     async def test_method_list(self, async_client: AsyncKernel) -> None:
         browser = await async_client.browsers.list()
-        assert_matches_type(BrowserListResponse, browser, path=["response"])
+        assert_matches_type(AsyncOffsetPagination[BrowserListResponse], browser, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncKernel) -> None:
+        browser = await async_client.browsers.list(
+            include_deleted=True,
+            limit=1,
+            offset=0,
+        )
+        assert_matches_type(AsyncOffsetPagination[BrowserListResponse], browser, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -411,7 +432,7 @@ class TestAsyncBrowsers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         browser = await response.parse()
-        assert_matches_type(BrowserListResponse, browser, path=["response"])
+        assert_matches_type(AsyncOffsetPagination[BrowserListResponse], browser, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -421,7 +442,7 @@ class TestAsyncBrowsers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             browser = await response.parse()
-            assert_matches_type(BrowserListResponse, browser, path=["response"])
+            assert_matches_type(AsyncOffsetPagination[BrowserListResponse], browser, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
