@@ -6,7 +6,7 @@ Full Changelog: [v0.19.2...v0.20.0](https://github.com/onkernel/kernel-python-sd
 
 ### Features
 
-* allow get browser to paginate soft deleted browsers ([0bf4d45](https://github.com/onkernel/kernel-python-sdk/commit/0bf4d4546171f7bc2fad9d225b7fcf2be14a6a71))
+* Add pagination to list browsers method and allow it to include deleted browsers when `include_deleted = true` ([0bf4d45](https://github.com/onkernel/kernel-python-sdk/commit/0bf4d4546171f7bc2fad9d225b7fcf2be14a6a71))
 
 ## 0.19.2 (2025-11-17)
 
