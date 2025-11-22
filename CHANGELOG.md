@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.20.1 (2025-11-22)
+
+Full Changelog: [v0.20.0...v0.20.1](https://github.com/onkernel/kernel-python-sdk/compare/v0.20.0...v0.20.1)
+
+### Chores
+
+* add Python 3.14 classifier and testing ([9a1e7bf](https://github.com/onkernel/kernel-python-sdk/commit/9a1e7bf9c92d64da4a151dd44cc60057c75c63bf))
+
 ## 0.20.0 (2025-11-19)
 
 Full Changelog: [v0.19.2...v0.20.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.19.2...v0.20.0)
