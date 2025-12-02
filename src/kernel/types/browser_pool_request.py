@@ -1,73 +1,66 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from __future__ import annotations
+from typing import List, Optional
 
-from typing import Iterable
-from typing_extensions import TypedDict
+from .._models import BaseModel
+from .shared.browser_profile import BrowserProfile
+from .shared.browser_viewport import BrowserViewport
+from .shared.browser_extension import BrowserExtension
 
-from .browser_persistence_param import BrowserPersistenceParam
-from .shared_params.browser_profile import BrowserProfile
-from .shared_params.browser_viewport import BrowserViewport
-from .shared_params.browser_extension import BrowserExtension
-
-__all__ = ["BrowserCreateParams"]
+__all__ = ["BrowserPoolRequest"]
 
 
-class BrowserCreateParams(TypedDict, total=False):
-    extensions: Iterable[BrowserExtension]
+class BrowserPoolRequest(BaseModel):
+    size: int
+    """Number of browsers to create in the pool"""
+
+    extensions: Optional[List[BrowserExtension]] = None
     """List of browser extensions to load into the session.
 
     Provide each by id or name.
     """
 
-    headless: bool
-    """If true, launches the browser using a headless image (no VNC/GUI).
+    fill_rate_per_minute: Optional[int] = None
+    """Percentage of the pool to fill per minute. Defaults to 10%."""
 
-    Defaults to false.
-    """
+    headless: Optional[bool] = None
+    """If true, launches the browser using a headless image. Defaults to false."""
 
-    invocation_id: str
-    """action invocation ID"""
-
-    kiosk_mode: bool
+    kiosk_mode: Optional[bool] = None
     """
     If true, launches the browser in kiosk mode to hide address bar and tabs in live
     view.
     """
 
-    persistence: BrowserPersistenceParam
-    """Optional persistence configuration for the browser session."""
+    name: Optional[str] = None
+    """Optional name for the browser pool. Must be unique within the organization."""
 
-    profile: BrowserProfile
+    profile: Optional[BrowserProfile] = None
     """Profile selection for the browser session.
 
     Provide either id or name. If specified, the matching profile will be loaded
     into the browser session. Profiles must be created beforehand.
     """
 
-    proxy_id: str
+    proxy_id: Optional[str] = None
     """Optional proxy to associate to the browser session.
 
     Must reference a proxy belonging to the caller's org.
     """
 
-    stealth: bool
+    stealth: Optional[bool] = None
     """
     If true, launches the browser in stealth mode to reduce detection by anti-bot
     mechanisms.
     """
 
-    timeout_seconds: int
-    """The number of seconds of inactivity before the browser session is terminated.
-
-    Only applicable to non-persistent browsers. Activity includes CDP connections
-    and live view connections. Defaults to 60 seconds. Minimum allowed is 10
-    seconds. Maximum allowed is 259200 (72 hours). We check for inactivity every 5
-    seconds, so the actual timeout behavior you will see is +/- 5 seconds around the
-    specified value.
+    timeout_seconds: Optional[int] = None
+    """
+    Default idle timeout in seconds for browsers acquired from this pool before they
+    are destroyed. Defaults to 600 seconds if not specified
     """
 
-    viewport: BrowserViewport
+    viewport: Optional[BrowserViewport] = None
     """Initial browser window size in pixels with optional refresh rate.
 
     If omitted, image defaults apply (commonly 1024x768@60). Only specific viewport

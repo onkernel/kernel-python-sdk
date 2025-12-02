@@ -76,6 +76,9 @@ from ...types.browser_list_response import BrowserListResponse
 from ...types.browser_create_response import BrowserCreateResponse
 from ...types.browser_persistence_param import BrowserPersistenceParam
 from ...types.browser_retrieve_response import BrowserRetrieveResponse
+from ...types.shared_params.browser_profile import BrowserProfile
+from ...types.shared_params.browser_viewport import BrowserViewport
+from ...types.shared_params.browser_extension import BrowserExtension
 
 __all__ = ["BrowsersResource", "AsyncBrowsersResource"]
 
@@ -127,16 +130,16 @@ class BrowsersResource(SyncAPIResource):
     def create(
         self,
         *,
-        extensions: Iterable[browser_create_params.Extension] | Omit = omit,
+        extensions: Iterable[BrowserExtension] | Omit = omit,
         headless: bool | Omit = omit,
         invocation_id: str | Omit = omit,
         kiosk_mode: bool | Omit = omit,
         persistence: BrowserPersistenceParam | Omit = omit,
-        profile: browser_create_params.Profile | Omit = omit,
+        profile: BrowserProfile | Omit = omit,
         proxy_id: str | Omit = omit,
         stealth: bool | Omit = omit,
         timeout_seconds: int | Omit = omit,
-        viewport: browser_create_params.Viewport | Omit = omit,
+        viewport: BrowserViewport | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -470,16 +473,16 @@ class AsyncBrowsersResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        extensions: Iterable[browser_create_params.Extension] | Omit = omit,
+        extensions: Iterable[BrowserExtension] | Omit = omit,
         headless: bool | Omit = omit,
         invocation_id: str | Omit = omit,
         kiosk_mode: bool | Omit = omit,
         persistence: BrowserPersistenceParam | Omit = omit,
-        profile: browser_create_params.Profile | Omit = omit,
+        profile: BrowserProfile | Omit = omit,
         proxy_id: str | Omit = omit,
         stealth: bool | Omit = omit,
         timeout_seconds: int | Omit = omit,
-        viewport: browser_create_params.Viewport | Omit = omit,
+        viewport: BrowserViewport | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
