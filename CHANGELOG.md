@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.21.0 (2025-12-02)
+
+Full Changelog: [v0.20.0...v0.21.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.20.0...v0.21.0)
+
+### Features
+
+* Browser pools sdk release ([c2d7408](https://github.com/onkernel/kernel-python-sdk/commit/c2d7408a770ddd34902986015da0bfde3477f586))
+* Mason/agent auth api ([b872928](https://github.com/onkernel/kernel-python-sdk/commit/b8729284ba804461749dad0ac4613aea3c6b3ce6))
+
+
+### Bug Fixes
+
+* ensure streams are always closed ([c82f496](https://github.com/onkernel/kernel-python-sdk/commit/c82f496ba0112b195f65da9498fb22ab65d501fb))
+
+
+### Chores
+
+* add Python 3.14 classifier and testing ([9a1e7bf](https://github.com/onkernel/kernel-python-sdk/commit/9a1e7bf9c92d64da4a151dd44cc60057c75c63bf))
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([038b10d](https://github.com/onkernel/kernel-python-sdk/commit/038b10d52935961c37ebb0806e9b0754b4d53a20))
+
 ## 0.20.0 (2025-11-19)
 
 Full Changelog: [v0.19.2...v0.20.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.19.2...v0.20.0)
