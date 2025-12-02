@@ -3,31 +3,30 @@
 from __future__ import annotations
 
 from typing import Iterable
-from typing_extensions import TypedDict
+from typing_extensions import Required, TypedDict
 
-from .browser_persistence_param import BrowserPersistenceParam
 from .shared_params.browser_profile import BrowserProfile
 from .shared_params.browser_viewport import BrowserViewport
 from .shared_params.browser_extension import BrowserExtension
 
-__all__ = ["BrowserCreateParams"]
+__all__ = ["BrowserPoolCreateParams"]
 
 
-class BrowserCreateParams(TypedDict, total=False):
+class BrowserPoolCreateParams(TypedDict, total=False):
+    size: Required[int]
+    """Number of browsers to create in the pool"""
+
     extensions: Iterable[BrowserExtension]
     """List of browser extensions to load into the session.
 
     Provide each by id or name.
     """
 
+    fill_rate_per_minute: int
+    """Percentage of the pool to fill per minute. Defaults to 10%."""
+
     headless: bool
-    """If true, launches the browser using a headless image (no VNC/GUI).
-
-    Defaults to false.
-    """
-
-    invocation_id: str
-    """action invocation ID"""
+    """If true, launches the browser using a headless image. Defaults to false."""
 
     kiosk_mode: bool
     """
@@ -35,8 +34,8 @@ class BrowserCreateParams(TypedDict, total=False):
     view.
     """
 
-    persistence: BrowserPersistenceParam
-    """Optional persistence configuration for the browser session."""
+    name: str
+    """Optional name for the browser pool. Must be unique within the organization."""
 
     profile: BrowserProfile
     """Profile selection for the browser session.
@@ -58,13 +57,9 @@ class BrowserCreateParams(TypedDict, total=False):
     """
 
     timeout_seconds: int
-    """The number of seconds of inactivity before the browser session is terminated.
-
-    Only applicable to non-persistent browsers. Activity includes CDP connections
-    and live view connections. Defaults to 60 seconds. Minimum allowed is 10
-    seconds. Maximum allowed is 259200 (72 hours). We check for inactivity every 5
-    seconds, so the actual timeout behavior you will see is +/- 5 seconds around the
-    specified value.
+    """
+    Default idle timeout in seconds for browsers acquired from this pool before they
+    are destroyed. Defaults to 600 seconds if not specified
     """
 
     viewport: BrowserViewport

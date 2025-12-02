@@ -8,15 +8,20 @@ from .shared import (
     ErrorEvent as ErrorEvent,
     ErrorModel as ErrorModel,
     ErrorDetail as ErrorDetail,
+    BrowserProfile as BrowserProfile,
     HeartbeatEvent as HeartbeatEvent,
+    BrowserViewport as BrowserViewport,
+    BrowserExtension as BrowserExtension,
 )
 from .profile import Profile as Profile
+from .browser_pool import BrowserPool as BrowserPool
 from .app_list_params import AppListParams as AppListParams
 from .app_list_response import AppListResponse as AppListResponse
 from .browser_list_params import BrowserListParams as BrowserListParams
 from .browser_persistence import BrowserPersistence as BrowserPersistence
 from .proxy_create_params import ProxyCreateParams as ProxyCreateParams
 from .proxy_list_response import ProxyListResponse as ProxyListResponse
+from .browser_pool_request import BrowserPoolRequest as BrowserPoolRequest
 from .browser_create_params import BrowserCreateParams as BrowserCreateParams
 from .browser_delete_params import BrowserDeleteParams as BrowserDeleteParams
 from .browser_list_response import BrowserListResponse as BrowserListResponse
@@ -41,13 +46,20 @@ from .invocation_update_params import InvocationUpdateParams as InvocationUpdate
 from .browser_persistence_param import BrowserPersistenceParam as BrowserPersistenceParam
 from .browser_retrieve_response import BrowserRetrieveResponse as BrowserRetrieveResponse
 from .extension_upload_response import ExtensionUploadResponse as ExtensionUploadResponse
+from .browser_pool_create_params import BrowserPoolCreateParams as BrowserPoolCreateParams
+from .browser_pool_delete_params import BrowserPoolDeleteParams as BrowserPoolDeleteParams
+from .browser_pool_list_response import BrowserPoolListResponse as BrowserPoolListResponse
+from .browser_pool_update_params import BrowserPoolUpdateParams as BrowserPoolUpdateParams
 from .deployment_create_response import DeploymentCreateResponse as DeploymentCreateResponse
 from .deployment_follow_response import DeploymentFollowResponse as DeploymentFollowResponse
 from .invocation_create_response import InvocationCreateResponse as InvocationCreateResponse
 from .invocation_follow_response import InvocationFollowResponse as InvocationFollowResponse
 from .invocation_update_response import InvocationUpdateResponse as InvocationUpdateResponse
+from .browser_pool_acquire_params import BrowserPoolAcquireParams as BrowserPoolAcquireParams
+from .browser_pool_release_params import BrowserPoolReleaseParams as BrowserPoolReleaseParams
 from .deployment_retrieve_response import DeploymentRetrieveResponse as DeploymentRetrieveResponse
 from .invocation_retrieve_response import InvocationRetrieveResponse as InvocationRetrieveResponse
+from .browser_pool_acquire_response import BrowserPoolAcquireResponse as BrowserPoolAcquireResponse
 from .browser_load_extensions_params import BrowserLoadExtensionsParams as BrowserLoadExtensionsParams
 from .extension_download_from_chrome_store_params import (
     ExtensionDownloadFromChromeStoreParams as ExtensionDownloadFromChromeStoreParams,
