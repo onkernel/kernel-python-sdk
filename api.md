@@ -1,7 +1,17 @@
 # Shared Types
 
 ```python
-from kernel.types import AppAction, ErrorDetail, ErrorEvent, ErrorModel, HeartbeatEvent, LogEvent
+from kernel.types import (
+    AppAction,
+    BrowserExtension,
+    BrowserProfile,
+    BrowserViewport,
+    ErrorDetail,
+    ErrorEvent,
+    ErrorModel,
+    HeartbeatEvent,
+    LogEvent,
+)
 ```
 
 # Deployments
@@ -244,37 +254,29 @@ Methods:
 - <code title="get /extensions/from_chrome_store">client.extensions.<a href="./src/kernel/resources/extensions.py">download_from_chrome_store</a>(\*\*<a href="src/kernel/types/extension_download_from_chrome_store_params.py">params</a>) -> BinaryAPIResponse</code>
 - <code title="post /extensions">client.extensions.<a href="./src/kernel/resources/extensions.py">upload</a>(\*\*<a href="src/kernel/types/extension_upload_params.py">params</a>) -> <a href="./src/kernel/types/extension_upload_response.py">ExtensionUploadResponse</a></code>
 
-# Agents
-
-## Auth
+# BrowserPools
 
 Types:
 
 ```python
-from kernel.types.agents import (
-    AgentAuthDiscoverResponse,
-    AgentAuthRunResponse,
-    AgentAuthStartResponse,
-    AgentAuthSubmitResponse,
-    DiscoveredField,
+from kernel.types import (
+    BrowserPool,
+    BrowserPoolAcquireRequest,
+    BrowserPoolReleaseRequest,
+    BrowserPoolRequest,
+    BrowserPoolUpdateRequest,
+    BrowserPoolListResponse,
+    BrowserPoolAcquireResponse,
 )
 ```
 
 Methods:
 
-- <code title="post /agents/auth/start">client.agents.auth.<a href="./src/kernel/resources/agents/auth/auth.py">start</a>(\*\*<a href="src/kernel/types/agents/auth_start_params.py">params</a>) -> <a href="./src/kernel/types/agents/agent_auth_start_response.py">AgentAuthStartResponse</a></code>
-
-### Runs
-
-Types:
-
-```python
-from kernel.types.agents.auth import RunExchangeResponse
-```
-
-Methods:
-
-- <code title="get /agents/auth/runs/{run_id}">client.agents.auth.runs.<a href="./src/kernel/resources/agents/auth/runs.py">retrieve</a>(run_id) -> <a href="./src/kernel/types/agents/agent_auth_run_response.py">AgentAuthRunResponse</a></code>
-- <code title="post /agents/auth/runs/{run_id}/discover">client.agents.auth.runs.<a href="./src/kernel/resources/agents/auth/runs.py">discover</a>(run_id) -> <a href="./src/kernel/types/agents/agent_auth_discover_response.py">AgentAuthDiscoverResponse</a></code>
-- <code title="post /agents/auth/runs/{run_id}/exchange">client.agents.auth.runs.<a href="./src/kernel/resources/agents/auth/runs.py">exchange</a>(run_id, \*\*<a href="src/kernel/types/agents/auth/run_exchange_params.py">params</a>) -> <a href="./src/kernel/types/agents/auth/run_exchange_response.py">RunExchangeResponse</a></code>
-- <code title="post /agents/auth/runs/{run_id}/submit">client.agents.auth.runs.<a href="./src/kernel/resources/agents/auth/runs.py">submit</a>(run_id, \*\*<a href="src/kernel/types/agents/auth/run_submit_params.py">params</a>) -> <a href="./src/kernel/types/agents/agent_auth_submit_response.py">AgentAuthSubmitResponse</a></code>
+- <code title="post /browser_pools">client.browser_pools.<a href="./src/kernel/resources/browser_pools.py">create</a>(\*\*<a href="src/kernel/types/browser_pool_create_params.py">params</a>) -> <a href="./src/kernel/types/browser_pool.py">BrowserPool</a></code>
+- <code title="get /browser_pools/{id_or_name}">client.browser_pools.<a href="./src/kernel/resources/browser_pools.py">retrieve</a>(id_or_name) -> <a href="./src/kernel/types/browser_pool.py">BrowserPool</a></code>
+- <code title="patch /browser_pools/{id_or_name}">client.browser_pools.<a href="./src/kernel/resources/browser_pools.py">update</a>(id_or_name, \*\*<a href="src/kernel/types/browser_pool_update_params.py">params</a>) -> <a href="./src/kernel/types/browser_pool.py">BrowserPool</a></code>
+- <code title="get /browser_pools">client.browser_pools.<a href="./src/kernel/resources/browser_pools.py">list</a>() -> <a href="./src/kernel/types/browser_pool_list_response.py">BrowserPoolListResponse</a></code>
+- <code title="delete /browser_pools/{id_or_name}">client.browser_pools.<a href="./src/kernel/resources/browser_pools.py">delete</a>(id_or_name, \*\*<a href="src/kernel/types/browser_pool_delete_params.py">params</a>) -> None</code>
+- <code title="post /browser_pools/{id_or_name}/acquire">client.browser_pools.<a href="./src/kernel/resources/browser_pools.py">acquire</a>(id_or_name, \*\*<a href="src/kernel/types/browser_pool_acquire_params.py">params</a>) -> <a href="./src/kernel/types/browser_pool_acquire_response.py">BrowserPoolAcquireResponse</a></code>
+- <code title="post /browser_pools/{id_or_name}/flush">client.browser_pools.<a href="./src/kernel/resources/browser_pools.py">flush</a>(id_or_name) -> None</code>
+- <code title="post /browser_pools/{id_or_name}/release">client.browser_pools.<a href="./src/kernel/resources/browser_pools.py">release</a>(id_or_name, \*\*<a href="src/kernel/types/browser_pool_release_params.py">params</a>) -> None</code>

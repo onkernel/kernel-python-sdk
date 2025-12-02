@@ -8,14 +8,6 @@ from .apps import (
     AppsResourceWithStreamingResponse,
     AsyncAppsResourceWithStreamingResponse,
 )
-from .agents import (
-    AgentsResource,
-    AsyncAgentsResource,
-    AgentsResourceWithRawResponse,
-    AsyncAgentsResourceWithRawResponse,
-    AgentsResourceWithStreamingResponse,
-    AsyncAgentsResourceWithStreamingResponse,
-)
 from .proxies import (
     ProxiesResource,
     AsyncProxiesResource,
@@ -64,6 +56,14 @@ from .invocations import (
     InvocationsResourceWithStreamingResponse,
     AsyncInvocationsResourceWithStreamingResponse,
 )
+from .browser_pools import (
+    BrowserPoolsResource,
+    AsyncBrowserPoolsResource,
+    BrowserPoolsResourceWithRawResponse,
+    AsyncBrowserPoolsResourceWithRawResponse,
+    BrowserPoolsResourceWithStreamingResponse,
+    AsyncBrowserPoolsResourceWithStreamingResponse,
+)
 
 __all__ = [
     "DeploymentsResource",
@@ -108,10 +108,10 @@ __all__ = [
     "AsyncExtensionsResourceWithRawResponse",
     "ExtensionsResourceWithStreamingResponse",
     "AsyncExtensionsResourceWithStreamingResponse",
-    "AgentsResource",
-    "AsyncAgentsResource",
-    "AgentsResourceWithRawResponse",
-    "AsyncAgentsResourceWithRawResponse",
-    "AgentsResourceWithStreamingResponse",
-    "AsyncAgentsResourceWithStreamingResponse",
+    "BrowserPoolsResource",
+    "AsyncBrowserPoolsResource",
+    "BrowserPoolsResourceWithRawResponse",
+    "AsyncBrowserPoolsResourceWithRawResponse",
+    "BrowserPoolsResourceWithStreamingResponse",
+    "AsyncBrowserPoolsResourceWithStreamingResponse",
 ]

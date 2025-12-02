@@ -8,10 +8,10 @@ from .._models import BaseModel
 from .browser_persistence import BrowserPersistence
 from .shared.browser_viewport import BrowserViewport
 
-__all__ = ["BrowserCreateResponse"]
+__all__ = ["BrowserPoolAcquireResponse"]
 
 
-class BrowserCreateResponse(BaseModel):
+class BrowserPoolAcquireResponse(BaseModel):
     cdp_ws_url: str
     """Websocket URL for Chrome DevTools Protocol connections to the browser session"""
 

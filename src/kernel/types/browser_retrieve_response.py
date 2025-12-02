@@ -6,22 +6,9 @@ from datetime import datetime
 from .profile import Profile
 from .._models import BaseModel
 from .browser_persistence import BrowserPersistence
+from .shared.browser_viewport import BrowserViewport
 
-__all__ = ["BrowserRetrieveResponse", "Viewport"]
-
-
-class Viewport(BaseModel):
-    height: int
-    """Browser window height in pixels."""
-
-    width: int
-    """Browser window width in pixels."""
-
-    refresh_rate: Optional[int] = None
-    """Display refresh rate in Hz.
-
-    If omitted, automatically determined from width and height.
-    """
+__all__ = ["BrowserRetrieveResponse"]
 
 
 class BrowserRetrieveResponse(BaseModel):
@@ -64,7 +51,7 @@ class BrowserRetrieveResponse(BaseModel):
     proxy_id: Optional[str] = None
     """ID of the proxy associated with this browser session, if any."""
 
-    viewport: Optional[Viewport] = None
+    viewport: Optional[BrowserViewport] = None
     """Initial browser window size in pixels with optional refresh rate.
 
     If omitted, image defaults apply (commonly 1024x768@60). Only specific viewport
