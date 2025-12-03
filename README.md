@@ -87,6 +87,7 @@ pip install kernel[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
+import os
 import asyncio
 from kernel import DefaultAioHttpClient
 from kernel import AsyncKernel
@@ -94,7 +95,7 @@ from kernel import AsyncKernel
 
 async def main() -> None:
     async with AsyncKernel(
-        api_key="My API Key",
+        api_key=os.environ.get("KERNEL_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         browser = await client.browsers.create(
