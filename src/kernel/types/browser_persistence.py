@@ -7,4 +7,4 @@ __all__ = ["BrowserPersistence"]
 
 class BrowserPersistence(BaseModel):
     id: str
-    """Unique identifier for the persistent browser session."""
+    """DEPRECATED: Unique identifier for the persistent browser session."""
