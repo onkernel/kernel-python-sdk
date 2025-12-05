@@ -43,7 +43,7 @@ class BrowserPoolAcquireResponse(BaseModel):
     """Whether the browser session is running in kiosk mode."""
 
     persistence: Optional[BrowserPersistence] = None
-    """Optional persistence configuration for the browser session."""
+    """DEPRECATED: Use timeout_seconds (up to 72 hours) and Profiles instead."""
 
     profile: Optional[Profile] = None
     """Browser profile metadata."""

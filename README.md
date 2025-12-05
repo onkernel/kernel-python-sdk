@@ -35,7 +35,7 @@ client = Kernel(
 )
 
 browser = client.browsers.create(
-    persistence={"id": "browser-for-user-1234"},
+    stealth=True,
 )
 print(browser.session_id)
 ```
@@ -63,7 +63,7 @@ client = AsyncKernel(
 
 async def main() -> None:
     browser = await client.browsers.create(
-        persistence={"id": "browser-for-user-1234"},
+        stealth=True,
     )
     print(browser.session_id)
 
@@ -99,7 +99,7 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         browser = await client.browsers.create(
-            persistence={"id": "browser-for-user-1234"},
+            stealth=True,
         )
         print(browser.session_id)
 
@@ -242,7 +242,7 @@ client = Kernel()
 
 try:
     client.browsers.create(
-        persistence={"id": "browser-for-user-1234"},
+        stealth=True,
     )
 except kernel.APIConnectionError as e:
     print("The server could not be reached")
@@ -287,7 +287,7 @@ client = Kernel(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).browsers.create(
-    persistence={"id": "browser-for-user-1234"},
+    stealth=True,
 )
 ```
 
@@ -312,7 +312,7 @@ client = Kernel(
 
 # Override per-request:
 client.with_options(timeout=5.0).browsers.create(
-    persistence={"id": "browser-for-user-1234"},
+    stealth=True,
 )
 ```
 
@@ -355,9 +355,7 @@ from kernel import Kernel
 
 client = Kernel()
 response = client.browsers.with_raw_response.create(
-    persistence={
-        "id": "browser-for-user-1234"
-    },
+    stealth=True,
 )
 print(response.headers.get('X-My-Header'))
 
@@ -377,7 +375,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.browsers.with_streaming_response.create(
-    persistence={"id": "browser-for-user-1234"},
+    stealth=True,
 ) as response:
     print(response.headers.get("X-My-Header"))
 

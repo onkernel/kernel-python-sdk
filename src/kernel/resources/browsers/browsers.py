@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Mapping, Iterable, cast
 
 import httpx
@@ -161,7 +162,7 @@ class BrowsersResource(SyncAPIResource):
           kiosk_mode: If true, launches the browser in kiosk mode to hide address bar and tabs in live
               view.
 
-          persistence: Optional persistence configuration for the browser session.
+          persistence: DEPRECATED: Use timeout_seconds (up to 72 hours) and Profiles instead.
 
           profile: Profile selection for the browser session. Provide either id or name. If
               specified, the matching profile will be loaded into the browser session.
@@ -174,11 +175,10 @@ class BrowsersResource(SyncAPIResource):
               mechanisms.
 
           timeout_seconds: The number of seconds of inactivity before the browser session is terminated.
-              Only applicable to non-persistent browsers. Activity includes CDP connections
-              and live view connections. Defaults to 60 seconds. Minimum allowed is 10
-              seconds. Maximum allowed is 259200 (72 hours). We check for inactivity every 5
-              seconds, so the actual timeout behavior you will see is +/- 5 seconds around the
-              specified value.
+              Activity includes CDP connections and live view connections. Defaults to 60
+              seconds. Minimum allowed is 10 seconds. Maximum allowed is 259200 (72 hours). We
+              check for inactivity every 5 seconds, so the actual timeout behavior you will
+              see is +/- 5 seconds around the specified value.
 
           viewport: Initial browser window size in pixels with optional refresh rate. If omitted,
               image defaults apply (commonly 1024x768@60). Only specific viewport
@@ -307,6 +307,7 @@ class BrowsersResource(SyncAPIResource):
             model=BrowserListResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def delete(
         self,
         *,
@@ -318,8 +319,10 @@ class BrowsersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """
-        Delete a persistent browser session by its persistent_id.
+        """DEPRECATED: Use DELETE /browsers/{id} instead.
+
+        Delete a persistent browser
+        session by its persistent_id.
 
         Args:
           persistent_id: Persistent browser identifier
@@ -504,7 +507,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
           kiosk_mode: If true, launches the browser in kiosk mode to hide address bar and tabs in live
               view.
 
-          persistence: Optional persistence configuration for the browser session.
+          persistence: DEPRECATED: Use timeout_seconds (up to 72 hours) and Profiles instead.
 
           profile: Profile selection for the browser session. Provide either id or name. If
               specified, the matching profile will be loaded into the browser session.
@@ -517,11 +520,10 @@ class AsyncBrowsersResource(AsyncAPIResource):
               mechanisms.
 
           timeout_seconds: The number of seconds of inactivity before the browser session is terminated.
-              Only applicable to non-persistent browsers. Activity includes CDP connections
-              and live view connections. Defaults to 60 seconds. Minimum allowed is 10
-              seconds. Maximum allowed is 259200 (72 hours). We check for inactivity every 5
-              seconds, so the actual timeout behavior you will see is +/- 5 seconds around the
-              specified value.
+              Activity includes CDP connections and live view connections. Defaults to 60
+              seconds. Minimum allowed is 10 seconds. Maximum allowed is 259200 (72 hours). We
+              check for inactivity every 5 seconds, so the actual timeout behavior you will
+              see is +/- 5 seconds around the specified value.
 
           viewport: Initial browser window size in pixels with optional refresh rate. If omitted,
               image defaults apply (commonly 1024x768@60). Only specific viewport
@@ -650,6 +652,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
             model=BrowserListResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def delete(
         self,
         *,
@@ -661,8 +664,10 @@ class AsyncBrowsersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """
-        Delete a persistent browser session by its persistent_id.
+        """DEPRECATED: Use DELETE /browsers/{id} instead.
+
+        Delete a persistent browser
+        session by its persistent_id.
 
         Args:
           persistent_id: Persistent browser identifier
@@ -784,8 +789,10 @@ class BrowsersResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             browsers.list,
         )
-        self.delete = to_raw_response_wrapper(
-            browsers.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                browsers.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete_by_id = to_raw_response_wrapper(
             browsers.delete_by_id,
@@ -832,8 +839,10 @@ class AsyncBrowsersResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             browsers.list,
         )
-        self.delete = async_to_raw_response_wrapper(
-            browsers.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                browsers.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete_by_id = async_to_raw_response_wrapper(
             browsers.delete_by_id,
@@ -880,8 +889,10 @@ class BrowsersResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             browsers.list,
         )
-        self.delete = to_streamed_response_wrapper(
-            browsers.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                browsers.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete_by_id = to_streamed_response_wrapper(
             browsers.delete_by_id,
@@ -928,8 +939,10 @@ class AsyncBrowsersResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             browsers.list,
         )
-        self.delete = async_to_streamed_response_wrapper(
-            browsers.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                browsers.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete_by_id = async_to_streamed_response_wrapper(
             browsers.delete_by_id,

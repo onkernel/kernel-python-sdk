@@ -16,6 +16,8 @@ from kernel.types import (
 )
 from kernel.pagination import SyncOffsetPagination, AsyncOffsetPagination
 
+# pyright: reportDeprecated=false
+
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
@@ -163,17 +165,20 @@ class TestBrowsers:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_delete(self, client: Kernel) -> None:
-        browser = client.browsers.delete(
-            persistent_id="persistent_id",
-        )
+        with pytest.warns(DeprecationWarning):
+            browser = client.browsers.delete(
+                persistent_id="persistent_id",
+            )
+
         assert browser is None
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Kernel) -> None:
-        response = client.browsers.with_raw_response.delete(
-            persistent_id="persistent_id",
-        )
+        with pytest.warns(DeprecationWarning):
+            response = client.browsers.with_raw_response.delete(
+                persistent_id="persistent_id",
+            )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -183,14 +188,15 @@ class TestBrowsers:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Kernel) -> None:
-        with client.browsers.with_streaming_response.delete(
-            persistent_id="persistent_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            with client.browsers.with_streaming_response.delete(
+                persistent_id="persistent_id",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            browser = response.parse()
-            assert browser is None
+                browser = response.parse()
+                assert browser is None
 
         assert cast(Any, response.is_closed) is True
 
@@ -449,17 +455,20 @@ class TestAsyncBrowsers:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncKernel) -> None:
-        browser = await async_client.browsers.delete(
-            persistent_id="persistent_id",
-        )
+        with pytest.warns(DeprecationWarning):
+            browser = await async_client.browsers.delete(
+                persistent_id="persistent_id",
+            )
+
         assert browser is None
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncKernel) -> None:
-        response = await async_client.browsers.with_raw_response.delete(
-            persistent_id="persistent_id",
-        )
+        with pytest.warns(DeprecationWarning):
+            response = await async_client.browsers.with_raw_response.delete(
+                persistent_id="persistent_id",
+            )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -469,14 +478,15 @@ class TestAsyncBrowsers:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncKernel) -> None:
-        async with async_client.browsers.with_streaming_response.delete(
-            persistent_id="persistent_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            async with async_client.browsers.with_streaming_response.delete(
+                persistent_id="persistent_id",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            browser = await response.parse()
-            assert browser is None
+                browser = await response.parse()
+                assert browser is None
 
         assert cast(Any, response.is_closed) is True
 
