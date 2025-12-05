@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.22.0 (2025-12-05)
+
+Full Changelog: [v0.21.0...v0.22.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.21.0...v0.22.0)
+
+### Features
+
+* Add `async_timeout_seconds` to PostInvocations ([2866021](https://github.com/onkernel/kernel-python-sdk/commit/286602193261f0d1beaad24dd633c3a1b0838654))
+
+
+### Chores
+
+* **docs:** use environment variables for authentication in code snippets ([eec0be5](https://github.com/onkernel/kernel-python-sdk/commit/eec0be59552f9057179b9597fc336fddd544d4b1))
+* update lockfile ([ecee109](https://github.com/onkernel/kernel-python-sdk/commit/ecee109b4d10a786394c9807f82007849b7294d8))
+
 ## 0.21.0 (2025-12-02)
 
 Full Changelog: [v0.20.0...v0.21.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.20.0...v0.21.0)
