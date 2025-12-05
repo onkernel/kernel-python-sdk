@@ -9,4 +9,4 @@ __all__ = ["BrowserPersistenceParam"]
 
 class BrowserPersistenceParam(TypedDict, total=False):
     id: Required[str]
-    """Unique identifier for the persistent browser session."""
+    """DEPRECATED: Unique identifier for the persistent browser session."""

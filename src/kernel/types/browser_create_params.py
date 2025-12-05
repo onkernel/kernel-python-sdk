@@ -36,7 +36,7 @@ class BrowserCreateParams(TypedDict, total=False):
     """
 
     persistence: BrowserPersistenceParam
-    """Optional persistence configuration for the browser session."""
+    """DEPRECATED: Use timeout_seconds (up to 72 hours) and Profiles instead."""
 
     profile: BrowserProfile
     """Profile selection for the browser session.
@@ -60,11 +60,10 @@ class BrowserCreateParams(TypedDict, total=False):
     timeout_seconds: int
     """The number of seconds of inactivity before the browser session is terminated.
 
-    Only applicable to non-persistent browsers. Activity includes CDP connections
-    and live view connections. Defaults to 60 seconds. Minimum allowed is 10
-    seconds. Maximum allowed is 259200 (72 hours). We check for inactivity every 5
-    seconds, so the actual timeout behavior you will see is +/- 5 seconds around the
-    specified value.
+    Activity includes CDP connections and live view connections. Defaults to 60
+    seconds. Minimum allowed is 10 seconds. Maximum allowed is 259200 (72 hours). We
+    check for inactivity every 5 seconds, so the actual timeout behavior you will
+    see is +/- 5 seconds around the specified value.
     """
 
     viewport: BrowserViewport
