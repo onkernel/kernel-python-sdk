@@ -19,7 +19,7 @@ class BrowserPoolUpdateParams(TypedDict, total=False):
     discard_all_idle: bool
     """Whether to discard all idle browsers and rebuild the pool immediately.
 
-    Defaults to true.
+    Defaults to false.
     """
 
     extensions: Iterable[BrowserExtension]
@@ -71,7 +71,7 @@ class BrowserPoolUpdateParams(TypedDict, total=False):
     viewport: BrowserViewport
     """Initial browser window size in pixels with optional refresh rate.
 
-    If omitted, image defaults apply (commonly 1024x768@60). Only specific viewport
+    If omitted, image defaults apply (1920x1080@25). Only specific viewport
     configurations are supported. The server will reject unsupported combinations.
     Supported resolutions are: 2560x1440@10, 1920x1080@25, 1920x1200@25,
     1440x900@25, 1024x768@60, 1200x800@60 If refresh_rate is not provided, it will
