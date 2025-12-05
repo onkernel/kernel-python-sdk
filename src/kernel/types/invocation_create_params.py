@@ -25,5 +25,11 @@ class InvocationCreateParams(TypedDict, total=False):
     When set, the API responds 202 Accepted with status "queued".
     """
 
+    async_timeout_seconds: int
+    """Timeout in seconds for async invocations (min 10, max 3600).
+
+    Only applies when async is true.
+    """
+
     payload: str
     """Input data for the action, sent as a JSON string."""
