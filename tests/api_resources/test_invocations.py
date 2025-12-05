@@ -41,6 +41,7 @@ class TestInvocations:
             app_name="my-app",
             version="1.0.0",
             async_=True,
+            async_timeout_seconds=600,
             payload='{"data":"example input"}',
         )
         assert_matches_type(InvocationCreateResponse, invocation, path=["response"])
@@ -332,6 +333,7 @@ class TestAsyncInvocations:
             app_name="my-app",
             version="1.0.0",
             async_=True,
+            async_timeout_seconds=600,
             payload='{"data":"example input"}',
         )
         assert_matches_type(InvocationCreateResponse, invocation, path=["response"])

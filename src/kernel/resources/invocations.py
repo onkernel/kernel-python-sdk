@@ -57,6 +57,7 @@ class InvocationsResource(SyncAPIResource):
         app_name: str,
         version: str,
         async_: bool | Omit = omit,
+        async_timeout_seconds: int | Omit = omit,
         payload: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -78,6 +79,9 @@ class InvocationsResource(SyncAPIResource):
           async_: If true, invoke asynchronously. When set, the API responds 202 Accepted with
               status "queued".
 
+          async_timeout_seconds: Timeout in seconds for async invocations (min 10, max 3600). Only applies when
+              async is true.
+
           payload: Input data for the action, sent as a JSON string.
 
           extra_headers: Send extra headers
@@ -96,6 +100,7 @@ class InvocationsResource(SyncAPIResource):
                     "app_name": app_name,
                     "version": version,
                     "async_": async_,
+                    "async_timeout_seconds": async_timeout_seconds,
                     "payload": payload,
                 },
                 invocation_create_params.InvocationCreateParams,
@@ -370,6 +375,7 @@ class AsyncInvocationsResource(AsyncAPIResource):
         app_name: str,
         version: str,
         async_: bool | Omit = omit,
+        async_timeout_seconds: int | Omit = omit,
         payload: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -391,6 +397,9 @@ class AsyncInvocationsResource(AsyncAPIResource):
           async_: If true, invoke asynchronously. When set, the API responds 202 Accepted with
               status "queued".
 
+          async_timeout_seconds: Timeout in seconds for async invocations (min 10, max 3600). Only applies when
+              async is true.
+
           payload: Input data for the action, sent as a JSON string.
 
           extra_headers: Send extra headers
@@ -409,6 +418,7 @@ class AsyncInvocationsResource(AsyncAPIResource):
                     "app_name": app_name,
                     "version": version,
                     "async_": async_,
+                    "async_timeout_seconds": async_timeout_seconds,
                     "payload": payload,
                 },
                 invocation_create_params.InvocationCreateParams,
