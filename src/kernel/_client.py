@@ -29,6 +29,7 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
+from .resources.agents import agents
 from .resources.browsers import browsers
 
 __all__ = [
@@ -58,6 +59,7 @@ class Kernel(SyncAPIClient):
     proxies: proxies.ProxiesResource
     extensions: extensions.ExtensionsResource
     browser_pools: browser_pools.BrowserPoolsResource
+    agents: agents.AgentsResource
     with_raw_response: KernelWithRawResponse
     with_streaming_response: KernelWithStreamedResponse
 
@@ -147,6 +149,7 @@ class Kernel(SyncAPIClient):
         self.proxies = proxies.ProxiesResource(self)
         self.extensions = extensions.ExtensionsResource(self)
         self.browser_pools = browser_pools.BrowserPoolsResource(self)
+        self.agents = agents.AgentsResource(self)
         self.with_raw_response = KernelWithRawResponse(self)
         self.with_streaming_response = KernelWithStreamedResponse(self)
 
@@ -266,6 +269,7 @@ class AsyncKernel(AsyncAPIClient):
     proxies: proxies.AsyncProxiesResource
     extensions: extensions.AsyncExtensionsResource
     browser_pools: browser_pools.AsyncBrowserPoolsResource
+    agents: agents.AsyncAgentsResource
     with_raw_response: AsyncKernelWithRawResponse
     with_streaming_response: AsyncKernelWithStreamedResponse
 
@@ -355,6 +359,7 @@ class AsyncKernel(AsyncAPIClient):
         self.proxies = proxies.AsyncProxiesResource(self)
         self.extensions = extensions.AsyncExtensionsResource(self)
         self.browser_pools = browser_pools.AsyncBrowserPoolsResource(self)
+        self.agents = agents.AsyncAgentsResource(self)
         self.with_raw_response = AsyncKernelWithRawResponse(self)
         self.with_streaming_response = AsyncKernelWithStreamedResponse(self)
 
@@ -475,6 +480,7 @@ class KernelWithRawResponse:
         self.proxies = proxies.ProxiesResourceWithRawResponse(client.proxies)
         self.extensions = extensions.ExtensionsResourceWithRawResponse(client.extensions)
         self.browser_pools = browser_pools.BrowserPoolsResourceWithRawResponse(client.browser_pools)
+        self.agents = agents.AgentsResourceWithRawResponse(client.agents)
 
 
 class AsyncKernelWithRawResponse:
@@ -487,6 +493,7 @@ class AsyncKernelWithRawResponse:
         self.proxies = proxies.AsyncProxiesResourceWithRawResponse(client.proxies)
         self.extensions = extensions.AsyncExtensionsResourceWithRawResponse(client.extensions)
         self.browser_pools = browser_pools.AsyncBrowserPoolsResourceWithRawResponse(client.browser_pools)
+        self.agents = agents.AsyncAgentsResourceWithRawResponse(client.agents)
 
 
 class KernelWithStreamedResponse:
@@ -499,6 +506,7 @@ class KernelWithStreamedResponse:
         self.proxies = proxies.ProxiesResourceWithStreamingResponse(client.proxies)
         self.extensions = extensions.ExtensionsResourceWithStreamingResponse(client.extensions)
         self.browser_pools = browser_pools.BrowserPoolsResourceWithStreamingResponse(client.browser_pools)
+        self.agents = agents.AgentsResourceWithStreamingResponse(client.agents)
 
 
 class AsyncKernelWithStreamedResponse:
@@ -511,6 +519,7 @@ class AsyncKernelWithStreamedResponse:
         self.proxies = proxies.AsyncProxiesResourceWithStreamingResponse(client.proxies)
         self.extensions = extensions.AsyncExtensionsResourceWithStreamingResponse(client.extensions)
         self.browser_pools = browser_pools.AsyncBrowserPoolsResourceWithStreamingResponse(client.browser_pools)
+        self.agents = agents.AsyncAgentsResourceWithStreamingResponse(client.agents)
 
 
 Client = Kernel
