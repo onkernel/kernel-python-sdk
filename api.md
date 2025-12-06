@@ -280,3 +280,40 @@ Methods:
 - <code title="post /browser_pools/{id_or_name}/acquire">client.browser_pools.<a href="./src/kernel/resources/browser_pools.py">acquire</a>(id_or_name, \*\*<a href="src/kernel/types/browser_pool_acquire_params.py">params</a>) -> <a href="./src/kernel/types/browser_pool_acquire_response.py">BrowserPoolAcquireResponse</a></code>
 - <code title="post /browser_pools/{id_or_name}/flush">client.browser_pools.<a href="./src/kernel/resources/browser_pools.py">flush</a>(id_or_name) -> None</code>
 - <code title="post /browser_pools/{id_or_name}/release">client.browser_pools.<a href="./src/kernel/resources/browser_pools.py">release</a>(id_or_name, \*\*<a href="src/kernel/types/browser_pool_release_params.py">params</a>) -> None</code>
+
+# Agents
+
+## Auth
+
+Types:
+
+```python
+from kernel.types.agents import (
+    AgentAuthDiscoverResponse,
+    AgentAuthInvocationResponse,
+    AgentAuthStartResponse,
+    AgentAuthSubmitResponse,
+    AuthAgent,
+    DiscoveredField,
+)
+```
+
+Methods:
+
+- <code title="get /agents/auth/{id}">client.agents.auth.<a href="./src/kernel/resources/agents/auth/auth.py">retrieve</a>(id) -> <a href="./src/kernel/types/agents/auth_agent.py">AuthAgent</a></code>
+- <code title="post /agents/auth/start">client.agents.auth.<a href="./src/kernel/resources/agents/auth/auth.py">start</a>(\*\*<a href="src/kernel/types/agents/auth_start_params.py">params</a>) -> <a href="./src/kernel/types/agents/agent_auth_start_response.py">AgentAuthStartResponse</a></code>
+
+### Invocations
+
+Types:
+
+```python
+from kernel.types.agents.auth import InvocationExchangeResponse
+```
+
+Methods:
+
+- <code title="get /agents/auth/invocations/{invocation_id}">client.agents.auth.invocations.<a href="./src/kernel/resources/agents/auth/invocations.py">retrieve</a>(invocation_id) -> <a href="./src/kernel/types/agents/agent_auth_invocation_response.py">AgentAuthInvocationResponse</a></code>
+- <code title="post /agents/auth/invocations/{invocation_id}/discover">client.agents.auth.invocations.<a href="./src/kernel/resources/agents/auth/invocations.py">discover</a>(invocation_id, \*\*<a href="src/kernel/types/agents/auth/invocation_discover_params.py">params</a>) -> <a href="./src/kernel/types/agents/agent_auth_discover_response.py">AgentAuthDiscoverResponse</a></code>
+- <code title="post /agents/auth/invocations/{invocation_id}/exchange">client.agents.auth.invocations.<a href="./src/kernel/resources/agents/auth/invocations.py">exchange</a>(invocation_id, \*\*<a href="src/kernel/types/agents/auth/invocation_exchange_params.py">params</a>) -> <a href="./src/kernel/types/agents/auth/invocation_exchange_response.py">InvocationExchangeResponse</a></code>
+- <code title="post /agents/auth/invocations/{invocation_id}/submit">client.agents.auth.invocations.<a href="./src/kernel/resources/agents/auth/invocations.py">submit</a>(invocation_id, \*\*<a href="src/kernel/types/agents/auth/invocation_submit_params.py">params</a>) -> <a href="./src/kernel/types/agents/agent_auth_submit_response.py">AgentAuthSubmitResponse</a></code>
