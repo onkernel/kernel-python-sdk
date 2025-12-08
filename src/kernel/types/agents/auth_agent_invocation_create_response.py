@@ -4,13 +4,10 @@ from datetime import datetime
 
 from ..._models import BaseModel
 
-__all__ = ["AgentAuthStartResponse"]
+__all__ = ["AuthAgentInvocationCreateResponse"]
 
 
-class AgentAuthStartResponse(BaseModel):
-    auth_agent_id: str
-    """Unique identifier for the auth agent managing this domain/profile"""
-
+class AuthAgentInvocationCreateResponse(BaseModel):
     expires_at: datetime
     """When the handoff code expires"""
 

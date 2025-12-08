@@ -9,7 +9,12 @@ import pytest
 
 from kernel import Kernel, AsyncKernel
 from tests.utils import assert_matches_type
-from kernel.types.agents import AgentAuthSubmitResponse, AgentAuthDiscoverResponse, AgentAuthInvocationResponse
+from kernel.types.agents import (
+    AgentAuthSubmitResponse,
+    AgentAuthDiscoverResponse,
+    AgentAuthInvocationResponse,
+    AuthAgentInvocationCreateResponse,
+)
 from kernel.types.agents.auth import (
     InvocationExchangeResponse,
 )
@@ -19,6 +24,40 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 class TestInvocations:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_create(self, client: Kernel) -> None:
+        invocation = client.agents.auth.invocations.create(
+            auth_agent_id="abc123xyz",
+        )
+        assert_matches_type(AuthAgentInvocationCreateResponse, invocation, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_create(self, client: Kernel) -> None:
+        response = client.agents.auth.invocations.with_raw_response.create(
+            auth_agent_id="abc123xyz",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invocation = response.parse()
+        assert_matches_type(AuthAgentInvocationCreateResponse, invocation, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_create(self, client: Kernel) -> None:
+        with client.agents.auth.invocations.with_streaming_response.create(
+            auth_agent_id="abc123xyz",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invocation = response.parse()
+            assert_matches_type(AuthAgentInvocationCreateResponse, invocation, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -222,6 +261,40 @@ class TestAsyncInvocations:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_create(self, async_client: AsyncKernel) -> None:
+        invocation = await async_client.agents.auth.invocations.create(
+            auth_agent_id="abc123xyz",
+        )
+        assert_matches_type(AuthAgentInvocationCreateResponse, invocation, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_create(self, async_client: AsyncKernel) -> None:
+        response = await async_client.agents.auth.invocations.with_raw_response.create(
+            auth_agent_id="abc123xyz",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invocation = await response.parse()
+        assert_matches_type(AuthAgentInvocationCreateResponse, invocation, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_create(self, async_client: AsyncKernel) -> None:
+        async with async_client.agents.auth.invocations.with_streaming_response.create(
+            auth_agent_id="abc123xyz",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invocation = await response.parse()
+            assert_matches_type(AuthAgentInvocationCreateResponse, invocation, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
