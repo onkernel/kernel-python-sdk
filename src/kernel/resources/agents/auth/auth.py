@@ -22,10 +22,10 @@ from ...._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...._base_client import make_request_options
-from ....types.agents import auth_start_params
+from ....pagination import SyncOffsetPagination, AsyncOffsetPagination
+from ...._base_client import AsyncPaginator, make_request_options
+from ....types.agents import auth_list_params, auth_create_params
 from ....types.agents.auth_agent import AuthAgent
-from ....types.agents.agent_auth_start_response import AgentAuthStartResponse
 
 __all__ = ["AuthResource", "AsyncAuthResource"]
 
@@ -53,6 +53,61 @@ class AuthResource(SyncAPIResource):
         For more information, see https://www.github.com/onkernel/kernel-python-sdk#with_streaming_response
         """
         return AuthResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        profile_name: str,
+        target_domain: str,
+        login_url: str | Omit = omit,
+        proxy: auth_create_params.Proxy | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AuthAgent:
+        """
+        Creates a new auth agent for the specified domain and profile combination, or
+        returns an existing one if it already exists. This is idempotent - calling with
+        the same domain and profile will return the same agent. Does NOT start an
+        invocation - use POST /agents/auth/invocations to start an auth flow.
+
+        Args:
+          profile_name: Name of the profile to use for this auth agent
+
+          target_domain: Target domain for authentication
+
+          login_url: Optional login page URL. If provided, will be stored on the agent and used to
+              skip discovery in future invocations.
+
+          proxy: Optional proxy configuration
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/agents/auth",
+            body=maybe_transform(
+                {
+                    "profile_name": profile_name,
+                    "target_domain": target_domain,
+                    "login_url": login_url,
+                    "proxy": proxy,
+                },
+                auth_create_params.AuthCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AuthAgent,
+        )
 
     def retrieve(
         self,
@@ -89,38 +144,31 @@ class AuthResource(SyncAPIResource):
             cast_to=AuthAgent,
         )
 
-    def start(
+    def list(
         self,
         *,
-        profile_name: str,
-        target_domain: str,
-        app_logo_url: str | Omit = omit,
-        login_url: str | Omit = omit,
-        proxy: auth_start_params.Proxy | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
+        profile_name: str | Omit = omit,
+        target_domain: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentAuthStartResponse:
-        """Creates a browser session and returns a handoff code for the hosted flow.
-
-        Uses
-        standard API key or JWT authentication (not the JWT returned by the exchange
-        endpoint).
+    ) -> SyncOffsetPagination[AuthAgent]:
+        """
+        List auth agents with optional filters for profile_name and target_domain.
 
         Args:
-          profile_name: Name of the profile to use for this flow
+          limit: Maximum number of results to return
 
-          target_domain: Target domain for authentication
+          offset: Number of results to skip
 
-          app_logo_url: Optional logo URL for the application
+          profile_name: Filter by profile name
 
-          login_url: Optional login page URL. If provided, will be stored on the agent and used to
-              skip Phase 1 discovery in future invocations.
-
-          proxy: Optional proxy configuration
+          target_domain: Filter by target domain
 
           extra_headers: Send extra headers
 
@@ -130,22 +178,25 @@ class AuthResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
-            "/agents/auth/start",
-            body=maybe_transform(
-                {
-                    "profile_name": profile_name,
-                    "target_domain": target_domain,
-                    "app_logo_url": app_logo_url,
-                    "login_url": login_url,
-                    "proxy": proxy,
-                },
-                auth_start_params.AuthStartParams,
-            ),
+        return self._get_api_list(
+            "/agents/auth",
+            page=SyncOffsetPagination[AuthAgent],
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "profile_name": profile_name,
+                        "target_domain": target_domain,
+                    },
+                    auth_list_params.AuthListParams,
+                ),
             ),
-            cast_to=AgentAuthStartResponse,
+            model=AuthAgent,
         )
 
 
@@ -172,6 +223,61 @@ class AsyncAuthResource(AsyncAPIResource):
         For more information, see https://www.github.com/onkernel/kernel-python-sdk#with_streaming_response
         """
         return AsyncAuthResourceWithStreamingResponse(self)
+
+    async def create(
+        self,
+        *,
+        profile_name: str,
+        target_domain: str,
+        login_url: str | Omit = omit,
+        proxy: auth_create_params.Proxy | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AuthAgent:
+        """
+        Creates a new auth agent for the specified domain and profile combination, or
+        returns an existing one if it already exists. This is idempotent - calling with
+        the same domain and profile will return the same agent. Does NOT start an
+        invocation - use POST /agents/auth/invocations to start an auth flow.
+
+        Args:
+          profile_name: Name of the profile to use for this auth agent
+
+          target_domain: Target domain for authentication
+
+          login_url: Optional login page URL. If provided, will be stored on the agent and used to
+              skip discovery in future invocations.
+
+          proxy: Optional proxy configuration
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/agents/auth",
+            body=await async_maybe_transform(
+                {
+                    "profile_name": profile_name,
+                    "target_domain": target_domain,
+                    "login_url": login_url,
+                    "proxy": proxy,
+                },
+                auth_create_params.AuthCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AuthAgent,
+        )
 
     async def retrieve(
         self,
@@ -208,38 +314,31 @@ class AsyncAuthResource(AsyncAPIResource):
             cast_to=AuthAgent,
         )
 
-    async def start(
+    def list(
         self,
         *,
-        profile_name: str,
-        target_domain: str,
-        app_logo_url: str | Omit = omit,
-        login_url: str | Omit = omit,
-        proxy: auth_start_params.Proxy | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
+        profile_name: str | Omit = omit,
+        target_domain: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentAuthStartResponse:
-        """Creates a browser session and returns a handoff code for the hosted flow.
-
-        Uses
-        standard API key or JWT authentication (not the JWT returned by the exchange
-        endpoint).
+    ) -> AsyncPaginator[AuthAgent, AsyncOffsetPagination[AuthAgent]]:
+        """
+        List auth agents with optional filters for profile_name and target_domain.
 
         Args:
-          profile_name: Name of the profile to use for this flow
+          limit: Maximum number of results to return
 
-          target_domain: Target domain for authentication
+          offset: Number of results to skip
 
-          app_logo_url: Optional logo URL for the application
+          profile_name: Filter by profile name
 
-          login_url: Optional login page URL. If provided, will be stored on the agent and used to
-              skip Phase 1 discovery in future invocations.
-
-          proxy: Optional proxy configuration
+          target_domain: Filter by target domain
 
           extra_headers: Send extra headers
 
@@ -249,22 +348,25 @@ class AsyncAuthResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
-            "/agents/auth/start",
-            body=await async_maybe_transform(
-                {
-                    "profile_name": profile_name,
-                    "target_domain": target_domain,
-                    "app_logo_url": app_logo_url,
-                    "login_url": login_url,
-                    "proxy": proxy,
-                },
-                auth_start_params.AuthStartParams,
-            ),
+        return self._get_api_list(
+            "/agents/auth",
+            page=AsyncOffsetPagination[AuthAgent],
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "profile_name": profile_name,
+                        "target_domain": target_domain,
+                    },
+                    auth_list_params.AuthListParams,
+                ),
             ),
-            cast_to=AgentAuthStartResponse,
+            model=AuthAgent,
         )
 
 
@@ -272,11 +374,14 @@ class AuthResourceWithRawResponse:
     def __init__(self, auth: AuthResource) -> None:
         self._auth = auth
 
+        self.create = to_raw_response_wrapper(
+            auth.create,
+        )
         self.retrieve = to_raw_response_wrapper(
             auth.retrieve,
         )
-        self.start = to_raw_response_wrapper(
-            auth.start,
+        self.list = to_raw_response_wrapper(
+            auth.list,
         )
 
     @cached_property
@@ -288,11 +393,14 @@ class AsyncAuthResourceWithRawResponse:
     def __init__(self, auth: AsyncAuthResource) -> None:
         self._auth = auth
 
+        self.create = async_to_raw_response_wrapper(
+            auth.create,
+        )
         self.retrieve = async_to_raw_response_wrapper(
             auth.retrieve,
         )
-        self.start = async_to_raw_response_wrapper(
-            auth.start,
+        self.list = async_to_raw_response_wrapper(
+            auth.list,
         )
 
     @cached_property
@@ -304,11 +412,14 @@ class AuthResourceWithStreamingResponse:
     def __init__(self, auth: AuthResource) -> None:
         self._auth = auth
 
+        self.create = to_streamed_response_wrapper(
+            auth.create,
+        )
         self.retrieve = to_streamed_response_wrapper(
             auth.retrieve,
         )
-        self.start = to_streamed_response_wrapper(
-            auth.start,
+        self.list = to_streamed_response_wrapper(
+            auth.list,
         )
 
     @cached_property
@@ -320,11 +431,14 @@ class AsyncAuthResourceWithStreamingResponse:
     def __init__(self, auth: AsyncAuthResource) -> None:
         self._auth = auth
 
+        self.create = async_to_streamed_response_wrapper(
+            auth.create,
+        )
         self.retrieve = async_to_streamed_response_wrapper(
             auth.retrieve,
         )
-        self.start = async_to_streamed_response_wrapper(
-            auth.start,
+        self.list = async_to_streamed_response_wrapper(
+            auth.list,
         )
 
     @cached_property
