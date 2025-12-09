@@ -9,6 +9,8 @@ __all__ = ["AgentAuthInvocationResponse"]
 
 
 class AgentAuthInvocationResponse(BaseModel):
+    """Response from get invocation endpoint"""
+
     app_name: str
     """App name (org name at time of invocation creation)"""
 

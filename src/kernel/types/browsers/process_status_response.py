@@ -9,6 +9,8 @@ __all__ = ["ProcessStatusResponse"]
 
 
 class ProcessStatusResponse(BaseModel):
+    """Current status of a process."""
+
     cpu_pct: Optional[float] = None
     """Estimated CPU usage percentage."""
 

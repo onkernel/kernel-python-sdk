@@ -9,6 +9,8 @@ __all__ = ["AgentAuthDiscoverResponse"]
 
 
 class AgentAuthDiscoverResponse(BaseModel):
+    """Response from discover endpoint matching AuthBlueprint schema"""
+
     success: bool
     """Whether discovery succeeded"""
 

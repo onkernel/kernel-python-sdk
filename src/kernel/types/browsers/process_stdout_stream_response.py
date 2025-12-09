@@ -9,6 +9,8 @@ __all__ = ["ProcessStdoutStreamResponse"]
 
 
 class ProcessStdoutStreamResponse(BaseModel):
+    """SSE payload representing process output or lifecycle events."""
+
     data_b64: Optional[str] = None
     """Base64-encoded data from the process stream."""
 

@@ -9,6 +9,8 @@ __all__ = ["DiscoveredField"]
 
 
 class DiscoveredField(BaseModel):
+    """A discovered form field"""
+
     label: str
     """Field label"""
 

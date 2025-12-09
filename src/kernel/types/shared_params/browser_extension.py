@@ -8,6 +8,11 @@ __all__ = ["BrowserExtension"]
 
 
 class BrowserExtension(TypedDict, total=False):
+    """Extension selection for the browser session.
+
+    Provide either id or name of an extension uploaded to Kernel.
+    """
+
     id: str
     """Extension ID to load for this browser session"""
 

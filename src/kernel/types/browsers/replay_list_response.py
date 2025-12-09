@@ -10,6 +10,8 @@ __all__ = ["ReplayListResponse", "ReplayListResponseItem"]
 
 
 class ReplayListResponseItem(BaseModel):
+    """Information about a browser replay recording."""
+
     replay_id: str
     """Unique identifier for the replay recording."""
 

@@ -10,6 +10,8 @@ __all__ = ["DeploymentListResponse"]
 
 
 class DeploymentListResponse(BaseModel):
+    """Deployment record information."""
+
     id: str
     """Unique identifier for the deployment"""
 

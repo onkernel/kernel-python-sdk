@@ -8,6 +8,8 @@ __all__ = ["AuthAgentInvocationCreateResponse"]
 
 
 class AuthAgentInvocationCreateResponse(BaseModel):
+    """Response from creating an auth agent invocation"""
+
     expires_at: datetime
     """When the handoff code expires"""
 

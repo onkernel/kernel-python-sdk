@@ -9,6 +9,8 @@ __all__ = ["WatchEventsResponse"]
 
 
 class WatchEventsResponse(BaseModel):
+    """Filesystem change event."""
+
     path: str
     """Absolute path of the file or directory."""
 

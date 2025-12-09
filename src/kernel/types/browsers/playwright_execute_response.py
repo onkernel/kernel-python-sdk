@@ -8,6 +8,8 @@ __all__ = ["PlaywrightExecuteResponse"]
 
 
 class PlaywrightExecuteResponse(BaseModel):
+    """Result of Playwright code execution"""
+
     success: bool
     """Whether the code executed successfully"""
 

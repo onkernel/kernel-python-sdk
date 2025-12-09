@@ -51,6 +51,8 @@ class Invocation(BaseModel):
 
 
 class InvocationStateEvent(BaseModel):
+    """An event representing the current state of an invocation."""
+
     event: Literal["invocation_state"]
     """Event type identifier (always "invocation_state")."""
 

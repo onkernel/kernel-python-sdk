@@ -9,6 +9,8 @@ __all__ = ["AgentAuthSubmitResponse"]
 
 
 class AgentAuthSubmitResponse(BaseModel):
+    """Response from submit endpoint matching SubmitResult schema"""
+
     success: bool
     """Whether submission succeeded"""
 

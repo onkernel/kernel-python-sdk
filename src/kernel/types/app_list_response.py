@@ -10,6 +10,8 @@ __all__ = ["AppListResponse"]
 
 
 class AppListResponse(BaseModel):
+    """Summary of an application version."""
+
     id: str
     """Unique identifier for the app version"""
 
