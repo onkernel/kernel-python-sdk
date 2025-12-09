@@ -35,16 +35,22 @@ class ProxyCreateParams(TypedDict, total=False):
 
 
 class ConfigDatacenterProxyConfig(TypedDict, total=False):
+    """Configuration for a datacenter proxy."""
+
     country: str
     """ISO 3166 country code. Defaults to US if not provided."""
 
 
 class ConfigIspProxyConfig(TypedDict, total=False):
+    """Configuration for an ISP proxy."""
+
     country: str
     """ISO 3166 country code. Defaults to US if not provided."""
 
 
 class ConfigResidentialProxyConfig(TypedDict, total=False):
+    """Configuration for residential proxies."""
+
     asn: str
     """Autonomous system number. See https://bgp.potaroo.net/cidr/autnums.html"""
 
@@ -68,6 +74,8 @@ class ConfigResidentialProxyConfig(TypedDict, total=False):
 
 
 class ConfigMobileProxyConfig(TypedDict, total=False):
+    """Configuration for mobile proxies."""
+
     asn: str
     """Autonomous system number. See https://bgp.potaroo.net/cidr/autnums.html"""
 
@@ -150,6 +158,8 @@ class ConfigMobileProxyConfig(TypedDict, total=False):
 
 
 class ConfigCreateCustomProxyConfig(TypedDict, total=False):
+    """Configuration for a custom proxy (e.g., private proxy server)."""
+
     host: Required[str]
     """Proxy host address or IP."""
 

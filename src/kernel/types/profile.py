@@ -9,6 +9,8 @@ __all__ = ["Profile"]
 
 
 class Profile(BaseModel):
+    """Browser profile metadata."""
+
     id: str
     """Unique identifier for the profile"""
 

@@ -26,5 +26,7 @@ class AuthCreateParams(TypedDict, total=False):
 
 
 class Proxy(TypedDict, total=False):
+    """Optional proxy configuration"""
+
     proxy_id: str
     """ID of the proxy to use"""

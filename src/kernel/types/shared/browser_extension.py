@@ -8,6 +8,11 @@ __all__ = ["BrowserExtension"]
 
 
 class BrowserExtension(BaseModel):
+    """Extension selection for the browser session.
+
+    Provide either id or name of an extension uploaded to Kernel.
+    """
+
     id: Optional[str] = None
     """Extension ID to load for this browser session"""
 

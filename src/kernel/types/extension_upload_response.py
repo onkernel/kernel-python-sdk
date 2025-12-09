@@ -9,6 +9,8 @@ __all__ = ["ExtensionUploadResponse"]
 
 
 class ExtensionUploadResponse(BaseModel):
+    """A browser extension uploaded to Kernel."""
+
     id: str
     """Unique identifier for the extension"""
 

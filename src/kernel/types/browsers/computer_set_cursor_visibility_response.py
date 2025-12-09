@@ -6,5 +6,7 @@ __all__ = ["ComputerSetCursorVisibilityResponse"]
 
 
 class ComputerSetCursorVisibilityResponse(BaseModel):
+    """Generic OK response."""
+
     ok: bool
     """Indicates success."""

@@ -8,6 +8,10 @@ __all__ = ["AuthAgent"]
 
 
 class AuthAgent(BaseModel):
+    """
+    An auth agent that manages authentication for a specific domain and profile combination
+    """
+
     id: str
     """Unique identifier for the auth agent"""
 

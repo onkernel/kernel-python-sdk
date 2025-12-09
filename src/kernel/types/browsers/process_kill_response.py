@@ -6,5 +6,7 @@ __all__ = ["ProcessKillResponse"]
 
 
 class ProcessKillResponse(BaseModel):
+    """Generic OK response."""
+
     ok: bool
     """Indicates success."""

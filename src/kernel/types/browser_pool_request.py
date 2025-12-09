@@ -11,6 +11,11 @@ __all__ = ["BrowserPoolRequest"]
 
 
 class BrowserPoolRequest(BaseModel):
+    """Parameters for creating a browser pool.
+
+    All browsers in the pool will be created with the same configuration.
+    """
+
     size: int
     """Number of browsers to create in the pool"""
 

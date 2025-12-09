@@ -9,6 +9,8 @@ __all__ = ["HeartbeatEvent"]
 
 
 class HeartbeatEvent(BaseModel):
+    """Heartbeat event sent periodically to keep SSE connection alive."""
+
     event: Literal["sse_heartbeat"]
     """Event type identifier (always "sse_heartbeat")."""
 

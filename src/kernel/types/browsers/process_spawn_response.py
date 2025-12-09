@@ -9,6 +9,8 @@ __all__ = ["ProcessSpawnResponse"]
 
 
 class ProcessSpawnResponse(BaseModel):
+    """Information about a spawned process."""
+
     pid: Optional[int] = None
     """OS process ID."""
 

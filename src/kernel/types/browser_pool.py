@@ -10,6 +10,8 @@ __all__ = ["BrowserPool"]
 
 
 class BrowserPool(BaseModel):
+    """A browser pool containing multiple identically configured browsers."""
+
     id: str
     """Unique identifier for the browser pool"""
 

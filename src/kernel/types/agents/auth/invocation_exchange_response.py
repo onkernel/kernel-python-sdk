@@ -6,6 +6,8 @@ __all__ = ["InvocationExchangeResponse"]
 
 
 class InvocationExchangeResponse(BaseModel):
+    """Response from exchange endpoint"""
+
     invocation_id: str
     """Invocation ID"""
 

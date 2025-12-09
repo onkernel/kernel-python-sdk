@@ -8,6 +8,12 @@ __all__ = ["BrowserProfile"]
 
 
 class BrowserProfile(TypedDict, total=False):
+    """Profile selection for the browser session.
+
+    Provide either id or name. If specified, the
+    matching profile will be loaded into the browser session. Profiles must be created beforehand.
+    """
+
     id: str
     """Profile ID to load for this browser session"""
 

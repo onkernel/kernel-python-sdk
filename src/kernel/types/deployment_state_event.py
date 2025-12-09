@@ -10,6 +10,8 @@ __all__ = ["DeploymentStateEvent", "Deployment"]
 
 
 class Deployment(BaseModel):
+    """Deployment record information."""
+
     id: str
     """Unique identifier for the deployment"""
 
@@ -36,6 +38,8 @@ class Deployment(BaseModel):
 
 
 class DeploymentStateEvent(BaseModel):
+    """An event representing the current state of a deployment."""
+
     deployment: Deployment
     """Deployment record information."""
 

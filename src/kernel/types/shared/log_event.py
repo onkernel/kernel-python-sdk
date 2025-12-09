@@ -9,6 +9,8 @@ __all__ = ["LogEvent"]
 
 
 class LogEvent(BaseModel):
+    """A log entry from the application."""
+
     event: Literal["log"]
     """Event type identifier (always "log")."""
 
