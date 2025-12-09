@@ -10,6 +10,8 @@ __all__ = ["ExtensionListResponse", "ExtensionListResponseItem"]
 
 
 class ExtensionListResponseItem(BaseModel):
+    """A browser extension uploaded to Kernel."""
+
     id: str
     """Unique identifier for the extension"""
 

@@ -8,6 +8,8 @@ __all__ = ["ProcessExecResponse"]
 
 
 class ProcessExecResponse(BaseModel):
+    """Result of a synchronous command execution."""
+
     duration_ms: Optional[int] = None
     """Execution duration in milliseconds."""
 

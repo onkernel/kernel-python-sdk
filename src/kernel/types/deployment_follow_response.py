@@ -16,6 +16,8 @@ __all__ = ["DeploymentFollowResponse", "AppVersionSummaryEvent"]
 
 
 class AppVersionSummaryEvent(BaseModel):
+    """Summary of an application version."""
+
     id: str
     """Unique identifier for the app version"""
 

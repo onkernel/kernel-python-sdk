@@ -19,16 +19,22 @@ __all__ = [
 
 
 class ProxyListResponseItemConfigDatacenterProxyConfig(BaseModel):
+    """Configuration for a datacenter proxy."""
+
     country: Optional[str] = None
     """ISO 3166 country code. Defaults to US if not provided."""
 
 
 class ProxyListResponseItemConfigIspProxyConfig(BaseModel):
+    """Configuration for an ISP proxy."""
+
     country: Optional[str] = None
     """ISO 3166 country code. Defaults to US if not provided."""
 
 
 class ProxyListResponseItemConfigResidentialProxyConfig(BaseModel):
+    """Configuration for residential proxies."""
+
     asn: Optional[str] = None
     """Autonomous system number. See https://bgp.potaroo.net/cidr/autnums.html"""
 
@@ -52,6 +58,8 @@ class ProxyListResponseItemConfigResidentialProxyConfig(BaseModel):
 
 
 class ProxyListResponseItemConfigMobileProxyConfig(BaseModel):
+    """Configuration for mobile proxies."""
+
     asn: Optional[str] = None
     """Autonomous system number. See https://bgp.potaroo.net/cidr/autnums.html"""
 
@@ -136,6 +144,8 @@ class ProxyListResponseItemConfigMobileProxyConfig(BaseModel):
 
 
 class ProxyListResponseItemConfigCustomProxyConfig(BaseModel):
+    """Configuration for a custom proxy (e.g., private proxy server)."""
+
     host: str
     """Proxy host address or IP."""
 
@@ -159,6 +169,8 @@ ProxyListResponseItemConfig: TypeAlias = Union[
 
 
 class ProxyListResponseItem(BaseModel):
+    """Configuration for routing traffic through a proxy."""
+
     type: Literal["datacenter", "isp", "residential", "mobile", "custom"]
     """Proxy type to use.
 

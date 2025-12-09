@@ -6,5 +6,7 @@ __all__ = ["AppAction"]
 
 
 class AppAction(BaseModel):
+    """An action available on the app"""
+
     name: str
     """Name of the action"""

@@ -37,6 +37,8 @@ class DeploymentCreateParams(TypedDict, total=False):
 
 
 class SourceAuth(TypedDict, total=False):
+    """Authentication for private repositories."""
+
     token: Required[str]
     """GitHub PAT or installation access token"""
 
@@ -45,6 +47,8 @@ class SourceAuth(TypedDict, total=False):
 
 
 class Source(TypedDict, total=False):
+    """Source from which to fetch application code."""
+
     entrypoint: Required[str]
     """Relative path to the application entrypoint within the selected path."""
 
