@@ -1,5 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
@@ -23,3 +25,6 @@ class AuthAgent(BaseModel):
 
     status: Literal["AUTHENTICATED", "NEEDS_AUTH"]
     """Current authentication status of the managed profile"""
+
+    last_auth_check_at: Optional[datetime] = None
+    """When the last authentication check was performed"""
