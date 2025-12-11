@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.23.0 (2025-12-11)
+
+Full Changelog: [v0.22.0...v0.23.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.22.0...v0.23.0)
+
+### Features
+
+* [wip] Browser pools polish pass ([2ba9e57](https://github.com/onkernel/kernel-python-sdk/commit/2ba9e5740d0b12605de3b48af06658b8db47ba11))
+* enhance agent authentication API with new endpoints and request… ([84a794c](https://github.com/onkernel/kernel-python-sdk/commit/84a794c35f5a454b047d53b37867586f85e2536a))
+* Enhance agent authentication with optional login page URL and auth ch… ([d7bd8a2](https://github.com/onkernel/kernel-python-sdk/commit/d7bd8a22d40243c043e14b899dd2006fc0d51a19))
+* Enhance AuthAgent model with last_auth_check_at field ([169539a](https://github.com/onkernel/kernel-python-sdk/commit/169539a9b861b90f554b192dc8e457ad17a851a0))
+
+
+### Bug Fixes
+
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([c8d571c](https://github.com/onkernel/kernel-python-sdk/commit/c8d571c785a4488549701aad525357a9fabec69f))
+
+
+### Chores
+
+* add missing docstrings ([75fa7cb](https://github.com/onkernel/kernel-python-sdk/commit/75fa7cb7b954f8a68cc5eb74ad3196b350e8f9dd))
+
+
+### Refactors
+
+* **browser:** remove persistence option UI ([57af2e1](https://github.com/onkernel/kernel-python-sdk/commit/57af2e181b716145ff3e11a0d74c04dd332f9e35))
+
 ## 0.22.0 (2025-12-05)
 
 Full Changelog: [v0.21.0...v0.22.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.21.0...v0.22.0)
