@@ -35,6 +35,15 @@ class TestInvocations:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    def test_method_create_with_all_params(self, client: Kernel) -> None:
+        invocation = client.agents.auth.invocations.create(
+            auth_agent_id="abc123xyz",
+            save_credential_as="my-netflix-login",
+        )
+        assert_matches_type(AuthAgentInvocationCreateResponse, invocation, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     def test_raw_response_create(self, client: Kernel) -> None:
         response = client.agents.auth.invocations.with_raw_response.create(
             auth_agent_id="abc123xyz",
@@ -267,6 +276,15 @@ class TestAsyncInvocations:
     async def test_method_create(self, async_client: AsyncKernel) -> None:
         invocation = await async_client.agents.auth.invocations.create(
             auth_agent_id="abc123xyz",
+        )
+        assert_matches_type(AuthAgentInvocationCreateResponse, invocation, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncKernel) -> None:
+        invocation = await async_client.agents.auth.invocations.create(
+            auth_agent_id="abc123xyz",
+            save_credential_as="my-netflix-login",
         )
         assert_matches_type(AuthAgentInvocationCreateResponse, invocation, path=["response"])
 

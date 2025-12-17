@@ -10,3 +10,10 @@ __all__ = ["InvocationCreateParams"]
 class InvocationCreateParams(TypedDict, total=False):
     auth_agent_id: Required[str]
     """ID of the auth agent to create an invocation for"""
+
+    save_credential_as: str
+    """
+    If provided, saves the submitted credentials under this name upon successful
+    login. The credential will be linked to the auth agent for automatic
+    re-authentication.
+    """
