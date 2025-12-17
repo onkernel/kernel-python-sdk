@@ -259,15 +259,7 @@ Methods:
 Types:
 
 ```python
-from kernel.types import (
-    BrowserPool,
-    BrowserPoolAcquireRequest,
-    BrowserPoolReleaseRequest,
-    BrowserPoolRequest,
-    BrowserPoolUpdateRequest,
-    BrowserPoolListResponse,
-    BrowserPoolAcquireResponse,
-)
+from kernel.types import BrowserPool, BrowserPoolListResponse, BrowserPoolAcquireResponse
 ```
 
 Methods:
