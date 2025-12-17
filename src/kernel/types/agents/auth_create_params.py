@@ -14,6 +14,13 @@ class AuthCreateParams(TypedDict, total=False):
     target_domain: Required[str]
     """Target domain for authentication"""
 
+    credential_name: str
+    """Optional name of an existing credential to use for this auth agent.
+
+    If provided, the credential will be linked to the agent and its values will be
+    used to auto-fill the login form on invocation.
+    """
+
     login_url: str
     """Optional login page URL.
 

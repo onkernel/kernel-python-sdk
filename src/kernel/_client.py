@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import apps, proxies, profiles, extensions, deployments, invocations, browser_pools
+from .resources import apps, proxies, profiles, extensions, credentials, deployments, invocations, browser_pools
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import KernelError, APIStatusError
 from ._base_client import (
@@ -60,6 +60,7 @@ class Kernel(SyncAPIClient):
     extensions: extensions.ExtensionsResource
     browser_pools: browser_pools.BrowserPoolsResource
     agents: agents.AgentsResource
+    credentials: credentials.CredentialsResource
     with_raw_response: KernelWithRawResponse
     with_streaming_response: KernelWithStreamedResponse
 
@@ -150,6 +151,7 @@ class Kernel(SyncAPIClient):
         self.extensions = extensions.ExtensionsResource(self)
         self.browser_pools = browser_pools.BrowserPoolsResource(self)
         self.agents = agents.AgentsResource(self)
+        self.credentials = credentials.CredentialsResource(self)
         self.with_raw_response = KernelWithRawResponse(self)
         self.with_streaming_response = KernelWithStreamedResponse(self)
 
@@ -270,6 +272,7 @@ class AsyncKernel(AsyncAPIClient):
     extensions: extensions.AsyncExtensionsResource
     browser_pools: browser_pools.AsyncBrowserPoolsResource
     agents: agents.AsyncAgentsResource
+    credentials: credentials.AsyncCredentialsResource
     with_raw_response: AsyncKernelWithRawResponse
     with_streaming_response: AsyncKernelWithStreamedResponse
 
@@ -360,6 +363,7 @@ class AsyncKernel(AsyncAPIClient):
         self.extensions = extensions.AsyncExtensionsResource(self)
         self.browser_pools = browser_pools.AsyncBrowserPoolsResource(self)
         self.agents = agents.AsyncAgentsResource(self)
+        self.credentials = credentials.AsyncCredentialsResource(self)
         self.with_raw_response = AsyncKernelWithRawResponse(self)
         self.with_streaming_response = AsyncKernelWithStreamedResponse(self)
 
@@ -481,6 +485,7 @@ class KernelWithRawResponse:
         self.extensions = extensions.ExtensionsResourceWithRawResponse(client.extensions)
         self.browser_pools = browser_pools.BrowserPoolsResourceWithRawResponse(client.browser_pools)
         self.agents = agents.AgentsResourceWithRawResponse(client.agents)
+        self.credentials = credentials.CredentialsResourceWithRawResponse(client.credentials)
 
 
 class AsyncKernelWithRawResponse:
@@ -494,6 +499,7 @@ class AsyncKernelWithRawResponse:
         self.extensions = extensions.AsyncExtensionsResourceWithRawResponse(client.extensions)
         self.browser_pools = browser_pools.AsyncBrowserPoolsResourceWithRawResponse(client.browser_pools)
         self.agents = agents.AsyncAgentsResourceWithRawResponse(client.agents)
+        self.credentials = credentials.AsyncCredentialsResourceWithRawResponse(client.credentials)
 
 
 class KernelWithStreamedResponse:
@@ -507,6 +513,7 @@ class KernelWithStreamedResponse:
         self.extensions = extensions.ExtensionsResourceWithStreamingResponse(client.extensions)
         self.browser_pools = browser_pools.BrowserPoolsResourceWithStreamingResponse(client.browser_pools)
         self.agents = agents.AgentsResourceWithStreamingResponse(client.agents)
+        self.credentials = credentials.CredentialsResourceWithStreamingResponse(client.credentials)
 
 
 class AsyncKernelWithStreamedResponse:
@@ -520,6 +527,7 @@ class AsyncKernelWithStreamedResponse:
         self.extensions = extensions.AsyncExtensionsResourceWithStreamingResponse(client.extensions)
         self.browser_pools = browser_pools.AsyncBrowserPoolsResourceWithStreamingResponse(client.browser_pools)
         self.agents = agents.AsyncAgentsResourceWithStreamingResponse(client.agents)
+        self.credentials = credentials.AsyncCredentialsResourceWithStreamingResponse(client.credentials)
 
 
 Client = Kernel

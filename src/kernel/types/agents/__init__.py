@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from .auth_agent import AuthAgent as AuthAgent
+from .reauth_response import ReauthResponse as ReauthResponse
 from .auth_list_params import AuthListParams as AuthListParams
 from .discovered_field import DiscoveredField as DiscoveredField
 from .auth_create_params import AuthCreateParams as AuthCreateParams

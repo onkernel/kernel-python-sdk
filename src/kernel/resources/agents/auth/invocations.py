@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict
+from typing import Any, Dict, cast
 
 import httpx
 
@@ -56,6 +56,7 @@ class InvocationsResource(SyncAPIResource):
         self,
         *,
         auth_agent_id: str,
+        save_credential_as: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -72,6 +73,10 @@ class InvocationsResource(SyncAPIResource):
         Args:
           auth_agent_id: ID of the auth agent to create an invocation for
 
+          save_credential_as: If provided, saves the submitted credentials under this name upon successful
+              login. The credential will be linked to the auth agent for automatic
+              re-authentication.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -80,13 +85,24 @@ class InvocationsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
-            "/agents/auth/invocations",
-            body=maybe_transform({"auth_agent_id": auth_agent_id}, invocation_create_params.InvocationCreateParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+        return cast(
+            AuthAgentInvocationCreateResponse,
+            self._post(
+                "/agents/auth/invocations",
+                body=maybe_transform(
+                    {
+                        "auth_agent_id": auth_agent_id,
+                        "save_credential_as": save_credential_as,
+                    },
+                    invocation_create_params.InvocationCreateParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, AuthAgentInvocationCreateResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=AuthAgentInvocationCreateResponse,
         )
 
     def retrieve(
@@ -266,6 +282,7 @@ class AsyncInvocationsResource(AsyncAPIResource):
         self,
         *,
         auth_agent_id: str,
+        save_credential_as: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -282,6 +299,10 @@ class AsyncInvocationsResource(AsyncAPIResource):
         Args:
           auth_agent_id: ID of the auth agent to create an invocation for
 
+          save_credential_as: If provided, saves the submitted credentials under this name upon successful
+              login. The credential will be linked to the auth agent for automatic
+              re-authentication.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -290,15 +311,24 @@ class AsyncInvocationsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
-            "/agents/auth/invocations",
-            body=await async_maybe_transform(
-                {"auth_agent_id": auth_agent_id}, invocation_create_params.InvocationCreateParams
+        return cast(
+            AuthAgentInvocationCreateResponse,
+            await self._post(
+                "/agents/auth/invocations",
+                body=await async_maybe_transform(
+                    {
+                        "auth_agent_id": auth_agent_id,
+                        "save_credential_as": save_credential_as,
+                    },
+                    invocation_create_params.InvocationCreateParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, AuthAgentInvocationCreateResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AuthAgentInvocationCreateResponse,
         )
 
     async def retrieve(
