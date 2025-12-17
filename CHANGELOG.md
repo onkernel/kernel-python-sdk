@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.24.0 (2025-12-17)
+
+Full Changelog: [v0.23.0...v0.24.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.23.0...v0.24.0)
+
+### Features
+
+* Enhance AuthAgentInvocationCreateResponse to include already_authenti… ([2db6fed](https://github.com/onkernel/kernel-python-sdk/commit/2db6fed3d39462b8cbde477a8b396fbbde5c63f2))
+* Fix browser pool sdk types ([6e0b8a3](https://github.com/onkernel/kernel-python-sdk/commit/6e0b8a39f8ca11297417479994e475c149155967))
+
+
+### Chores
+
+* **internal:** add missing files argument to base client ([1dce21b](https://github.com/onkernel/kernel-python-sdk/commit/1dce21b40ee87045724d9fbfd6f2ecd6da5ccb2e))
+* speedup initial import ([74ccf15](https://github.com/onkernel/kernel-python-sdk/commit/74ccf15f4f7d3d9ab15b9cca92e5ec9f644780fb))
+
 ## 0.23.0 (2025-12-11)
 
 Full Changelog: [v0.22.0...v0.23.0](https://github.com/onkernel/kernel-python-sdk/compare/v0.22.0...v0.23.0)
