@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Dict, Mapping, cast
+from typing import TYPE_CHECKING, Any, Dict, Mapping, cast
 from typing_extensions import Self, Literal, override
 
 import httpx
@@ -20,8 +20,8 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import apps, proxies, profiles, extensions, credentials, deployments, invocations, browser_pools
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import KernelError, APIStatusError
 from ._base_client import (
@@ -29,8 +29,30 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.agents import agents
-from .resources.browsers import browsers
+
+if TYPE_CHECKING:
+    from .resources import (
+        apps,
+        agents,
+        proxies,
+        browsers,
+        profiles,
+        extensions,
+        credentials,
+        deployments,
+        invocations,
+        browser_pools,
+    )
+    from .resources.apps import AppsResource, AsyncAppsResource
+    from .resources.proxies import ProxiesResource, AsyncProxiesResource
+    from .resources.profiles import ProfilesResource, AsyncProfilesResource
+    from .resources.extensions import ExtensionsResource, AsyncExtensionsResource
+    from .resources.credentials import CredentialsResource, AsyncCredentialsResource
+    from .resources.deployments import DeploymentsResource, AsyncDeploymentsResource
+    from .resources.invocations import InvocationsResource, AsyncInvocationsResource
+    from .resources.agents.agents import AgentsResource, AsyncAgentsResource
+    from .resources.browser_pools import BrowserPoolsResource, AsyncBrowserPoolsResource
+    from .resources.browsers.browsers import BrowsersResource, AsyncBrowsersResource
 
 __all__ = [
     "ENVIRONMENTS",
@@ -51,19 +73,6 @@ ENVIRONMENTS: Dict[str, str] = {
 
 
 class Kernel(SyncAPIClient):
-    deployments: deployments.DeploymentsResource
-    apps: apps.AppsResource
-    invocations: invocations.InvocationsResource
-    browsers: browsers.BrowsersResource
-    profiles: profiles.ProfilesResource
-    proxies: proxies.ProxiesResource
-    extensions: extensions.ExtensionsResource
-    browser_pools: browser_pools.BrowserPoolsResource
-    agents: agents.AgentsResource
-    credentials: credentials.CredentialsResource
-    with_raw_response: KernelWithRawResponse
-    with_streaming_response: KernelWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -142,18 +151,73 @@ class Kernel(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.deployments = deployments.DeploymentsResource(self)
-        self.apps = apps.AppsResource(self)
-        self.invocations = invocations.InvocationsResource(self)
-        self.browsers = browsers.BrowsersResource(self)
-        self.profiles = profiles.ProfilesResource(self)
-        self.proxies = proxies.ProxiesResource(self)
-        self.extensions = extensions.ExtensionsResource(self)
-        self.browser_pools = browser_pools.BrowserPoolsResource(self)
-        self.agents = agents.AgentsResource(self)
-        self.credentials = credentials.CredentialsResource(self)
-        self.with_raw_response = KernelWithRawResponse(self)
-        self.with_streaming_response = KernelWithStreamedResponse(self)
+    @cached_property
+    def deployments(self) -> DeploymentsResource:
+        from .resources.deployments import DeploymentsResource
+
+        return DeploymentsResource(self)
+
+    @cached_property
+    def apps(self) -> AppsResource:
+        from .resources.apps import AppsResource
+
+        return AppsResource(self)
+
+    @cached_property
+    def invocations(self) -> InvocationsResource:
+        from .resources.invocations import InvocationsResource
+
+        return InvocationsResource(self)
+
+    @cached_property
+    def browsers(self) -> BrowsersResource:
+        from .resources.browsers import BrowsersResource
+
+        return BrowsersResource(self)
+
+    @cached_property
+    def profiles(self) -> ProfilesResource:
+        from .resources.profiles import ProfilesResource
+
+        return ProfilesResource(self)
+
+    @cached_property
+    def proxies(self) -> ProxiesResource:
+        from .resources.proxies import ProxiesResource
+
+        return ProxiesResource(self)
+
+    @cached_property
+    def extensions(self) -> ExtensionsResource:
+        from .resources.extensions import ExtensionsResource
+
+        return ExtensionsResource(self)
+
+    @cached_property
+    def browser_pools(self) -> BrowserPoolsResource:
+        from .resources.browser_pools import BrowserPoolsResource
+
+        return BrowserPoolsResource(self)
+
+    @cached_property
+    def agents(self) -> AgentsResource:
+        from .resources.agents import AgentsResource
+
+        return AgentsResource(self)
+
+    @cached_property
+    def credentials(self) -> CredentialsResource:
+        from .resources.credentials import CredentialsResource
+
+        return CredentialsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> KernelWithRawResponse:
+        return KernelWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> KernelWithStreamedResponse:
+        return KernelWithStreamedResponse(self)
 
     @property
     @override
@@ -263,19 +327,6 @@ class Kernel(SyncAPIClient):
 
 
 class AsyncKernel(AsyncAPIClient):
-    deployments: deployments.AsyncDeploymentsResource
-    apps: apps.AsyncAppsResource
-    invocations: invocations.AsyncInvocationsResource
-    browsers: browsers.AsyncBrowsersResource
-    profiles: profiles.AsyncProfilesResource
-    proxies: proxies.AsyncProxiesResource
-    extensions: extensions.AsyncExtensionsResource
-    browser_pools: browser_pools.AsyncBrowserPoolsResource
-    agents: agents.AsyncAgentsResource
-    credentials: credentials.AsyncCredentialsResource
-    with_raw_response: AsyncKernelWithRawResponse
-    with_streaming_response: AsyncKernelWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -354,18 +405,73 @@ class AsyncKernel(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.deployments = deployments.AsyncDeploymentsResource(self)
-        self.apps = apps.AsyncAppsResource(self)
-        self.invocations = invocations.AsyncInvocationsResource(self)
-        self.browsers = browsers.AsyncBrowsersResource(self)
-        self.profiles = profiles.AsyncProfilesResource(self)
-        self.proxies = proxies.AsyncProxiesResource(self)
-        self.extensions = extensions.AsyncExtensionsResource(self)
-        self.browser_pools = browser_pools.AsyncBrowserPoolsResource(self)
-        self.agents = agents.AsyncAgentsResource(self)
-        self.credentials = credentials.AsyncCredentialsResource(self)
-        self.with_raw_response = AsyncKernelWithRawResponse(self)
-        self.with_streaming_response = AsyncKernelWithStreamedResponse(self)
+    @cached_property
+    def deployments(self) -> AsyncDeploymentsResource:
+        from .resources.deployments import AsyncDeploymentsResource
+
+        return AsyncDeploymentsResource(self)
+
+    @cached_property
+    def apps(self) -> AsyncAppsResource:
+        from .resources.apps import AsyncAppsResource
+
+        return AsyncAppsResource(self)
+
+    @cached_property
+    def invocations(self) -> AsyncInvocationsResource:
+        from .resources.invocations import AsyncInvocationsResource
+
+        return AsyncInvocationsResource(self)
+
+    @cached_property
+    def browsers(self) -> AsyncBrowsersResource:
+        from .resources.browsers import AsyncBrowsersResource
+
+        return AsyncBrowsersResource(self)
+
+    @cached_property
+    def profiles(self) -> AsyncProfilesResource:
+        from .resources.profiles import AsyncProfilesResource
+
+        return AsyncProfilesResource(self)
+
+    @cached_property
+    def proxies(self) -> AsyncProxiesResource:
+        from .resources.proxies import AsyncProxiesResource
+
+        return AsyncProxiesResource(self)
+
+    @cached_property
+    def extensions(self) -> AsyncExtensionsResource:
+        from .resources.extensions import AsyncExtensionsResource
+
+        return AsyncExtensionsResource(self)
+
+    @cached_property
+    def browser_pools(self) -> AsyncBrowserPoolsResource:
+        from .resources.browser_pools import AsyncBrowserPoolsResource
+
+        return AsyncBrowserPoolsResource(self)
+
+    @cached_property
+    def agents(self) -> AsyncAgentsResource:
+        from .resources.agents import AsyncAgentsResource
+
+        return AsyncAgentsResource(self)
+
+    @cached_property
+    def credentials(self) -> AsyncCredentialsResource:
+        from .resources.credentials import AsyncCredentialsResource
+
+        return AsyncCredentialsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncKernelWithRawResponse:
+        return AsyncKernelWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncKernelWithStreamedResponse:
+        return AsyncKernelWithStreamedResponse(self)
 
     @property
     @override
@@ -475,59 +581,271 @@ class AsyncKernel(AsyncAPIClient):
 
 
 class KernelWithRawResponse:
+    _client: Kernel
+
     def __init__(self, client: Kernel) -> None:
-        self.deployments = deployments.DeploymentsResourceWithRawResponse(client.deployments)
-        self.apps = apps.AppsResourceWithRawResponse(client.apps)
-        self.invocations = invocations.InvocationsResourceWithRawResponse(client.invocations)
-        self.browsers = browsers.BrowsersResourceWithRawResponse(client.browsers)
-        self.profiles = profiles.ProfilesResourceWithRawResponse(client.profiles)
-        self.proxies = proxies.ProxiesResourceWithRawResponse(client.proxies)
-        self.extensions = extensions.ExtensionsResourceWithRawResponse(client.extensions)
-        self.browser_pools = browser_pools.BrowserPoolsResourceWithRawResponse(client.browser_pools)
-        self.agents = agents.AgentsResourceWithRawResponse(client.agents)
-        self.credentials = credentials.CredentialsResourceWithRawResponse(client.credentials)
+        self._client = client
+
+    @cached_property
+    def deployments(self) -> deployments.DeploymentsResourceWithRawResponse:
+        from .resources.deployments import DeploymentsResourceWithRawResponse
+
+        return DeploymentsResourceWithRawResponse(self._client.deployments)
+
+    @cached_property
+    def apps(self) -> apps.AppsResourceWithRawResponse:
+        from .resources.apps import AppsResourceWithRawResponse
+
+        return AppsResourceWithRawResponse(self._client.apps)
+
+    @cached_property
+    def invocations(self) -> invocations.InvocationsResourceWithRawResponse:
+        from .resources.invocations import InvocationsResourceWithRawResponse
+
+        return InvocationsResourceWithRawResponse(self._client.invocations)
+
+    @cached_property
+    def browsers(self) -> browsers.BrowsersResourceWithRawResponse:
+        from .resources.browsers import BrowsersResourceWithRawResponse
+
+        return BrowsersResourceWithRawResponse(self._client.browsers)
+
+    @cached_property
+    def profiles(self) -> profiles.ProfilesResourceWithRawResponse:
+        from .resources.profiles import ProfilesResourceWithRawResponse
+
+        return ProfilesResourceWithRawResponse(self._client.profiles)
+
+    @cached_property
+    def proxies(self) -> proxies.ProxiesResourceWithRawResponse:
+        from .resources.proxies import ProxiesResourceWithRawResponse
+
+        return ProxiesResourceWithRawResponse(self._client.proxies)
+
+    @cached_property
+    def extensions(self) -> extensions.ExtensionsResourceWithRawResponse:
+        from .resources.extensions import ExtensionsResourceWithRawResponse
+
+        return ExtensionsResourceWithRawResponse(self._client.extensions)
+
+    @cached_property
+    def browser_pools(self) -> browser_pools.BrowserPoolsResourceWithRawResponse:
+        from .resources.browser_pools import BrowserPoolsResourceWithRawResponse
+
+        return BrowserPoolsResourceWithRawResponse(self._client.browser_pools)
+
+    @cached_property
+    def agents(self) -> agents.AgentsResourceWithRawResponse:
+        from .resources.agents import AgentsResourceWithRawResponse
+
+        return AgentsResourceWithRawResponse(self._client.agents)
+
+    @cached_property
+    def credentials(self) -> credentials.CredentialsResourceWithRawResponse:
+        from .resources.credentials import CredentialsResourceWithRawResponse
+
+        return CredentialsResourceWithRawResponse(self._client.credentials)
 
 
 class AsyncKernelWithRawResponse:
+    _client: AsyncKernel
+
     def __init__(self, client: AsyncKernel) -> None:
-        self.deployments = deployments.AsyncDeploymentsResourceWithRawResponse(client.deployments)
-        self.apps = apps.AsyncAppsResourceWithRawResponse(client.apps)
-        self.invocations = invocations.AsyncInvocationsResourceWithRawResponse(client.invocations)
-        self.browsers = browsers.AsyncBrowsersResourceWithRawResponse(client.browsers)
-        self.profiles = profiles.AsyncProfilesResourceWithRawResponse(client.profiles)
-        self.proxies = proxies.AsyncProxiesResourceWithRawResponse(client.proxies)
-        self.extensions = extensions.AsyncExtensionsResourceWithRawResponse(client.extensions)
-        self.browser_pools = browser_pools.AsyncBrowserPoolsResourceWithRawResponse(client.browser_pools)
-        self.agents = agents.AsyncAgentsResourceWithRawResponse(client.agents)
-        self.credentials = credentials.AsyncCredentialsResourceWithRawResponse(client.credentials)
+        self._client = client
+
+    @cached_property
+    def deployments(self) -> deployments.AsyncDeploymentsResourceWithRawResponse:
+        from .resources.deployments import AsyncDeploymentsResourceWithRawResponse
+
+        return AsyncDeploymentsResourceWithRawResponse(self._client.deployments)
+
+    @cached_property
+    def apps(self) -> apps.AsyncAppsResourceWithRawResponse:
+        from .resources.apps import AsyncAppsResourceWithRawResponse
+
+        return AsyncAppsResourceWithRawResponse(self._client.apps)
+
+    @cached_property
+    def invocations(self) -> invocations.AsyncInvocationsResourceWithRawResponse:
+        from .resources.invocations import AsyncInvocationsResourceWithRawResponse
+
+        return AsyncInvocationsResourceWithRawResponse(self._client.invocations)
+
+    @cached_property
+    def browsers(self) -> browsers.AsyncBrowsersResourceWithRawResponse:
+        from .resources.browsers import AsyncBrowsersResourceWithRawResponse
+
+        return AsyncBrowsersResourceWithRawResponse(self._client.browsers)
+
+    @cached_property
+    def profiles(self) -> profiles.AsyncProfilesResourceWithRawResponse:
+        from .resources.profiles import AsyncProfilesResourceWithRawResponse
+
+        return AsyncProfilesResourceWithRawResponse(self._client.profiles)
+
+    @cached_property
+    def proxies(self) -> proxies.AsyncProxiesResourceWithRawResponse:
+        from .resources.proxies import AsyncProxiesResourceWithRawResponse
+
+        return AsyncProxiesResourceWithRawResponse(self._client.proxies)
+
+    @cached_property
+    def extensions(self) -> extensions.AsyncExtensionsResourceWithRawResponse:
+        from .resources.extensions import AsyncExtensionsResourceWithRawResponse
+
+        return AsyncExtensionsResourceWithRawResponse(self._client.extensions)
+
+    @cached_property
+    def browser_pools(self) -> browser_pools.AsyncBrowserPoolsResourceWithRawResponse:
+        from .resources.browser_pools import AsyncBrowserPoolsResourceWithRawResponse
+
+        return AsyncBrowserPoolsResourceWithRawResponse(self._client.browser_pools)
+
+    @cached_property
+    def agents(self) -> agents.AsyncAgentsResourceWithRawResponse:
+        from .resources.agents import AsyncAgentsResourceWithRawResponse
+
+        return AsyncAgentsResourceWithRawResponse(self._client.agents)
+
+    @cached_property
+    def credentials(self) -> credentials.AsyncCredentialsResourceWithRawResponse:
+        from .resources.credentials import AsyncCredentialsResourceWithRawResponse
+
+        return AsyncCredentialsResourceWithRawResponse(self._client.credentials)
 
 
 class KernelWithStreamedResponse:
+    _client: Kernel
+
     def __init__(self, client: Kernel) -> None:
-        self.deployments = deployments.DeploymentsResourceWithStreamingResponse(client.deployments)
-        self.apps = apps.AppsResourceWithStreamingResponse(client.apps)
-        self.invocations = invocations.InvocationsResourceWithStreamingResponse(client.invocations)
-        self.browsers = browsers.BrowsersResourceWithStreamingResponse(client.browsers)
-        self.profiles = profiles.ProfilesResourceWithStreamingResponse(client.profiles)
-        self.proxies = proxies.ProxiesResourceWithStreamingResponse(client.proxies)
-        self.extensions = extensions.ExtensionsResourceWithStreamingResponse(client.extensions)
-        self.browser_pools = browser_pools.BrowserPoolsResourceWithStreamingResponse(client.browser_pools)
-        self.agents = agents.AgentsResourceWithStreamingResponse(client.agents)
-        self.credentials = credentials.CredentialsResourceWithStreamingResponse(client.credentials)
+        self._client = client
+
+    @cached_property
+    def deployments(self) -> deployments.DeploymentsResourceWithStreamingResponse:
+        from .resources.deployments import DeploymentsResourceWithStreamingResponse
+
+        return DeploymentsResourceWithStreamingResponse(self._client.deployments)
+
+    @cached_property
+    def apps(self) -> apps.AppsResourceWithStreamingResponse:
+        from .resources.apps import AppsResourceWithStreamingResponse
+
+        return AppsResourceWithStreamingResponse(self._client.apps)
+
+    @cached_property
+    def invocations(self) -> invocations.InvocationsResourceWithStreamingResponse:
+        from .resources.invocations import InvocationsResourceWithStreamingResponse
+
+        return InvocationsResourceWithStreamingResponse(self._client.invocations)
+
+    @cached_property
+    def browsers(self) -> browsers.BrowsersResourceWithStreamingResponse:
+        from .resources.browsers import BrowsersResourceWithStreamingResponse
+
+        return BrowsersResourceWithStreamingResponse(self._client.browsers)
+
+    @cached_property
+    def profiles(self) -> profiles.ProfilesResourceWithStreamingResponse:
+        from .resources.profiles import ProfilesResourceWithStreamingResponse
+
+        return ProfilesResourceWithStreamingResponse(self._client.profiles)
+
+    @cached_property
+    def proxies(self) -> proxies.ProxiesResourceWithStreamingResponse:
+        from .resources.proxies import ProxiesResourceWithStreamingResponse
+
+        return ProxiesResourceWithStreamingResponse(self._client.proxies)
+
+    @cached_property
+    def extensions(self) -> extensions.ExtensionsResourceWithStreamingResponse:
+        from .resources.extensions import ExtensionsResourceWithStreamingResponse
+
+        return ExtensionsResourceWithStreamingResponse(self._client.extensions)
+
+    @cached_property
+    def browser_pools(self) -> browser_pools.BrowserPoolsResourceWithStreamingResponse:
+        from .resources.browser_pools import BrowserPoolsResourceWithStreamingResponse
+
+        return BrowserPoolsResourceWithStreamingResponse(self._client.browser_pools)
+
+    @cached_property
+    def agents(self) -> agents.AgentsResourceWithStreamingResponse:
+        from .resources.agents import AgentsResourceWithStreamingResponse
+
+        return AgentsResourceWithStreamingResponse(self._client.agents)
+
+    @cached_property
+    def credentials(self) -> credentials.CredentialsResourceWithStreamingResponse:
+        from .resources.credentials import CredentialsResourceWithStreamingResponse
+
+        return CredentialsResourceWithStreamingResponse(self._client.credentials)
 
 
 class AsyncKernelWithStreamedResponse:
+    _client: AsyncKernel
+
     def __init__(self, client: AsyncKernel) -> None:
-        self.deployments = deployments.AsyncDeploymentsResourceWithStreamingResponse(client.deployments)
-        self.apps = apps.AsyncAppsResourceWithStreamingResponse(client.apps)
-        self.invocations = invocations.AsyncInvocationsResourceWithStreamingResponse(client.invocations)
-        self.browsers = browsers.AsyncBrowsersResourceWithStreamingResponse(client.browsers)
-        self.profiles = profiles.AsyncProfilesResourceWithStreamingResponse(client.profiles)
-        self.proxies = proxies.AsyncProxiesResourceWithStreamingResponse(client.proxies)
-        self.extensions = extensions.AsyncExtensionsResourceWithStreamingResponse(client.extensions)
-        self.browser_pools = browser_pools.AsyncBrowserPoolsResourceWithStreamingResponse(client.browser_pools)
-        self.agents = agents.AsyncAgentsResourceWithStreamingResponse(client.agents)
-        self.credentials = credentials.AsyncCredentialsResourceWithStreamingResponse(client.credentials)
+        self._client = client
+
+    @cached_property
+    def deployments(self) -> deployments.AsyncDeploymentsResourceWithStreamingResponse:
+        from .resources.deployments import AsyncDeploymentsResourceWithStreamingResponse
+
+        return AsyncDeploymentsResourceWithStreamingResponse(self._client.deployments)
+
+    @cached_property
+    def apps(self) -> apps.AsyncAppsResourceWithStreamingResponse:
+        from .resources.apps import AsyncAppsResourceWithStreamingResponse
+
+        return AsyncAppsResourceWithStreamingResponse(self._client.apps)
+
+    @cached_property
+    def invocations(self) -> invocations.AsyncInvocationsResourceWithStreamingResponse:
+        from .resources.invocations import AsyncInvocationsResourceWithStreamingResponse
+
+        return AsyncInvocationsResourceWithStreamingResponse(self._client.invocations)
+
+    @cached_property
+    def browsers(self) -> browsers.AsyncBrowsersResourceWithStreamingResponse:
+        from .resources.browsers import AsyncBrowsersResourceWithStreamingResponse
+
+        return AsyncBrowsersResourceWithStreamingResponse(self._client.browsers)
+
+    @cached_property
+    def profiles(self) -> profiles.AsyncProfilesResourceWithStreamingResponse:
+        from .resources.profiles import AsyncProfilesResourceWithStreamingResponse
+
+        return AsyncProfilesResourceWithStreamingResponse(self._client.profiles)
+
+    @cached_property
+    def proxies(self) -> proxies.AsyncProxiesResourceWithStreamingResponse:
+        from .resources.proxies import AsyncProxiesResourceWithStreamingResponse
+
+        return AsyncProxiesResourceWithStreamingResponse(self._client.proxies)
+
+    @cached_property
+    def extensions(self) -> extensions.AsyncExtensionsResourceWithStreamingResponse:
+        from .resources.extensions import AsyncExtensionsResourceWithStreamingResponse
+
+        return AsyncExtensionsResourceWithStreamingResponse(self._client.extensions)
+
+    @cached_property
+    def browser_pools(self) -> browser_pools.AsyncBrowserPoolsResourceWithStreamingResponse:
+        from .resources.browser_pools import AsyncBrowserPoolsResourceWithStreamingResponse
+
+        return AsyncBrowserPoolsResourceWithStreamingResponse(self._client.browser_pools)
+
+    @cached_property
+    def agents(self) -> agents.AsyncAgentsResourceWithStreamingResponse:
+        from .resources.agents import AsyncAgentsResourceWithStreamingResponse
+
+        return AsyncAgentsResourceWithStreamingResponse(self._client.agents)
+
+    @cached_property
+    def credentials(self) -> credentials.AsyncCredentialsResourceWithStreamingResponse:
+        from .resources.credentials import AsyncCredentialsResourceWithStreamingResponse
+
+        return AsyncCredentialsResourceWithStreamingResponse(self._client.credentials)
 
 
 Client = Kernel
