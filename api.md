@@ -259,15 +259,7 @@ Methods:
 Types:
 
 ```python
-from kernel.types import (
-    BrowserPool,
-    BrowserPoolAcquireRequest,
-    BrowserPoolReleaseRequest,
-    BrowserPoolRequest,
-    BrowserPoolUpdateRequest,
-    BrowserPoolListResponse,
-    BrowserPoolAcquireResponse,
-)
+from kernel.types import BrowserPool, BrowserPoolListResponse, BrowserPoolAcquireResponse
 ```
 
 Methods:
@@ -297,6 +289,7 @@ from kernel.types.agents import (
     AuthAgentInvocationCreateRequest,
     AuthAgentInvocationCreateResponse,
     DiscoveredField,
+    ReauthResponse,
 )
 ```
 
@@ -305,6 +298,8 @@ Methods:
 - <code title="post /agents/auth">client.agents.auth.<a href="./src/kernel/resources/agents/auth/auth.py">create</a>(\*\*<a href="src/kernel/types/agents/auth_create_params.py">params</a>) -> <a href="./src/kernel/types/agents/auth_agent.py">AuthAgent</a></code>
 - <code title="get /agents/auth/{id}">client.agents.auth.<a href="./src/kernel/resources/agents/auth/auth.py">retrieve</a>(id) -> <a href="./src/kernel/types/agents/auth_agent.py">AuthAgent</a></code>
 - <code title="get /agents/auth">client.agents.auth.<a href="./src/kernel/resources/agents/auth/auth.py">list</a>(\*\*<a href="src/kernel/types/agents/auth_list_params.py">params</a>) -> <a href="./src/kernel/types/agents/auth_agent.py">SyncOffsetPagination[AuthAgent]</a></code>
+- <code title="delete /agents/auth/{id}">client.agents.auth.<a href="./src/kernel/resources/agents/auth/auth.py">delete</a>(id) -> None</code>
+- <code title="post /agents/auth/{id}/reauth">client.agents.auth.<a href="./src/kernel/resources/agents/auth/auth.py">reauth</a>(id) -> <a href="./src/kernel/types/agents/reauth_response.py">ReauthResponse</a></code>
 
 ### Invocations
 
@@ -321,3 +316,19 @@ Methods:
 - <code title="post /agents/auth/invocations/{invocation_id}/discover">client.agents.auth.invocations.<a href="./src/kernel/resources/agents/auth/invocations.py">discover</a>(invocation_id, \*\*<a href="src/kernel/types/agents/auth/invocation_discover_params.py">params</a>) -> <a href="./src/kernel/types/agents/agent_auth_discover_response.py">AgentAuthDiscoverResponse</a></code>
 - <code title="post /agents/auth/invocations/{invocation_id}/exchange">client.agents.auth.invocations.<a href="./src/kernel/resources/agents/auth/invocations.py">exchange</a>(invocation_id, \*\*<a href="src/kernel/types/agents/auth/invocation_exchange_params.py">params</a>) -> <a href="./src/kernel/types/agents/auth/invocation_exchange_response.py">InvocationExchangeResponse</a></code>
 - <code title="post /agents/auth/invocations/{invocation_id}/submit">client.agents.auth.invocations.<a href="./src/kernel/resources/agents/auth/invocations.py">submit</a>(invocation_id, \*\*<a href="src/kernel/types/agents/auth/invocation_submit_params.py">params</a>) -> <a href="./src/kernel/types/agents/agent_auth_submit_response.py">AgentAuthSubmitResponse</a></code>
+
+# Credentials
+
+Types:
+
+```python
+from kernel.types import CreateCredentialRequest, Credential, UpdateCredentialRequest
+```
+
+Methods:
+
+- <code title="post /credentials">client.credentials.<a href="./src/kernel/resources/credentials.py">create</a>(\*\*<a href="src/kernel/types/credential_create_params.py">params</a>) -> <a href="./src/kernel/types/credential.py">Credential</a></code>
+- <code title="get /credentials/{id}">client.credentials.<a href="./src/kernel/resources/credentials.py">retrieve</a>(id) -> <a href="./src/kernel/types/credential.py">Credential</a></code>
+- <code title="patch /credentials/{id}">client.credentials.<a href="./src/kernel/resources/credentials.py">update</a>(id, \*\*<a href="src/kernel/types/credential_update_params.py">params</a>) -> <a href="./src/kernel/types/credential.py">Credential</a></code>
+- <code title="get /credentials">client.credentials.<a href="./src/kernel/resources/credentials.py">list</a>(\*\*<a href="src/kernel/types/credential_list_params.py">params</a>) -> <a href="./src/kernel/types/credential.py">SyncOffsetPagination[Credential]</a></code>
+- <code title="delete /credentials/{id}">client.credentials.<a href="./src/kernel/resources/credentials.py">delete</a>(id) -> None</code>

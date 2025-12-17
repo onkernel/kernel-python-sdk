@@ -26,5 +26,22 @@ class AuthAgent(BaseModel):
     status: Literal["AUTHENTICATED", "NEEDS_AUTH"]
     """Current authentication status of the managed profile"""
 
+    can_reauth: Optional[bool] = None
+    """
+    Whether automatic re-authentication is possible (has credential_id, selectors,
+    and login_url)
+    """
+
+    credential_id: Optional[str] = None
+    """ID of the linked credential for automatic re-authentication"""
+
+    credential_name: Optional[str] = None
+    """Name of the linked credential for automatic re-authentication"""
+
+    has_selectors: Optional[bool] = None
+    """
+    Whether this auth agent has stored selectors for deterministic re-authentication
+    """
+
     last_auth_check_at: Optional[datetime] = None
     """When the last authentication check was performed"""
