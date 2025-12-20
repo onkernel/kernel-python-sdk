@@ -11,7 +11,7 @@ __all__ = ["ReauthResponse"]
 class ReauthResponse(BaseModel):
     """Response from triggering re-authentication"""
 
-    status: Literal["reauth_started", "already_authenticated", "cannot_reauth"]
+    status: Literal["REAUTH_STARTED", "ALREADY_AUTHENTICATED", "CANNOT_REAUTH"]
     """Result of the re-authentication attempt"""
 
     invocation_id: Optional[str] = None

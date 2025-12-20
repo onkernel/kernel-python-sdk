@@ -13,7 +13,7 @@ __all__ = ["AuthAgentInvocationCreateResponse", "AuthAgentAlreadyAuthenticated",
 class AuthAgentAlreadyAuthenticated(BaseModel):
     """Response when the agent is already authenticated."""
 
-    status: Literal["already_authenticated"]
+    status: Literal["ALREADY_AUTHENTICATED"]
     """Indicates the agent is already authenticated and no invocation was created."""
 
 
@@ -32,7 +32,7 @@ class AuthAgentInvocationCreated(BaseModel):
     invocation_id: str
     """Unique identifier for the invocation."""
 
-    status: Literal["invocation_created"]
+    status: Literal["INVOCATION_CREATED"]
     """Indicates an invocation was created."""
 
 
