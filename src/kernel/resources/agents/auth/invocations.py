@@ -116,10 +116,9 @@ class InvocationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentAuthInvocationResponse:
-        """Returns invocation details including app_name and target_domain.
-
-        Uses the JWT
-        returned by the exchange endpoint, or standard API key or JWT authentication.
+        """
+        Returns invocation details including status, app_name, and target_domain.
+        Supports both API key and JWT (from exchange endpoint) authentication.
 
         Args:
           extra_headers: Send extra headers
@@ -155,7 +154,7 @@ class InvocationsResource(SyncAPIResource):
         """
         Inspects the target site to detect logged-in state or discover required fields.
         Returns 200 with success: true when fields are found, or 4xx/5xx for failures.
-        Requires the JWT returned by the exchange endpoint.
+        Supports both API key and JWT (from exchange endpoint) authentication.
 
         Args:
           login_url: Optional login page URL. If provided, will override the stored login URL for
@@ -233,7 +232,8 @@ class InvocationsResource(SyncAPIResource):
     ) -> AgentAuthSubmitResponse:
         """
         Submits field values for the discovered login form and may return additional
-        auth fields or success. Requires the JWT returned by the exchange endpoint.
+        auth fields or success. Supports both API key and JWT (from exchange endpoint)
+        authentication.
 
         Args:
           field_values: Values for the discovered login fields
@@ -342,10 +342,9 @@ class AsyncInvocationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentAuthInvocationResponse:
-        """Returns invocation details including app_name and target_domain.
-
-        Uses the JWT
-        returned by the exchange endpoint, or standard API key or JWT authentication.
+        """
+        Returns invocation details including status, app_name, and target_domain.
+        Supports both API key and JWT (from exchange endpoint) authentication.
 
         Args:
           extra_headers: Send extra headers
@@ -381,7 +380,7 @@ class AsyncInvocationsResource(AsyncAPIResource):
         """
         Inspects the target site to detect logged-in state or discover required fields.
         Returns 200 with success: true when fields are found, or 4xx/5xx for failures.
-        Requires the JWT returned by the exchange endpoint.
+        Supports both API key and JWT (from exchange endpoint) authentication.
 
         Args:
           login_url: Optional login page URL. If provided, will override the stored login URL for
@@ -461,7 +460,8 @@ class AsyncInvocationsResource(AsyncAPIResource):
     ) -> AgentAuthSubmitResponse:
         """
         Submits field values for the discovered login form and may return additional
-        auth fields or success. Requires the JWT returned by the exchange endpoint.
+        auth fields or success. Supports both API key and JWT (from exchange endpoint)
+        authentication.
 
         Args:
           field_values: Values for the discovered login fields

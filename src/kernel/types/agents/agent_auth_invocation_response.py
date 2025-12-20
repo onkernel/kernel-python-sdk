@@ -20,5 +20,8 @@ class AgentAuthInvocationResponse(BaseModel):
     status: Literal["IN_PROGRESS", "SUCCESS", "EXPIRED", "CANCELED"]
     """Invocation status"""
 
+    step: Literal["initialized", "discovering", "awaiting_input", "submitting", "completed", "expired"]
+    """Current step in the invocation workflow"""
+
     target_domain: str
     """Target domain for authentication"""
