@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
 
 import httpx
@@ -66,6 +66,7 @@ class ConnectionsResource(SyncAPIResource):
         profile_name: str,
         allowed_domains: SequenceNotStr[str] | Omit = omit,
         auto_reauth: bool | Omit = omit,
+        browser_telemetry: Optional[connection_create_params.BrowserTelemetry] | Omit = omit,
         credential: connection_create_params.Credential | Omit = omit,
         health_check_interval: int | Omit = omit,
         health_checks: bool | Omit = omit,
@@ -119,6 +120,10 @@ class ConnectionsResource(SyncAPIResource):
               false, expired sessions are marked as `NEEDS_AUTH` instead of attempting
               re-auth. Defaults to true.
 
+          browser_telemetry: Browser telemetry configuration used by this connection's browser sessions by
+              default. Uses the exact create-browser configuration. Can be overridden
+              per-login.
+
           credential:
               Reference to credentials for the auth connection. Use one of:
 
@@ -166,6 +171,7 @@ class ConnectionsResource(SyncAPIResource):
                     "profile_name": profile_name,
                     "allowed_domains": allowed_domains,
                     "auto_reauth": auto_reauth,
+                    "browser_telemetry": browser_telemetry,
                     "credential": credential,
                     "health_check_interval": health_check_interval,
                     "health_checks": health_checks,
@@ -223,6 +229,7 @@ class ConnectionsResource(SyncAPIResource):
         *,
         allowed_domains: SequenceNotStr[str] | Omit = omit,
         auto_reauth: bool | Omit = omit,
+        browser_telemetry: Optional[connection_update_params.BrowserTelemetry] | Omit = omit,
         credential: connection_update_params.Credential | Omit = omit,
         health_check_interval: int | Omit = omit,
         health_checks: bool | Omit = omit,
@@ -252,6 +259,10 @@ class ConnectionsResource(SyncAPIResource):
               scheduled health check detects an expired session — so this flag has no effect
               when `health_checks` is false. When false, expired sessions detected by a health
               check are marked as `NEEDS_AUTH` instead of attempting re-auth.
+
+          browser_telemetry: Browser telemetry configuration used by future browser sessions for this
+              connection. Uses the exact create-browser configuration. Set enabled to false to
+              disable telemetry.
 
           credential:
               Reference to credentials for the auth connection. Use one of:
@@ -294,6 +305,7 @@ class ConnectionsResource(SyncAPIResource):
                 {
                     "allowed_domains": allowed_domains,
                     "auto_reauth": auto_reauth,
+                    "browser_telemetry": browser_telemetry,
                     "credential": credential,
                     "health_check_interval": health_check_interval,
                     "health_checks": health_checks,
@@ -452,6 +464,7 @@ class ConnectionsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        browser_telemetry: Optional[connection_login_params.BrowserTelemetry] | Omit = omit,
         proxy: connection_login_params.Proxy | Omit = omit,
         record_session: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -468,6 +481,10 @@ class ConnectionsResource(SyncAPIResource):
         credentials are stored.
 
         Args:
+          browser_telemetry: Override the connection's default browser telemetry configuration for this
+              login. When omitted, the connection's browser_telemetry default is used. Uses
+              the exact create-browser configuration.
+
           proxy: Proxy selection. Provide either id or name. The proxy must be in the same
               project as the resource referencing it. When selecting by name, the name must
               match exactly one active proxy in the project. Ambiguous names return a 400; use
@@ -490,6 +507,7 @@ class ConnectionsResource(SyncAPIResource):
             path_template("/auth/connections/{id}/login", id=id),
             body=maybe_transform(
                 {
+                    "browser_telemetry": browser_telemetry,
                     "proxy": proxy,
                     "record_session": record_session,
                 },
@@ -657,6 +675,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
         profile_name: str,
         allowed_domains: SequenceNotStr[str] | Omit = omit,
         auto_reauth: bool | Omit = omit,
+        browser_telemetry: Optional[connection_create_params.BrowserTelemetry] | Omit = omit,
         credential: connection_create_params.Credential | Omit = omit,
         health_check_interval: int | Omit = omit,
         health_checks: bool | Omit = omit,
@@ -710,6 +729,10 @@ class AsyncConnectionsResource(AsyncAPIResource):
               false, expired sessions are marked as `NEEDS_AUTH` instead of attempting
               re-auth. Defaults to true.
 
+          browser_telemetry: Browser telemetry configuration used by this connection's browser sessions by
+              default. Uses the exact create-browser configuration. Can be overridden
+              per-login.
+
           credential:
               Reference to credentials for the auth connection. Use one of:
 
@@ -757,6 +780,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
                     "profile_name": profile_name,
                     "allowed_domains": allowed_domains,
                     "auto_reauth": auto_reauth,
+                    "browser_telemetry": browser_telemetry,
                     "credential": credential,
                     "health_check_interval": health_check_interval,
                     "health_checks": health_checks,
@@ -814,6 +838,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
         *,
         allowed_domains: SequenceNotStr[str] | Omit = omit,
         auto_reauth: bool | Omit = omit,
+        browser_telemetry: Optional[connection_update_params.BrowserTelemetry] | Omit = omit,
         credential: connection_update_params.Credential | Omit = omit,
         health_check_interval: int | Omit = omit,
         health_checks: bool | Omit = omit,
@@ -843,6 +868,10 @@ class AsyncConnectionsResource(AsyncAPIResource):
               scheduled health check detects an expired session — so this flag has no effect
               when `health_checks` is false. When false, expired sessions detected by a health
               check are marked as `NEEDS_AUTH` instead of attempting re-auth.
+
+          browser_telemetry: Browser telemetry configuration used by future browser sessions for this
+              connection. Uses the exact create-browser configuration. Set enabled to false to
+              disable telemetry.
 
           credential:
               Reference to credentials for the auth connection. Use one of:
@@ -885,6 +914,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
                 {
                     "allowed_domains": allowed_domains,
                     "auto_reauth": auto_reauth,
+                    "browser_telemetry": browser_telemetry,
                     "credential": credential,
                     "health_check_interval": health_check_interval,
                     "health_checks": health_checks,
@@ -1043,6 +1073,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        browser_telemetry: Optional[connection_login_params.BrowserTelemetry] | Omit = omit,
         proxy: connection_login_params.Proxy | Omit = omit,
         record_session: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1059,6 +1090,10 @@ class AsyncConnectionsResource(AsyncAPIResource):
         credentials are stored.
 
         Args:
+          browser_telemetry: Override the connection's default browser telemetry configuration for this
+              login. When omitted, the connection's browser_telemetry default is used. Uses
+              the exact create-browser configuration.
+
           proxy: Proxy selection. Provide either id or name. The proxy must be in the same
               project as the resource referencing it. When selecting by name, the name must
               match exactly one active proxy in the project. Ambiguous names return a 400; use
@@ -1081,6 +1116,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
             path_template("/auth/connections/{id}/login", id=id),
             body=await async_maybe_transform(
                 {
+                    "browser_telemetry": browser_telemetry,
                     "proxy": proxy,
                     "record_session": record_session,
                 },

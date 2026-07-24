@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import TypedDict
 
 from ..._types import SequenceNotStr
+from ..browsers.browser_telemetry_categories_config_param import BrowserTelemetryCategoriesConfigParam
 
-__all__ = ["ConnectionUpdateParams", "Credential", "Proxy"]
+__all__ = ["ConnectionUpdateParams", "BrowserTelemetry", "Credential", "Proxy"]
 
 
 class ConnectionUpdateParams(TypedDict, total=False):
@@ -23,6 +25,13 @@ class ConnectionUpdateParams(TypedDict, total=False):
     has no effect when `health_checks` is false. When false, expired sessions
     detected by a health check are marked as `NEEDS_AUTH` instead of attempting
     re-auth.
+    """
+
+    browser_telemetry: Optional[BrowserTelemetry]
+    """
+    Browser telemetry configuration used by future browser sessions for this
+    connection. Uses the exact create-browser configuration. Set enabled to false to
+    disable telemetry.
     """
 
     credential: Credential
@@ -61,6 +70,39 @@ class ConnectionUpdateParams(TypedDict, total=False):
 
     save_credentials: bool
     """Whether to save credentials after every successful login"""
+
+
+class BrowserTelemetry(TypedDict, total=False):
+    """
+    Browser telemetry configuration used by future browser sessions for this connection. Uses the exact create-browser configuration. Set enabled to false to disable telemetry.
+    """
+
+    browser: BrowserTelemetryCategoriesConfigParam
+    """Per-category capture flags.
+
+    The operational categories (control, connection, system, captcha) are captured
+    whenever telemetry is enabled; set one to enabled=false to opt out. The CDP
+    categories (console, network, page, interaction) and screenshot are off by
+    default; set enabled=true to opt in. On create, provided categories layer onto
+    the default set. On update, provided categories merge onto the session's current
+    config; when no telemetry is active this falls back to the default set (matching
+    create). If browser is omitted or empty, the default set is used. A browser
+    config that disables every category stops capture on update and starts no
+    capture on create.
+    """
+
+    enabled: bool
+    """Request shortcut for browser telemetry capture.
+
+    True enables capture; with no browser category settings it captures the default
+    set (control, connection, system, captcha), and any browser category settings
+    are layered onto that default set. On update, enabled=true resolves the config
+    fresh from the default set plus any provided categories, replacing the session's
+    current selection rather than merging onto it; omit enabled to merge categories
+    onto the current selection instead. False stops capture on update and starts no
+    capture on create. enabled=false cannot be combined with browser category
+    settings.
+    """
 
 
 class Credential(TypedDict, total=False):
