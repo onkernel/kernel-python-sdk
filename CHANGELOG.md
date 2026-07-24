@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.83.0 (2026-07-24)
+
+Full Changelog: [v0.82.0...v0.83.0](https://github.com/kernel/kernel-python-sdk/compare/v0.82.0...v0.83.0)
+
+### Features
+
+* Add browser telemetry to managed auth connections ([c19bfbe](https://github.com/kernel/kernel-python-sdk/commit/c19bfbed5eed67758e735fb477c8c6c2afff9e7a))
+
 ## 0.82.0 (2026-07-23)
 
 Full Changelog: [v0.81.0...v0.82.0](https://github.com/kernel/kernel-python-sdk/compare/v0.81.0...v0.82.0)
