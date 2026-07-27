@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.84.0 (2026-07-27)
+
+Full Changelog: [v0.83.0...v0.84.0](https://github.com/kernel/kernel-python-sdk/compare/v0.83.0...v0.84.0)
+
+### Features
+
+* Expose telemetry state on managed auth timeline events ([9a37e8c](https://github.com/kernel/kernel-python-sdk/commit/9a37e8cbd40cd0fdcca0486543ddf30677d5dc16))
+
 ## 0.83.0 (2026-07-24)
 
 Full Changelog: [v0.82.0...v0.83.0](https://github.com/kernel/kernel-python-sdk/compare/v0.82.0...v0.83.0)
