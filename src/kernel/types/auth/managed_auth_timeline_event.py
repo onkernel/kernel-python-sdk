@@ -70,6 +70,9 @@ class ManagedAuthTimelineEvent(BaseModel):
     ] = None
     """The step the flow reached. Present for login/reauth events."""
 
+    telemetry_captured: Optional[bool] = None
+    """Whether browser telemetry capture started for this event's browser session."""
+
     updated_at: Optional[datetime] = None
     """When the event was last updated. Present for login/reauth events."""
 
