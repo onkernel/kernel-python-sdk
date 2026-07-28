@@ -78,6 +78,9 @@ class ConfigCustomProxyConfig(BaseModel):
     port: int
     """Proxy port."""
 
+    has_ca_bundle: Optional[bool] = None
+    """Whether the proxy has a custom CA bundle configured."""
+
     has_password: Optional[bool] = None
     """Whether the proxy has a password."""
 

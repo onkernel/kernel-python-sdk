@@ -100,6 +100,13 @@ class ConfigCreateCustomProxyConfig(TypedDict, total=False):
     port: Required[int]
     """Proxy port."""
 
+    ca_bundle: str
+    """PEM-encoded CA certificate bundle the proxy re-signs upstream TLS with.
+
+    Provide when the proxy terminates TLS (MITM) so the browser trusts its
+    certificates. May contain multiple concatenated certificates.
+    """
+
     password: str
     """Password for proxy authentication."""
 
