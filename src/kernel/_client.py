@@ -266,7 +266,11 @@ class Kernel(SyncAPIClient):
 
     @cached_property
     def projects(self) -> ProjectsResource:
-        """Create and manage projects for resource isolation within an organization."""
+        """
+        Create and manage projects for resource isolation within an organization.
+        When projects are disabled for the organization, project operations return
+        `404` with code `projects_disabled`.
+        """
         from .resources.projects import ProjectsResource
 
         return ProjectsResource(self)
@@ -618,7 +622,11 @@ class AsyncKernel(AsyncAPIClient):
 
     @cached_property
     def projects(self) -> AsyncProjectsResource:
-        """Create and manage projects for resource isolation within an organization."""
+        """
+        Create and manage projects for resource isolation within an organization.
+        When projects are disabled for the organization, project operations return
+        `404` with code `projects_disabled`.
+        """
         from .resources.projects import AsyncProjectsResource
 
         return AsyncProjectsResource(self)
@@ -878,7 +886,11 @@ class KernelWithRawResponse:
 
     @cached_property
     def projects(self) -> projects.ProjectsResourceWithRawResponse:
-        """Create and manage projects for resource isolation within an organization."""
+        """
+        Create and manage projects for resource isolation within an organization.
+        When projects are disabled for the organization, project operations return
+        `404` with code `projects_disabled`.
+        """
         from .resources.projects import ProjectsResourceWithRawResponse
 
         return ProjectsResourceWithRawResponse(self._client.projects)
@@ -988,7 +1000,11 @@ class AsyncKernelWithRawResponse:
 
     @cached_property
     def projects(self) -> projects.AsyncProjectsResourceWithRawResponse:
-        """Create and manage projects for resource isolation within an organization."""
+        """
+        Create and manage projects for resource isolation within an organization.
+        When projects are disabled for the organization, project operations return
+        `404` with code `projects_disabled`.
+        """
         from .resources.projects import AsyncProjectsResourceWithRawResponse
 
         return AsyncProjectsResourceWithRawResponse(self._client.projects)
@@ -1098,7 +1114,11 @@ class KernelWithStreamedResponse:
 
     @cached_property
     def projects(self) -> projects.ProjectsResourceWithStreamingResponse:
-        """Create and manage projects for resource isolation within an organization."""
+        """
+        Create and manage projects for resource isolation within an organization.
+        When projects are disabled for the organization, project operations return
+        `404` with code `projects_disabled`.
+        """
         from .resources.projects import ProjectsResourceWithStreamingResponse
 
         return ProjectsResourceWithStreamingResponse(self._client.projects)
@@ -1208,7 +1228,11 @@ class AsyncKernelWithStreamedResponse:
 
     @cached_property
     def projects(self) -> projects.AsyncProjectsResourceWithStreamingResponse:
-        """Create and manage projects for resource isolation within an organization."""
+        """
+        Create and manage projects for resource isolation within an organization.
+        When projects are disabled for the organization, project operations return
+        `404` with code `projects_disabled`.
+        """
         from .resources.projects import AsyncProjectsResourceWithStreamingResponse
 
         return AsyncProjectsResourceWithStreamingResponse(self._client.projects)
