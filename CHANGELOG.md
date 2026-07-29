@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.85.0 (2026-07-29)
+
+Full Changelog: [v0.84.0...v0.85.0](https://github.com/kernel/kernel-python-sdk/compare/v0.84.0...v0.85.0)
+
+### Features
+
+* Add encrypted per-proxy CA bundle for BYO MITM proxies ([c3f4571](https://github.com/kernel/kernel-python-sdk/commit/c3f4571357f66bc38352169f603da1256ea5b152))
+* Stabilize project lifecycle error codes ([5102f24](https://github.com/kernel/kernel-python-sdk/commit/5102f24f2583e0bfa8b21539cb822a65451b3df8))
+
 ## 0.84.0 (2026-07-27)
 
 Full Changelog: [v0.83.0...v0.84.0](https://github.com/kernel/kernel-python-sdk/compare/v0.83.0...v0.84.0)
