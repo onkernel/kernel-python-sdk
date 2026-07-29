@@ -24,7 +24,11 @@ __all__ = ["LimitsResource", "AsyncLimitsResource"]
 
 
 class LimitsResource(SyncAPIResource):
-    """Create and manage projects for resource isolation within an organization."""
+    """
+    Create and manage projects for resource isolation within an organization.
+    When projects are disabled for the organization, project operations return
+    `404` with code `projects_disabled`.
+    """
 
     @cached_property
     def with_raw_response(self) -> LimitsResourceWithRawResponse:
@@ -140,7 +144,11 @@ class LimitsResource(SyncAPIResource):
 
 
 class AsyncLimitsResource(AsyncAPIResource):
-    """Create and manage projects for resource isolation within an organization."""
+    """
+    Create and manage projects for resource isolation within an organization.
+    When projects are disabled for the organization, project operations return
+    `404` with code `projects_disabled`.
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncLimitsResourceWithRawResponse:
