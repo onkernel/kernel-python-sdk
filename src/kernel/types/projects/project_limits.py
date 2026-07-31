@@ -24,5 +24,5 @@ class ProjectLimits(BaseModel):
     max_pooled_sessions: Optional[int] = None
     """Deprecated: pooled browsers now count toward `max_concurrent_sessions`.
 
-    Always null once the unified concurrency limit is enabled for your organization.
+    Always null.
     """

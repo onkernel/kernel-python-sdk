@@ -113,8 +113,7 @@ class LimitsResource(SyncAPIResource):
               unchanged.
 
           max_pooled_sessions: Deprecated: pooled browsers now count toward `max_concurrent_sessions`. Requests
-              that set this field are rejected with a 400 once the unified concurrency limit
-              is enabled for your organization.
+              that set this field are rejected with a 400.
 
           extra_headers: Send extra headers
 
@@ -233,8 +232,7 @@ class AsyncLimitsResource(AsyncAPIResource):
               unchanged.
 
           max_pooled_sessions: Deprecated: pooled browsers now count toward `max_concurrent_sessions`. Requests
-              that set this field are rejected with a 400 once the unified concurrency limit
-              is enabled for your organization.
+              that set this field are rejected with a 400.
 
           extra_headers: Send extra headers
 
