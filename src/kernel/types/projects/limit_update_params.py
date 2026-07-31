@@ -25,6 +25,5 @@ class LimitUpdateParams(TypedDict, total=False):
     max_pooled_sessions: Optional[int]
     """Deprecated: pooled browsers now count toward `max_concurrent_sessions`.
 
-    Requests that set this field are rejected with a 400 once the unified
-    concurrency limit is enabled for your organization.
+    Requests that set this field are rejected with a 400.
     """
