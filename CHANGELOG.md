@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.86.0 (2026-08-03)
+
+Full Changelog: [v0.85.0...v0.86.0](https://github.com/kernel/kernel-python-sdk/compare/v0.85.0...v0.86.0)
+
+### Features
+
+* Harden managed auth verification and login recovery ([1d83850](https://github.com/kernel/kernel-python-sdk/commit/1d83850b39851ccfe34a229e2489d834609ffeeb))
+* Report the unified concurrency ceiling from the org limits endpoint ([63775d8](https://github.com/kernel/kernel-python-sdk/commit/63775d8640b52f7b26e40343f870370166ab53dc))
+
 ## 0.85.0 (2026-07-29)
 
 Full Changelog: [v0.84.0...v0.85.0](https://github.com/kernel/kernel-python-sdk/compare/v0.84.0...v0.85.0)
