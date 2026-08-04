@@ -79,6 +79,7 @@ class TestBrowserPools:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Kernel) -> None:
+
         response = client.browser_pools.with_raw_response.create(
             size=10,
         )
@@ -113,6 +114,7 @@ class TestBrowserPools:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Kernel) -> None:
+
         response = client.browser_pools.with_raw_response.retrieve(
             "id_or_name",
         )
@@ -204,6 +206,7 @@ class TestBrowserPools:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Kernel) -> None:
+
         response = client.browser_pools.with_raw_response.update(
             id_or_name="id_or_name",
         )
@@ -255,6 +258,7 @@ class TestBrowserPools:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Kernel) -> None:
+
         response = client.browser_pools.with_raw_response.list()
 
         assert response.is_closed is True
@@ -294,6 +298,7 @@ class TestBrowserPools:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Kernel) -> None:
+
         response = client.browser_pools.with_raw_response.delete(
             id_or_name="id_or_name",
         )
@@ -365,6 +370,7 @@ class TestBrowserPools:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_acquire(self, client: Kernel) -> None:
+
         response = client.browser_pools.with_raw_response.acquire(
             id_or_name="id_or_name",
         )
@@ -407,6 +413,7 @@ class TestBrowserPools:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_flush(self, client: Kernel) -> None:
+
         response = client.browser_pools.with_raw_response.flush(
             "id_or_name",
         )
@@ -460,6 +467,7 @@ class TestBrowserPools:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_release(self, client: Kernel) -> None:
+
         response = client.browser_pools.with_raw_response.release(
             id_or_name="id_or_name",
             session_id="ts8iy3sg25ibheguyni2lg9t",
@@ -558,6 +566,7 @@ class TestAsyncBrowserPools:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browser_pools.with_raw_response.create(
             size=10,
         )
@@ -592,6 +601,7 @@ class TestAsyncBrowserPools:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browser_pools.with_raw_response.retrieve(
             "id_or_name",
         )
@@ -683,6 +693,7 @@ class TestAsyncBrowserPools:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browser_pools.with_raw_response.update(
             id_or_name="id_or_name",
         )
@@ -734,6 +745,7 @@ class TestAsyncBrowserPools:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browser_pools.with_raw_response.list()
 
         assert response.is_closed is True
@@ -773,6 +785,7 @@ class TestAsyncBrowserPools:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browser_pools.with_raw_response.delete(
             id_or_name="id_or_name",
         )
@@ -844,6 +857,7 @@ class TestAsyncBrowserPools:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_acquire(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browser_pools.with_raw_response.acquire(
             id_or_name="id_or_name",
         )
@@ -886,6 +900,7 @@ class TestAsyncBrowserPools:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_flush(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browser_pools.with_raw_response.flush(
             "id_or_name",
         )
@@ -939,6 +954,7 @@ class TestAsyncBrowserPools:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_release(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browser_pools.with_raw_response.release(
             id_or_name="id_or_name",
             session_id="ts8iy3sg25ibheguyni2lg9t",

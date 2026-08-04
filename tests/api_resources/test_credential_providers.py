@@ -46,6 +46,7 @@ class TestCredentialProviders:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Kernel) -> None:
+
         response = client.credential_providers.with_raw_response.create(
             token="ops_eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
             name="my-1password",
@@ -84,6 +85,7 @@ class TestCredentialProviders:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Kernel) -> None:
+
         response = client.credential_providers.with_raw_response.retrieve(
             "id",
         )
@@ -139,6 +141,7 @@ class TestCredentialProviders:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Kernel) -> None:
+
         response = client.credential_providers.with_raw_response.update(
             id="id",
         )
@@ -189,6 +192,7 @@ class TestCredentialProviders:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Kernel) -> None:
+
         response = client.credential_providers.with_raw_response.list()
 
         assert response.is_closed is True
@@ -219,6 +223,7 @@ class TestCredentialProviders:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Kernel) -> None:
+
         response = client.credential_providers.with_raw_response.delete(
             "id",
         )
@@ -261,6 +266,7 @@ class TestCredentialProviders:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list_items(self, client: Kernel) -> None:
+
         response = client.credential_providers.with_raw_response.list_items(
             "id",
         )
@@ -303,6 +309,7 @@ class TestCredentialProviders:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_test(self, client: Kernel) -> None:
+
         response = client.credential_providers.with_raw_response.test(
             "id",
         )
@@ -364,6 +371,7 @@ class TestAsyncCredentialProviders:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.credential_providers.with_raw_response.create(
             token="ops_eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
             name="my-1password",
@@ -402,6 +410,7 @@ class TestAsyncCredentialProviders:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.credential_providers.with_raw_response.retrieve(
             "id",
         )
@@ -457,6 +466,7 @@ class TestAsyncCredentialProviders:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.credential_providers.with_raw_response.update(
             id="id",
         )
@@ -507,6 +517,7 @@ class TestAsyncCredentialProviders:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.credential_providers.with_raw_response.list()
 
         assert response.is_closed is True
@@ -537,6 +548,7 @@ class TestAsyncCredentialProviders:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.credential_providers.with_raw_response.delete(
             "id",
         )
@@ -579,6 +591,7 @@ class TestAsyncCredentialProviders:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list_items(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.credential_providers.with_raw_response.list_items(
             "id",
         )
@@ -621,6 +634,7 @@ class TestAsyncCredentialProviders:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_test(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.credential_providers.with_raw_response.test(
             "id",
         )

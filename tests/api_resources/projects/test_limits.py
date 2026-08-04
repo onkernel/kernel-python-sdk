@@ -28,6 +28,7 @@ class TestLimits:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Kernel) -> None:
+
         response = client.projects.limits.with_raw_response.retrieve(
             "id",
         )
@@ -81,6 +82,7 @@ class TestLimits:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Kernel) -> None:
+
         response = client.projects.limits.with_raw_response.update(
             id="id",
         )
@@ -129,6 +131,7 @@ class TestAsyncLimits:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.projects.limits.with_raw_response.retrieve(
             "id",
         )
@@ -182,6 +185,7 @@ class TestAsyncLimits:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.projects.limits.with_raw_response.update(
             id="id",
         )

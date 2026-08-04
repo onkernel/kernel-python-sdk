@@ -45,6 +45,7 @@ class TestProfiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Kernel) -> None:
+
         response = client.profiles.with_raw_response.create()
 
         assert response.is_closed is True
@@ -75,6 +76,7 @@ class TestProfiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Kernel) -> None:
+
         response = client.profiles.with_raw_response.retrieve(
             "id_or_name",
         )
@@ -118,6 +120,7 @@ class TestProfiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Kernel) -> None:
+
         response = client.profiles.with_raw_response.update(
             id_or_name="id_or_name",
             name="my-renamed-profile",
@@ -172,6 +175,7 @@ class TestProfiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Kernel) -> None:
+
         response = client.profiles.with_raw_response.list()
 
         assert response.is_closed is True
@@ -202,6 +206,7 @@ class TestProfiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Kernel) -> None:
+
         response = client.profiles.with_raw_response.delete(
             "id_or_name",
         )
@@ -319,6 +324,7 @@ class TestAsyncProfiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.profiles.with_raw_response.create()
 
         assert response.is_closed is True
@@ -349,6 +355,7 @@ class TestAsyncProfiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.profiles.with_raw_response.retrieve(
             "id_or_name",
         )
@@ -392,6 +399,7 @@ class TestAsyncProfiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.profiles.with_raw_response.update(
             id_or_name="id_or_name",
             name="my-renamed-profile",
@@ -446,6 +454,7 @@ class TestAsyncProfiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.profiles.with_raw_response.list()
 
         assert response.is_closed is True
@@ -476,6 +485,7 @@ class TestAsyncProfiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.profiles.with_raw_response.delete(
             "id_or_name",
         )

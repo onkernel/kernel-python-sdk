@@ -50,6 +50,7 @@ class TestInvocations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Kernel) -> None:
+
         response = client.invocations.with_raw_response.create(
             action_name="analyze",
             app_name="my-app",
@@ -88,6 +89,7 @@ class TestInvocations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Kernel) -> None:
+
         response = client.invocations.with_raw_response.retrieve(
             "rr33xuugxj9h0bkf1rdt2bet",
         )
@@ -141,6 +143,7 @@ class TestInvocations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Kernel) -> None:
+
         response = client.invocations.with_raw_response.update(
             id="id",
             status="succeeded",
@@ -200,6 +203,7 @@ class TestInvocations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Kernel) -> None:
+
         response = client.invocations.with_raw_response.list()
 
         assert response.is_closed is True
@@ -230,6 +234,7 @@ class TestInvocations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete_browsers(self, client: Kernel) -> None:
+
         response = client.invocations.with_raw_response.delete_browsers(
             "id",
         )
@@ -281,6 +286,7 @@ class TestInvocations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_follow(self, client: Kernel) -> None:
+
         response = client.invocations.with_raw_response.follow(
             id="id",
         )
@@ -322,6 +328,7 @@ class TestInvocations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list_browsers(self, client: Kernel) -> None:
+
         response = client.invocations.with_raw_response.list_browsers(
             "id",
         )
@@ -385,6 +392,7 @@ class TestAsyncInvocations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.invocations.with_raw_response.create(
             action_name="analyze",
             app_name="my-app",
@@ -423,6 +431,7 @@ class TestAsyncInvocations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.invocations.with_raw_response.retrieve(
             "rr33xuugxj9h0bkf1rdt2bet",
         )
@@ -476,6 +485,7 @@ class TestAsyncInvocations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.invocations.with_raw_response.update(
             id="id",
             status="succeeded",
@@ -535,6 +545,7 @@ class TestAsyncInvocations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.invocations.with_raw_response.list()
 
         assert response.is_closed is True
@@ -565,6 +576,7 @@ class TestAsyncInvocations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete_browsers(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.invocations.with_raw_response.delete_browsers(
             "id",
         )
@@ -616,6 +628,7 @@ class TestAsyncInvocations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_follow(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.invocations.with_raw_response.follow(
             id="id",
         )
@@ -657,6 +670,7 @@ class TestAsyncInvocations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list_browsers(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.invocations.with_raw_response.list_browsers(
             "id",
         )

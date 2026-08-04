@@ -29,6 +29,7 @@ class TestWatch:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_events(self, client: Kernel) -> None:
+
         response = client.browsers.fs.watch.with_raw_response.events(
             watch_id="watch_id",
             id="id",
@@ -90,6 +91,7 @@ class TestWatch:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_start(self, client: Kernel) -> None:
+
         response = client.browsers.fs.watch.with_raw_response.start(
             id="id",
             path="path",
@@ -136,6 +138,7 @@ class TestWatch:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_stop(self, client: Kernel) -> None:
+
         response = client.browsers.fs.watch.with_raw_response.stop(
             watch_id="watch_id",
             id="id",
@@ -194,6 +197,7 @@ class TestAsyncWatch:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_events(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.fs.watch.with_raw_response.events(
             watch_id="watch_id",
             id="id",
@@ -255,6 +259,7 @@ class TestAsyncWatch:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_start(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.fs.watch.with_raw_response.start(
             id="id",
             path="path",
@@ -301,6 +306,7 @@ class TestAsyncWatch:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_stop(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.fs.watch.with_raw_response.stop(
             watch_id="watch_id",
             id="id",

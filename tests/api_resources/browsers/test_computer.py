@@ -41,6 +41,7 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_batch(self, client: Kernel) -> None:
+
         response = client.browsers.computer.with_raw_response.batch(
             id="id",
             actions=[{"type": "click_mouse"}],
@@ -170,6 +171,7 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_click_mouse(self, client: Kernel) -> None:
+
         response = client.browsers.computer.with_raw_response.click_mouse(
             id="id",
             x=0,
@@ -235,6 +237,7 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_drag_mouse(self, client: Kernel) -> None:
+
         response = client.browsers.computer.with_raw_response.drag_mouse(
             id="id",
             path=[[0, 0], [0, 0]],
@@ -280,6 +283,7 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get_mouse_position(self, client: Kernel) -> None:
+
         response = client.browsers.computer.with_raw_response.get_mouse_position(
             "id",
         )
@@ -337,6 +341,7 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_move_mouse(self, client: Kernel) -> None:
+
         response = client.browsers.computer.with_raw_response.move_mouse(
             id="id",
             x=0,
@@ -397,6 +402,7 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_press_key(self, client: Kernel) -> None:
+
         response = client.browsers.computer.with_raw_response.press_key(
             id="id",
             keys=["string"],
@@ -442,6 +448,7 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_read_clipboard(self, client: Kernel) -> None:
+
         response = client.browsers.computer.with_raw_response.read_clipboard(
             "id",
         )
@@ -499,6 +506,7 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_scroll(self, client: Kernel) -> None:
+
         response = client.browsers.computer.with_raw_response.scroll(
             id="id",
             x=0,
@@ -548,6 +556,7 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_set_cursor_visibility(self, client: Kernel) -> None:
+
         response = client.browsers.computer.with_raw_response.set_cursor_visibility(
             id="id",
             hidden=True,
@@ -604,6 +613,7 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_type_text(self, client: Kernel) -> None:
+
         response = client.browsers.computer.with_raw_response.type_text(
             id="id",
             text="text",
@@ -650,6 +660,7 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_write_clipboard(self, client: Kernel) -> None:
+
         response = client.browsers.computer.with_raw_response.write_clipboard(
             id="id",
             text="text",
@@ -702,6 +713,7 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_batch(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.computer.with_raw_response.batch(
             id="id",
             actions=[{"type": "click_mouse"}],
@@ -835,6 +847,7 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_click_mouse(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.computer.with_raw_response.click_mouse(
             id="id",
             x=0,
@@ -900,6 +913,7 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_drag_mouse(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.computer.with_raw_response.drag_mouse(
             id="id",
             path=[[0, 0], [0, 0]],
@@ -945,6 +959,7 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get_mouse_position(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.computer.with_raw_response.get_mouse_position(
             "id",
         )
@@ -1002,6 +1017,7 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_move_mouse(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.computer.with_raw_response.move_mouse(
             id="id",
             x=0,
@@ -1062,6 +1078,7 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_press_key(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.computer.with_raw_response.press_key(
             id="id",
             keys=["string"],
@@ -1107,6 +1124,7 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_read_clipboard(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.computer.with_raw_response.read_clipboard(
             "id",
         )
@@ -1164,6 +1182,7 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_scroll(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.computer.with_raw_response.scroll(
             id="id",
             x=0,
@@ -1213,6 +1232,7 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_set_cursor_visibility(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.computer.with_raw_response.set_cursor_visibility(
             id="id",
             hidden=True,
@@ -1269,6 +1289,7 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_type_text(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.computer.with_raw_response.type_text(
             id="id",
             text="text",
@@ -1315,6 +1336,7 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_write_clipboard(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.computer.with_raw_response.write_clipboard(
             id="id",
             text="text",
