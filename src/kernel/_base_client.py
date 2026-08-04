@@ -1106,7 +1106,6 @@ class SyncAPIClient(BaseClient[httpx.Client, Stream[Any]]):
         stream_cls: type[Stream[Any]] | type[AsyncStream[Any]] | None,
         retries_taken: int = 0,
     ) -> ResponseT:
-
         origin = get_origin(cast_to) or cast_to
 
         if (
@@ -1691,7 +1690,6 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
         stream_cls: type[Stream[Any]] | type[AsyncStream[Any]] | None,
         retries_taken: int = 0,
     ) -> ResponseT:
-
         origin = get_origin(cast_to) or cast_to
 
         if (

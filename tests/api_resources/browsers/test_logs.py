@@ -39,7 +39,6 @@ class TestLogs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_stream(self, client: Kernel) -> None:
-
         response = client.browsers.logs.with_raw_response.stream(
             id="id",
             source="path",
@@ -103,7 +102,6 @@ class TestAsyncLogs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_stream(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.logs.with_raw_response.stream(
             id="id",
             source="path",

@@ -43,7 +43,6 @@ class TestTelemetry:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_events(self, client: Kernel) -> None:
-
         response = client.browsers.telemetry.with_raw_response.events(
             id="id",
         )
@@ -96,7 +95,6 @@ class TestTelemetry:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_stream(self, client: Kernel) -> None:
-
         response = client.browsers.telemetry.with_raw_response.stream(
             id="id",
         )
@@ -158,7 +156,6 @@ class TestAsyncTelemetry:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_events(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.telemetry.with_raw_response.events(
             id="id",
         )
@@ -211,7 +208,6 @@ class TestAsyncTelemetry:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_stream(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.telemetry.with_raw_response.stream(
             id="id",
         )

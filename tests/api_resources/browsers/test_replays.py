@@ -36,7 +36,6 @@ class TestReplays:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Kernel) -> None:
-
         response = client.browsers.replays.with_raw_response.list(
             "id",
         )
@@ -150,7 +149,6 @@ class TestReplays:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_start(self, client: Kernel) -> None:
-
         response = client.browsers.replays.with_raw_response.start(
             id="id",
         )
@@ -194,7 +192,6 @@ class TestReplays:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_stop(self, client: Kernel) -> None:
-
         response = client.browsers.replays.with_raw_response.stop(
             replay_id="replay_id",
             id="id",
@@ -252,7 +249,6 @@ class TestAsyncReplays:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.replays.with_raw_response.list(
             "id",
         )
@@ -366,7 +362,6 @@ class TestAsyncReplays:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_start(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.replays.with_raw_response.start(
             id="id",
         )
@@ -410,7 +405,6 @@ class TestAsyncReplays:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_stop(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.replays.with_raw_response.stop(
             replay_id="replay_id",
             id="id",

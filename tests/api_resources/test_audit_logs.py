@@ -56,7 +56,6 @@ class TestAuditLogs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Kernel) -> None:
-
         response = client.audit_logs.with_raw_response.list(
             end=parse_datetime("2026-01-02T00:00:00Z"),
             start=parse_datetime("2026-01-01T00:00:00Z"),
@@ -184,7 +183,6 @@ class TestAsyncAuditLogs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.audit_logs.with_raw_response.list(
             end=parse_datetime("2026-01-02T00:00:00Z"),
             start=parse_datetime("2026-01-01T00:00:00Z"),

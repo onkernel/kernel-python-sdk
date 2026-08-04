@@ -42,7 +42,6 @@ class TestAPIKeys:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Kernel) -> None:
-
         response = client.api_keys.with_raw_response.create(
             name="staging",
         )
@@ -86,7 +85,6 @@ class TestAPIKeys:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Kernel) -> None:
-
         response = client.api_keys.with_raw_response.retrieve(
             id="id",
         )
@@ -130,7 +128,6 @@ class TestAPIKeys:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Kernel) -> None:
-
         response = client.api_keys.with_raw_response.update(
             id="id",
             name="new-api-name",
@@ -189,7 +186,6 @@ class TestAPIKeys:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Kernel) -> None:
-
         response = client.api_keys.with_raw_response.list()
 
         assert response.is_closed is True
@@ -220,7 +216,6 @@ class TestAPIKeys:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Kernel) -> None:
-
         response = client.api_keys.with_raw_response.delete(
             "id",
         )
@@ -273,7 +268,6 @@ class TestAPIKeys:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_rotate(self, client: Kernel) -> None:
-
         response = client.api_keys.with_raw_response.rotate(
             id="id",
         )
@@ -332,7 +326,6 @@ class TestAsyncAPIKeys:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.api_keys.with_raw_response.create(
             name="staging",
         )
@@ -376,7 +369,6 @@ class TestAsyncAPIKeys:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.api_keys.with_raw_response.retrieve(
             id="id",
         )
@@ -420,7 +412,6 @@ class TestAsyncAPIKeys:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.api_keys.with_raw_response.update(
             id="id",
             name="new-api-name",
@@ -479,7 +470,6 @@ class TestAsyncAPIKeys:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.api_keys.with_raw_response.list()
 
         assert response.is_closed is True
@@ -510,7 +500,6 @@ class TestAsyncAPIKeys:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.api_keys.with_raw_response.delete(
             "id",
         )
@@ -563,7 +552,6 @@ class TestAsyncAPIKeys:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_rotate(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.api_keys.with_raw_response.rotate(
             id="id",
         )

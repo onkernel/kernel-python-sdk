@@ -39,7 +39,6 @@ class TestPlaywright:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_execute(self, client: Kernel) -> None:
-
         response = client.browsers.playwright.with_raw_response.execute(
             id="id",
             code="code",
@@ -102,7 +101,6 @@ class TestAsyncPlaywright:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_execute(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.playwright.with_raw_response.execute(
             id="id",
             code="code",

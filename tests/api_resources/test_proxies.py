@@ -47,7 +47,6 @@ class TestProxies:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Kernel) -> None:
-
         response = client.proxies.with_raw_response.create(
             type="datacenter",
         )
@@ -82,7 +81,6 @@ class TestProxies:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Kernel) -> None:
-
         response = client.proxies.with_raw_response.retrieve(
             "id",
         )
@@ -126,7 +124,6 @@ class TestProxies:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Kernel) -> None:
-
         response = client.proxies.with_raw_response.update(
             id="id",
             name="my-renamed-proxy",
@@ -181,7 +178,6 @@ class TestProxies:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Kernel) -> None:
-
         response = client.proxies.with_raw_response.list()
 
         assert response.is_closed is True
@@ -212,7 +208,6 @@ class TestProxies:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Kernel) -> None:
-
         response = client.proxies.with_raw_response.delete(
             "id",
         )
@@ -264,7 +259,6 @@ class TestProxies:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_check(self, client: Kernel) -> None:
-
         response = client.proxies.with_raw_response.check(
             id="id",
         )
@@ -325,7 +319,6 @@ class TestAsyncProxies:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.proxies.with_raw_response.create(
             type="datacenter",
         )
@@ -360,7 +353,6 @@ class TestAsyncProxies:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.proxies.with_raw_response.retrieve(
             "id",
         )
@@ -404,7 +396,6 @@ class TestAsyncProxies:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.proxies.with_raw_response.update(
             id="id",
             name="my-renamed-proxy",
@@ -459,7 +450,6 @@ class TestAsyncProxies:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.proxies.with_raw_response.list()
 
         assert response.is_closed is True
@@ -490,7 +480,6 @@ class TestAsyncProxies:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.proxies.with_raw_response.delete(
             "id",
         )
@@ -542,7 +531,6 @@ class TestAsyncProxies:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_check(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.proxies.with_raw_response.check(
             id="id",
         )

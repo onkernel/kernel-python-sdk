@@ -51,7 +51,6 @@ class TestProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_exec(self, client: Kernel) -> None:
-
         response = client.browsers.process.with_raw_response.exec(
             id="id",
             command="command",
@@ -99,7 +98,6 @@ class TestProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_kill(self, client: Kernel) -> None:
-
         response = client.browsers.process.with_raw_response.kill(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             id="id",
@@ -158,7 +156,6 @@ class TestProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_resize(self, client: Kernel) -> None:
-
         response = client.browsers.process.with_raw_response.resize(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             id="id",
@@ -237,7 +234,6 @@ class TestProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_spawn(self, client: Kernel) -> None:
-
         response = client.browsers.process.with_raw_response.spawn(
             id="id",
             command="command",
@@ -284,7 +280,6 @@ class TestProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_status(self, client: Kernel) -> None:
-
         response = client.browsers.process.with_raw_response.status(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             id="id",
@@ -338,7 +333,6 @@ class TestProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_stdin(self, client: Kernel) -> None:
-
         response = client.browsers.process.with_raw_response.stdin(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             id="id",
@@ -395,7 +389,6 @@ class TestProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_stdout_stream(self, client: Kernel) -> None:
-
         response = client.browsers.process.with_raw_response.stdout_stream(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             id="id",
@@ -468,7 +461,6 @@ class TestAsyncProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_exec(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.process.with_raw_response.exec(
             id="id",
             command="command",
@@ -516,7 +508,6 @@ class TestAsyncProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_kill(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.process.with_raw_response.kill(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             id="id",
@@ -575,7 +566,6 @@ class TestAsyncProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_resize(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.process.with_raw_response.resize(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             id="id",
@@ -654,7 +644,6 @@ class TestAsyncProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_spawn(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.process.with_raw_response.spawn(
             id="id",
             command="command",
@@ -701,7 +690,6 @@ class TestAsyncProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_status(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.process.with_raw_response.status(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             id="id",
@@ -755,7 +743,6 @@ class TestAsyncProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_stdin(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.process.with_raw_response.stdin(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             id="id",
@@ -812,7 +799,6 @@ class TestAsyncProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_stdout_stream(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.process.with_raw_response.stdout_stream(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             id="id",

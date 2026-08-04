@@ -26,7 +26,6 @@ class TestLimits:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Kernel) -> None:
-
         response = client.organization.limits.with_raw_response.retrieve()
 
         assert response.is_closed is True
@@ -63,7 +62,6 @@ class TestLimits:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Kernel) -> None:
-
         response = client.organization.limits.with_raw_response.update()
 
         assert response.is_closed is True
@@ -98,7 +96,6 @@ class TestAsyncLimits:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.organization.limits.with_raw_response.retrieve()
 
         assert response.is_closed is True
@@ -135,7 +132,6 @@ class TestAsyncLimits:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.organization.limits.with_raw_response.update()
 
         assert response.is_closed is True

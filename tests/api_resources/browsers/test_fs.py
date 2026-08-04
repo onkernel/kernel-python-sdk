@@ -50,7 +50,6 @@ class TestFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create_directory(self, client: Kernel) -> None:
-
         response = client.browsers.fs.with_raw_response.create_directory(
             id="id",
             path="/J!",
@@ -97,7 +96,6 @@ class TestFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete_directory(self, client: Kernel) -> None:
-
         response = client.browsers.fs.with_raw_response.delete_directory(
             id="id",
             path="/J!",
@@ -144,7 +142,6 @@ class TestFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete_file(self, client: Kernel) -> None:
-
         response = client.browsers.fs.with_raw_response.delete_file(
             id="id",
             path="/J!",
@@ -245,7 +242,6 @@ class TestFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_file_info(self, client: Kernel) -> None:
-
         response = client.browsers.fs.with_raw_response.file_info(
             id="id",
             path="/J!",
@@ -292,7 +288,6 @@ class TestFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list_files(self, client: Kernel) -> None:
-
         response = client.browsers.fs.with_raw_response.list_files(
             id="id",
             path="/J!",
@@ -340,7 +335,6 @@ class TestFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_move(self, client: Kernel) -> None:
-
         response = client.browsers.fs.with_raw_response.move(
             id="id",
             dest_path="/J!",
@@ -457,7 +451,6 @@ class TestFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_set_file_permissions(self, client: Kernel) -> None:
-
         response = client.browsers.fs.with_raw_response.set_file_permissions(
             id="id",
             mode="0611",
@@ -512,7 +505,6 @@ class TestFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_upload(self, client: Kernel) -> None:
-
         response = client.browsers.fs.with_raw_response.upload(
             id="id",
             files=[
@@ -575,7 +567,6 @@ class TestFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_upload_zip(self, client: Kernel) -> None:
-
         response = client.browsers.fs.with_raw_response.upload_zip(
             id="id",
             dest_path="/J!",
@@ -637,7 +628,6 @@ class TestFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_write_file(self, client: Kernel) -> None:
-
         response = client.browsers.fs.with_raw_response.write_file(
             id="id",
             contents=b"Example data",
@@ -703,7 +693,6 @@ class TestAsyncFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create_directory(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.fs.with_raw_response.create_directory(
             id="id",
             path="/J!",
@@ -750,7 +739,6 @@ class TestAsyncFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete_directory(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.fs.with_raw_response.delete_directory(
             id="id",
             path="/J!",
@@ -797,7 +785,6 @@ class TestAsyncFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete_file(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.fs.with_raw_response.delete_file(
             id="id",
             path="/J!",
@@ -898,7 +885,6 @@ class TestAsyncFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_file_info(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.fs.with_raw_response.file_info(
             id="id",
             path="/J!",
@@ -945,7 +931,6 @@ class TestAsyncFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list_files(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.fs.with_raw_response.list_files(
             id="id",
             path="/J!",
@@ -993,7 +978,6 @@ class TestAsyncFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_move(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.fs.with_raw_response.move(
             id="id",
             dest_path="/J!",
@@ -1110,7 +1094,6 @@ class TestAsyncFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_set_file_permissions(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.fs.with_raw_response.set_file_permissions(
             id="id",
             mode="0611",
@@ -1165,7 +1148,6 @@ class TestAsyncFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_upload(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.fs.with_raw_response.upload(
             id="id",
             files=[
@@ -1228,7 +1210,6 @@ class TestAsyncFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_upload_zip(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.fs.with_raw_response.upload_zip(
             id="id",
             dest_path="/J!",
@@ -1290,7 +1271,6 @@ class TestAsyncFs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_write_file(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.browsers.fs.with_raw_response.write_file(
             id="id",
             contents=b"Example data",

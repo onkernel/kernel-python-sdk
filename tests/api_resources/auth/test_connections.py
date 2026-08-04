@@ -75,7 +75,6 @@ class TestConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Kernel) -> None:
-
         response = client.auth.connections.with_raw_response.create(
             domain="netflix.com",
             profile_name="user-123",
@@ -112,7 +111,6 @@ class TestConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Kernel) -> None:
-
         response = client.auth.connections.with_raw_response.retrieve(
             "id",
         )
@@ -194,7 +192,6 @@ class TestConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Kernel) -> None:
-
         response = client.auth.connections.with_raw_response.update(
             id="id",
         )
@@ -247,7 +244,6 @@ class TestConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Kernel) -> None:
-
         response = client.auth.connections.with_raw_response.list()
 
         assert response.is_closed is True
@@ -278,7 +274,6 @@ class TestConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Kernel) -> None:
-
         response = client.auth.connections.with_raw_response.delete(
             "id",
         )
@@ -321,7 +316,6 @@ class TestConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_follow(self, client: Kernel) -> None:
-
         response = client.auth.connections.with_raw_response.follow(
             "id",
         )
@@ -390,7 +384,6 @@ class TestConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_login(self, client: Kernel) -> None:
-
         response = client.auth.connections.with_raw_response.login(
             id="id",
         )
@@ -454,7 +447,6 @@ class TestConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_submit(self, client: Kernel) -> None:
-
         response = client.auth.connections.with_raw_response.submit(
             id="id",
         )
@@ -508,7 +500,6 @@ class TestConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_timeline(self, client: Kernel) -> None:
-
         response = client.auth.connections.with_raw_response.timeline(
             id="id",
         )
@@ -598,7 +589,6 @@ class TestAsyncConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.auth.connections.with_raw_response.create(
             domain="netflix.com",
             profile_name="user-123",
@@ -635,7 +625,6 @@ class TestAsyncConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.auth.connections.with_raw_response.retrieve(
             "id",
         )
@@ -717,7 +706,6 @@ class TestAsyncConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.auth.connections.with_raw_response.update(
             id="id",
         )
@@ -770,7 +758,6 @@ class TestAsyncConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.auth.connections.with_raw_response.list()
 
         assert response.is_closed is True
@@ -801,7 +788,6 @@ class TestAsyncConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.auth.connections.with_raw_response.delete(
             "id",
         )
@@ -844,7 +830,6 @@ class TestAsyncConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_follow(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.auth.connections.with_raw_response.follow(
             "id",
         )
@@ -913,7 +898,6 @@ class TestAsyncConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_login(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.auth.connections.with_raw_response.login(
             id="id",
         )
@@ -977,7 +961,6 @@ class TestAsyncConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_submit(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.auth.connections.with_raw_response.submit(
             id="id",
         )
@@ -1031,7 +1014,6 @@ class TestAsyncConnections:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_timeline(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.auth.connections.with_raw_response.timeline(
             id="id",
         )

@@ -52,7 +52,6 @@ class TestCredentials:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Kernel) -> None:
-
         response = client.credentials.with_raw_response.create(
             domain="netflix.com",
             name="my-netflix-login",
@@ -97,7 +96,6 @@ class TestCredentials:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Kernel) -> None:
-
         response = client.credentials.with_raw_response.retrieve(
             "id_or_name",
         )
@@ -156,7 +154,6 @@ class TestCredentials:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Kernel) -> None:
-
         response = client.credentials.with_raw_response.update(
             id_or_name="id_or_name",
         )
@@ -208,7 +205,6 @@ class TestCredentials:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Kernel) -> None:
-
         response = client.credentials.with_raw_response.list()
 
         assert response.is_closed is True
@@ -239,7 +235,6 @@ class TestCredentials:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Kernel) -> None:
-
         response = client.credentials.with_raw_response.delete(
             "id_or_name",
         )
@@ -282,7 +277,6 @@ class TestCredentials:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_totp_code(self, client: Kernel) -> None:
-
         response = client.credentials.with_raw_response.totp_code(
             "id_or_name",
         )
@@ -351,7 +345,6 @@ class TestAsyncCredentials:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.credentials.with_raw_response.create(
             domain="netflix.com",
             name="my-netflix-login",
@@ -396,7 +389,6 @@ class TestAsyncCredentials:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.credentials.with_raw_response.retrieve(
             "id_or_name",
         )
@@ -455,7 +447,6 @@ class TestAsyncCredentials:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.credentials.with_raw_response.update(
             id_or_name="id_or_name",
         )
@@ -507,7 +498,6 @@ class TestAsyncCredentials:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.credentials.with_raw_response.list()
 
         assert response.is_closed is True
@@ -538,7 +528,6 @@ class TestAsyncCredentials:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.credentials.with_raw_response.delete(
             "id_or_name",
         )
@@ -581,7 +570,6 @@ class TestAsyncCredentials:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_totp_code(self, async_client: AsyncKernel) -> None:
-
         response = await async_client.credentials.with_raw_response.totp_code(
             "id_or_name",
         )
