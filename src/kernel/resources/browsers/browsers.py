@@ -439,7 +439,7 @@ class BrowsersResource(SyncAPIResource):
 
           offset: Number of results to skip. Defaults to 0.
 
-          query: Search browsers by name, session ID, profile ID, proxy ID, or pool name.
+          query: Search browsers by name, session ID, profile name or ID, proxy ID, or pool name.
 
           status: Filter sessions by status. "active" returns only active sessions (default),
               "deleted" returns only soft-deleted sessions, "all" returns both.
@@ -1017,7 +1017,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
 
           offset: Number of results to skip. Defaults to 0.
 
-          query: Search browsers by name, session ID, profile ID, proxy ID, or pool name.
+          query: Search browsers by name, session ID, profile name or ID, proxy ID, or pool name.
 
           status: Filter sessions by status. "active" returns only active sessions (default),
               "deleted" returns only soft-deleted sessions, "all" returns both.
