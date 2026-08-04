@@ -39,6 +39,7 @@ class TestApps:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Kernel) -> None:
+
         response = client.apps.with_raw_response.list()
 
         assert response.is_closed is True
@@ -85,6 +86,7 @@ class TestAsyncApps:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.apps.with_raw_response.list()
 
         assert response.is_closed is True

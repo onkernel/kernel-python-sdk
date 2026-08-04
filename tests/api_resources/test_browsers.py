@@ -84,6 +84,7 @@ class TestBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Kernel) -> None:
+
         response = client.browsers.with_raw_response.create()
 
         assert response.is_closed is True
@@ -123,6 +124,7 @@ class TestBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Kernel) -> None:
+
         response = client.browsers.with_raw_response.retrieve(
             id_or_name="htzv5orfit78e1m2biiifpbv",
         )
@@ -205,6 +207,7 @@ class TestBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Kernel) -> None:
+
         response = client.browsers.with_raw_response.update(
             id_or_name="htzv5orfit78e1m2biiifpbv",
         )
@@ -258,6 +261,7 @@ class TestBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Kernel) -> None:
+
         response = client.browsers.with_raw_response.list()
 
         assert response.is_closed is True
@@ -303,6 +307,7 @@ class TestBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_curl(self, client: Kernel) -> None:
+
         response = client.browsers.with_raw_response.curl(
             id="id",
             url="url",
@@ -348,6 +353,7 @@ class TestBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete_by_id(self, client: Kernel) -> None:
+
         response = client.browsers.with_raw_response.delete_by_id(
             "htzv5orfit78e1m2biiifpbv",
         )
@@ -396,6 +402,7 @@ class TestBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_load_extensions(self, client: Kernel) -> None:
+
         response = client.browsers.with_raw_response.load_extensions(
             id="id",
             extensions=[
@@ -511,6 +518,7 @@ class TestAsyncBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.with_raw_response.create()
 
         assert response.is_closed is True
@@ -550,6 +558,7 @@ class TestAsyncBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.with_raw_response.retrieve(
             id_or_name="htzv5orfit78e1m2biiifpbv",
         )
@@ -632,6 +641,7 @@ class TestAsyncBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.with_raw_response.update(
             id_or_name="htzv5orfit78e1m2biiifpbv",
         )
@@ -685,6 +695,7 @@ class TestAsyncBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.with_raw_response.list()
 
         assert response.is_closed is True
@@ -730,6 +741,7 @@ class TestAsyncBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_curl(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.with_raw_response.curl(
             id="id",
             url="url",
@@ -775,6 +787,7 @@ class TestAsyncBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete_by_id(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.with_raw_response.delete_by_id(
             "htzv5orfit78e1m2biiifpbv",
         )
@@ -823,6 +836,7 @@ class TestAsyncBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_load_extensions(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.browsers.with_raw_response.load_extensions(
             id="id",
             extensions=[

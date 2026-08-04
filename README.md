@@ -340,10 +340,10 @@ In an API response, a field may be explicitly `null`, or missing entirely; in ei
 
 ```py
 if response.my_field is None:
-  if 'my_field' not in response.model_fields_set:
-    print('Got json like {}, without a "my_field" key present at all.')
-  else:
-    print('Got json like {"my_field": null}.')
+    if "my_field" not in response.model_fields_set:
+        print('Got json like {}, without a "my_field" key present at all.')
+    else:
+        print('Got json like {"my_field": null}.')
 ```
 
 ### Accessing raw response data (e.g. headers)
@@ -357,7 +357,7 @@ client = Kernel()
 response = client.browsers.with_raw_response.create(
     stealth=True,
 )
-print(response.headers.get('X-My-Header'))
+print(response.headers.get("X-My-Header"))
 
 browser = response.parse()  # get the object that `browsers.create()` would have returned
 print(browser.session_id)
@@ -455,8 +455,8 @@ By default the library closes underlying HTTP connections whenever the client is
 from kernel import Kernel
 
 with Kernel() as client:
-  # make requests here
-  ...
+    # make requests here
+    ...
 
 # HTTP client is now closed
 ```
@@ -481,6 +481,7 @@ You can determine the version that is being used at runtime with:
 
 ```py
 import kernel
+
 print(kernel.__version__)
 ```
 

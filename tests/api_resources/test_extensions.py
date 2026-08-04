@@ -50,6 +50,7 @@ class TestExtensions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Kernel) -> None:
+
         response = client.extensions.with_raw_response.list()
 
         assert response.is_closed is True
@@ -80,6 +81,7 @@ class TestExtensions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Kernel) -> None:
+
         response = client.extensions.with_raw_response.delete(
             "id_or_name",
         )
@@ -227,6 +229,7 @@ class TestExtensions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get(self, client: Kernel) -> None:
+
         response = client.extensions.with_raw_response.get(
             "id_or_name",
         )
@@ -278,6 +281,7 @@ class TestExtensions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_upload(self, client: Kernel) -> None:
+
         response = client.extensions.with_raw_response.upload(
             file=b"Example data",
         )
@@ -327,6 +331,7 @@ class TestAsyncExtensions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.extensions.with_raw_response.list()
 
         assert response.is_closed is True
@@ -357,6 +362,7 @@ class TestAsyncExtensions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.extensions.with_raw_response.delete(
             "id_or_name",
         )
@@ -510,6 +516,7 @@ class TestAsyncExtensions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.extensions.with_raw_response.get(
             "id_or_name",
         )
@@ -561,6 +568,7 @@ class TestAsyncExtensions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_upload(self, async_client: AsyncKernel) -> None:
+
         response = await async_client.extensions.with_raw_response.upload(
             file=b"Example data",
         )
