@@ -53,6 +53,15 @@ class TestConnections:
                     "system": {"enabled": True},
                 },
                 "enabled": True,
+                "export": {
+                    "otlp": {
+                        "destination": {
+                            "id": "id",
+                            "name": "name",
+                        },
+                        "enabled": True,
+                    }
+                },
             },
             credential={
                 "auto": True,
@@ -170,6 +179,15 @@ class TestConnections:
                     "system": {"enabled": True},
                 },
                 "enabled": True,
+                "export": {
+                    "otlp": {
+                        "destination": {
+                            "id": "id",
+                            "name": "name",
+                        },
+                        "enabled": True,
+                    }
+                },
             },
             credential={
                 "auto": True,
@@ -372,6 +390,15 @@ class TestConnections:
                     "system": {"enabled": True},
                 },
                 "enabled": True,
+                "export": {
+                    "otlp": {
+                        "destination": {
+                            "id": "id",
+                            "name": "name",
+                        },
+                        "enabled": True,
+                    }
+                },
             },
             proxy={
                 "id": "id",
@@ -567,6 +594,15 @@ class TestAsyncConnections:
                     "system": {"enabled": True},
                 },
                 "enabled": True,
+                "export": {
+                    "otlp": {
+                        "destination": {
+                            "id": "id",
+                            "name": "name",
+                        },
+                        "enabled": True,
+                    }
+                },
             },
             credential={
                 "auto": True,
@@ -684,6 +720,15 @@ class TestAsyncConnections:
                     "system": {"enabled": True},
                 },
                 "enabled": True,
+                "export": {
+                    "otlp": {
+                        "destination": {
+                            "id": "id",
+                            "name": "name",
+                        },
+                        "enabled": True,
+                    }
+                },
             },
             credential={
                 "auto": True,
@@ -886,6 +931,15 @@ class TestAsyncConnections:
                     "system": {"enabled": True},
                 },
                 "enabled": True,
+                "export": {
+                    "otlp": {
+                        "destination": {
+                            "id": "id",
+                            "name": "name",
+                        },
+                        "enabled": True,
+                    }
+                },
             },
             proxy={
                 "id": "id",

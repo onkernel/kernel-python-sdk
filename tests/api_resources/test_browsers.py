@@ -71,6 +71,15 @@ class TestBrowsers:
                     "system": {"enabled": True},
                 },
                 "enabled": True,
+                "export": {
+                    "otlp": {
+                        "destination": {
+                            "id": "id",
+                            "name": "name",
+                        },
+                        "enabled": True,
+                    }
+                },
             },
             timeout_seconds=10,
             viewport={
@@ -192,6 +201,15 @@ class TestBrowsers:
                     "system": {"enabled": True},
                 },
                 "enabled": True,
+                "export": {
+                    "otlp": {
+                        "destination": {
+                            "id": "id",
+                            "name": "name",
+                        },
+                        "enabled": True,
+                    }
+                },
             },
             viewport={
                 "height": 800,
@@ -498,6 +516,15 @@ class TestAsyncBrowsers:
                     "system": {"enabled": True},
                 },
                 "enabled": True,
+                "export": {
+                    "otlp": {
+                        "destination": {
+                            "id": "id",
+                            "name": "name",
+                        },
+                        "enabled": True,
+                    }
+                },
             },
             timeout_seconds=10,
             viewport={
@@ -619,6 +646,15 @@ class TestAsyncBrowsers:
                     "system": {"enabled": True},
                 },
                 "enabled": True,
+                "export": {
+                    "otlp": {
+                        "destination": {
+                            "id": "id",
+                            "name": "name",
+                        },
+                        "enabled": True,
+                    }
+                },
             },
             viewport={
                 "height": 800,
