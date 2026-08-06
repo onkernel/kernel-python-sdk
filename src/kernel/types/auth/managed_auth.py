@@ -10,6 +10,9 @@ from ..browsers.browser_telemetry_categories_config import BrowserTelemetryCateg
 __all__ = [
     "ManagedAuth",
     "BrowserTelemetry",
+    "BrowserTelemetryExport",
+    "BrowserTelemetryExportOtlp",
+    "BrowserTelemetryExportOtlpDestination",
     "Choice",
     "Credential",
     "DiscoveredField",
@@ -18,6 +21,50 @@ __all__ = [
     "PendingSSOButton",
     "SignInOption",
 ]
+
+
+class BrowserTelemetryExportOtlpDestination(BaseModel):
+    """OTLP destination to export this session's captured telemetry to.
+
+    Provide either id or name. Requires telemetry capture to be enabled.
+    """
+
+    id: Optional[str] = None
+    """OTLP destination ID"""
+
+    name: Optional[str] = None
+    """OTLP destination name"""
+
+
+class BrowserTelemetryExportOtlp(BaseModel):
+    """
+    Export captured telemetry over OTLP to one of the org's configured destinations.
+    """
+
+    destination: Optional[BrowserTelemetryExportOtlpDestination] = None
+    """OTLP destination to export this session's captured telemetry to.
+
+    Provide either id or name. Requires telemetry capture to be enabled.
+    """
+
+    enabled: Optional[bool] = None
+    """Whether to export captured telemetry over OTLP.
+
+    Setting destination implies enabled=true, so this only needs to be set
+    explicitly to disable export (enabled=false with a destination is rejected).
+    """
+
+
+class BrowserTelemetryExport(BaseModel):
+    """Where to export this session's captured telemetry.
+
+    Omit to capture without exporting.
+    """
+
+    otlp: Optional[BrowserTelemetryExportOtlp] = None
+    """
+    Export captured telemetry over OTLP to one of the org's configured destinations.
+    """
 
 
 class BrowserTelemetry(BaseModel):
@@ -50,6 +97,12 @@ class BrowserTelemetry(BaseModel):
     onto the current selection instead. False stops capture on update and starts no
     capture on create. enabled=false cannot be combined with browser category
     settings.
+    """
+
+    export: Optional[BrowserTelemetryExport] = None
+    """Where to export this session's captured telemetry.
+
+    Omit to capture without exporting.
     """
 
 

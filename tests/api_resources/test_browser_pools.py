@@ -66,6 +66,15 @@ class TestBrowserPools:
                     "system": {"enabled": True},
                 },
                 "enabled": True,
+                "export": {
+                    "otlp": {
+                        "destination": {
+                            "id": "id",
+                            "name": "name",
+                        },
+                        "enabled": True,
+                    }
+                },
             },
             timeout_seconds=10,
             viewport={
@@ -191,6 +200,15 @@ class TestBrowserPools:
                     "system": {"enabled": True},
                 },
                 "enabled": True,
+                "export": {
+                    "otlp": {
+                        "destination": {
+                            "id": "id",
+                            "name": "name",
+                        },
+                        "enabled": True,
+                    }
+                },
             },
             timeout_seconds=10,
             viewport={
@@ -358,6 +376,15 @@ class TestBrowserPools:
                     "system": {"enabled": True},
                 },
                 "enabled": True,
+                "export": {
+                    "otlp": {
+                        "destination": {
+                            "id": "id",
+                            "name": "name",
+                        },
+                        "enabled": True,
+                    }
+                },
             },
         )
         assert_matches_type(BrowserPoolAcquireResponse, browser_pool, path=["response"])
@@ -545,6 +572,15 @@ class TestAsyncBrowserPools:
                     "system": {"enabled": True},
                 },
                 "enabled": True,
+                "export": {
+                    "otlp": {
+                        "destination": {
+                            "id": "id",
+                            "name": "name",
+                        },
+                        "enabled": True,
+                    }
+                },
             },
             timeout_seconds=10,
             viewport={
@@ -670,6 +706,15 @@ class TestAsyncBrowserPools:
                     "system": {"enabled": True},
                 },
                 "enabled": True,
+                "export": {
+                    "otlp": {
+                        "destination": {
+                            "id": "id",
+                            "name": "name",
+                        },
+                        "enabled": True,
+                    }
+                },
             },
             timeout_seconds=10,
             viewport={
@@ -837,6 +882,15 @@ class TestAsyncBrowserPools:
                     "system": {"enabled": True},
                 },
                 "enabled": True,
+                "export": {
+                    "otlp": {
+                        "destination": {
+                            "id": "id",
+                            "name": "name",
+                        },
+                        "enabled": True,
+                    }
+                },
             },
         )
         assert_matches_type(BrowserPoolAcquireResponse, browser_pool, path=["response"])

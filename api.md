@@ -146,6 +146,8 @@ from kernel.types.browsers import (
     BrowserTelemetryCategoryConfig,
     BrowserTelemetryConfig,
     BrowserTelemetryEvent,
+    BrowserTelemetryExportConfig,
+    BrowserTelemetryOtlpExportConfig,
     TelemetryEventsResponse,
     TelemetryStreamResponse,
 )

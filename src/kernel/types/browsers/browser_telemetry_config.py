@@ -3,6 +3,7 @@
 from typing import Optional
 
 from ..._models import BaseModel
+from .browser_telemetry_export_config import BrowserTelemetryExportConfig
 from .browser_telemetry_categories_config import BrowserTelemetryCategoriesConfig
 
 __all__ = ["BrowserTelemetryConfig"]
@@ -13,3 +14,9 @@ class BrowserTelemetryConfig(BaseModel):
 
     browser: Optional[BrowserTelemetryCategoriesConfig] = None
     """Per-category enable/disable flags."""
+
+    export: Optional[BrowserTelemetryExportConfig] = None
+    """Where the session's captured telemetry is being exported.
+
+    Omitted when the export state is unknown.
+    """

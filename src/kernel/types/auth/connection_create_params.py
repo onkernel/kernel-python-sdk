@@ -8,7 +8,15 @@ from typing_extensions import Required, TypedDict
 from ..._types import SequenceNotStr
 from ..browsers.browser_telemetry_categories_config_param import BrowserTelemetryCategoriesConfigParam
 
-__all__ = ["ConnectionCreateParams", "BrowserTelemetry", "Credential", "Proxy"]
+__all__ = [
+    "ConnectionCreateParams",
+    "BrowserTelemetry",
+    "BrowserTelemetryExport",
+    "BrowserTelemetryExportOtlp",
+    "BrowserTelemetryExportOtlpDestination",
+    "Credential",
+    "Proxy",
+]
 
 
 class ConnectionCreateParams(TypedDict, total=False):
@@ -111,6 +119,50 @@ class ConnectionCreateParams(TypedDict, total=False):
     """
 
 
+class BrowserTelemetryExportOtlpDestination(TypedDict, total=False):
+    """OTLP destination to export this session's captured telemetry to.
+
+    Provide either id or name. Requires telemetry capture to be enabled.
+    """
+
+    id: str
+    """OTLP destination ID"""
+
+    name: str
+    """OTLP destination name"""
+
+
+class BrowserTelemetryExportOtlp(TypedDict, total=False):
+    """
+    Export captured telemetry over OTLP to one of the org's configured destinations.
+    """
+
+    destination: BrowserTelemetryExportOtlpDestination
+    """OTLP destination to export this session's captured telemetry to.
+
+    Provide either id or name. Requires telemetry capture to be enabled.
+    """
+
+    enabled: bool
+    """Whether to export captured telemetry over OTLP.
+
+    Setting destination implies enabled=true, so this only needs to be set
+    explicitly to disable export (enabled=false with a destination is rejected).
+    """
+
+
+class BrowserTelemetryExport(TypedDict, total=False):
+    """Where to export this session's captured telemetry.
+
+    Omit to capture without exporting.
+    """
+
+    otlp: BrowserTelemetryExportOtlp
+    """
+    Export captured telemetry over OTLP to one of the org's configured destinations.
+    """
+
+
 class BrowserTelemetry(TypedDict, total=False):
     """
     Browser telemetry configuration used by this connection's browser sessions by default. Uses the exact create-browser configuration. Can be overridden per-login.
@@ -141,6 +193,12 @@ class BrowserTelemetry(TypedDict, total=False):
     onto the current selection instead. False stops capture on update and starts no
     capture on create. enabled=false cannot be combined with browser category
     settings.
+    """
+
+    export: BrowserTelemetryExport
+    """Where to export this session's captured telemetry.
+
+    Omit to capture without exporting.
     """
 
 

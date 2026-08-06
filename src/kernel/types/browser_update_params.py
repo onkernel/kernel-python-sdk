@@ -10,7 +10,14 @@ from .shared_params.browser_profile import BrowserProfile
 from .shared_params.browser_viewport import BrowserViewport
 from .browsers.browser_telemetry_categories_config_param import BrowserTelemetryCategoriesConfigParam
 
-__all__ = ["BrowserUpdateParams", "Telemetry", "Viewport"]
+__all__ = [
+    "BrowserUpdateParams",
+    "Telemetry",
+    "TelemetryExport",
+    "TelemetryExportOtlp",
+    "TelemetryExportOtlpDestination",
+    "Viewport",
+]
 
 
 class BrowserUpdateParams(TypedDict, total=False):
@@ -61,6 +68,50 @@ class BrowserUpdateParams(TypedDict, total=False):
     """Viewport configuration to apply to the browser session."""
 
 
+class TelemetryExportOtlpDestination(TypedDict, total=False):
+    """OTLP destination to export this session's captured telemetry to.
+
+    Provide either id or name. Requires telemetry capture to be enabled.
+    """
+
+    id: str
+    """OTLP destination ID"""
+
+    name: str
+    """OTLP destination name"""
+
+
+class TelemetryExportOtlp(TypedDict, total=False):
+    """
+    Export captured telemetry over OTLP to one of the org's configured destinations.
+    """
+
+    destination: TelemetryExportOtlpDestination
+    """OTLP destination to export this session's captured telemetry to.
+
+    Provide either id or name. Requires telemetry capture to be enabled.
+    """
+
+    enabled: bool
+    """Whether to export captured telemetry over OTLP.
+
+    Setting destination implies enabled=true, so this only needs to be set
+    explicitly to disable export (enabled=false with a destination is rejected).
+    """
+
+
+class TelemetryExport(TypedDict, total=False):
+    """Where to export this session's captured telemetry.
+
+    Omit to capture without exporting.
+    """
+
+    otlp: TelemetryExportOtlp
+    """
+    Export captured telemetry over OTLP to one of the org's configured destinations.
+    """
+
+
 class Telemetry(TypedDict, total=False):
     """Telemetry configuration.
 
@@ -92,6 +143,12 @@ class Telemetry(TypedDict, total=False):
     onto the current selection instead. False stops capture on update and starts no
     capture on create. enabled=false cannot be combined with browser category
     settings.
+    """
+
+    export: TelemetryExport
+    """Where to export this session's captured telemetry.
+
+    Omit to capture without exporting.
     """
 
 
