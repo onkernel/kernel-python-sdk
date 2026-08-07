@@ -68,7 +68,6 @@ if TYPE_CHECKING:
     from .resources.api_keys import APIKeysResource, AsyncAPIKeysResource
     from .resources.profiles import ProfilesResource, AsyncProfilesResource
     from .resources.auth.auth import AuthResource, AsyncAuthResource
-    from .resources.audit_logs import AuditLogsResource, AsyncAuditLogsResource
     from .resources.extensions import ExtensionsResource, AsyncExtensionsResource
     from .resources.credentials import CredentialsResource, AsyncCredentialsResource
     from .resources.deployments import DeploymentsResource, AsyncDeploymentsResource
@@ -77,6 +76,7 @@ if TYPE_CHECKING:
     from .resources.browsers.browsers import BrowsersResource, AsyncBrowsersResource
     from .resources.projects.projects import ProjectsResource, AsyncProjectsResource
     from .resources.credential_providers import CredentialProvidersResource, AsyncCredentialProvidersResource
+    from .resources.audit_logs.audit_logs import AuditLogsResource, AsyncAuditLogsResource
     from .resources.organization.organization import OrganizationResource, AsyncOrganizationResource
 
 __all__ = [

@@ -458,8 +458,30 @@ from kernel.types import AuditLogEntry
 
 Methods:
 
-- <code title="get /audit-logs">client.audit_logs.<a href="./src/kernel/resources/audit_logs.py">list</a>(\*\*<a href="src/kernel/types/audit_log_list_params.py">params</a>) -> <a href="./src/kernel/types/audit_log_entry.py">SyncPageTokenPagination[AuditLogEntry]</a></code>
-- <code title="get /audit-logs/export/chunk">client.audit_logs.<a href="./src/kernel/resources/audit_logs.py">export_chunk</a>(\*\*<a href="src/kernel/types/audit_log_export_chunk_params.py">params</a>) -> BinaryAPIResponse</code>
+- <code title="get /audit-logs">client.audit_logs.<a href="./src/kernel/resources/audit_logs/audit_logs.py">list</a>(\*\*<a href="src/kernel/types/audit_log_list_params.py">params</a>) -> <a href="./src/kernel/types/audit_log_entry.py">SyncPageTokenPagination[AuditLogEntry]</a></code>
+- <code title="get /audit-logs/export/chunk">client.audit_logs.<a href="./src/kernel/resources/audit_logs/audit_logs.py">export_chunk</a>(\*\*<a href="src/kernel/types/audit_log_export_chunk_params.py">params</a>) -> BinaryAPIResponse</code>
+
+## ExportDestinations
+
+Types:
+
+```python
+from kernel.types.audit_logs import (
+    AuditLogExportDestination,
+    AuditLogExportDestinationTestResult,
+    CreateAuditLogExportDestinationRequest,
+    UpdateAuditLogExportDestinationRequest,
+)
+```
+
+Methods:
+
+- <code title="post /audit-logs/export/destinations">client.audit_logs.export_destinations.<a href="./src/kernel/resources/audit_logs/export_destinations.py">create</a>(\*\*<a href="src/kernel/types/audit_logs/export_destination_create_params.py">params</a>) -> <a href="./src/kernel/types/audit_logs/audit_log_export_destination.py">AuditLogExportDestination</a></code>
+- <code title="get /audit-logs/export/destinations/{id}">client.audit_logs.export_destinations.<a href="./src/kernel/resources/audit_logs/export_destinations.py">retrieve</a>(id) -> <a href="./src/kernel/types/audit_logs/audit_log_export_destination.py">AuditLogExportDestination</a></code>
+- <code title="patch /audit-logs/export/destinations/{id}">client.audit_logs.export_destinations.<a href="./src/kernel/resources/audit_logs/export_destinations.py">update</a>(id, \*\*<a href="src/kernel/types/audit_logs/export_destination_update_params.py">params</a>) -> <a href="./src/kernel/types/audit_logs/audit_log_export_destination.py">AuditLogExportDestination</a></code>
+- <code title="get /audit-logs/export/destinations">client.audit_logs.export_destinations.<a href="./src/kernel/resources/audit_logs/export_destinations.py">list</a>(\*\*<a href="src/kernel/types/audit_logs/export_destination_list_params.py">params</a>) -> <a href="./src/kernel/types/audit_logs/audit_log_export_destination.py">SyncOffsetPagination[AuditLogExportDestination]</a></code>
+- <code title="delete /audit-logs/export/destinations/{id}">client.audit_logs.export_destinations.<a href="./src/kernel/resources/audit_logs/export_destinations.py">delete</a>(id) -> None</code>
+- <code title="post /audit-logs/export/destinations/{id}/test">client.audit_logs.export_destinations.<a href="./src/kernel/resources/audit_logs/export_destinations.py">test</a>(id) -> <a href="./src/kernel/types/audit_logs/audit_log_export_destination_test_result.py">AuditLogExportDestinationTestResult</a></code>
 
 # APIKeys
 

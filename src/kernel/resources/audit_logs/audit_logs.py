@@ -8,12 +8,12 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import audit_log_list_params, audit_log_export_chunk_params
-from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ...types import audit_log_list_params, audit_log_export_chunk_params
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     BinaryAPIResponse,
     AsyncBinaryAPIResponse,
     StreamedBinaryAPIResponse,
@@ -27,10 +27,18 @@ from .._response import (
     async_to_custom_raw_response_wrapper,
     async_to_custom_streamed_response_wrapper,
 )
-from ..pagination import SyncPageTokenPagination, AsyncPageTokenPagination
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.audit_log_entry import AuditLogEntry
-from ..lib.audit_log_download import (
+from ...pagination import SyncPageTokenPagination, AsyncPageTokenPagination
+from ..._base_client import AsyncPaginator, make_request_options
+from .export_destinations import (
+    ExportDestinationsResource,
+    AsyncExportDestinationsResource,
+    ExportDestinationsResourceWithRawResponse,
+    AsyncExportDestinationsResourceWithRawResponse,
+    ExportDestinationsResourceWithStreamingResponse,
+    AsyncExportDestinationsResourceWithStreamingResponse,
+)
+from ...types.audit_log_entry import AuditLogEntry
+from ...lib.audit_log_download import (
     ProgressCallback,
     AsyncProgressCallback,
     AuditLogDownloadResult,
@@ -43,6 +51,11 @@ __all__ = ["AuditLogsResource", "AsyncAuditLogsResource"]
 
 class AuditLogsResource(SyncAPIResource):
     """Read audit log records for the authenticated organization."""
+
+    @cached_property
+    def export_destinations(self) -> ExportDestinationsResource:
+        """Read audit log records for the authenticated organization."""
+        return ExportDestinationsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AuditLogsResourceWithRawResponse:
@@ -286,6 +299,11 @@ class AuditLogsResource(SyncAPIResource):
 
 class AsyncAuditLogsResource(AsyncAPIResource):
     """Read audit log records for the authenticated organization."""
+
+    @cached_property
+    def export_destinations(self) -> AsyncExportDestinationsResource:
+        """Read audit log records for the authenticated organization."""
+        return AsyncExportDestinationsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncAuditLogsResourceWithRawResponse:
@@ -539,6 +557,11 @@ class AuditLogsResourceWithRawResponse:
             BinaryAPIResponse,
         )
 
+    @cached_property
+    def export_destinations(self) -> ExportDestinationsResourceWithRawResponse:
+        """Read audit log records for the authenticated organization."""
+        return ExportDestinationsResourceWithRawResponse(self._audit_logs.export_destinations)
+
 
 class AsyncAuditLogsResourceWithRawResponse:
     def __init__(self, audit_logs: AsyncAuditLogsResource) -> None:
@@ -551,6 +574,11 @@ class AsyncAuditLogsResourceWithRawResponse:
             audit_logs.export_chunk,
             AsyncBinaryAPIResponse,
         )
+
+    @cached_property
+    def export_destinations(self) -> AsyncExportDestinationsResourceWithRawResponse:
+        """Read audit log records for the authenticated organization."""
+        return AsyncExportDestinationsResourceWithRawResponse(self._audit_logs.export_destinations)
 
 
 class AuditLogsResourceWithStreamingResponse:
@@ -565,6 +593,11 @@ class AuditLogsResourceWithStreamingResponse:
             StreamedBinaryAPIResponse,
         )
 
+    @cached_property
+    def export_destinations(self) -> ExportDestinationsResourceWithStreamingResponse:
+        """Read audit log records for the authenticated organization."""
+        return ExportDestinationsResourceWithStreamingResponse(self._audit_logs.export_destinations)
+
 
 class AsyncAuditLogsResourceWithStreamingResponse:
     def __init__(self, audit_logs: AsyncAuditLogsResource) -> None:
@@ -577,3 +610,8 @@ class AsyncAuditLogsResourceWithStreamingResponse:
             audit_logs.export_chunk,
             AsyncStreamedBinaryAPIResponse,
         )
+
+    @cached_property
+    def export_destinations(self) -> AsyncExportDestinationsResourceWithStreamingResponse:
+        """Read audit log records for the authenticated organization."""
+        return AsyncExportDestinationsResourceWithStreamingResponse(self._audit_logs.export_destinations)
