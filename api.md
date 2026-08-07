@@ -294,6 +294,18 @@ Methods:
 
 # Auth
 
+## Context
+
+Types:
+
+```python
+from kernel.types.auth import AuthContext
+```
+
+Methods:
+
+- <code title="get /auth/context">client.auth.context.<a href="./src/kernel/resources/auth/context.py">retrieve</a>() -> <a href="./src/kernel/types/auth/auth_context.py">AuthContext</a></code>
+
 ## Connections
 
 Types:

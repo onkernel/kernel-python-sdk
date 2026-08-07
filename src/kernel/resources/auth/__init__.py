@@ -8,6 +8,14 @@ from .auth import (
     AuthResourceWithStreamingResponse,
     AsyncAuthResourceWithStreamingResponse,
 )
+from .context import (
+    ContextResource,
+    AsyncContextResource,
+    ContextResourceWithRawResponse,
+    AsyncContextResourceWithRawResponse,
+    ContextResourceWithStreamingResponse,
+    AsyncContextResourceWithStreamingResponse,
+)
 from .connections import (
     ConnectionsResource,
     AsyncConnectionsResource,
@@ -18,6 +26,12 @@ from .connections import (
 )
 
 __all__ = [
+    "ContextResource",
+    "AsyncContextResource",
+    "ContextResourceWithRawResponse",
+    "AsyncContextResourceWithRawResponse",
+    "ContextResourceWithStreamingResponse",
+    "AsyncContextResourceWithStreamingResponse",
     "ConnectionsResource",
     "AsyncConnectionsResource",
     "ConnectionsResourceWithRawResponse",
