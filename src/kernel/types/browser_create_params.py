@@ -6,6 +6,7 @@ from typing import Dict, Iterable, Optional
 from typing_extensions import TypedDict
 
 from .tags_param import TagsParam
+from .browser_proxy_config_param import BrowserProxyConfigParam
 from .shared_params.browser_profile import BrowserProfile
 from .shared_params.browser_viewport import BrowserViewport
 from .shared_params.browser_extension import BrowserExtension
@@ -70,10 +71,23 @@ class BrowserCreateParams(TypedDict, total=False):
     into the browser session. Profiles must be created beforehand.
     """
 
+    proxy: BrowserProxyConfigParam
+    """Proxy configuration for the browser session.
+
+    Cannot be combined with proxy_id. Omit to use the browser default: stealth
+    browsers use Kernel's default stealth proxy, while non-stealth browsers use
+    direct egress. Set mode to direct to force direct egress regardless of stealth.
+    Set mode to default to explicitly use the browser default: Kernel's default
+    stealth proxy when stealth=true, or direct egress when stealth=false. Select id
+    or name to use that proxy regardless of stealth. Proxy selection does not change
+    stealth or CAPTCHA solver behavior.
+    """
+
     proxy_id: str
     """Optional proxy to associate to the browser session.
 
-    Must reference a proxy in the same project as the browser session.
+    Must reference a proxy in the same project as the browser session. Deprecated in
+    favor of proxy.
     """
 
     start_url: str
@@ -84,9 +98,12 @@ class BrowserCreateParams(TypedDict, total=False):
     """
 
     stealth: bool
-    """
-    If true, launches the browser in stealth mode to reduce detection by anti-bot
-    mechanisms.
+    """If true, launches the browser in stealth mode and enables the CAPTCHA solver.
+
+    Defaults to false. When proxy is omitted, stealth browsers use Kernel's default
+    stealth proxy and non-stealth browsers use direct egress. An explicit proxy
+    configuration changes only egress; it does not enable or disable stealth or the
+    CAPTCHA solver.
     """
 
     tags: TagsParam

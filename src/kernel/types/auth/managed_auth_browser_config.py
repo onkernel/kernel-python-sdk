@@ -1,71 +1,45 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from __future__ import annotations
-
 from typing import Optional
-from typing_extensions import TypedDict
 
-from .managed_auth_browser_config_param import ManagedAuthBrowserConfigParam
-from ..browsers.browser_telemetry_categories_config_param import BrowserTelemetryCategoriesConfigParam
+from ..._models import BaseModel
+from ..browser_proxy_config import BrowserProxyConfig
+from ..browsers.browser_telemetry_categories_config import BrowserTelemetryCategoriesConfig
 
 __all__ = [
-    "ConnectionLoginParams",
-    "BrowserTelemetry",
-    "BrowserTelemetryExport",
-    "BrowserTelemetryExportOtlp",
-    "BrowserTelemetryExportOtlpDestination",
-    "Proxy",
+    "ManagedAuthBrowserConfig",
+    "Telemetry",
+    "TelemetryExport",
+    "TelemetryExportOtlp",
+    "TelemetryExportOtlpDestination",
 ]
 
 
-class ConnectionLoginParams(TypedDict, total=False):
-    browser: ManagedAuthBrowserConfigParam
-    """Browser configuration override for this login.
-
-    Omitted properties inherit the connection defaults.
-    """
-
-    browser_telemetry: Optional[BrowserTelemetry]
-    """Deprecated.
-
-    Use browser.telemetry. Retained during migration for existing clients.
-    """
-
-    proxy: Proxy
-    """Deprecated. Use browser.proxy. Retained during migration for existing clients."""
-
-    record_session: bool
-    """Override the connection's default for recording this login's browser session.
-
-    When omitted, the connection's record_session default is used.
-    """
-
-
-class BrowserTelemetryExportOtlpDestination(TypedDict, total=False):
+class TelemetryExportOtlpDestination(BaseModel):
     """OTLP destination to export this session's captured telemetry to.
 
     Provide either id or name. Requires telemetry capture to be enabled.
     """
 
-    id: str
+    id: Optional[str] = None
     """OTLP destination ID"""
 
-    name: str
+    name: Optional[str] = None
     """OTLP destination name"""
 
 
-class BrowserTelemetryExportOtlp(TypedDict, total=False):
+class TelemetryExportOtlp(BaseModel):
     """
     Export captured telemetry over OTLP to one of the org's configured destinations.
     """
 
-    destination: BrowserTelemetryExportOtlpDestination
+    destination: Optional[TelemetryExportOtlpDestination] = None
     """OTLP destination to export this session's captured telemetry to.
 
     Provide either id or name. Requires telemetry capture to be enabled.
     """
 
-    enabled: bool
+    enabled: Optional[bool] = None
     """Whether to export captured telemetry over OTLP.
 
     Setting destination implies enabled=true, so this only needs to be set
@@ -73,25 +47,22 @@ class BrowserTelemetryExportOtlp(TypedDict, total=False):
     """
 
 
-class BrowserTelemetryExport(TypedDict, total=False):
+class TelemetryExport(BaseModel):
     """Where to export this session's captured telemetry.
 
     Omit to capture without exporting.
     """
 
-    otlp: BrowserTelemetryExportOtlp
+    otlp: Optional[TelemetryExportOtlp] = None
     """
     Export captured telemetry over OTLP to one of the org's configured destinations.
     """
 
 
-class BrowserTelemetry(TypedDict, total=False):
-    """Deprecated.
+class Telemetry(BaseModel):
+    """Browser telemetry configuration using the same semantics as browser create."""
 
-    Use browser.telemetry. Retained during migration for existing clients.
-    """
-
-    browser: BrowserTelemetryCategoriesConfigParam
+    browser: Optional[BrowserTelemetryCategoriesConfig] = None
     """Per-category capture flags.
 
     The operational categories (control, connection, system, captcha) are captured
@@ -105,7 +76,7 @@ class BrowserTelemetry(TypedDict, total=False):
     capture on create.
     """
 
-    enabled: bool
+    enabled: Optional[bool] = None
     """Request shortcut for browser telemetry capture.
 
     True enables capture; with no browser category settings it captures the default
@@ -118,18 +89,30 @@ class BrowserTelemetry(TypedDict, total=False):
     settings.
     """
 
-    export: BrowserTelemetryExport
+    export: Optional[TelemetryExport] = None
     """Where to export this session's captured telemetry.
 
     Omit to capture without exporting.
     """
 
 
-class Proxy(TypedDict, total=False):
-    """Deprecated. Use browser.proxy. Retained during migration for existing clients."""
+class ManagedAuthBrowserConfig(BaseModel):
+    """
+    Browser configuration applied to browser sessions created for a managed auth connection. Managed auth controls the profile, headless mode, timeout, start URL, kiosk mode, and viewport.
+    """
 
-    id: str
-    """Proxy ID"""
+    proxy: Optional[BrowserProxyConfig] = None
+    """Proxy configuration for managed auth browser sessions.
 
-    name: str
-    """Proxy name"""
+    Omit on create to derive the default from stealth, or on update and login to
+    preserve or inherit the connection default.
+    """
+
+    stealth: Optional[bool] = None
+    """Whether managed auth browser sessions use stealth mode.
+
+    Defaults to true when omitted.
+    """
+
+    telemetry: Optional[Telemetry] = None
+    """Browser telemetry configuration using the same semantics as browser create."""

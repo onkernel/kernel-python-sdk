@@ -5,43 +5,19 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-from .managed_auth_browser_config_param import ManagedAuthBrowserConfigParam
+from ..browser_proxy_config_param import BrowserProxyConfigParam
 from ..browsers.browser_telemetry_categories_config_param import BrowserTelemetryCategoriesConfigParam
 
 __all__ = [
-    "ConnectionLoginParams",
-    "BrowserTelemetry",
-    "BrowserTelemetryExport",
-    "BrowserTelemetryExportOtlp",
-    "BrowserTelemetryExportOtlpDestination",
-    "Proxy",
+    "ManagedAuthBrowserConfigParam",
+    "Telemetry",
+    "TelemetryExport",
+    "TelemetryExportOtlp",
+    "TelemetryExportOtlpDestination",
 ]
 
 
-class ConnectionLoginParams(TypedDict, total=False):
-    browser: ManagedAuthBrowserConfigParam
-    """Browser configuration override for this login.
-
-    Omitted properties inherit the connection defaults.
-    """
-
-    browser_telemetry: Optional[BrowserTelemetry]
-    """Deprecated.
-
-    Use browser.telemetry. Retained during migration for existing clients.
-    """
-
-    proxy: Proxy
-    """Deprecated. Use browser.proxy. Retained during migration for existing clients."""
-
-    record_session: bool
-    """Override the connection's default for recording this login's browser session.
-
-    When omitted, the connection's record_session default is used.
-    """
-
-
-class BrowserTelemetryExportOtlpDestination(TypedDict, total=False):
+class TelemetryExportOtlpDestination(TypedDict, total=False):
     """OTLP destination to export this session's captured telemetry to.
 
     Provide either id or name. Requires telemetry capture to be enabled.
@@ -54,12 +30,12 @@ class BrowserTelemetryExportOtlpDestination(TypedDict, total=False):
     """OTLP destination name"""
 
 
-class BrowserTelemetryExportOtlp(TypedDict, total=False):
+class TelemetryExportOtlp(TypedDict, total=False):
     """
     Export captured telemetry over OTLP to one of the org's configured destinations.
     """
 
-    destination: BrowserTelemetryExportOtlpDestination
+    destination: TelemetryExportOtlpDestination
     """OTLP destination to export this session's captured telemetry to.
 
     Provide either id or name. Requires telemetry capture to be enabled.
@@ -73,23 +49,20 @@ class BrowserTelemetryExportOtlp(TypedDict, total=False):
     """
 
 
-class BrowserTelemetryExport(TypedDict, total=False):
+class TelemetryExport(TypedDict, total=False):
     """Where to export this session's captured telemetry.
 
     Omit to capture without exporting.
     """
 
-    otlp: BrowserTelemetryExportOtlp
+    otlp: TelemetryExportOtlp
     """
     Export captured telemetry over OTLP to one of the org's configured destinations.
     """
 
 
-class BrowserTelemetry(TypedDict, total=False):
-    """Deprecated.
-
-    Use browser.telemetry. Retained during migration for existing clients.
-    """
+class Telemetry(TypedDict, total=False):
+    """Browser telemetry configuration using the same semantics as browser create."""
 
     browser: BrowserTelemetryCategoriesConfigParam
     """Per-category capture flags.
@@ -118,18 +91,30 @@ class BrowserTelemetry(TypedDict, total=False):
     settings.
     """
 
-    export: BrowserTelemetryExport
+    export: TelemetryExport
     """Where to export this session's captured telemetry.
 
     Omit to capture without exporting.
     """
 
 
-class Proxy(TypedDict, total=False):
-    """Deprecated. Use browser.proxy. Retained during migration for existing clients."""
+class ManagedAuthBrowserConfigParam(TypedDict, total=False):
+    """
+    Browser configuration applied to browser sessions created for a managed auth connection. Managed auth controls the profile, headless mode, timeout, start URL, kiosk mode, and viewport.
+    """
 
-    id: str
-    """Proxy ID"""
+    proxy: BrowserProxyConfigParam
+    """Proxy configuration for managed auth browser sessions.
 
-    name: str
-    """Proxy name"""
+    Omit on create to derive the default from stealth, or on update and login to
+    preserve or inherit the connection default.
+    """
+
+    stealth: bool
+    """Whether managed auth browser sessions use stealth mode.
+
+    Defaults to true when omitted.
+    """
+
+    telemetry: Optional[Telemetry]
+    """Browser telemetry configuration using the same semantics as browser create."""

@@ -5,6 +5,7 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
+from .managed_auth_browser_config import ManagedAuthBrowserConfig
 from ..browsers.browser_telemetry_categories_config import BrowserTelemetryCategoriesConfig
 
 __all__ = [
@@ -68,8 +69,9 @@ class BrowserTelemetryExport(BaseModel):
 
 
 class BrowserTelemetry(BaseModel):
-    """
-    Browser telemetry configuration used by this connection's browser sessions by default. The exact create-browser configuration is preserved and can be overridden per-login.
+    """Deprecated.
+
+    Use browser.telemetry. Retained during migration for existing clients.
     """
 
     browser: Optional[BrowserTelemetryCategoriesConfig] = None
@@ -324,6 +326,12 @@ class ManagedAuth(BaseModel):
     re-auth.
     """
 
+    browser: Optional[ManagedAuthBrowserConfig] = None
+    """
+    Default browser configuration for login, reauthentication, and health-check
+    sessions.
+    """
+
     browser_session_id: Optional[str] = None
     """
     ID of the underlying browser session driving the current flow (present when flow
@@ -332,10 +340,9 @@ class ManagedAuth(BaseModel):
     """
 
     browser_telemetry: Optional[BrowserTelemetry] = None
-    """
-    Browser telemetry configuration used by this connection's browser sessions by
-    default. The exact create-browser configuration is preserved and can be
-    overridden per-login.
+    """Deprecated.
+
+    Use browser.telemetry. Retained during migration for existing clients.
     """
 
     can_reauth: Optional[bool] = None
@@ -513,7 +520,10 @@ class ManagedAuth(BaseModel):
     """URL where the browser landed after successful login"""
 
     proxy_id: Optional[str] = None
-    """ID of the proxy associated with this connection, if any."""
+    """Deprecated.
+
+    Read browser.proxy instead. Retained during migration for existing clients.
+    """
 
     sign_in_options: Optional[List[SignInOption]] = None
     """

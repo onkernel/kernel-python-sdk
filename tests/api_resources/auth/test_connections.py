@@ -40,6 +40,37 @@ class TestConnections:
             profile_name="user-123",
             allowed_domains=["login.netflix.com", "auth.netflix.com"],
             auto_reauth=True,
+            browser={
+                "proxy": {
+                    "id": "x",
+                    "mode": "direct",
+                    "name": "x",
+                },
+                "stealth": False,
+                "telemetry": {
+                    "browser": {
+                        "captcha": {"enabled": True},
+                        "connection": {"enabled": True},
+                        "console": {"enabled": True},
+                        "control": {"enabled": True},
+                        "interaction": {"enabled": True},
+                        "network": {"enabled": True},
+                        "page": {"enabled": True},
+                        "screenshot": {"enabled": True},
+                        "system": {"enabled": True},
+                    },
+                    "enabled": True,
+                    "export": {
+                        "otlp": {
+                            "destination": {
+                                "id": "id",
+                                "name": "name",
+                            },
+                            "enabled": True,
+                        }
+                    },
+                },
+            },
             browser_telemetry={
                 "browser": {
                     "captcha": {"enabled": True},
@@ -166,6 +197,37 @@ class TestConnections:
             id="id",
             allowed_domains=["login.netflix.com", "auth.netflix.com"],
             auto_reauth=True,
+            browser={
+                "proxy": {
+                    "id": "x",
+                    "mode": "direct",
+                    "name": "x",
+                },
+                "stealth": False,
+                "telemetry": {
+                    "browser": {
+                        "captcha": {"enabled": True},
+                        "connection": {"enabled": True},
+                        "console": {"enabled": True},
+                        "control": {"enabled": True},
+                        "interaction": {"enabled": True},
+                        "network": {"enabled": True},
+                        "page": {"enabled": True},
+                        "screenshot": {"enabled": True},
+                        "system": {"enabled": True},
+                    },
+                    "enabled": True,
+                    "export": {
+                        "otlp": {
+                            "destination": {
+                                "id": "id",
+                                "name": "name",
+                            },
+                            "enabled": True,
+                        }
+                    },
+                },
+            },
             browser_telemetry={
                 "browser": {
                     "captcha": {"enabled": True},
@@ -377,6 +439,37 @@ class TestConnections:
     def test_method_login_with_all_params(self, client: Kernel) -> None:
         connection = client.auth.connections.login(
             id="id",
+            browser={
+                "proxy": {
+                    "id": "x",
+                    "mode": "direct",
+                    "name": "x",
+                },
+                "stealth": False,
+                "telemetry": {
+                    "browser": {
+                        "captcha": {"enabled": True},
+                        "connection": {"enabled": True},
+                        "console": {"enabled": True},
+                        "control": {"enabled": True},
+                        "interaction": {"enabled": True},
+                        "network": {"enabled": True},
+                        "page": {"enabled": True},
+                        "screenshot": {"enabled": True},
+                        "system": {"enabled": True},
+                    },
+                    "enabled": True,
+                    "export": {
+                        "otlp": {
+                            "destination": {
+                                "id": "id",
+                                "name": "name",
+                            },
+                            "enabled": True,
+                        }
+                    },
+                },
+            },
             browser_telemetry={
                 "browser": {
                     "captcha": {"enabled": True},
@@ -581,6 +674,37 @@ class TestAsyncConnections:
             profile_name="user-123",
             allowed_domains=["login.netflix.com", "auth.netflix.com"],
             auto_reauth=True,
+            browser={
+                "proxy": {
+                    "id": "x",
+                    "mode": "direct",
+                    "name": "x",
+                },
+                "stealth": False,
+                "telemetry": {
+                    "browser": {
+                        "captcha": {"enabled": True},
+                        "connection": {"enabled": True},
+                        "console": {"enabled": True},
+                        "control": {"enabled": True},
+                        "interaction": {"enabled": True},
+                        "network": {"enabled": True},
+                        "page": {"enabled": True},
+                        "screenshot": {"enabled": True},
+                        "system": {"enabled": True},
+                    },
+                    "enabled": True,
+                    "export": {
+                        "otlp": {
+                            "destination": {
+                                "id": "id",
+                                "name": "name",
+                            },
+                            "enabled": True,
+                        }
+                    },
+                },
+            },
             browser_telemetry={
                 "browser": {
                     "captcha": {"enabled": True},
@@ -707,6 +831,37 @@ class TestAsyncConnections:
             id="id",
             allowed_domains=["login.netflix.com", "auth.netflix.com"],
             auto_reauth=True,
+            browser={
+                "proxy": {
+                    "id": "x",
+                    "mode": "direct",
+                    "name": "x",
+                },
+                "stealth": False,
+                "telemetry": {
+                    "browser": {
+                        "captcha": {"enabled": True},
+                        "connection": {"enabled": True},
+                        "console": {"enabled": True},
+                        "control": {"enabled": True},
+                        "interaction": {"enabled": True},
+                        "network": {"enabled": True},
+                        "page": {"enabled": True},
+                        "screenshot": {"enabled": True},
+                        "system": {"enabled": True},
+                    },
+                    "enabled": True,
+                    "export": {
+                        "otlp": {
+                            "destination": {
+                                "id": "id",
+                                "name": "name",
+                            },
+                            "enabled": True,
+                        }
+                    },
+                },
+            },
             browser_telemetry={
                 "browser": {
                     "captcha": {"enabled": True},
@@ -918,6 +1073,37 @@ class TestAsyncConnections:
     async def test_method_login_with_all_params(self, async_client: AsyncKernel) -> None:
         connection = await async_client.auth.connections.login(
             id="id",
+            browser={
+                "proxy": {
+                    "id": "x",
+                    "mode": "direct",
+                    "name": "x",
+                },
+                "stealth": False,
+                "telemetry": {
+                    "browser": {
+                        "captcha": {"enabled": True},
+                        "connection": {"enabled": True},
+                        "console": {"enabled": True},
+                        "control": {"enabled": True},
+                        "interaction": {"enabled": True},
+                        "network": {"enabled": True},
+                        "page": {"enabled": True},
+                        "screenshot": {"enabled": True},
+                        "system": {"enabled": True},
+                    },
+                    "enabled": True,
+                    "export": {
+                        "otlp": {
+                            "destination": {
+                                "id": "id",
+                                "name": "name",
+                            },
+                            "enabled": True,
+                        }
+                    },
+                },
+            },
             browser_telemetry={
                 "browser": {
                     "captcha": {"enabled": True},
