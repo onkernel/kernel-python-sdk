@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from .auth_context import AuthContext as AuthContext
 from .managed_auth import ManagedAuth as ManagedAuth
 from .login_response import LoginResponse as LoginResponse
 from .connection_list_params import ConnectionListParams as ConnectionListParams

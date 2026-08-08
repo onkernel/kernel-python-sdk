@@ -73,6 +73,12 @@ class BrowserRetrieveResponse(BaseModel):
     profile: Optional[Profile] = None
     """Browser profile metadata."""
 
+    profile_save_changes: Optional[bool] = None
+    """
+    Whether changes made during this browser session are saved back to its profile
+    when the session ends. Omitted when no profile is attached.
+    """
+
     proxy_id: Optional[str] = None
     """ID of the proxy associated with this browser session, if any."""
 

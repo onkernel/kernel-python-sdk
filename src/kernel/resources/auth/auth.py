@@ -2,6 +2,14 @@
 
 from __future__ import annotations
 
+from .context import (
+    ContextResource,
+    AsyncContextResource,
+    ContextResourceWithRawResponse,
+    AsyncContextResourceWithRawResponse,
+    ContextResourceWithStreamingResponse,
+    AsyncContextResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from .connections import (
@@ -17,6 +25,11 @@ __all__ = ["AuthResource", "AsyncAuthResource"]
 
 
 class AuthResource(SyncAPIResource):
+    @cached_property
+    def context(self) -> ContextResource:
+        """Inspect the identity and authorization context for the current request."""
+        return ContextResource(self._client)
+
     @cached_property
     def connections(self) -> ConnectionsResource:
         """Create and manage auth connections for automated credential capture and login."""
@@ -43,6 +56,11 @@ class AuthResource(SyncAPIResource):
 
 
 class AsyncAuthResource(AsyncAPIResource):
+    @cached_property
+    def context(self) -> AsyncContextResource:
+        """Inspect the identity and authorization context for the current request."""
+        return AsyncContextResource(self._client)
+
     @cached_property
     def connections(self) -> AsyncConnectionsResource:
         """Create and manage auth connections for automated credential capture and login."""
@@ -73,6 +91,11 @@ class AuthResourceWithRawResponse:
         self._auth = auth
 
     @cached_property
+    def context(self) -> ContextResourceWithRawResponse:
+        """Inspect the identity and authorization context for the current request."""
+        return ContextResourceWithRawResponse(self._auth.context)
+
+    @cached_property
     def connections(self) -> ConnectionsResourceWithRawResponse:
         """Create and manage auth connections for automated credential capture and login."""
         return ConnectionsResourceWithRawResponse(self._auth.connections)
@@ -81,6 +104,11 @@ class AuthResourceWithRawResponse:
 class AsyncAuthResourceWithRawResponse:
     def __init__(self, auth: AsyncAuthResource) -> None:
         self._auth = auth
+
+    @cached_property
+    def context(self) -> AsyncContextResourceWithRawResponse:
+        """Inspect the identity and authorization context for the current request."""
+        return AsyncContextResourceWithRawResponse(self._auth.context)
 
     @cached_property
     def connections(self) -> AsyncConnectionsResourceWithRawResponse:
@@ -93,6 +121,11 @@ class AuthResourceWithStreamingResponse:
         self._auth = auth
 
     @cached_property
+    def context(self) -> ContextResourceWithStreamingResponse:
+        """Inspect the identity and authorization context for the current request."""
+        return ContextResourceWithStreamingResponse(self._auth.context)
+
+    @cached_property
     def connections(self) -> ConnectionsResourceWithStreamingResponse:
         """Create and manage auth connections for automated credential capture and login."""
         return ConnectionsResourceWithStreamingResponse(self._auth.connections)
@@ -101,6 +134,11 @@ class AuthResourceWithStreamingResponse:
 class AsyncAuthResourceWithStreamingResponse:
     def __init__(self, auth: AsyncAuthResource) -> None:
         self._auth = auth
+
+    @cached_property
+    def context(self) -> AsyncContextResourceWithStreamingResponse:
+        """Inspect the identity and authorization context for the current request."""
+        return AsyncContextResourceWithStreamingResponse(self._auth.context)
 
     @cached_property
     def connections(self) -> AsyncConnectionsResourceWithStreamingResponse:
