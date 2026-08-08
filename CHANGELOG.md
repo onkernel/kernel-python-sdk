@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.87.0](https://github.com/kernel/kernel-python-sdk/compare/v0.86.1...v0.87.0) (2026-08-08)
+
+
+### Features
+
+* Add audit logs plan paywall to the dashboard ([18fdd7b](https://github.com/kernel/kernel-python-sdk/commit/18fdd7b7e37c0346805e43e7cf4b41f0e75ff29e))
+* Expose authenticated request context ([9da2570](https://github.com/kernel/kernel-python-sdk/commit/9da25705b9d0c5deca086bc78a41436f2d123837))
+* Expose profile save behavior in browser responses ([b211a4f](https://github.com/kernel/kernel-python-sdk/commit/b211a4f83b6a3e9eb4b9e41e8493057f57be6cbf))
+* Profiles, file I/O, replays: ungate for Free (packaging PR 3) ([6135e12](https://github.com/kernel/kernel-python-sdk/commit/6135e1288bc08b74532c76f65c5f96851ff98793))
+
 ## 0.86.1 (2026-08-06)
 
 Full Changelog: [v0.86.0...v0.86.1](https://github.com/kernel/kernel-python-sdk/compare/v0.86.0...v0.86.1)
