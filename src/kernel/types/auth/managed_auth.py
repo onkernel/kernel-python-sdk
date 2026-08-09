@@ -369,6 +369,7 @@ class ManagedAuth(BaseModel):
             "requires_totp_without_secret",
             "requires_sms_code",
             "requires_email_code",
+            "requires_customer_input",
         ]
     ] = None
     """
@@ -401,6 +402,8 @@ class ManagedAuth(BaseModel):
       automatically
     - `requires_email_code` — flow needs an email code that cannot be received
       automatically
+    - `requires_customer_input` — flow needs another field or choice that is
+      unavailable during unattended re-authentication
     """
 
     choices: Optional[List[Choice]] = None
