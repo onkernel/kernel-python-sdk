@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.88.0](https://github.com/kernel/kernel-python-sdk/compare/v0.87.0...v0.88.0) (2026-08-10)
+
+### Features
+
+* Add typed browser proxy configuration using `mode`, `id`, or `name`
+* Add nested managed-auth browser configuration and per-login browser overrides
+
 ## 0.87.0 (2026-08-08)
 
 Full Changelog: [v0.86.1...v0.87.0](https://github.com/kernel/kernel-python-sdk/compare/v0.86.1...v0.87.0)
