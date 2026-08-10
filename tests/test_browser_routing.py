@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import os
-from typing import Any, cast
+import asyncio
+from typing import Any, AsyncIterator, cast
+from typing_extensions import override
 
 import httpx
 import respx
@@ -117,6 +119,56 @@ def test_telemetry_stream_routes_directly_to_vm(monkeypatch: pytest.MonkeyPatch)
     assert request.url.path == "/browser/kernel/telemetry/stream"
     assert request.url.params.get("jwt") == "token-abc"
     assert request.headers.get("Authorization") is None
+
+
+@pytest.mark.asyncio
+async def test_async_telemetry_stream_cancellation_survives_direct_routing(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", "telemetry/stream")
+    read_started = asyncio.Event()
+    read_stopped = asyncio.Event()
+
+    class BlockingSSEStream(httpx.AsyncByteStream):
+        @override
+        async def __aiter__(self) -> AsyncIterator[bytes]:
+            read_started.set()
+            try:
+                await asyncio.Event().wait()
+            finally:
+                read_stopped.set()
+            yield b""
+
+        @override
+        async def aclose(self) -> None:
+            read_stopped.set()
+
+    async def handle_request(request: httpx.Request) -> httpx.Response:
+        assert request.url.path == "/browser/kernel/telemetry/stream"
+        return httpx.Response(
+            200,
+            headers={"content-type": "text/event-stream"},
+            stream=BlockingSSEStream(),
+        )
+
+    http_client = httpx.AsyncClient(transport=httpx.MockTransport(handle_request))
+    async with AsyncKernel(
+        base_url=base_url,
+        api_key=api_key,
+        http_client=http_client,
+        _strict_response_validation=True,
+    ) as client:
+        route = browser_route_from_browser(_fake_browser())
+        assert route is not None
+        client.browser_route_cache.set(route)
+        stream = await client.browsers.telemetry.stream("sess-1")
+        consumer = asyncio.create_task(stream.__anext__())
+        await asyncio.wait_for(read_started.wait(), timeout=1)
+
+        consumer.cancel()
+        with pytest.raises(asyncio.CancelledError):
+            await asyncio.wait_for(consumer, timeout=1)
+        await asyncio.wait_for(read_stopped.wait(), timeout=1)
 
 
 @respx.mock
