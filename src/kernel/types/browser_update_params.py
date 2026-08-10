@@ -6,6 +6,7 @@ from typing import Optional
 from typing_extensions import TypedDict
 
 from .tags_param import TagsParam
+from .browser_proxy_config_param import BrowserProxyConfigParam
 from .shared_params.browser_profile import BrowserProfile
 from .shared_params.browser_viewport import BrowserViewport
 from .browsers.browser_telemetry_categories_config_param import BrowserTelemetryCategoriesConfigParam
@@ -24,7 +25,7 @@ class BrowserUpdateParams(TypedDict, total=False):
     disable_default_proxy: bool
     """
     If true, stealth browsers connect directly instead of using the default stealth
-    proxy.
+    proxy. Deprecated in favor of proxy.mode.
     """
 
     name: Optional[str]
@@ -40,10 +41,22 @@ class BrowserUpdateParams(TypedDict, total=False):
     Only allowed if the session does not already have a profile loaded.
     """
 
+    proxy: BrowserProxyConfigParam
+    """Proxy configuration to apply.
+
+    Omit to leave the current configuration unchanged. Cannot be combined with
+    proxy_id or disable_default_proxy. Set mode to direct to switch to direct egress
+    regardless of stealth. Set mode to default to restore the browser default after
+    using a selected proxy: Kernel's default stealth proxy for a stealth browser, or
+    direct egress for a non-stealth browser. Updating proxy does not change stealth
+    or CAPTCHA solver behavior.
+    """
+
     proxy_id: Optional[str]
     """ID of the proxy to use.
 
-    Omit to leave unchanged, set to empty string to remove proxy.
+    Omit to leave unchanged, set to empty string to remove proxy. Deprecated in
+    favor of proxy.
     """
 
     tags: Optional[TagsParam]

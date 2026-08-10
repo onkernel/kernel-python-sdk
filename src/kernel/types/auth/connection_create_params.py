@@ -6,6 +6,7 @@ from typing import Optional
 from typing_extensions import Required, TypedDict
 
 from ..._types import SequenceNotStr
+from .managed_auth_browser_config_param import ManagedAuthBrowserConfigParam
 from ..browsers.browser_telemetry_categories_config_param import BrowserTelemetryCategoriesConfigParam
 
 __all__ = [
@@ -62,11 +63,16 @@ class ConnectionCreateParams(TypedDict, total=False):
     re-auth. Defaults to true.
     """
 
-    browser_telemetry: Optional[BrowserTelemetry]
+    browser: ManagedAuthBrowserConfigParam
     """
-    Browser telemetry configuration used by this connection's browser sessions by
-    default. Uses the exact create-browser configuration. Can be overridden
-    per-login.
+    Default browser configuration for login, reauthentication, and health-check
+    sessions.
+    """
+
+    browser_telemetry: Optional[BrowserTelemetry]
+    """Deprecated.
+
+    Use browser.telemetry. Retained during migration for existing clients.
     """
 
     credential: Credential
@@ -82,8 +88,9 @@ class ConnectionCreateParams(TypedDict, total=False):
 
     When set, the system periodically verifies the authentication status and
     triggers re-authentication if needed. Maximum is 86400 (24 hours). Default is
-    3600 (1 hour). The minimum depends on your plan: Enterprise: 300 (5 minutes),
-    Startup: 1200 (20 minutes), Hobbyist: 3600 (1 hour).
+    3600 (1 hour) or your plan minimum, whichever is larger. The minimum depends on
+    your plan: Enterprise: 300 (5 minutes), Startup: 1200 (20 minutes), Hobbyist:
+    3600 (1 hour), Free: 21600 (6 hours).
     """
 
     health_checks: bool
@@ -98,13 +105,7 @@ class ConnectionCreateParams(TypedDict, total=False):
     """Optional login page URL to skip discovery"""
 
     proxy: Proxy
-    """Proxy selection.
-
-    Provide either id or name. The proxy must be in the same project as the resource
-    referencing it. When selecting by name, the name must match exactly one active
-    proxy in the project. Ambiguous names return a 400; use id for stable
-    references.
-    """
+    """Deprecated. Use browser.proxy. Retained during migration for existing clients."""
 
     record_session: bool
     """Whether to record browser sessions for this connection by default.
@@ -164,8 +165,9 @@ class BrowserTelemetryExport(TypedDict, total=False):
 
 
 class BrowserTelemetry(TypedDict, total=False):
-    """
-    Browser telemetry configuration used by this connection's browser sessions by default. Uses the exact create-browser configuration. Can be overridden per-login.
+    """Deprecated.
+
+    Use browser.telemetry. Retained during migration for existing clients.
     """
 
     browser: BrowserTelemetryCategoriesConfigParam
@@ -225,11 +227,7 @@ class Credential(TypedDict, total=False):
 
 
 class Proxy(TypedDict, total=False):
-    """Proxy selection.
-
-    Provide either id or name. The proxy must be in the same project as the resource referencing it.
-    When selecting by name, the name must match exactly one active proxy in the project. Ambiguous names return a 400; use id for stable references.
-    """
+    """Deprecated. Use browser.proxy. Retained during migration for existing clients."""
 
     id: str
     """Proxy ID"""

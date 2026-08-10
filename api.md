@@ -81,6 +81,9 @@ Types:
 ```python
 from kernel.types import (
     BrowserPoolRef,
+    BrowserProxy,
+    BrowserProxyConfig,
+    BrowserProxyMode,
     BrowserUsage,
     Profile,
     Tags,
@@ -314,6 +317,7 @@ Types:
 from kernel.types.auth import (
     LoginResponse,
     ManagedAuth,
+    ManagedAuthBrowserConfig,
     ManagedAuthCreateRequest,
     ManagedAuthTimelineEvent,
     ManagedAuthUpdateRequest,

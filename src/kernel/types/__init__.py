@@ -22,6 +22,7 @@ from .project import Project as Project
 from .credential import Credential as Credential
 from .tags_param import TagsParam as TagsParam
 from .browser_pool import BrowserPool as BrowserPool
+from .browser_proxy import BrowserProxy as BrowserProxy
 from .browser_usage import BrowserUsage as BrowserUsage
 from .app_list_params import AppListParams as AppListParams
 from .audit_log_entry import AuditLogEntry as AuditLogEntry
@@ -29,6 +30,7 @@ from .created_api_key import CreatedAPIKey as CreatedAPIKey
 from .browser_pool_ref import BrowserPoolRef as BrowserPoolRef
 from .app_list_response import AppListResponse as AppListResponse
 from .proxy_list_params import ProxyListParams as ProxyListParams
+from .browser_proxy_mode import BrowserProxyMode as BrowserProxyMode
 from .proxy_check_params import ProxyCheckParams as ProxyCheckParams
 from .api_key_list_params import APIKeyListParams as APIKeyListParams
 from .browser_curl_params import BrowserCurlParams as BrowserCurlParams
@@ -39,6 +41,7 @@ from .project_list_params import ProjectListParams as ProjectListParams
 from .proxy_create_params import ProxyCreateParams as ProxyCreateParams
 from .proxy_list_response import ProxyListResponse as ProxyListResponse
 from .proxy_update_params import ProxyUpdateParams as ProxyUpdateParams
+from .browser_proxy_config import BrowserProxyConfig as BrowserProxyConfig
 from .proxy_check_response import ProxyCheckResponse as ProxyCheckResponse
 from .api_key_create_params import APIKeyCreateParams as APIKeyCreateParams
 from .api_key_rotate_params import APIKeyRotateParams as APIKeyRotateParams
@@ -85,6 +88,7 @@ from .extension_upload_response import ExtensionUploadResponse as ExtensionUploa
 from .browser_pool_create_params import BrowserPoolCreateParams as BrowserPoolCreateParams
 from .browser_pool_delete_params import BrowserPoolDeleteParams as BrowserPoolDeleteParams
 from .browser_pool_update_params import BrowserPoolUpdateParams as BrowserPoolUpdateParams
+from .browser_proxy_config_param import BrowserProxyConfigParam as BrowserProxyConfigParam
 from .deployment_create_response import DeploymentCreateResponse as DeploymentCreateResponse
 from .deployment_follow_response import DeploymentFollowResponse as DeploymentFollowResponse
 from .invocation_create_response import InvocationCreateResponse as InvocationCreateResponse

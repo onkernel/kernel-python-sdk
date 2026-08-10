@@ -33,6 +33,7 @@ from ...types.auth.login_response import LoginResponse
 from ...types.auth.submit_fields_response import SubmitFieldsResponse
 from ...types.auth.connection_follow_response import ConnectionFollowResponse
 from ...types.auth.managed_auth_timeline_event import ManagedAuthTimelineEvent
+from ...types.auth.managed_auth_browser_config_param import ManagedAuthBrowserConfigParam
 
 __all__ = ["ConnectionsResource", "AsyncConnectionsResource"]
 
@@ -66,6 +67,7 @@ class ConnectionsResource(SyncAPIResource):
         profile_name: str,
         allowed_domains: SequenceNotStr[str] | Omit = omit,
         auto_reauth: bool | Omit = omit,
+        browser: ManagedAuthBrowserConfigParam | Omit = omit,
         browser_telemetry: Optional[connection_create_params.BrowserTelemetry] | Omit = omit,
         credential: connection_create_params.Credential | Omit = omit,
         health_check_interval: int | Omit = omit,
@@ -120,9 +122,11 @@ class ConnectionsResource(SyncAPIResource):
               false, expired sessions are marked as `NEEDS_AUTH` instead of attempting
               re-auth. Defaults to true.
 
-          browser_telemetry: Browser telemetry configuration used by this connection's browser sessions by
-              default. Uses the exact create-browser configuration. Can be overridden
-              per-login.
+          browser: Default browser configuration for login, reauthentication, and health-check
+              sessions.
+
+          browser_telemetry: Deprecated. Use browser.telemetry. Retained during migration for existing
+              clients.
 
           credential:
               Reference to credentials for the auth connection. Use one of:
@@ -133,9 +137,10 @@ class ConnectionsResource(SyncAPIResource):
 
           health_check_interval: Interval in seconds between automatic health checks. When set, the system
               periodically verifies the authentication status and triggers re-authentication
-              if needed. Maximum is 86400 (24 hours). Default is 3600 (1 hour). The minimum
-              depends on your plan: Enterprise: 300 (5 minutes), Startup: 1200 (20 minutes),
-              Hobbyist: 3600 (1 hour).
+              if needed. Maximum is 86400 (24 hours). Default is 3600 (1 hour) or your plan
+              minimum, whichever is larger. The minimum depends on your plan: Enterprise: 300
+              (5 minutes), Startup: 1200 (20 minutes), Hobbyist: 3600 (1 hour), Free: 21600 (6
+              hours).
 
           health_checks: Whether to enable periodic health checks. When false, the system will not
               automatically verify authentication status, and `auto_reauth` has no effect on
@@ -144,10 +149,7 @@ class ConnectionsResource(SyncAPIResource):
 
           login_url: Optional login page URL to skip discovery
 
-          proxy: Proxy selection. Provide either id or name. The proxy must be in the same
-              project as the resource referencing it. When selecting by name, the name must
-              match exactly one active proxy in the project. Ambiguous names return a 400; use
-              id for stable references.
+          proxy: Deprecated. Use browser.proxy. Retained during migration for existing clients.
 
           record_session: Whether to record browser sessions for this connection by default. Useful for
               debugging. Can be overridden per-login. Defaults to false.
@@ -171,6 +173,7 @@ class ConnectionsResource(SyncAPIResource):
                     "profile_name": profile_name,
                     "allowed_domains": allowed_domains,
                     "auto_reauth": auto_reauth,
+                    "browser": browser,
                     "browser_telemetry": browser_telemetry,
                     "credential": credential,
                     "health_check_interval": health_check_interval,
@@ -229,6 +232,7 @@ class ConnectionsResource(SyncAPIResource):
         *,
         allowed_domains: SequenceNotStr[str] | Omit = omit,
         auto_reauth: bool | Omit = omit,
+        browser: ManagedAuthBrowserConfigParam | Omit = omit,
         browser_telemetry: Optional[connection_update_params.BrowserTelemetry] | Omit = omit,
         credential: connection_update_params.Credential | Omit = omit,
         health_check_interval: int | Omit = omit,
@@ -260,9 +264,11 @@ class ConnectionsResource(SyncAPIResource):
               when `health_checks` is false. When false, expired sessions detected by a health
               check are marked as `NEEDS_AUTH` instead of attempting re-auth.
 
-          browser_telemetry: Browser telemetry configuration used by future browser sessions for this
-              connection. Uses the exact create-browser configuration. Set enabled to false to
-              disable telemetry.
+          browser: Browser configuration updates for future login, reauthentication, and
+              health-check sessions. Omitted properties remain unchanged.
+
+          browser_telemetry: Deprecated. Use browser.telemetry. Retained during migration for existing
+              clients.
 
           credential:
               Reference to credentials for the auth connection. Use one of:
@@ -280,10 +286,7 @@ class ConnectionsResource(SyncAPIResource):
 
           login_url: Login page URL. Set to empty string to clear.
 
-          proxy: Proxy selection. Provide either id or name. The proxy must be in the same
-              project as the resource referencing it. When selecting by name, the name must
-              match exactly one active proxy in the project. Ambiguous names return a 400; use
-              id for stable references.
+          proxy: Deprecated. Use browser.proxy. Retained during migration for existing clients.
 
           record_session: Whether to record browser sessions for this connection by default
 
@@ -305,6 +308,7 @@ class ConnectionsResource(SyncAPIResource):
                 {
                     "allowed_domains": allowed_domains,
                     "auto_reauth": auto_reauth,
+                    "browser": browser,
                     "browser_telemetry": browser_telemetry,
                     "credential": credential,
                     "health_check_interval": health_check_interval,
@@ -464,6 +468,7 @@ class ConnectionsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        browser: ManagedAuthBrowserConfigParam | Omit = omit,
         browser_telemetry: Optional[connection_login_params.BrowserTelemetry] | Omit = omit,
         proxy: connection_login_params.Proxy | Omit = omit,
         record_session: bool | Omit = omit,
@@ -481,14 +486,13 @@ class ConnectionsResource(SyncAPIResource):
         credentials are stored.
 
         Args:
-          browser_telemetry: Override the connection's default browser telemetry configuration for this
-              login. When omitted, the connection's browser_telemetry default is used. Uses
-              the exact create-browser configuration.
+          browser: Browser configuration override for this login. Omitted properties inherit the
+              connection defaults.
 
-          proxy: Proxy selection. Provide either id or name. The proxy must be in the same
-              project as the resource referencing it. When selecting by name, the name must
-              match exactly one active proxy in the project. Ambiguous names return a 400; use
-              id for stable references.
+          browser_telemetry: Deprecated. Use browser.telemetry. Retained during migration for existing
+              clients.
+
+          proxy: Deprecated. Use browser.proxy. Retained during migration for existing clients.
 
           record_session: Override the connection's default for recording this login's browser session.
               When omitted, the connection's record_session default is used.
@@ -507,6 +511,7 @@ class ConnectionsResource(SyncAPIResource):
             path_template("/auth/connections/{id}/login", id=id),
             body=maybe_transform(
                 {
+                    "browser": browser,
                     "browser_telemetry": browser_telemetry,
                     "proxy": proxy,
                     "record_session": record_session,
@@ -675,6 +680,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
         profile_name: str,
         allowed_domains: SequenceNotStr[str] | Omit = omit,
         auto_reauth: bool | Omit = omit,
+        browser: ManagedAuthBrowserConfigParam | Omit = omit,
         browser_telemetry: Optional[connection_create_params.BrowserTelemetry] | Omit = omit,
         credential: connection_create_params.Credential | Omit = omit,
         health_check_interval: int | Omit = omit,
@@ -729,9 +735,11 @@ class AsyncConnectionsResource(AsyncAPIResource):
               false, expired sessions are marked as `NEEDS_AUTH` instead of attempting
               re-auth. Defaults to true.
 
-          browser_telemetry: Browser telemetry configuration used by this connection's browser sessions by
-              default. Uses the exact create-browser configuration. Can be overridden
-              per-login.
+          browser: Default browser configuration for login, reauthentication, and health-check
+              sessions.
+
+          browser_telemetry: Deprecated. Use browser.telemetry. Retained during migration for existing
+              clients.
 
           credential:
               Reference to credentials for the auth connection. Use one of:
@@ -742,9 +750,10 @@ class AsyncConnectionsResource(AsyncAPIResource):
 
           health_check_interval: Interval in seconds between automatic health checks. When set, the system
               periodically verifies the authentication status and triggers re-authentication
-              if needed. Maximum is 86400 (24 hours). Default is 3600 (1 hour). The minimum
-              depends on your plan: Enterprise: 300 (5 minutes), Startup: 1200 (20 minutes),
-              Hobbyist: 3600 (1 hour).
+              if needed. Maximum is 86400 (24 hours). Default is 3600 (1 hour) or your plan
+              minimum, whichever is larger. The minimum depends on your plan: Enterprise: 300
+              (5 minutes), Startup: 1200 (20 minutes), Hobbyist: 3600 (1 hour), Free: 21600 (6
+              hours).
 
           health_checks: Whether to enable periodic health checks. When false, the system will not
               automatically verify authentication status, and `auto_reauth` has no effect on
@@ -753,10 +762,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
 
           login_url: Optional login page URL to skip discovery
 
-          proxy: Proxy selection. Provide either id or name. The proxy must be in the same
-              project as the resource referencing it. When selecting by name, the name must
-              match exactly one active proxy in the project. Ambiguous names return a 400; use
-              id for stable references.
+          proxy: Deprecated. Use browser.proxy. Retained during migration for existing clients.
 
           record_session: Whether to record browser sessions for this connection by default. Useful for
               debugging. Can be overridden per-login. Defaults to false.
@@ -780,6 +786,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
                     "profile_name": profile_name,
                     "allowed_domains": allowed_domains,
                     "auto_reauth": auto_reauth,
+                    "browser": browser,
                     "browser_telemetry": browser_telemetry,
                     "credential": credential,
                     "health_check_interval": health_check_interval,
@@ -838,6 +845,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
         *,
         allowed_domains: SequenceNotStr[str] | Omit = omit,
         auto_reauth: bool | Omit = omit,
+        browser: ManagedAuthBrowserConfigParam | Omit = omit,
         browser_telemetry: Optional[connection_update_params.BrowserTelemetry] | Omit = omit,
         credential: connection_update_params.Credential | Omit = omit,
         health_check_interval: int | Omit = omit,
@@ -869,9 +877,11 @@ class AsyncConnectionsResource(AsyncAPIResource):
               when `health_checks` is false. When false, expired sessions detected by a health
               check are marked as `NEEDS_AUTH` instead of attempting re-auth.
 
-          browser_telemetry: Browser telemetry configuration used by future browser sessions for this
-              connection. Uses the exact create-browser configuration. Set enabled to false to
-              disable telemetry.
+          browser: Browser configuration updates for future login, reauthentication, and
+              health-check sessions. Omitted properties remain unchanged.
+
+          browser_telemetry: Deprecated. Use browser.telemetry. Retained during migration for existing
+              clients.
 
           credential:
               Reference to credentials for the auth connection. Use one of:
@@ -889,10 +899,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
 
           login_url: Login page URL. Set to empty string to clear.
 
-          proxy: Proxy selection. Provide either id or name. The proxy must be in the same
-              project as the resource referencing it. When selecting by name, the name must
-              match exactly one active proxy in the project. Ambiguous names return a 400; use
-              id for stable references.
+          proxy: Deprecated. Use browser.proxy. Retained during migration for existing clients.
 
           record_session: Whether to record browser sessions for this connection by default
 
@@ -914,6 +921,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
                 {
                     "allowed_domains": allowed_domains,
                     "auto_reauth": auto_reauth,
+                    "browser": browser,
                     "browser_telemetry": browser_telemetry,
                     "credential": credential,
                     "health_check_interval": health_check_interval,
@@ -1073,6 +1081,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        browser: ManagedAuthBrowserConfigParam | Omit = omit,
         browser_telemetry: Optional[connection_login_params.BrowserTelemetry] | Omit = omit,
         proxy: connection_login_params.Proxy | Omit = omit,
         record_session: bool | Omit = omit,
@@ -1090,14 +1099,13 @@ class AsyncConnectionsResource(AsyncAPIResource):
         credentials are stored.
 
         Args:
-          browser_telemetry: Override the connection's default browser telemetry configuration for this
-              login. When omitted, the connection's browser_telemetry default is used. Uses
-              the exact create-browser configuration.
+          browser: Browser configuration override for this login. Omitted properties inherit the
+              connection defaults.
 
-          proxy: Proxy selection. Provide either id or name. The proxy must be in the same
-              project as the resource referencing it. When selecting by name, the name must
-              match exactly one active proxy in the project. Ambiguous names return a 400; use
-              id for stable references.
+          browser_telemetry: Deprecated. Use browser.telemetry. Retained during migration for existing
+              clients.
+
+          proxy: Deprecated. Use browser.proxy. Retained during migration for existing clients.
 
           record_session: Override the connection's default for recording this login's browser session.
               When omitted, the connection's record_session default is used.
@@ -1116,6 +1124,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
             path_template("/auth/connections/{id}/login", id=id),
             body=await async_maybe_transform(
                 {
+                    "browser": browser,
                     "browser_telemetry": browser_telemetry,
                     "proxy": proxy,
                     "record_session": record_session,

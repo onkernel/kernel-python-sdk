@@ -6,6 +6,7 @@ from datetime import datetime
 from .tags import Tags
 from .profile import Profile
 from .._models import BaseModel
+from .browser_proxy import BrowserProxy
 from .browser_usage import BrowserUsage
 from .browser_pool_ref import BrowserPoolRef
 from .shared.browser_viewport import BrowserViewport
@@ -79,8 +80,14 @@ class BrowserPoolAcquireResponse(BaseModel):
     when the session ends. Omitted when no profile is attached.
     """
 
+    proxy: Optional[BrowserProxy] = None
+    """Resolved proxy configuration for this browser session."""
+
     proxy_id: Optional[str] = None
-    """ID of the proxy associated with this browser session, if any."""
+    """ID of the proxy associated with this browser session, if any.
+
+    Deprecated in favor of proxy.
+    """
 
     start_url: Optional[str] = None
     """URL the session was asked to navigate to on creation, if any.

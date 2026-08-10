@@ -97,6 +97,7 @@ from ...lib.browser_routing.raw_http import (
 from ...types.browser_create_response import BrowserCreateResponse
 from ...types.browser_update_response import BrowserUpdateResponse
 from ...types.browser_retrieve_response import BrowserRetrieveResponse
+from ...types.browser_proxy_config_param import BrowserProxyConfigParam
 from ...types.shared_params.browser_profile import BrowserProfile
 from ...types.shared_params.browser_viewport import BrowserViewport
 from ...types.shared_params.browser_extension import BrowserExtension
@@ -172,6 +173,7 @@ class BrowsersResource(SyncAPIResource):
         kiosk_mode: bool | Omit = omit,
         name: str | Omit = omit,
         profile: BrowserProfile | Omit = omit,
+        proxy: BrowserProxyConfigParam | Omit = omit,
         proxy_id: str | Omit = omit,
         start_url: str | Omit = omit,
         stealth: bool | Omit = omit,
@@ -216,15 +218,26 @@ class BrowsersResource(SyncAPIResource):
               specified, the matching profile will be loaded into the browser session.
               Profiles must be created beforehand.
 
+          proxy: Proxy configuration for the browser session. Cannot be combined with proxy_id.
+              Omit to use the browser default: stealth browsers use Kernel's default stealth
+              proxy, while non-stealth browsers use direct egress. Set mode to direct to force
+              direct egress regardless of stealth. Set mode to default to explicitly use the
+              browser default: Kernel's default stealth proxy when stealth=true, or direct
+              egress when stealth=false. Select id or name to use that proxy regardless of
+              stealth. Proxy selection does not change stealth or CAPTCHA solver behavior.
+
           proxy_id: Optional proxy to associate to the browser session. Must reference a proxy in
-              the same project as the browser session.
+              the same project as the browser session. Deprecated in favor of proxy.
 
           start_url: Optional URL to open when the browser session is created. Navigation is
               best-effort, so navigation failures do not prevent the session from being
               created.
 
-          stealth: If true, launches the browser in stealth mode to reduce detection by anti-bot
-              mechanisms.
+          stealth: If true, launches the browser in stealth mode and enables the CAPTCHA solver.
+              Defaults to false. When proxy is omitted, stealth browsers use Kernel's default
+              stealth proxy and non-stealth browsers use direct egress. An explicit proxy
+              configuration changes only egress; it does not enable or disable stealth or the
+              CAPTCHA solver.
 
           tags: Optional user-defined key-value tags for the browser session, used to find and
               group sessions later. Can be changed later via PATCH /browsers/{id_or_name}. Up
@@ -275,6 +288,7 @@ class BrowsersResource(SyncAPIResource):
                     "kiosk_mode": kiosk_mode,
                     "name": name,
                     "profile": profile,
+                    "proxy": proxy,
                     "proxy_id": proxy_id,
                     "start_url": start_url,
                     "stealth": stealth,
@@ -340,6 +354,7 @@ class BrowsersResource(SyncAPIResource):
         disable_default_proxy: bool | Omit = omit,
         name: Optional[str] | Omit = omit,
         profile: BrowserProfile | Omit = omit,
+        proxy: BrowserProxyConfigParam | Omit = omit,
         proxy_id: Optional[str] | Omit = omit,
         tags: Optional[TagsParam] | Omit = omit,
         telemetry: Optional[browser_update_params.Telemetry] | Omit = omit,
@@ -356,7 +371,7 @@ class BrowsersResource(SyncAPIResource):
 
         Args:
           disable_default_proxy: If true, stealth browsers connect directly instead of using the default stealth
-              proxy.
+              proxy. Deprecated in favor of proxy.mode.
 
           name: Human-readable name for the browser session. Omit to leave unchanged, set to an
               empty string to clear the name. When set, must be unique among active sessions
@@ -365,8 +380,15 @@ class BrowsersResource(SyncAPIResource):
           profile: Profile to load into the browser session. Only allowed if the session does not
               already have a profile loaded.
 
+          proxy: Proxy configuration to apply. Omit to leave the current configuration unchanged.
+              Cannot be combined with proxy_id or disable_default_proxy. Set mode to direct to
+              switch to direct egress regardless of stealth. Set mode to default to restore
+              the browser default after using a selected proxy: Kernel's default stealth proxy
+              for a stealth browser, or direct egress for a non-stealth browser. Updating
+              proxy does not change stealth or CAPTCHA solver behavior.
+
           proxy_id: ID of the proxy to use. Omit to leave unchanged, set to empty string to remove
-              proxy.
+              proxy. Deprecated in favor of proxy.
 
           tags: User-defined key-value tags for the browser session. Omit to leave unchanged.
               Provide a map to replace the entire tag set (full replace, not a merge). Set to
@@ -397,6 +419,7 @@ class BrowsersResource(SyncAPIResource):
                     "disable_default_proxy": disable_default_proxy,
                     "name": name,
                     "profile": profile,
+                    "proxy": proxy,
                     "proxy_id": proxy_id,
                     "tags": tags,
                     "telemetry": telemetry,
@@ -750,6 +773,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         kiosk_mode: bool | Omit = omit,
         name: str | Omit = omit,
         profile: BrowserProfile | Omit = omit,
+        proxy: BrowserProxyConfigParam | Omit = omit,
         proxy_id: str | Omit = omit,
         start_url: str | Omit = omit,
         stealth: bool | Omit = omit,
@@ -794,15 +818,26 @@ class AsyncBrowsersResource(AsyncAPIResource):
               specified, the matching profile will be loaded into the browser session.
               Profiles must be created beforehand.
 
+          proxy: Proxy configuration for the browser session. Cannot be combined with proxy_id.
+              Omit to use the browser default: stealth browsers use Kernel's default stealth
+              proxy, while non-stealth browsers use direct egress. Set mode to direct to force
+              direct egress regardless of stealth. Set mode to default to explicitly use the
+              browser default: Kernel's default stealth proxy when stealth=true, or direct
+              egress when stealth=false. Select id or name to use that proxy regardless of
+              stealth. Proxy selection does not change stealth or CAPTCHA solver behavior.
+
           proxy_id: Optional proxy to associate to the browser session. Must reference a proxy in
-              the same project as the browser session.
+              the same project as the browser session. Deprecated in favor of proxy.
 
           start_url: Optional URL to open when the browser session is created. Navigation is
               best-effort, so navigation failures do not prevent the session from being
               created.
 
-          stealth: If true, launches the browser in stealth mode to reduce detection by anti-bot
-              mechanisms.
+          stealth: If true, launches the browser in stealth mode and enables the CAPTCHA solver.
+              Defaults to false. When proxy is omitted, stealth browsers use Kernel's default
+              stealth proxy and non-stealth browsers use direct egress. An explicit proxy
+              configuration changes only egress; it does not enable or disable stealth or the
+              CAPTCHA solver.
 
           tags: Optional user-defined key-value tags for the browser session, used to find and
               group sessions later. Can be changed later via PATCH /browsers/{id_or_name}. Up
@@ -853,6 +888,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
                     "kiosk_mode": kiosk_mode,
                     "name": name,
                     "profile": profile,
+                    "proxy": proxy,
                     "proxy_id": proxy_id,
                     "start_url": start_url,
                     "stealth": stealth,
@@ -918,6 +954,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         disable_default_proxy: bool | Omit = omit,
         name: Optional[str] | Omit = omit,
         profile: BrowserProfile | Omit = omit,
+        proxy: BrowserProxyConfigParam | Omit = omit,
         proxy_id: Optional[str] | Omit = omit,
         tags: Optional[TagsParam] | Omit = omit,
         telemetry: Optional[browser_update_params.Telemetry] | Omit = omit,
@@ -934,7 +971,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
 
         Args:
           disable_default_proxy: If true, stealth browsers connect directly instead of using the default stealth
-              proxy.
+              proxy. Deprecated in favor of proxy.mode.
 
           name: Human-readable name for the browser session. Omit to leave unchanged, set to an
               empty string to clear the name. When set, must be unique among active sessions
@@ -943,8 +980,15 @@ class AsyncBrowsersResource(AsyncAPIResource):
           profile: Profile to load into the browser session. Only allowed if the session does not
               already have a profile loaded.
 
+          proxy: Proxy configuration to apply. Omit to leave the current configuration unchanged.
+              Cannot be combined with proxy_id or disable_default_proxy. Set mode to direct to
+              switch to direct egress regardless of stealth. Set mode to default to restore
+              the browser default after using a selected proxy: Kernel's default stealth proxy
+              for a stealth browser, or direct egress for a non-stealth browser. Updating
+              proxy does not change stealth or CAPTCHA solver behavior.
+
           proxy_id: ID of the proxy to use. Omit to leave unchanged, set to empty string to remove
-              proxy.
+              proxy. Deprecated in favor of proxy.
 
           tags: User-defined key-value tags for the browser session. Omit to leave unchanged.
               Provide a map to replace the entire tag set (full replace, not a merge). Set to
@@ -975,6 +1019,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
                     "disable_default_proxy": disable_default_proxy,
                     "name": name,
                     "profile": profile,
+                    "proxy": proxy,
                     "proxy_id": proxy_id,
                     "tags": tags,
                     "telemetry": telemetry,

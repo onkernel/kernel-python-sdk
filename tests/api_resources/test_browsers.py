@@ -51,6 +51,11 @@ class TestBrowsers:
                 "name": "name",
                 "save_changes": True,
             },
+            proxy={
+                "id": "x",
+                "mode": "direct",
+                "name": "x",
+            },
             proxy_id="proxy_id",
             start_url="https://example.com",
             stealth=True,
@@ -182,6 +187,11 @@ class TestBrowsers:
                 "id": "id",
                 "name": "name",
                 "save_changes": True,
+            },
+            proxy={
+                "id": "x",
+                "mode": "direct",
+                "name": "x",
             },
             proxy_id="proxy_id",
             tags={
@@ -496,6 +506,11 @@ class TestAsyncBrowsers:
                 "name": "name",
                 "save_changes": True,
             },
+            proxy={
+                "id": "x",
+                "mode": "direct",
+                "name": "x",
+            },
             proxy_id="proxy_id",
             start_url="https://example.com",
             stealth=True,
@@ -627,6 +642,11 @@ class TestAsyncBrowsers:
                 "id": "id",
                 "name": "name",
                 "save_changes": True,
+            },
+            proxy={
+                "id": "x",
+                "mode": "direct",
+                "name": "x",
             },
             proxy_id="proxy_id",
             tags={
