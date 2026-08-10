@@ -122,7 +122,7 @@ def test_telemetry_stream_routes_directly_to_vm(monkeypatch: pytest.MonkeyPatch)
 
 
 @pytest.mark.asyncio
-async def test_async_telemetry_stream_cancellation_survives_direct_routing(
+async def test_async_telemetry_stream_cancellation_reaches_transport(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.setenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", "telemetry/stream")
