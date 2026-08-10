@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.88.0](https://github.com/kernel/kernel-python-sdk/compare/v0.87.0...v0.88.0) (2026-08-10)
+
+
+### Features
+
+* Forward egress deploy owner attribution ([5ae6c3e](https://github.com/kernel/kernel-python-sdk/commit/5ae6c3e0b6a54a884b9fc6d3d4658d970a7aa459))
+* Managed auth: free-plan connections (cap 3), credentials, 6h floor (packaging PR 5) ([2afe161](https://github.com/kernel/kernel-python-sdk/commit/2afe161bedb272fe458ae2f0adcd3df140cb151d))
+* Persist CUA-TS reauth blockers before failure ([bacb44f](https://github.com/kernel/kernel-python-sdk/commit/bacb44f61f32e82367c264bab9120595f93f5cbf))
+
+
+### Chores
+
+* reconcile stlc generation history ([7ee80ac](https://github.com/kernel/kernel-python-sdk/commit/7ee80ac1a20d52b576cb8d08f533e8886a19982d))
+* reconcile stlc generation history ([1ec288f](https://github.com/kernel/kernel-python-sdk/commit/1ec288fb183b8b5eb3a18e487053c354d3246334))
+
 ## 0.87.0 (2026-08-08)
 
 Full Changelog: [v0.86.1...v0.87.0](https://github.com/kernel/kernel-python-sdk/compare/v0.86.1...v0.87.0)
