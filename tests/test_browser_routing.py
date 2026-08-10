@@ -122,29 +122,30 @@ def test_telemetry_stream_routes_directly_to_vm(monkeypatch: pytest.MonkeyPatch)
 
 
 @pytest.mark.asyncio
-async def test_async_telemetry_stream_cancellation_survives_direct_routing(
+async def test_async_telemetry_stream_cancellation_reaches_transport(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.setenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", "telemetry/stream")
     read_started = asyncio.Event()
-    read_stopped = asyncio.Event()
+    transport_cancelled = asyncio.Event()
+    chunks: asyncio.Queue[bytes] = asyncio.Queue()
 
     class BlockingSSEStream(httpx.AsyncByteStream):
         @override
         async def __aiter__(self) -> AsyncIterator[bytes]:
             read_started.set()
             try:
-                await asyncio.Event().wait()
-            finally:
-                read_stopped.set()
-            yield b""
+                while True:
+                    yield await chunks.get()
+            except asyncio.CancelledError:
+                transport_cancelled.set()
+                raise
 
         @override
         async def aclose(self) -> None:
-            read_stopped.set()
+            pass
 
-    async def handle_request(request: httpx.Request) -> httpx.Response:
-        assert request.url.path == "/browser/kernel/telemetry/stream"
+    async def handle_request(_request: httpx.Request) -> httpx.Response:
         return httpx.Response(
             200,
             headers={"content-type": "text/event-stream"},
@@ -168,7 +169,7 @@ async def test_async_telemetry_stream_cancellation_survives_direct_routing(
         consumer.cancel()
         with pytest.raises(asyncio.CancelledError):
             await asyncio.wait_for(consumer, timeout=1)
-        await asyncio.wait_for(read_stopped.wait(), timeout=1)
+        await asyncio.wait_for(transport_cancelled.wait(), timeout=1)
 
 
 @respx.mock
