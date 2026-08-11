@@ -32,6 +32,7 @@ def _fake_browser() -> dict[str, object]:
         "headless": True,
         "stealth": False,
         "timeout_seconds": 60,
+        "region": "us-east",
     }
 
 
