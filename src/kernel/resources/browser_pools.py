@@ -29,6 +29,7 @@ from ..pagination import SyncOffsetPagination, AsyncOffsetPagination
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.tags_param import TagsParam
 from ..types.browser_pool import BrowserPool
+from ..types.browser_network_config_param import BrowserNetworkConfigParam
 from ..types.browser_pool_acquire_response import BrowserPoolAcquireResponse
 from ..types.shared_params.browser_viewport import BrowserViewport
 from ..types.shared_params.browser_extension import BrowserExtension
@@ -68,6 +69,7 @@ class BrowserPoolsResource(SyncAPIResource):
         headless: bool | Omit = omit,
         kiosk_mode: bool | Omit = omit,
         name: str | Omit = omit,
+        network: BrowserNetworkConfigParam | Omit = omit,
         profile: browser_pool_create_params.Profile | Omit = omit,
         proxy_id: str | Omit = omit,
         refresh_on_profile_update: bool | Omit = omit,
@@ -114,6 +116,8 @@ class BrowserPoolsResource(SyncAPIResource):
               view. Defaults to false.
 
           name: Optional name for the browser pool. Must be unique within the project.
+
+          network: Network configuration applied to browsers in this pool.
 
           profile: Profile configuration for browsers in a pool. Provide either id or name.
               Profiles must be created beforehand. Unlike single browser sessions, pools load
@@ -183,6 +187,7 @@ class BrowserPoolsResource(SyncAPIResource):
                     "headless": headless,
                     "kiosk_mode": kiosk_mode,
                     "name": name,
+                    "network": network,
                     "profile": profile,
                     "proxy_id": proxy_id,
                     "refresh_on_profile_update": refresh_on_profile_update,
@@ -245,6 +250,7 @@ class BrowserPoolsResource(SyncAPIResource):
         headless: bool | Omit = omit,
         kiosk_mode: bool | Omit = omit,
         name: str | Omit = omit,
+        network: BrowserNetworkConfigParam | Omit = omit,
         profile: browser_pool_update_params.Profile | Omit = omit,
         proxy_id: str | Omit = omit,
         refresh_on_profile_update: bool | Omit = omit,
@@ -297,6 +303,12 @@ class BrowserPoolsResource(SyncAPIResource):
 
           name: If provided, replaces the pool name. Empty string is a no-op; the pool name
               cannot be cleared or reset to empty once assigned.
+
+          network: If provided, replaces the pool's network configuration. Omit to leave the
+              existing configuration unchanged; an empty object ({}) removes it, while
+              network: {private_hosts: []} sets an explicit empty list. Only applied to
+              browsers created in the pool after the update; browsers already in the pool keep
+              their configuration until discarded (see discard_all_idle).
 
           profile: Profile configuration for browsers in a pool. Provide either id or name.
               Profiles must be created beforehand. Unlike single browser sessions, pools load
@@ -368,6 +380,7 @@ class BrowserPoolsResource(SyncAPIResource):
                     "headless": headless,
                     "kiosk_mode": kiosk_mode,
                     "name": name,
+                    "network": network,
                     "profile": profile,
                     "proxy_id": proxy_id,
                     "refresh_on_profile_update": refresh_on_profile_update,
@@ -686,6 +699,7 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
         headless: bool | Omit = omit,
         kiosk_mode: bool | Omit = omit,
         name: str | Omit = omit,
+        network: BrowserNetworkConfigParam | Omit = omit,
         profile: browser_pool_create_params.Profile | Omit = omit,
         proxy_id: str | Omit = omit,
         refresh_on_profile_update: bool | Omit = omit,
@@ -732,6 +746,8 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
               view. Defaults to false.
 
           name: Optional name for the browser pool. Must be unique within the project.
+
+          network: Network configuration applied to browsers in this pool.
 
           profile: Profile configuration for browsers in a pool. Provide either id or name.
               Profiles must be created beforehand. Unlike single browser sessions, pools load
@@ -801,6 +817,7 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
                     "headless": headless,
                     "kiosk_mode": kiosk_mode,
                     "name": name,
+                    "network": network,
                     "profile": profile,
                     "proxy_id": proxy_id,
                     "refresh_on_profile_update": refresh_on_profile_update,
@@ -863,6 +880,7 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
         headless: bool | Omit = omit,
         kiosk_mode: bool | Omit = omit,
         name: str | Omit = omit,
+        network: BrowserNetworkConfigParam | Omit = omit,
         profile: browser_pool_update_params.Profile | Omit = omit,
         proxy_id: str | Omit = omit,
         refresh_on_profile_update: bool | Omit = omit,
@@ -915,6 +933,12 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
 
           name: If provided, replaces the pool name. Empty string is a no-op; the pool name
               cannot be cleared or reset to empty once assigned.
+
+          network: If provided, replaces the pool's network configuration. Omit to leave the
+              existing configuration unchanged; an empty object ({}) removes it, while
+              network: {private_hosts: []} sets an explicit empty list. Only applied to
+              browsers created in the pool after the update; browsers already in the pool keep
+              their configuration until discarded (see discard_all_idle).
 
           profile: Profile configuration for browsers in a pool. Provide either id or name.
               Profiles must be created beforehand. Unlike single browser sessions, pools load
@@ -986,6 +1010,7 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
                     "headless": headless,
                     "kiosk_mode": kiosk_mode,
                     "name": name,
+                    "network": network,
                     "profile": profile,
                     "proxy_id": proxy_id,
                     "refresh_on_profile_update": refresh_on_profile_update,

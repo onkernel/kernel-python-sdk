@@ -98,6 +98,7 @@ from ...types.browser_create_response import BrowserCreateResponse
 from ...types.browser_update_response import BrowserUpdateResponse
 from ...types.browser_retrieve_response import BrowserRetrieveResponse
 from ...types.browser_proxy_config_param import BrowserProxyConfigParam
+from ...types.browser_network_config_param import BrowserNetworkConfigParam
 from ...types.shared_params.browser_profile import BrowserProfile
 from ...types.shared_params.browser_viewport import BrowserViewport
 from ...types.shared_params.browser_extension import BrowserExtension
@@ -172,6 +173,7 @@ class BrowsersResource(SyncAPIResource):
         invocation_id: str | Omit = omit,
         kiosk_mode: bool | Omit = omit,
         name: str | Omit = omit,
+        network: BrowserNetworkConfigParam | Omit = omit,
         profile: BrowserProfile | Omit = omit,
         proxy: BrowserProxyConfigParam | Omit = omit,
         proxy_id: str | Omit = omit,
@@ -214,6 +216,8 @@ class BrowsersResource(SyncAPIResource):
           name: Optional human-readable name for the browser session, used to find it later in
               the dashboard. Must be unique among active sessions within the project. Can be
               changed later via PATCH /browsers/{id_or_name}.
+
+          network: Network configuration for the browser session. Cannot be changed after creation.
 
           profile: Profile selection for the browser session. Provide either id or name. If
               specified, the matching profile will be loaded into the browser session.
@@ -292,6 +296,7 @@ class BrowsersResource(SyncAPIResource):
                     "invocation_id": invocation_id,
                     "kiosk_mode": kiosk_mode,
                     "name": name,
+                    "network": network,
                     "profile": profile,
                     "proxy": proxy,
                     "proxy_id": proxy_id,
@@ -782,6 +787,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         invocation_id: str | Omit = omit,
         kiosk_mode: bool | Omit = omit,
         name: str | Omit = omit,
+        network: BrowserNetworkConfigParam | Omit = omit,
         profile: BrowserProfile | Omit = omit,
         proxy: BrowserProxyConfigParam | Omit = omit,
         proxy_id: str | Omit = omit,
@@ -824,6 +830,8 @@ class AsyncBrowsersResource(AsyncAPIResource):
           name: Optional human-readable name for the browser session, used to find it later in
               the dashboard. Must be unique among active sessions within the project. Can be
               changed later via PATCH /browsers/{id_or_name}.
+
+          network: Network configuration for the browser session. Cannot be changed after creation.
 
           profile: Profile selection for the browser session. Provide either id or name. If
               specified, the matching profile will be loaded into the browser session.
@@ -902,6 +910,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
                     "invocation_id": invocation_id,
                     "kiosk_mode": kiosk_mode,
                     "name": name,
+                    "network": network,
                     "profile": profile,
                     "proxy": proxy,
                     "proxy_id": proxy_id,

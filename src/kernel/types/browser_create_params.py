@@ -7,6 +7,7 @@ from typing_extensions import Literal, TypedDict
 
 from .tags_param import TagsParam
 from .browser_proxy_config_param import BrowserProxyConfigParam
+from .browser_network_config_param import BrowserNetworkConfigParam
 from .shared_params.browser_profile import BrowserProfile
 from .shared_params.browser_viewport import BrowserViewport
 from .shared_params.browser_extension import BrowserExtension
@@ -62,6 +63,12 @@ class BrowserCreateParams(TypedDict, total=False):
     Optional human-readable name for the browser session, used to find it later in
     the dashboard. Must be unique among active sessions within the project. Can be
     changed later via PATCH /browsers/{id_or_name}.
+    """
+
+    network: BrowserNetworkConfigParam
+    """Network configuration for the browser session.
+
+    Cannot be changed after creation.
     """
 
     profile: BrowserProfile

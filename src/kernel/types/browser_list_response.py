@@ -10,6 +10,7 @@ from .._models import BaseModel
 from .browser_proxy import BrowserProxy
 from .browser_usage import BrowserUsage
 from .browser_pool_ref import BrowserPoolRef
+from .browser_network_config import BrowserNetworkConfig
 from .shared.browser_viewport import BrowserViewport
 from .browsers.browser_telemetry_config import BrowserTelemetryConfig
 
@@ -71,6 +72,12 @@ class BrowserListResponse(BaseModel):
 
     name: Optional[str] = None
     """Human-readable name of the browser session, if one was set at creation."""
+
+    network: Optional[BrowserNetworkConfig] = None
+    """Network configuration the session was created with, if any.
+
+    Omitted when the session has no network configuration.
+    """
 
     pool: Optional[BrowserPoolRef] = None
     """Browser pool this session was acquired from, if any."""

@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Dict, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
+from .browser_network_config_param import BrowserNetworkConfigParam
 from .shared_params.browser_viewport import BrowserViewport
 from .shared_params.browser_extension import BrowserExtension
 from .browsers.browser_telemetry_categories_config_param import BrowserTelemetryCategoriesConfigParam
@@ -60,6 +61,9 @@ class BrowserPoolCreateParams(TypedDict, total=False):
 
     name: str
     """Optional name for the browser pool. Must be unique within the project."""
+
+    network: BrowserNetworkConfigParam
+    """Network configuration applied to browsers in this pool."""
 
     profile: Profile
     """Profile configuration for browsers in a pool.

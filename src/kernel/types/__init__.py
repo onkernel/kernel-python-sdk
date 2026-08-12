@@ -58,6 +58,7 @@ from .project_create_params import ProjectCreateParams as ProjectCreateParams
 from .project_update_params import ProjectUpdateParams as ProjectUpdateParams
 from .proxy_create_response import ProxyCreateResponse as ProxyCreateResponse
 from .proxy_update_response import ProxyUpdateResponse as ProxyUpdateResponse
+from .browser_network_config import BrowserNetworkConfig as BrowserNetworkConfig
 from .credential_list_params import CredentialListParams as CredentialListParams
 from .deployment_list_params import DeploymentListParams as DeploymentListParams
 from .deployment_state_event import DeploymentStateEvent as DeploymentStateEvent
@@ -96,6 +97,7 @@ from .invocation_follow_response import InvocationFollowResponse as InvocationFo
 from .invocation_update_response import InvocationUpdateResponse as InvocationUpdateResponse
 from .browser_pool_acquire_params import BrowserPoolAcquireParams as BrowserPoolAcquireParams
 from .browser_pool_release_params import BrowserPoolReleaseParams as BrowserPoolReleaseParams
+from .browser_network_config_param import BrowserNetworkConfigParam as BrowserNetworkConfigParam
 from .deployment_retrieve_response import DeploymentRetrieveResponse as DeploymentRetrieveResponse
 from .invocation_retrieve_response import InvocationRetrieveResponse as InvocationRetrieveResponse
 from .audit_log_export_chunk_params import AuditLogExportChunkParams as AuditLogExportChunkParams

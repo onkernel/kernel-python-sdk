@@ -5,6 +5,7 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
+from .browser_network_config import BrowserNetworkConfig
 from .shared.browser_viewport import BrowserViewport
 from .shared.browser_extension import BrowserExtension
 from .browsers.browser_telemetry_config import BrowserTelemetryConfig
@@ -74,6 +75,12 @@ class BrowserPoolConfig(BaseModel):
 
     name: Optional[str] = None
     """Optional name for the browser pool. Must be unique within the project."""
+
+    network: Optional[BrowserNetworkConfig] = None
+    """Network configuration applied to browsers in this pool, if any.
+
+    Omitted when the pool has no network configuration.
+    """
 
     profile: Optional[BrowserPoolConfigProfile] = None
     """Profile configuration for browsers in a pool.

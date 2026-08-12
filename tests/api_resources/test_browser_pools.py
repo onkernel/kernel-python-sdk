@@ -45,6 +45,7 @@ class TestBrowserPools:
             headless=False,
             kiosk_mode=True,
             name="my-pool",
+            network={"private_hosts": ["*.example.ts.net", "100.64.0.0/10"]},
             profile={
                 "id": "id",
                 "name": "name",
@@ -179,6 +180,7 @@ class TestBrowserPools:
             headless=False,
             kiosk_mode=True,
             name="my-pool",
+            network={"private_hosts": ["*.example.ts.net", "100.64.0.0/10"]},
             profile={
                 "id": "id",
                 "name": "name",
@@ -553,6 +555,7 @@ class TestAsyncBrowserPools:
             headless=False,
             kiosk_mode=True,
             name="my-pool",
+            network={"private_hosts": ["*.example.ts.net", "100.64.0.0/10"]},
             profile={
                 "id": "id",
                 "name": "name",
@@ -687,6 +690,7 @@ class TestAsyncBrowserPools:
             headless=False,
             kiosk_mode=True,
             name="my-pool",
+            network={"private_hosts": ["*.example.ts.net", "100.64.0.0/10"]},
             profile={
                 "id": "id",
                 "name": "name",
