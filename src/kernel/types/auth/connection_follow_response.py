@@ -35,8 +35,23 @@ class ManagedAuthStateEventChoice(BaseModel):
     ]
     """Choice type."""
 
+    context: Optional[str] = None
+    """Context captured for a choice."""
+
     description: Optional[str] = None
     """Additional context for the choice."""
+
+    display_text: Optional[str] = None
+    """Display text captured for a choice."""
+
+    masked_destination: Optional[str] = None
+    """Masked phone number or email address shown for an MFA choice."""
+
+    mfa_type: Optional[Literal["sms", "call", "email", "totp", "push", "password", "passkey", "switch", "other"]] = None
+    """Semantic MFA method.
+
+    Choice id remains the stable identity of the exact option selected.
+    """
 
     observed_selector: Optional[str] = None
     """Selector for the visible choice, when available."""
@@ -87,6 +102,9 @@ class ManagedAuthStateEventField(BaseModel):
 
     type: Literal["identifier", "password", "code", "totp_code", "totp_secret", "text"]
     """Managed-auth field type."""
+
+    hint: Optional[str] = None
+    """Context shown near the field, including a masked code destination."""
 
     label: Optional[str] = None
     """Human-readable label shown to the user."""
