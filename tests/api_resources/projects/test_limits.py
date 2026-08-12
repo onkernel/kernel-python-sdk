@@ -21,7 +21,7 @@ class TestLimits:
     @parametrize
     def test_method_retrieve(self, client: Kernel) -> None:
         limit = client.projects.limits.retrieve(
-            "id",
+            "id_or_name",
         )
         assert_matches_type(ProjectLimits, limit, path=["response"])
 
@@ -29,7 +29,7 @@ class TestLimits:
     @parametrize
     def test_raw_response_retrieve(self, client: Kernel) -> None:
         response = client.projects.limits.with_raw_response.retrieve(
-            "id",
+            "id_or_name",
         )
 
         assert response.is_closed is True
@@ -41,7 +41,7 @@ class TestLimits:
     @parametrize
     def test_streaming_response_retrieve(self, client: Kernel) -> None:
         with client.projects.limits.with_streaming_response.retrieve(
-            "id",
+            "id_or_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -54,7 +54,7 @@ class TestLimits:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.projects.limits.with_raw_response.retrieve(
                 "",
             )
@@ -63,7 +63,7 @@ class TestLimits:
     @parametrize
     def test_method_update(self, client: Kernel) -> None:
         limit = client.projects.limits.update(
-            id="id",
+            id_or_name="id_or_name",
         )
         assert_matches_type(ProjectLimits, limit, path=["response"])
 
@@ -71,7 +71,7 @@ class TestLimits:
     @parametrize
     def test_method_update_with_all_params(self, client: Kernel) -> None:
         limit = client.projects.limits.update(
-            id="id",
+            id_or_name="id_or_name",
             max_concurrent_invocations=0,
             max_concurrent_sessions=0,
             max_pooled_sessions=0,
@@ -82,7 +82,7 @@ class TestLimits:
     @parametrize
     def test_raw_response_update(self, client: Kernel) -> None:
         response = client.projects.limits.with_raw_response.update(
-            id="id",
+            id_or_name="id_or_name",
         )
 
         assert response.is_closed is True
@@ -94,7 +94,7 @@ class TestLimits:
     @parametrize
     def test_streaming_response_update(self, client: Kernel) -> None:
         with client.projects.limits.with_streaming_response.update(
-            id="id",
+            id_or_name="id_or_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -107,9 +107,9 @@ class TestLimits:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.projects.limits.with_raw_response.update(
-                id="",
+                id_or_name="",
             )
 
 
@@ -122,7 +122,7 @@ class TestAsyncLimits:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncKernel) -> None:
         limit = await async_client.projects.limits.retrieve(
-            "id",
+            "id_or_name",
         )
         assert_matches_type(ProjectLimits, limit, path=["response"])
 
@@ -130,7 +130,7 @@ class TestAsyncLimits:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncKernel) -> None:
         response = await async_client.projects.limits.with_raw_response.retrieve(
-            "id",
+            "id_or_name",
         )
 
         assert response.is_closed is True
@@ -142,7 +142,7 @@ class TestAsyncLimits:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncKernel) -> None:
         async with async_client.projects.limits.with_streaming_response.retrieve(
-            "id",
+            "id_or_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -155,7 +155,7 @@ class TestAsyncLimits:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.projects.limits.with_raw_response.retrieve(
                 "",
             )
@@ -164,7 +164,7 @@ class TestAsyncLimits:
     @parametrize
     async def test_method_update(self, async_client: AsyncKernel) -> None:
         limit = await async_client.projects.limits.update(
-            id="id",
+            id_or_name="id_or_name",
         )
         assert_matches_type(ProjectLimits, limit, path=["response"])
 
@@ -172,7 +172,7 @@ class TestAsyncLimits:
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncKernel) -> None:
         limit = await async_client.projects.limits.update(
-            id="id",
+            id_or_name="id_or_name",
             max_concurrent_invocations=0,
             max_concurrent_sessions=0,
             max_pooled_sessions=0,
@@ -183,7 +183,7 @@ class TestAsyncLimits:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncKernel) -> None:
         response = await async_client.projects.limits.with_raw_response.update(
-            id="id",
+            id_or_name="id_or_name",
         )
 
         assert response.is_closed is True
@@ -195,7 +195,7 @@ class TestAsyncLimits:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncKernel) -> None:
         async with async_client.projects.limits.with_streaming_response.update(
-            id="id",
+            id_or_name="id_or_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -208,7 +208,7 @@ class TestAsyncLimits:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.projects.limits.with_raw_response.update(
-                id="",
+                id_or_name="",
             )

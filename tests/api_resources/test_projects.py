@@ -56,7 +56,7 @@ class TestProjects:
     @parametrize
     def test_method_retrieve(self, client: Kernel) -> None:
         project = client.projects.retrieve(
-            "id",
+            "id_or_name",
         )
         assert_matches_type(Project, project, path=["response"])
 
@@ -64,7 +64,7 @@ class TestProjects:
     @parametrize
     def test_raw_response_retrieve(self, client: Kernel) -> None:
         response = client.projects.with_raw_response.retrieve(
-            "id",
+            "id_or_name",
         )
 
         assert response.is_closed is True
@@ -76,7 +76,7 @@ class TestProjects:
     @parametrize
     def test_streaming_response_retrieve(self, client: Kernel) -> None:
         with client.projects.with_streaming_response.retrieve(
-            "id",
+            "id_or_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -89,7 +89,7 @@ class TestProjects:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.projects.with_raw_response.retrieve(
                 "",
             )
@@ -98,7 +98,7 @@ class TestProjects:
     @parametrize
     def test_method_update(self, client: Kernel) -> None:
         project = client.projects.update(
-            id="id",
+            id_or_name="id_or_name",
         )
         assert_matches_type(Project, project, path=["response"])
 
@@ -106,7 +106,7 @@ class TestProjects:
     @parametrize
     def test_method_update_with_all_params(self, client: Kernel) -> None:
         project = client.projects.update(
-            id="id",
+            id_or_name="id_or_name",
             name="x",
             status="active",
         )
@@ -116,7 +116,7 @@ class TestProjects:
     @parametrize
     def test_raw_response_update(self, client: Kernel) -> None:
         response = client.projects.with_raw_response.update(
-            id="id",
+            id_or_name="id_or_name",
         )
 
         assert response.is_closed is True
@@ -128,7 +128,7 @@ class TestProjects:
     @parametrize
     def test_streaming_response_update(self, client: Kernel) -> None:
         with client.projects.with_streaming_response.update(
-            id="id",
+            id_or_name="id_or_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -141,9 +141,9 @@ class TestProjects:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.projects.with_raw_response.update(
-                id="",
+                id_or_name="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -189,7 +189,7 @@ class TestProjects:
     @parametrize
     def test_method_delete(self, client: Kernel) -> None:
         project = client.projects.delete(
-            "id",
+            "id_or_name",
         )
         assert project is None
 
@@ -197,7 +197,7 @@ class TestProjects:
     @parametrize
     def test_raw_response_delete(self, client: Kernel) -> None:
         response = client.projects.with_raw_response.delete(
-            "id",
+            "id_or_name",
         )
 
         assert response.is_closed is True
@@ -209,7 +209,7 @@ class TestProjects:
     @parametrize
     def test_streaming_response_delete(self, client: Kernel) -> None:
         with client.projects.with_streaming_response.delete(
-            "id",
+            "id_or_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -222,7 +222,7 @@ class TestProjects:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.projects.with_raw_response.delete(
                 "",
             )
@@ -271,7 +271,7 @@ class TestAsyncProjects:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncKernel) -> None:
         project = await async_client.projects.retrieve(
-            "id",
+            "id_or_name",
         )
         assert_matches_type(Project, project, path=["response"])
 
@@ -279,7 +279,7 @@ class TestAsyncProjects:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncKernel) -> None:
         response = await async_client.projects.with_raw_response.retrieve(
-            "id",
+            "id_or_name",
         )
 
         assert response.is_closed is True
@@ -291,7 +291,7 @@ class TestAsyncProjects:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncKernel) -> None:
         async with async_client.projects.with_streaming_response.retrieve(
-            "id",
+            "id_or_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -304,7 +304,7 @@ class TestAsyncProjects:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.projects.with_raw_response.retrieve(
                 "",
             )
@@ -313,7 +313,7 @@ class TestAsyncProjects:
     @parametrize
     async def test_method_update(self, async_client: AsyncKernel) -> None:
         project = await async_client.projects.update(
-            id="id",
+            id_or_name="id_or_name",
         )
         assert_matches_type(Project, project, path=["response"])
 
@@ -321,7 +321,7 @@ class TestAsyncProjects:
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncKernel) -> None:
         project = await async_client.projects.update(
-            id="id",
+            id_or_name="id_or_name",
             name="x",
             status="active",
         )
@@ -331,7 +331,7 @@ class TestAsyncProjects:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncKernel) -> None:
         response = await async_client.projects.with_raw_response.update(
-            id="id",
+            id_or_name="id_or_name",
         )
 
         assert response.is_closed is True
@@ -343,7 +343,7 @@ class TestAsyncProjects:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncKernel) -> None:
         async with async_client.projects.with_streaming_response.update(
-            id="id",
+            id_or_name="id_or_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -356,9 +356,9 @@ class TestAsyncProjects:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.projects.with_raw_response.update(
-                id="",
+                id_or_name="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -404,7 +404,7 @@ class TestAsyncProjects:
     @parametrize
     async def test_method_delete(self, async_client: AsyncKernel) -> None:
         project = await async_client.projects.delete(
-            "id",
+            "id_or_name",
         )
         assert project is None
 
@@ -412,7 +412,7 @@ class TestAsyncProjects:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncKernel) -> None:
         response = await async_client.projects.with_raw_response.delete(
-            "id",
+            "id_or_name",
         )
 
         assert response.is_closed is True
@@ -424,7 +424,7 @@ class TestAsyncProjects:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncKernel) -> None:
         async with async_client.projects.with_streaming_response.delete(
-            "id",
+            "id_or_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -437,7 +437,7 @@ class TestAsyncProjects:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.projects.with_raw_response.delete(
                 "",
             )
