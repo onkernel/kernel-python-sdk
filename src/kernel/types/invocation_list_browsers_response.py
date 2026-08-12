@@ -2,6 +2,7 @@
 
 from typing import Dict, List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .tags import Tags
 from .profile import Profile
@@ -24,6 +25,9 @@ class Browser(BaseModel):
 
     headless: bool
     """Whether the browser session is running in headless mode."""
+
+    region: Literal["us-east", "eu-west"]
+    """Geographic region of the browser session. Fixed once the session is created."""
 
     session_id: str
     """Unique identifier for the browser session"""

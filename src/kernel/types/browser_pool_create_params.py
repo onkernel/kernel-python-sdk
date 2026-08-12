@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Iterable, Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 from .shared_params.browser_viewport import BrowserViewport
 from .shared_params.browser_extension import BrowserExtension
@@ -81,6 +81,13 @@ class BrowserPoolCreateParams(TypedDict, total=False):
     When true, flush idle browsers when the profile the pool uses is updated, so
     pool browsers pick up the latest profile data. When a profile is provided during
     creation, this defaults to true. Requires a profile to be set on the pool.
+    """
+
+    region: Literal["us-east", "eu-west"]
+    """Geographic region for the browser pool.
+
+    It is fixed once the pool is created. Region selection requires a Start-Up or
+    Enterprise plan, defaults to us-east when omitted on create.
     """
 
     start_url: str

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Iterable, Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -70,6 +71,7 @@ class BrowserPoolsResource(SyncAPIResource):
         profile: browser_pool_create_params.Profile | Omit = omit,
         proxy_id: str | Omit = omit,
         refresh_on_profile_update: bool | Omit = omit,
+        region: Literal["us-east", "eu-west"] | Omit = omit,
         start_url: str | Omit = omit,
         stealth: bool | Omit = omit,
         telemetry: Optional[browser_pool_create_params.Telemetry] | Omit = omit,
@@ -126,6 +128,10 @@ class BrowserPoolsResource(SyncAPIResource):
               pool browsers pick up the latest profile data. When a profile is provided during
               creation, this defaults to true. Requires a profile to be set on the pool.
 
+          region: Geographic region for the browser pool. It is fixed once the pool is created.
+              Region selection requires a Start-Up or Enterprise plan, defaults to us-east
+              when omitted on create.
+
           start_url: Optional URL to navigate to when a new browser is warmed into the pool.
               Best-effort: failures to navigate do not fail pool fill. Only applied to
               newly-warmed browsers; browsers reused via release/acquire keep whatever URL the
@@ -180,6 +186,7 @@ class BrowserPoolsResource(SyncAPIResource):
                     "profile": profile,
                     "proxy_id": proxy_id,
                     "refresh_on_profile_update": refresh_on_profile_update,
+                    "region": region,
                     "start_url": start_url,
                     "stealth": stealth,
                     "telemetry": telemetry,
@@ -386,6 +393,7 @@ class BrowserPoolsResource(SyncAPIResource):
         name: str | Omit = omit,
         offset: int | Omit = omit,
         query: str | Omit = omit,
+        region: Literal["us-east", "eu-west"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -409,6 +417,8 @@ class BrowserPoolsResource(SyncAPIResource):
           query: Case-insensitive substring match against browser pool name. IDs match by exact
               value.
 
+          region: Filter pools by geographic region. Omit to list pools in all regions.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -431,6 +441,7 @@ class BrowserPoolsResource(SyncAPIResource):
                         "name": name,
                         "offset": offset,
                         "query": query,
+                        "region": region,
                     },
                     browser_pool_list_params.BrowserPoolListParams,
                 ),
@@ -678,6 +689,7 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
         profile: browser_pool_create_params.Profile | Omit = omit,
         proxy_id: str | Omit = omit,
         refresh_on_profile_update: bool | Omit = omit,
+        region: Literal["us-east", "eu-west"] | Omit = omit,
         start_url: str | Omit = omit,
         stealth: bool | Omit = omit,
         telemetry: Optional[browser_pool_create_params.Telemetry] | Omit = omit,
@@ -734,6 +746,10 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
               pool browsers pick up the latest profile data. When a profile is provided during
               creation, this defaults to true. Requires a profile to be set on the pool.
 
+          region: Geographic region for the browser pool. It is fixed once the pool is created.
+              Region selection requires a Start-Up or Enterprise plan, defaults to us-east
+              when omitted on create.
+
           start_url: Optional URL to navigate to when a new browser is warmed into the pool.
               Best-effort: failures to navigate do not fail pool fill. Only applied to
               newly-warmed browsers; browsers reused via release/acquire keep whatever URL the
@@ -788,6 +804,7 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
                     "profile": profile,
                     "proxy_id": proxy_id,
                     "refresh_on_profile_update": refresh_on_profile_update,
+                    "region": region,
                     "start_url": start_url,
                     "stealth": stealth,
                     "telemetry": telemetry,
@@ -994,6 +1011,7 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
         name: str | Omit = omit,
         offset: int | Omit = omit,
         query: str | Omit = omit,
+        region: Literal["us-east", "eu-west"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1017,6 +1035,8 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
           query: Case-insensitive substring match against browser pool name. IDs match by exact
               value.
 
+          region: Filter pools by geographic region. Omit to list pools in all regions.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1039,6 +1059,7 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
                         "name": name,
                         "offset": offset,
                         "query": query,
+                        "region": region,
                     },
                     browser_pool_list_params.BrowserPoolListParams,
                 ),

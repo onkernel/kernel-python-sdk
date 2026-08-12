@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["BrowserPoolListParams"]
 
@@ -27,3 +27,6 @@ class BrowserPoolListParams(TypedDict, total=False):
 
     IDs match by exact value.
     """
+
+    region: Literal["us-east", "eu-west"]
+    """Filter pools by geographic region. Omit to list pools in all regions."""

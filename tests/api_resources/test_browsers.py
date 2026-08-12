@@ -57,6 +57,7 @@ class TestBrowsers:
                 "name": "x",
             },
             proxy_id="proxy_id",
+            region="us-east",
             start_url="https://example.com",
             stealth=True,
             tags={
@@ -278,6 +279,7 @@ class TestBrowsers:
             limit=1,
             offset=0,
             query="query",
+            region="us-east",
             status="active",
             tags={"foo": "string"},
         )
@@ -512,6 +514,7 @@ class TestAsyncBrowsers:
                 "name": "x",
             },
             proxy_id="proxy_id",
+            region="us-east",
             start_url="https://example.com",
             stealth=True,
             tags={
@@ -733,6 +736,7 @@ class TestAsyncBrowsers:
             limit=1,
             offset=0,
             query="query",
+            region="us-east",
             status="active",
             tags={"foo": "string"},
         )

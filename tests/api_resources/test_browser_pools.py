@@ -51,6 +51,7 @@ class TestBrowserPools:
             },
             proxy_id="proxy_id",
             refresh_on_profile_update=True,
+            region="us-east",
             start_url="https://example.com",
             stealth=True,
             telemetry={
@@ -267,6 +268,7 @@ class TestBrowserPools:
             name="name",
             offset=0,
             query="query",
+            region="us-east",
         )
         assert_matches_type(SyncOffsetPagination[BrowserPool], browser_pool, path=["response"])
 
@@ -557,6 +559,7 @@ class TestAsyncBrowserPools:
             },
             proxy_id="proxy_id",
             refresh_on_profile_update=True,
+            region="us-east",
             start_url="https://example.com",
             stealth=True,
             telemetry={
@@ -773,6 +776,7 @@ class TestAsyncBrowserPools:
             name="name",
             offset=0,
             query="query",
+            region="us-east",
         )
         assert_matches_type(AsyncOffsetPagination[BrowserPool], browser_pool, path=["response"])
 

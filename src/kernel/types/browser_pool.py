@@ -2,6 +2,7 @@
 
 from typing import Dict, List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .shared.browser_viewport import BrowserViewport
@@ -165,6 +166,9 @@ class BrowserPool(BaseModel):
     the extensions inside `browser_pool_config` reflect the configured selector
     (echoed as sent on create).
     """
+
+    region: Literal["us-east", "eu-west"]
+    """Geographic region of the browser pool. Fixed once the pool is created."""
 
     name: Optional[str] = None
     """Browser pool name, if set"""
