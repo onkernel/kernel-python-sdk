@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.89.0](https://github.com/kernel/kernel-python-sdk/compare/v0.88.0...v0.89.0) (2026-08-12)
+
+
+### Features
+
+* Add region as a first-class API field with plan and flag gating ([fdb020d](https://github.com/kernel/kernel-python-sdk/commit/fdb020d437b3b410b2d5758691f2818d5e744580))
+* Add typed network config with private_hosts to browsers and pools ([b30c0e3](https://github.com/kernel/kernel-python-sdk/commit/b30c0e31182f09247bbf32823c256e27725fdbfc))
+* Expose plan-derived auth limits on GET /org/limits ([9ff1b44](https://github.com/kernel/kernel-python-sdk/commit/9ff1b445f8f2bb3f9bb24f613e22c8b940fc1d5a))
+
 ## [0.88.0](https://github.com/kernel/kernel-python-sdk/compare/v0.87.0...v0.88.0) (2026-08-10)
 
 ### Features
