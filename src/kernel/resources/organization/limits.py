@@ -55,11 +55,7 @@ class LimitsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> OrgLimits:
-        """
-        Get the organization's concurrency limit — the maximum browsers running at once
-        across on-demand sessions and browser pool reservations — and the default
-        per-project concurrency cap applied to projects without an explicit override.
-        """
+        """Get the organization's effective limits and managed auth usage."""
         return self._get(
             "/org/limits",
             options=make_request_options(
@@ -142,11 +138,7 @@ class AsyncLimitsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> OrgLimits:
-        """
-        Get the organization's concurrency limit — the maximum browsers running at once
-        across on-demand sessions and browser pool reservations — and the default
-        per-project concurrency cap applied to projects without an explicit override.
-        """
+        """Get the organization's effective limits and managed auth usage."""
         return await self._get(
             "/org/limits",
             options=make_request_options(

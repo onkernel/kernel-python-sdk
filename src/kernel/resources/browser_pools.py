@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Iterable, Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -28,6 +29,7 @@ from ..pagination import SyncOffsetPagination, AsyncOffsetPagination
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.tags_param import TagsParam
 from ..types.browser_pool import BrowserPool
+from ..types.browser_network_config_param import BrowserNetworkConfigParam
 from ..types.browser_pool_acquire_response import BrowserPoolAcquireResponse
 from ..types.shared_params.browser_viewport import BrowserViewport
 from ..types.shared_params.browser_extension import BrowserExtension
@@ -67,9 +69,11 @@ class BrowserPoolsResource(SyncAPIResource):
         headless: bool | Omit = omit,
         kiosk_mode: bool | Omit = omit,
         name: str | Omit = omit,
+        network: BrowserNetworkConfigParam | Omit = omit,
         profile: browser_pool_create_params.Profile | Omit = omit,
         proxy_id: str | Omit = omit,
         refresh_on_profile_update: bool | Omit = omit,
+        region: Literal["us-east", "eu-west"] | Omit = omit,
         start_url: str | Omit = omit,
         stealth: bool | Omit = omit,
         telemetry: Optional[browser_pool_create_params.Telemetry] | Omit = omit,
@@ -113,6 +117,8 @@ class BrowserPoolsResource(SyncAPIResource):
 
           name: Optional name for the browser pool. Must be unique within the project.
 
+          network: Network configuration applied to browsers in this pool.
+
           profile: Profile configuration for browsers in a pool. Provide either id or name.
               Profiles must be created beforehand. Unlike single browser sessions, pools load
               the profile read-only and never persist changes back to it, so save_changes is
@@ -125,6 +131,10 @@ class BrowserPoolsResource(SyncAPIResource):
           refresh_on_profile_update: When true, flush idle browsers when the profile the pool uses is updated, so
               pool browsers pick up the latest profile data. When a profile is provided during
               creation, this defaults to true. Requires a profile to be set on the pool.
+
+          region: Geographic region for the browser pool. It is fixed once the pool is created.
+              Region selection requires a Start-Up or Enterprise plan, defaults to us-east
+              when omitted on create.
 
           start_url: Optional URL to navigate to when a new browser is warmed into the pool.
               Best-effort: failures to navigate do not fail pool fill. Only applied to
@@ -177,9 +187,11 @@ class BrowserPoolsResource(SyncAPIResource):
                     "headless": headless,
                     "kiosk_mode": kiosk_mode,
                     "name": name,
+                    "network": network,
                     "profile": profile,
                     "proxy_id": proxy_id,
                     "refresh_on_profile_update": refresh_on_profile_update,
+                    "region": region,
                     "start_url": start_url,
                     "stealth": stealth,
                     "telemetry": telemetry,
@@ -238,6 +250,7 @@ class BrowserPoolsResource(SyncAPIResource):
         headless: bool | Omit = omit,
         kiosk_mode: bool | Omit = omit,
         name: str | Omit = omit,
+        network: BrowserNetworkConfigParam | Omit = omit,
         profile: browser_pool_update_params.Profile | Omit = omit,
         proxy_id: str | Omit = omit,
         refresh_on_profile_update: bool | Omit = omit,
@@ -290,6 +303,12 @@ class BrowserPoolsResource(SyncAPIResource):
 
           name: If provided, replaces the pool name. Empty string is a no-op; the pool name
               cannot be cleared or reset to empty once assigned.
+
+          network: If provided, replaces the pool's network configuration. Omit to leave the
+              existing configuration unchanged; an empty object ({}) removes it, while
+              network: {private_hosts: []} sets an explicit empty list. Only applied to
+              browsers created in the pool after the update; browsers already in the pool keep
+              their configuration until discarded (see discard_all_idle).
 
           profile: Profile configuration for browsers in a pool. Provide either id or name.
               Profiles must be created beforehand. Unlike single browser sessions, pools load
@@ -361,6 +380,7 @@ class BrowserPoolsResource(SyncAPIResource):
                     "headless": headless,
                     "kiosk_mode": kiosk_mode,
                     "name": name,
+                    "network": network,
                     "profile": profile,
                     "proxy_id": proxy_id,
                     "refresh_on_profile_update": refresh_on_profile_update,
@@ -386,6 +406,7 @@ class BrowserPoolsResource(SyncAPIResource):
         name: str | Omit = omit,
         offset: int | Omit = omit,
         query: str | Omit = omit,
+        region: Literal["us-east", "eu-west"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -409,6 +430,8 @@ class BrowserPoolsResource(SyncAPIResource):
           query: Case-insensitive substring match against browser pool name. IDs match by exact
               value.
 
+          region: Filter pools by geographic region. Omit to list pools in all regions.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -431,6 +454,7 @@ class BrowserPoolsResource(SyncAPIResource):
                         "name": name,
                         "offset": offset,
                         "query": query,
+                        "region": region,
                     },
                     browser_pool_list_params.BrowserPoolListParams,
                 ),
@@ -675,9 +699,11 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
         headless: bool | Omit = omit,
         kiosk_mode: bool | Omit = omit,
         name: str | Omit = omit,
+        network: BrowserNetworkConfigParam | Omit = omit,
         profile: browser_pool_create_params.Profile | Omit = omit,
         proxy_id: str | Omit = omit,
         refresh_on_profile_update: bool | Omit = omit,
+        region: Literal["us-east", "eu-west"] | Omit = omit,
         start_url: str | Omit = omit,
         stealth: bool | Omit = omit,
         telemetry: Optional[browser_pool_create_params.Telemetry] | Omit = omit,
@@ -721,6 +747,8 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
 
           name: Optional name for the browser pool. Must be unique within the project.
 
+          network: Network configuration applied to browsers in this pool.
+
           profile: Profile configuration for browsers in a pool. Provide either id or name.
               Profiles must be created beforehand. Unlike single browser sessions, pools load
               the profile read-only and never persist changes back to it, so save_changes is
@@ -733,6 +761,10 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
           refresh_on_profile_update: When true, flush idle browsers when the profile the pool uses is updated, so
               pool browsers pick up the latest profile data. When a profile is provided during
               creation, this defaults to true. Requires a profile to be set on the pool.
+
+          region: Geographic region for the browser pool. It is fixed once the pool is created.
+              Region selection requires a Start-Up or Enterprise plan, defaults to us-east
+              when omitted on create.
 
           start_url: Optional URL to navigate to when a new browser is warmed into the pool.
               Best-effort: failures to navigate do not fail pool fill. Only applied to
@@ -785,9 +817,11 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
                     "headless": headless,
                     "kiosk_mode": kiosk_mode,
                     "name": name,
+                    "network": network,
                     "profile": profile,
                     "proxy_id": proxy_id,
                     "refresh_on_profile_update": refresh_on_profile_update,
+                    "region": region,
                     "start_url": start_url,
                     "stealth": stealth,
                     "telemetry": telemetry,
@@ -846,6 +880,7 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
         headless: bool | Omit = omit,
         kiosk_mode: bool | Omit = omit,
         name: str | Omit = omit,
+        network: BrowserNetworkConfigParam | Omit = omit,
         profile: browser_pool_update_params.Profile | Omit = omit,
         proxy_id: str | Omit = omit,
         refresh_on_profile_update: bool | Omit = omit,
@@ -898,6 +933,12 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
 
           name: If provided, replaces the pool name. Empty string is a no-op; the pool name
               cannot be cleared or reset to empty once assigned.
+
+          network: If provided, replaces the pool's network configuration. Omit to leave the
+              existing configuration unchanged; an empty object ({}) removes it, while
+              network: {private_hosts: []} sets an explicit empty list. Only applied to
+              browsers created in the pool after the update; browsers already in the pool keep
+              their configuration until discarded (see discard_all_idle).
 
           profile: Profile configuration for browsers in a pool. Provide either id or name.
               Profiles must be created beforehand. Unlike single browser sessions, pools load
@@ -969,6 +1010,7 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
                     "headless": headless,
                     "kiosk_mode": kiosk_mode,
                     "name": name,
+                    "network": network,
                     "profile": profile,
                     "proxy_id": proxy_id,
                     "refresh_on_profile_update": refresh_on_profile_update,
@@ -994,6 +1036,7 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
         name: str | Omit = omit,
         offset: int | Omit = omit,
         query: str | Omit = omit,
+        region: Literal["us-east", "eu-west"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1017,6 +1060,8 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
           query: Case-insensitive substring match against browser pool name. IDs match by exact
               value.
 
+          region: Filter pools by geographic region. Omit to list pools in all regions.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1039,6 +1084,7 @@ class AsyncBrowserPoolsResource(AsyncAPIResource):
                         "name": name,
                         "offset": offset,
                         "query": query,
+                        "region": region,
                     },
                     browser_pool_list_params.BrowserPoolListParams,
                 ),

@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 from typing import Dict, Iterable, Optional
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
 
 from .tags_param import TagsParam
 from .browser_proxy_config_param import BrowserProxyConfigParam
+from .browser_network_config_param import BrowserNetworkConfigParam
 from .shared_params.browser_profile import BrowserProfile
 from .shared_params.browser_viewport import BrowserViewport
 from .shared_params.browser_extension import BrowserExtension
@@ -64,6 +65,12 @@ class BrowserCreateParams(TypedDict, total=False):
     changed later via PATCH /browsers/{id_or_name}.
     """
 
+    network: BrowserNetworkConfigParam
+    """Network configuration for the browser session.
+
+    Cannot be changed after creation.
+    """
+
     profile: BrowserProfile
     """Profile selection for the browser session.
 
@@ -88,6 +95,13 @@ class BrowserCreateParams(TypedDict, total=False):
 
     Must reference a proxy in the same project as the browser session. Deprecated in
     favor of proxy.
+    """
+
+    region: Literal["us-east", "eu-west"]
+    """Geographic region for the browser session.
+
+    It is fixed once the session is created. Region selection requires a Start-Up or
+    Enterprise plan, defaults to us-east when omitted on create.
     """
 
     start_url: str

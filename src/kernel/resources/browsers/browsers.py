@@ -98,6 +98,7 @@ from ...types.browser_create_response import BrowserCreateResponse
 from ...types.browser_update_response import BrowserUpdateResponse
 from ...types.browser_retrieve_response import BrowserRetrieveResponse
 from ...types.browser_proxy_config_param import BrowserProxyConfigParam
+from ...types.browser_network_config_param import BrowserNetworkConfigParam
 from ...types.shared_params.browser_profile import BrowserProfile
 from ...types.shared_params.browser_viewport import BrowserViewport
 from ...types.shared_params.browser_extension import BrowserExtension
@@ -172,9 +173,11 @@ class BrowsersResource(SyncAPIResource):
         invocation_id: str | Omit = omit,
         kiosk_mode: bool | Omit = omit,
         name: str | Omit = omit,
+        network: BrowserNetworkConfigParam | Omit = omit,
         profile: BrowserProfile | Omit = omit,
         proxy: BrowserProxyConfigParam | Omit = omit,
         proxy_id: str | Omit = omit,
+        region: Literal["us-east", "eu-west"] | Omit = omit,
         start_url: str | Omit = omit,
         stealth: bool | Omit = omit,
         tags: TagsParam | Omit = omit,
@@ -214,6 +217,8 @@ class BrowsersResource(SyncAPIResource):
               the dashboard. Must be unique among active sessions within the project. Can be
               changed later via PATCH /browsers/{id_or_name}.
 
+          network: Network configuration for the browser session. Cannot be changed after creation.
+
           profile: Profile selection for the browser session. Provide either id or name. If
               specified, the matching profile will be loaded into the browser session.
               Profiles must be created beforehand.
@@ -228,6 +233,10 @@ class BrowsersResource(SyncAPIResource):
 
           proxy_id: Optional proxy to associate to the browser session. Must reference a proxy in
               the same project as the browser session. Deprecated in favor of proxy.
+
+          region: Geographic region for the browser session. It is fixed once the session is
+              created. Region selection requires a Start-Up or Enterprise plan, defaults to
+              us-east when omitted on create.
 
           start_url: Optional URL to open when the browser session is created. Navigation is
               best-effort, so navigation failures do not prevent the session from being
@@ -287,9 +296,11 @@ class BrowsersResource(SyncAPIResource):
                     "invocation_id": invocation_id,
                     "kiosk_mode": kiosk_mode,
                     "name": name,
+                    "network": network,
                     "profile": profile,
                     "proxy": proxy,
                     "proxy_id": proxy_id,
+                    "region": region,
                     "start_url": start_url,
                     "stealth": stealth,
                     "tags": tags,
@@ -440,6 +451,7 @@ class BrowsersResource(SyncAPIResource):
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         query: str | Omit = omit,
+        region: Literal["us-east", "eu-west"] | Omit = omit,
         status: Literal["active", "deleted", "all"] | Omit = omit,
         tags: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -463,6 +475,8 @@ class BrowsersResource(SyncAPIResource):
           offset: Number of results to skip. Defaults to 0.
 
           query: Search browsers by name, session ID, profile name or ID, proxy ID, or pool name.
+
+          region: Filter sessions by geographic region. Omit to list sessions in all regions.
 
           status: Filter sessions by status. "active" returns only active sessions (default),
               "deleted" returns only soft-deleted sessions, "all" returns both.
@@ -493,6 +507,7 @@ class BrowsersResource(SyncAPIResource):
                         "limit": limit,
                         "offset": offset,
                         "query": query,
+                        "region": region,
                         "status": status,
                         "tags": tags,
                     },
@@ -772,9 +787,11 @@ class AsyncBrowsersResource(AsyncAPIResource):
         invocation_id: str | Omit = omit,
         kiosk_mode: bool | Omit = omit,
         name: str | Omit = omit,
+        network: BrowserNetworkConfigParam | Omit = omit,
         profile: BrowserProfile | Omit = omit,
         proxy: BrowserProxyConfigParam | Omit = omit,
         proxy_id: str | Omit = omit,
+        region: Literal["us-east", "eu-west"] | Omit = omit,
         start_url: str | Omit = omit,
         stealth: bool | Omit = omit,
         tags: TagsParam | Omit = omit,
@@ -814,6 +831,8 @@ class AsyncBrowsersResource(AsyncAPIResource):
               the dashboard. Must be unique among active sessions within the project. Can be
               changed later via PATCH /browsers/{id_or_name}.
 
+          network: Network configuration for the browser session. Cannot be changed after creation.
+
           profile: Profile selection for the browser session. Provide either id or name. If
               specified, the matching profile will be loaded into the browser session.
               Profiles must be created beforehand.
@@ -828,6 +847,10 @@ class AsyncBrowsersResource(AsyncAPIResource):
 
           proxy_id: Optional proxy to associate to the browser session. Must reference a proxy in
               the same project as the browser session. Deprecated in favor of proxy.
+
+          region: Geographic region for the browser session. It is fixed once the session is
+              created. Region selection requires a Start-Up or Enterprise plan, defaults to
+              us-east when omitted on create.
 
           start_url: Optional URL to open when the browser session is created. Navigation is
               best-effort, so navigation failures do not prevent the session from being
@@ -887,9 +910,11 @@ class AsyncBrowsersResource(AsyncAPIResource):
                     "invocation_id": invocation_id,
                     "kiosk_mode": kiosk_mode,
                     "name": name,
+                    "network": network,
                     "profile": profile,
                     "proxy": proxy,
                     "proxy_id": proxy_id,
+                    "region": region,
                     "start_url": start_url,
                     "stealth": stealth,
                     "tags": tags,
@@ -1040,6 +1065,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         query: str | Omit = omit,
+        region: Literal["us-east", "eu-west"] | Omit = omit,
         status: Literal["active", "deleted", "all"] | Omit = omit,
         tags: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1063,6 +1089,8 @@ class AsyncBrowsersResource(AsyncAPIResource):
           offset: Number of results to skip. Defaults to 0.
 
           query: Search browsers by name, session ID, profile name or ID, proxy ID, or pool name.
+
+          region: Filter sessions by geographic region. Omit to list sessions in all regions.
 
           status: Filter sessions by status. "active" returns only active sessions (default),
               "deleted" returns only soft-deleted sessions, "all" returns both.
@@ -1093,6 +1121,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
                         "limit": limit,
                         "offset": offset,
                         "query": query,
+                        "region": region,
                         "status": status,
                         "tags": tags,
                     },

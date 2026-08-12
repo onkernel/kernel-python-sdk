@@ -45,12 +45,14 @@ class TestBrowserPools:
             headless=False,
             kiosk_mode=True,
             name="my-pool",
+            network={"private_hosts": ["*.example.ts.net", "100.64.0.0/10"]},
             profile={
                 "id": "id",
                 "name": "name",
             },
             proxy_id="proxy_id",
             refresh_on_profile_update=True,
+            region="us-east",
             start_url="https://example.com",
             stealth=True,
             telemetry={
@@ -178,6 +180,7 @@ class TestBrowserPools:
             headless=False,
             kiosk_mode=True,
             name="my-pool",
+            network={"private_hosts": ["*.example.ts.net", "100.64.0.0/10"]},
             profile={
                 "id": "id",
                 "name": "name",
@@ -267,6 +270,7 @@ class TestBrowserPools:
             name="name",
             offset=0,
             query="query",
+            region="us-east",
         )
         assert_matches_type(SyncOffsetPagination[BrowserPool], browser_pool, path=["response"])
 
@@ -551,12 +555,14 @@ class TestAsyncBrowserPools:
             headless=False,
             kiosk_mode=True,
             name="my-pool",
+            network={"private_hosts": ["*.example.ts.net", "100.64.0.0/10"]},
             profile={
                 "id": "id",
                 "name": "name",
             },
             proxy_id="proxy_id",
             refresh_on_profile_update=True,
+            region="us-east",
             start_url="https://example.com",
             stealth=True,
             telemetry={
@@ -684,6 +690,7 @@ class TestAsyncBrowserPools:
             headless=False,
             kiosk_mode=True,
             name="my-pool",
+            network={"private_hosts": ["*.example.ts.net", "100.64.0.0/10"]},
             profile={
                 "id": "id",
                 "name": "name",
@@ -773,6 +780,7 @@ class TestAsyncBrowserPools:
             name="name",
             offset=0,
             query="query",
+            region="us-east",
         )
         assert_matches_type(AsyncOffsetPagination[BrowserPool], browser_pool, path=["response"])
 

@@ -46,6 +46,7 @@ class TestBrowsers:
             invocation_id="rr33xuugxj9h0bkf1rdt2bet",
             kiosk_mode=True,
             name="checkout-flow-1",
+            network={"private_hosts": ["*.example.ts.net", "100.64.0.0/10"]},
             profile={
                 "id": "id",
                 "name": "name",
@@ -57,6 +58,7 @@ class TestBrowsers:
                 "name": "x",
             },
             proxy_id="proxy_id",
+            region="us-east",
             start_url="https://example.com",
             stealth=True,
             tags={
@@ -278,6 +280,7 @@ class TestBrowsers:
             limit=1,
             offset=0,
             query="query",
+            region="us-east",
             status="active",
             tags={"foo": "string"},
         )
@@ -501,6 +504,7 @@ class TestAsyncBrowsers:
             invocation_id="rr33xuugxj9h0bkf1rdt2bet",
             kiosk_mode=True,
             name="checkout-flow-1",
+            network={"private_hosts": ["*.example.ts.net", "100.64.0.0/10"]},
             profile={
                 "id": "id",
                 "name": "name",
@@ -512,6 +516,7 @@ class TestAsyncBrowsers:
                 "name": "x",
             },
             proxy_id="proxy_id",
+            region="us-east",
             start_url="https://example.com",
             stealth=True,
             tags={
@@ -733,6 +738,7 @@ class TestAsyncBrowsers:
             limit=1,
             offset=0,
             query="query",
+            region="us-east",
             status="active",
             tags={"foo": "string"},
         )

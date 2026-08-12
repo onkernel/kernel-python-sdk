@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Dict, Iterable, Optional
 from typing_extensions import TypedDict
 
+from .browser_network_config_param import BrowserNetworkConfigParam
 from .shared_params.browser_viewport import BrowserViewport
 from .shared_params.browser_extension import BrowserExtension
 from .browsers.browser_telemetry_categories_config_param import BrowserTelemetryCategoriesConfigParam
@@ -65,6 +66,15 @@ class BrowserPoolUpdateParams(TypedDict, total=False):
 
     Empty string is a no-op; the pool name cannot be cleared or reset to empty once
     assigned.
+    """
+
+    network: BrowserNetworkConfigParam
+    """If provided, replaces the pool's network configuration.
+
+    Omit to leave the existing configuration unchanged; an empty object ({}) removes
+    it, while network: {private_hosts: []} sets an explicit empty list. Only applied
+    to browsers created in the pool after the update; browsers already in the pool
+    keep their configuration until discarded (see discard_all_idle).
     """
 
     profile: Profile
