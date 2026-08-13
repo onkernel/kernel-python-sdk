@@ -82,7 +82,7 @@ class ProjectsResource(SyncAPIResource):
         Create a new project within the authenticated organization.
 
         Args:
-          name: Project name (1-255 Unicode code points)
+          name: Project name (1-255 Unicode code points; cannot contain `/` or `%`)
 
           extra_headers: Send extra headers
 
@@ -103,7 +103,7 @@ class ProjectsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        id: str,
+        id_or_name: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -125,10 +125,10 @@ class ProjectsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._get(
-            path_template("/org/projects/{id}", id=id),
+            path_template("/org/projects/{id_or_name}", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -137,7 +137,7 @@ class ProjectsResource(SyncAPIResource):
 
     def update(
         self,
-        id: str,
+        id_or_name: str,
         *,
         name: str | Omit = omit,
         status: Literal["active", "archived"] | Omit = omit,
@@ -152,7 +152,7 @@ class ProjectsResource(SyncAPIResource):
         Update a project's name or status.
 
         Args:
-          name: New project name (1-255 Unicode code points)
+          name: New project name (1-255 Unicode code points; cannot contain `/` or `%`)
 
           status: New project status
 
@@ -164,10 +164,10 @@ class ProjectsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._patch(
-            path_template("/org/projects/{id}", id=id),
+            path_template("/org/projects/{id_or_name}", id_or_name=id_or_name),
             body=maybe_transform(
                 {
                     "name": name,
@@ -239,7 +239,7 @@ class ProjectsResource(SyncAPIResource):
 
     def delete(
         self,
-        id: str,
+        id_or_name: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -261,11 +261,11 @@ class ProjectsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            path_template("/org/projects/{id}", id=id),
+            path_template("/org/projects/{id_or_name}", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -323,7 +323,7 @@ class AsyncProjectsResource(AsyncAPIResource):
         Create a new project within the authenticated organization.
 
         Args:
-          name: Project name (1-255 Unicode code points)
+          name: Project name (1-255 Unicode code points; cannot contain `/` or `%`)
 
           extra_headers: Send extra headers
 
@@ -344,7 +344,7 @@ class AsyncProjectsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        id: str,
+        id_or_name: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -366,10 +366,10 @@ class AsyncProjectsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return await self._get(
-            path_template("/org/projects/{id}", id=id),
+            path_template("/org/projects/{id_or_name}", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -378,7 +378,7 @@ class AsyncProjectsResource(AsyncAPIResource):
 
     async def update(
         self,
-        id: str,
+        id_or_name: str,
         *,
         name: str | Omit = omit,
         status: Literal["active", "archived"] | Omit = omit,
@@ -393,7 +393,7 @@ class AsyncProjectsResource(AsyncAPIResource):
         Update a project's name or status.
 
         Args:
-          name: New project name (1-255 Unicode code points)
+          name: New project name (1-255 Unicode code points; cannot contain `/` or `%`)
 
           status: New project status
 
@@ -405,10 +405,10 @@ class AsyncProjectsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return await self._patch(
-            path_template("/org/projects/{id}", id=id),
+            path_template("/org/projects/{id_or_name}", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {
                     "name": name,
@@ -480,7 +480,7 @@ class AsyncProjectsResource(AsyncAPIResource):
 
     async def delete(
         self,
-        id: str,
+        id_or_name: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -502,11 +502,11 @@ class AsyncProjectsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            path_template("/org/projects/{id}", id=id),
+            path_template("/org/projects/{id_or_name}", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

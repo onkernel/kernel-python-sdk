@@ -51,7 +51,7 @@ class LimitsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        id: str,
+        id_or_name: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -74,10 +74,10 @@ class LimitsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._get(
-            path_template("/org/projects/{id}/limits", id=id),
+            path_template("/org/projects/{id_or_name}/limits", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -86,7 +86,7 @@ class LimitsResource(SyncAPIResource):
 
     def update(
         self,
-        id: str,
+        id_or_name: str,
         *,
         max_concurrent_invocations: Optional[int] | Omit = omit,
         max_concurrent_sessions: Optional[int] | Omit = omit,
@@ -123,10 +123,10 @@ class LimitsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._patch(
-            path_template("/org/projects/{id}/limits", id=id),
+            path_template("/org/projects/{id_or_name}/limits", id_or_name=id_or_name),
             body=maybe_transform(
                 {
                     "max_concurrent_invocations": max_concurrent_invocations,
@@ -170,7 +170,7 @@ class AsyncLimitsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        id: str,
+        id_or_name: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -193,10 +193,10 @@ class AsyncLimitsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return await self._get(
-            path_template("/org/projects/{id}/limits", id=id),
+            path_template("/org/projects/{id_or_name}/limits", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -205,7 +205,7 @@ class AsyncLimitsResource(AsyncAPIResource):
 
     async def update(
         self,
-        id: str,
+        id_or_name: str,
         *,
         max_concurrent_invocations: Optional[int] | Omit = omit,
         max_concurrent_sessions: Optional[int] | Omit = omit,
@@ -242,10 +242,10 @@ class AsyncLimitsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return await self._patch(
-            path_template("/org/projects/{id}/limits", id=id),
+            path_template("/org/projects/{id_or_name}/limits", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {
                     "max_concurrent_invocations": max_concurrent_invocations,

@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.90.0](https://github.com/kernel/kernel-python-sdk/compare/v0.89.0...v0.90.0) (2026-08-12)
+
+
+### Features
+
+* Preserve canonical managed auth input metadata ([3bb6956](https://github.com/kernel/kernel-python-sdk/commit/3bb6956e8021a955cfcbd12fd93d2a3a6b648ed7))
+* Support project selection by ID or name ([67970b2](https://github.com/kernel/kernel-python-sdk/commit/67970b2b8cc0312b81d10e6fec6c3a016c79d347))
+
 ## [0.89.0](https://github.com/kernel/kernel-python-sdk/compare/v0.88.0...v0.89.0) (2026-08-12)
 
 
