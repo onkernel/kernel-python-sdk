@@ -73,7 +73,8 @@ class CredentialProvidersResource(SyncAPIResource):
         Args:
           token: Service account token for the provider (e.g., 1Password service account token)
 
-          name: Human-readable name for this provider instance (unique per org)
+          name: Human-readable name for this provider instance (unique per org). Surrounding
+              whitespace is trimmed and the trimmed value must be non-empty.
 
           provider_type: Type of credential provider
 
@@ -163,7 +164,8 @@ class CredentialProvidersResource(SyncAPIResource):
 
           enabled: Whether the provider is enabled for credential lookups
 
-          name: Human-readable name for this provider instance
+          name: Human-readable name for this provider instance. Surrounding whitespace is
+              trimmed and the trimmed value must be non-empty.
 
           priority: Priority order for credential lookups (lower numbers are checked first)
 
@@ -392,7 +394,8 @@ class AsyncCredentialProvidersResource(AsyncAPIResource):
         Args:
           token: Service account token for the provider (e.g., 1Password service account token)
 
-          name: Human-readable name for this provider instance (unique per org)
+          name: Human-readable name for this provider instance (unique per org). Surrounding
+              whitespace is trimmed and the trimmed value must be non-empty.
 
           provider_type: Type of credential provider
 
@@ -482,7 +485,8 @@ class AsyncCredentialProvidersResource(AsyncAPIResource):
 
           enabled: Whether the provider is enabled for credential lookups
 
-          name: Human-readable name for this provider instance
+          name: Human-readable name for this provider instance. Surrounding whitespace is
+              trimmed and the trimmed value must be non-empty.
 
           priority: Priority order for credential lookups (lower numbers are checked first)
 
