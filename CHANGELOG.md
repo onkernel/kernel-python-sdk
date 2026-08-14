@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.91.0](https://github.com/kernel/kernel-python-sdk/compare/v0.90.0...v0.91.0) (2026-08-14)
+
+
+### Features
+
+* Add customer-facing OTLP destination CRUD API ([8479adf](https://github.com/kernel/kernel-python-sdk/commit/8479adff62631c996a4a9129fd8639c16d96b92b))
+* Expose configurable browser memory ([ccf4127](https://github.com/kernel/kernel-python-sdk/commit/ccf4127272adc749f0da75b7e2458e4a9e183423))
+* Require a name on credential providers and backfill unnamed rows ([0d5a4c2](https://github.com/kernel/kernel-python-sdk/commit/0d5a4c29be2e2bc0a216436cbda4bc8602784d02))
+
 ## [0.90.0](https://github.com/kernel/kernel-python-sdk/compare/v0.89.0...v0.90.0) (2026-08-12)
 
 

@@ -25,6 +25,7 @@ from .fs.fs import (
     AsyncFsResourceWithStreamingResponse,
 )
 from ...types import (
+    BrowserMemoryRequest,
     browser_curl_params,
     browser_list_params,
     browser_create_params,
@@ -94,6 +95,7 @@ from ...lib.browser_routing.raw_http import (
     async_stream_via_browser_route,
     async_request_via_browser_route,
 )
+from ...types.browser_memory_request import BrowserMemoryRequest
 from ...types.browser_create_response import BrowserCreateResponse
 from ...types.browser_update_response import BrowserUpdateResponse
 from ...types.browser_retrieve_response import BrowserRetrieveResponse
@@ -111,7 +113,9 @@ class BrowsersResource(SyncAPIResource):
 
     @cached_property
     def telemetry(self) -> TelemetryResource:
-        """Stream live telemetry events from a browser session."""
+        """
+        Stream live telemetry events from a browser session, and manage the destinations sessions export them to.
+        """
         return TelemetryResource(self._client)
 
     @cached_property
@@ -172,6 +176,7 @@ class BrowsersResource(SyncAPIResource):
         headless: bool | Omit = omit,
         invocation_id: str | Omit = omit,
         kiosk_mode: bool | Omit = omit,
+        memory: BrowserMemoryRequest | Omit = omit,
         name: str | Omit = omit,
         network: BrowserNetworkConfigParam | Omit = omit,
         profile: BrowserProfile | Omit = omit,
@@ -212,6 +217,8 @@ class BrowsersResource(SyncAPIResource):
 
           kiosk_mode: If true, launches the browser in kiosk mode to hide address bar and tabs in live
               view.
+
+          memory: Memory for a headful, non-GPU browser session. Defaults to 8GiB.
 
           name: Optional human-readable name for the browser session, used to find it later in
               the dashboard. Must be unique among active sessions within the project. Can be
@@ -295,6 +302,7 @@ class BrowsersResource(SyncAPIResource):
                     "headless": headless,
                     "invocation_id": invocation_id,
                     "kiosk_mode": kiosk_mode,
+                    "memory": memory,
                     "name": name,
                     "network": network,
                     "profile": profile,
@@ -725,7 +733,9 @@ class AsyncBrowsersResource(AsyncAPIResource):
 
     @cached_property
     def telemetry(self) -> AsyncTelemetryResource:
-        """Stream live telemetry events from a browser session."""
+        """
+        Stream live telemetry events from a browser session, and manage the destinations sessions export them to.
+        """
         return AsyncTelemetryResource(self._client)
 
     @cached_property
@@ -786,6 +796,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         headless: bool | Omit = omit,
         invocation_id: str | Omit = omit,
         kiosk_mode: bool | Omit = omit,
+        memory: BrowserMemoryRequest | Omit = omit,
         name: str | Omit = omit,
         network: BrowserNetworkConfigParam | Omit = omit,
         profile: BrowserProfile | Omit = omit,
@@ -826,6 +837,8 @@ class AsyncBrowsersResource(AsyncAPIResource):
 
           kiosk_mode: If true, launches the browser in kiosk mode to hide address bar and tabs in live
               view.
+
+          memory: Memory for a headful, non-GPU browser session. Defaults to 8GiB.
 
           name: Optional human-readable name for the browser session, used to find it later in
               the dashboard. Must be unique among active sessions within the project. Can be
@@ -909,6 +922,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
                     "headless": headless,
                     "invocation_id": invocation_id,
                     "kiosk_mode": kiosk_mode,
+                    "memory": memory,
                     "name": name,
                     "network": network,
                     "profile": profile,
@@ -1362,7 +1376,9 @@ class BrowsersResourceWithRawResponse:
 
     @cached_property
     def telemetry(self) -> TelemetryResourceWithRawResponse:
-        """Stream live telemetry events from a browser session."""
+        """
+        Stream live telemetry events from a browser session, and manage the destinations sessions export them to.
+        """
         return TelemetryResourceWithRawResponse(self._browsers.telemetry)
 
     @cached_property
@@ -1424,7 +1440,9 @@ class AsyncBrowsersResourceWithRawResponse:
 
     @cached_property
     def telemetry(self) -> AsyncTelemetryResourceWithRawResponse:
-        """Stream live telemetry events from a browser session."""
+        """
+        Stream live telemetry events from a browser session, and manage the destinations sessions export them to.
+        """
         return AsyncTelemetryResourceWithRawResponse(self._browsers.telemetry)
 
     @cached_property
@@ -1486,7 +1504,9 @@ class BrowsersResourceWithStreamingResponse:
 
     @cached_property
     def telemetry(self) -> TelemetryResourceWithStreamingResponse:
-        """Stream live telemetry events from a browser session."""
+        """
+        Stream live telemetry events from a browser session, and manage the destinations sessions export them to.
+        """
         return TelemetryResourceWithStreamingResponse(self._browsers.telemetry)
 
     @cached_property
@@ -1548,7 +1568,9 @@ class AsyncBrowsersResourceWithStreamingResponse:
 
     @cached_property
     def telemetry(self) -> AsyncTelemetryResourceWithStreamingResponse:
-        """Stream live telemetry events from a browser session."""
+        """
+        Stream live telemetry events from a browser session, and manage the destinations sessions export them to.
+        """
         return AsyncTelemetryResourceWithStreamingResponse(self._browsers.telemetry)
 
     @cached_property

@@ -31,6 +31,7 @@ def _fake_browser() -> dict[str, object]:
         "created_at": "2020-01-01T00:00:00Z",
         "headless": True,
         "stealth": False,
+        "memory": "8GiB",
         "timeout_seconds": 60,
         "region": "us-east",
     }

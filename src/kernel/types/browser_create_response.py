@@ -9,6 +9,7 @@ from .profile import Profile
 from .._models import BaseModel
 from .browser_proxy import BrowserProxy
 from .browser_usage import BrowserUsage
+from .browser_memory import BrowserMemory
 from .browser_pool_ref import BrowserPoolRef
 from .browser_network_config import BrowserNetworkConfig
 from .shared.browser_viewport import BrowserViewport
@@ -26,6 +27,9 @@ class BrowserCreateResponse(BaseModel):
 
     headless: bool
     """Whether the browser session is running in headless mode."""
+
+    memory: BrowserMemory
+    """Memory allocated to the browser session."""
 
     region: Literal["us-east", "eu-west"]
     """Geographic region of the browser session. Fixed once the session is created."""

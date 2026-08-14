@@ -6,6 +6,7 @@ from typing import Dict, Iterable, Optional
 from typing_extensions import Literal, TypedDict
 
 from .tags_param import TagsParam
+from .browser_memory_request import BrowserMemoryRequest
 from .browser_proxy_config_param import BrowserProxyConfigParam
 from .browser_network_config_param import BrowserNetworkConfigParam
 from .shared_params.browser_profile import BrowserProfile
@@ -57,6 +58,9 @@ class BrowserCreateParams(TypedDict, total=False):
     If true, launches the browser in kiosk mode to hide address bar and tabs in live
     view.
     """
+
+    memory: BrowserMemoryRequest
+    """Memory for a headful, non-GPU browser session. Defaults to 8GiB."""
 
     name: str
     """

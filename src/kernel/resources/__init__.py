@@ -56,6 +56,14 @@ from .projects import (
     ProjectsResourceWithStreamingResponse,
     AsyncProjectsResourceWithStreamingResponse,
 )
+from .telemetry import (
+    TelemetryResource,
+    AsyncTelemetryResource,
+    TelemetryResourceWithRawResponse,
+    AsyncTelemetryResourceWithRawResponse,
+    TelemetryResourceWithStreamingResponse,
+    AsyncTelemetryResourceWithStreamingResponse,
+)
 from .audit_logs import (
     AuditLogsResource,
     AsyncAuditLogsResource,
@@ -158,6 +166,12 @@ __all__ = [
     "AsyncAuthResourceWithRawResponse",
     "AuthResourceWithStreamingResponse",
     "AsyncAuthResourceWithStreamingResponse",
+    "TelemetryResource",
+    "AsyncTelemetryResource",
+    "TelemetryResourceWithRawResponse",
+    "AsyncTelemetryResourceWithRawResponse",
+    "TelemetryResourceWithStreamingResponse",
+    "AsyncTelemetryResourceWithStreamingResponse",
     "ProxiesResource",
     "AsyncProxiesResource",
     "ProxiesResourceWithRawResponse",

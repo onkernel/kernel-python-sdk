@@ -12,7 +12,10 @@ class CredentialProviderCreateParams(TypedDict, total=False):
     """Service account token for the provider (e.g., 1Password service account token)"""
 
     name: Required[str]
-    """Human-readable name for this provider instance (unique per org)"""
+    """Human-readable name for this provider instance (unique per org).
+
+    Surrounding whitespace is trimmed and the trimmed value must be non-empty.
+    """
 
     provider_type: Required[Literal["onepassword"]]
     """Type of credential provider"""
