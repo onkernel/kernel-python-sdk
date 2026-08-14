@@ -45,6 +45,7 @@ class TestBrowsers:
             headless=False,
             invocation_id="rr33xuugxj9h0bkf1rdt2bet",
             kiosk_mode=True,
+            memory="8GiB",
             name="checkout-flow-1",
             network={"private_hosts": ["*.example.ts.net", "100.64.0.0/10"]},
             profile={
@@ -503,6 +504,7 @@ class TestAsyncBrowsers:
             headless=False,
             invocation_id="rr33xuugxj9h0bkf1rdt2bet",
             kiosk_mode=True,
+            memory="8GiB",
             name="checkout-flow-1",
             network={"private_hosts": ["*.example.ts.net", "100.64.0.0/10"]},
             profile={

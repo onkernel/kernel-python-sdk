@@ -80,6 +80,8 @@ Types:
 
 ```python
 from kernel.types import (
+    BrowserMemory,
+    BrowserMemoryRequest,
     BrowserNetworkConfig,
     BrowserPoolRef,
     BrowserProxy,

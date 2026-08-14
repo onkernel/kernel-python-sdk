@@ -24,6 +24,7 @@ from .tags_param import TagsParam as TagsParam
 from .browser_pool import BrowserPool as BrowserPool
 from .browser_proxy import BrowserProxy as BrowserProxy
 from .browser_usage import BrowserUsage as BrowserUsage
+from .browser_memory import BrowserMemory as BrowserMemory
 from .app_list_params import AppListParams as AppListParams
 from .audit_log_entry import AuditLogEntry as AuditLogEntry
 from .created_api_key import CreatedAPIKey as CreatedAPIKey
@@ -58,6 +59,7 @@ from .project_create_params import ProjectCreateParams as ProjectCreateParams
 from .project_update_params import ProjectUpdateParams as ProjectUpdateParams
 from .proxy_create_response import ProxyCreateResponse as ProxyCreateResponse
 from .proxy_update_response import ProxyUpdateResponse as ProxyUpdateResponse
+from .browser_memory_request import BrowserMemoryRequest as BrowserMemoryRequest
 from .browser_network_config import BrowserNetworkConfig as BrowserNetworkConfig
 from .credential_list_params import CredentialListParams as CredentialListParams
 from .deployment_list_params import DeploymentListParams as DeploymentListParams
