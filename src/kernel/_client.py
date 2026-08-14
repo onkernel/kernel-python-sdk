@@ -54,6 +54,7 @@ if TYPE_CHECKING:
         browsers,
         profiles,
         projects,
+        telemetry,
         audit_logs,
         extensions,
         credentials,
@@ -75,6 +76,7 @@ if TYPE_CHECKING:
     from .resources.browser_pools import BrowserPoolsResource, AsyncBrowserPoolsResource
     from .resources.browsers.browsers import BrowsersResource, AsyncBrowsersResource
     from .resources.projects.projects import ProjectsResource, AsyncProjectsResource
+    from .resources.telemetry.telemetry import TelemetryResource, AsyncTelemetryResource
     from .resources.credential_providers import CredentialProvidersResource, AsyncCredentialProvidersResource
     from .resources.audit_logs.audit_logs import AuditLogsResource, AsyncAuditLogsResource
     from .resources.organization.organization import OrganizationResource, AsyncOrganizationResource
@@ -239,6 +241,12 @@ class Kernel(SyncAPIClient):
         from .resources.auth import AuthResource
 
         return AuthResource(self)
+
+    @cached_property
+    def telemetry(self) -> TelemetryResource:
+        from .resources.telemetry import TelemetryResource
+
+        return TelemetryResource(self)
 
     @cached_property
     def proxies(self) -> ProxiesResource:
@@ -604,6 +612,12 @@ class AsyncKernel(AsyncAPIClient):
         return AsyncAuthResource(self)
 
     @cached_property
+    def telemetry(self) -> AsyncTelemetryResource:
+        from .resources.telemetry import AsyncTelemetryResource
+
+        return AsyncTelemetryResource(self)
+
+    @cached_property
     def proxies(self) -> AsyncProxiesResource:
         """Create and manage proxy configurations for routing browser traffic."""
         from .resources.proxies import AsyncProxiesResource
@@ -871,6 +885,12 @@ class KernelWithRawResponse:
         return AuthResourceWithRawResponse(self._client.auth)
 
     @cached_property
+    def telemetry(self) -> telemetry.TelemetryResourceWithRawResponse:
+        from .resources.telemetry import TelemetryResourceWithRawResponse
+
+        return TelemetryResourceWithRawResponse(self._client.telemetry)
+
+    @cached_property
     def proxies(self) -> proxies.ProxiesResourceWithRawResponse:
         """Create and manage proxy configurations for routing browser traffic."""
         from .resources.proxies import ProxiesResourceWithRawResponse
@@ -983,6 +1003,12 @@ class AsyncKernelWithRawResponse:
         from .resources.auth import AsyncAuthResourceWithRawResponse
 
         return AsyncAuthResourceWithRawResponse(self._client.auth)
+
+    @cached_property
+    def telemetry(self) -> telemetry.AsyncTelemetryResourceWithRawResponse:
+        from .resources.telemetry import AsyncTelemetryResourceWithRawResponse
+
+        return AsyncTelemetryResourceWithRawResponse(self._client.telemetry)
 
     @cached_property
     def proxies(self) -> proxies.AsyncProxiesResourceWithRawResponse:
@@ -1099,6 +1125,12 @@ class KernelWithStreamedResponse:
         return AuthResourceWithStreamingResponse(self._client.auth)
 
     @cached_property
+    def telemetry(self) -> telemetry.TelemetryResourceWithStreamingResponse:
+        from .resources.telemetry import TelemetryResourceWithStreamingResponse
+
+        return TelemetryResourceWithStreamingResponse(self._client.telemetry)
+
+    @cached_property
     def proxies(self) -> proxies.ProxiesResourceWithStreamingResponse:
         """Create and manage proxy configurations for routing browser traffic."""
         from .resources.proxies import ProxiesResourceWithStreamingResponse
@@ -1211,6 +1243,12 @@ class AsyncKernelWithStreamedResponse:
         from .resources.auth import AsyncAuthResourceWithStreamingResponse
 
         return AsyncAuthResourceWithStreamingResponse(self._client.auth)
+
+    @cached_property
+    def telemetry(self) -> telemetry.AsyncTelemetryResourceWithStreamingResponse:
+        from .resources.telemetry import AsyncTelemetryResourceWithStreamingResponse
+
+        return AsyncTelemetryResourceWithStreamingResponse(self._client.telemetry)
 
     @cached_property
     def proxies(self) -> proxies.AsyncProxiesResourceWithStreamingResponse:

@@ -28,7 +28,9 @@ __all__ = ["TelemetryResource", "AsyncTelemetryResource"]
 
 
 class TelemetryResource(SyncAPIResource):
-    """Stream live telemetry events from a browser session."""
+    """
+    Stream live telemetry events from a browser session, and manage the destinations sessions export them to.
+    """
 
     @cached_property
     def with_raw_response(self) -> TelemetryResourceWithRawResponse:
@@ -202,7 +204,9 @@ class TelemetryResource(SyncAPIResource):
 
 
 class AsyncTelemetryResource(AsyncAPIResource):
-    """Stream live telemetry events from a browser session."""
+    """
+    Stream live telemetry events from a browser session, and manage the destinations sessions export them to.
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncTelemetryResourceWithRawResponse:

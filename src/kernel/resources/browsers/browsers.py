@@ -113,7 +113,9 @@ class BrowsersResource(SyncAPIResource):
 
     @cached_property
     def telemetry(self) -> TelemetryResource:
-        """Stream live telemetry events from a browser session."""
+        """
+        Stream live telemetry events from a browser session, and manage the destinations sessions export them to.
+        """
         return TelemetryResource(self._client)
 
     @cached_property
@@ -731,7 +733,9 @@ class AsyncBrowsersResource(AsyncAPIResource):
 
     @cached_property
     def telemetry(self) -> AsyncTelemetryResource:
-        """Stream live telemetry events from a browser session."""
+        """
+        Stream live telemetry events from a browser session, and manage the destinations sessions export them to.
+        """
         return AsyncTelemetryResource(self._client)
 
     @cached_property
@@ -1372,7 +1376,9 @@ class BrowsersResourceWithRawResponse:
 
     @cached_property
     def telemetry(self) -> TelemetryResourceWithRawResponse:
-        """Stream live telemetry events from a browser session."""
+        """
+        Stream live telemetry events from a browser session, and manage the destinations sessions export them to.
+        """
         return TelemetryResourceWithRawResponse(self._browsers.telemetry)
 
     @cached_property
@@ -1434,7 +1440,9 @@ class AsyncBrowsersResourceWithRawResponse:
 
     @cached_property
     def telemetry(self) -> AsyncTelemetryResourceWithRawResponse:
-        """Stream live telemetry events from a browser session."""
+        """
+        Stream live telemetry events from a browser session, and manage the destinations sessions export them to.
+        """
         return AsyncTelemetryResourceWithRawResponse(self._browsers.telemetry)
 
     @cached_property
@@ -1496,7 +1504,9 @@ class BrowsersResourceWithStreamingResponse:
 
     @cached_property
     def telemetry(self) -> TelemetryResourceWithStreamingResponse:
-        """Stream live telemetry events from a browser session."""
+        """
+        Stream live telemetry events from a browser session, and manage the destinations sessions export them to.
+        """
         return TelemetryResourceWithStreamingResponse(self._browsers.telemetry)
 
     @cached_property
@@ -1558,7 +1568,9 @@ class AsyncBrowsersResourceWithStreamingResponse:
 
     @cached_property
     def telemetry(self) -> AsyncTelemetryResourceWithStreamingResponse:
-        """Stream live telemetry events from a browser session."""
+        """
+        Stream live telemetry events from a browser session, and manage the destinations sessions export them to.
+        """
         return AsyncTelemetryResourceWithStreamingResponse(self._browsers.telemetry)
 
     @cached_property

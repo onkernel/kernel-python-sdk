@@ -342,6 +342,24 @@ Methods:
 - <code title="post /auth/connections/{id}/submit">client.auth.connections.<a href="./src/kernel/resources/auth/connections.py">submit</a>(id, \*\*<a href="src/kernel/types/auth/connection_submit_params.py">params</a>) -> <a href="./src/kernel/types/auth/submit_fields_response.py">SubmitFieldsResponse</a></code>
 - <code title="get /auth/connections/{id}/timeline">client.auth.connections.<a href="./src/kernel/resources/auth/connections.py">timeline</a>(id, \*\*<a href="src/kernel/types/auth/connection_timeline_params.py">params</a>) -> <a href="./src/kernel/types/auth/managed_auth_timeline_event.py">SyncOffsetPagination[ManagedAuthTimelineEvent]</a></code>
 
+# Telemetry
+
+## Destinations
+
+Types:
+
+```python
+from kernel.types.telemetry import OtlpDestination
+```
+
+Methods:
+
+- <code title="post /telemetry/destinations">client.telemetry.destinations.<a href="./src/kernel/resources/telemetry/destinations.py">create</a>(\*\*<a href="src/kernel/types/telemetry/destination_create_params.py">params</a>) -> <a href="./src/kernel/types/telemetry/otlp_destination.py">OtlpDestination</a></code>
+- <code title="get /telemetry/destinations/{id_or_name}">client.telemetry.destinations.<a href="./src/kernel/resources/telemetry/destinations.py">retrieve</a>(id_or_name) -> <a href="./src/kernel/types/telemetry/otlp_destination.py">OtlpDestination</a></code>
+- <code title="patch /telemetry/destinations/{id_or_name}">client.telemetry.destinations.<a href="./src/kernel/resources/telemetry/destinations.py">update</a>(id_or_name, \*\*<a href="src/kernel/types/telemetry/destination_update_params.py">params</a>) -> <a href="./src/kernel/types/telemetry/otlp_destination.py">OtlpDestination</a></code>
+- <code title="get /telemetry/destinations">client.telemetry.destinations.<a href="./src/kernel/resources/telemetry/destinations.py">list</a>(\*\*<a href="src/kernel/types/telemetry/destination_list_params.py">params</a>) -> <a href="./src/kernel/types/telemetry/otlp_destination.py">SyncOffsetPagination[OtlpDestination]</a></code>
+- <code title="delete /telemetry/destinations/{id_or_name}">client.telemetry.destinations.<a href="./src/kernel/resources/telemetry/destinations.py">delete</a>(id_or_name) -> None</code>
+
 # Proxies
 
 Types:
