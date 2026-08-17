@@ -472,6 +472,18 @@ Methods:
 
 # Organization
 
+## Entitlements
+
+Types:
+
+```python
+from kernel.types.organization import OrgEntitlements
+```
+
+Methods:
+
+- <code title="get /org/entitlements">client.organization.entitlements.<a href="./src/kernel/resources/organization/entitlements.py">retrieve</a>() -> <a href="./src/kernel/types/organization/org_entitlements.py">OrgEntitlements</a></code>
+
 ## Limits
 
 Types:

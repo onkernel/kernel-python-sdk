@@ -3,4 +3,5 @@
 from __future__ import annotations
 
 from .org_limits import OrgLimits as OrgLimits
+from .org_entitlements import OrgEntitlements as OrgEntitlements
 from .limit_update_params import LimitUpdateParams as LimitUpdateParams
