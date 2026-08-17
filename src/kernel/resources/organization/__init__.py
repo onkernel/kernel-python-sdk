@@ -8,6 +8,14 @@ from .limits import (
     LimitsResourceWithStreamingResponse,
     AsyncLimitsResourceWithStreamingResponse,
 )
+from .entitlements import (
+    EntitlementsResource,
+    AsyncEntitlementsResource,
+    EntitlementsResourceWithRawResponse,
+    AsyncEntitlementsResourceWithRawResponse,
+    EntitlementsResourceWithStreamingResponse,
+    AsyncEntitlementsResourceWithStreamingResponse,
+)
 from .organization import (
     OrganizationResource,
     AsyncOrganizationResource,
@@ -18,6 +26,12 @@ from .organization import (
 )
 
 __all__ = [
+    "EntitlementsResource",
+    "AsyncEntitlementsResource",
+    "EntitlementsResourceWithRawResponse",
+    "AsyncEntitlementsResourceWithRawResponse",
+    "EntitlementsResourceWithStreamingResponse",
+    "AsyncEntitlementsResourceWithStreamingResponse",
     "LimitsResource",
     "AsyncLimitsResource",
     "LimitsResourceWithRawResponse",

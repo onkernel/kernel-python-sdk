@@ -12,11 +12,24 @@ from .limits import (
 )
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
+from .entitlements import (
+    EntitlementsResource,
+    AsyncEntitlementsResource,
+    EntitlementsResourceWithRawResponse,
+    AsyncEntitlementsResourceWithRawResponse,
+    EntitlementsResourceWithStreamingResponse,
+    AsyncEntitlementsResourceWithStreamingResponse,
+)
 
 __all__ = ["OrganizationResource", "AsyncOrganizationResource"]
 
 
 class OrganizationResource(SyncAPIResource):
+    @cached_property
+    def entitlements(self) -> EntitlementsResource:
+        """Read and manage organization-level limits."""
+        return EntitlementsResource(self._client)
+
     @cached_property
     def limits(self) -> LimitsResource:
         """Read and manage organization-level limits."""
@@ -43,6 +56,11 @@ class OrganizationResource(SyncAPIResource):
 
 
 class AsyncOrganizationResource(AsyncAPIResource):
+    @cached_property
+    def entitlements(self) -> AsyncEntitlementsResource:
+        """Read and manage organization-level limits."""
+        return AsyncEntitlementsResource(self._client)
+
     @cached_property
     def limits(self) -> AsyncLimitsResource:
         """Read and manage organization-level limits."""
@@ -73,6 +91,11 @@ class OrganizationResourceWithRawResponse:
         self._organization = organization
 
     @cached_property
+    def entitlements(self) -> EntitlementsResourceWithRawResponse:
+        """Read and manage organization-level limits."""
+        return EntitlementsResourceWithRawResponse(self._organization.entitlements)
+
+    @cached_property
     def limits(self) -> LimitsResourceWithRawResponse:
         """Read and manage organization-level limits."""
         return LimitsResourceWithRawResponse(self._organization.limits)
@@ -81,6 +104,11 @@ class OrganizationResourceWithRawResponse:
 class AsyncOrganizationResourceWithRawResponse:
     def __init__(self, organization: AsyncOrganizationResource) -> None:
         self._organization = organization
+
+    @cached_property
+    def entitlements(self) -> AsyncEntitlementsResourceWithRawResponse:
+        """Read and manage organization-level limits."""
+        return AsyncEntitlementsResourceWithRawResponse(self._organization.entitlements)
 
     @cached_property
     def limits(self) -> AsyncLimitsResourceWithRawResponse:
@@ -93,6 +121,11 @@ class OrganizationResourceWithStreamingResponse:
         self._organization = organization
 
     @cached_property
+    def entitlements(self) -> EntitlementsResourceWithStreamingResponse:
+        """Read and manage organization-level limits."""
+        return EntitlementsResourceWithStreamingResponse(self._organization.entitlements)
+
+    @cached_property
     def limits(self) -> LimitsResourceWithStreamingResponse:
         """Read and manage organization-level limits."""
         return LimitsResourceWithStreamingResponse(self._organization.limits)
@@ -101,6 +134,11 @@ class OrganizationResourceWithStreamingResponse:
 class AsyncOrganizationResourceWithStreamingResponse:
     def __init__(self, organization: AsyncOrganizationResource) -> None:
         self._organization = organization
+
+    @cached_property
+    def entitlements(self) -> AsyncEntitlementsResourceWithStreamingResponse:
+        """Read and manage organization-level limits."""
+        return AsyncEntitlementsResourceWithStreamingResponse(self._organization.entitlements)
 
     @cached_property
     def limits(self) -> AsyncLimitsResourceWithStreamingResponse:
