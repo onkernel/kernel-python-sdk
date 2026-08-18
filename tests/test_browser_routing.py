@@ -390,7 +390,7 @@ def test_browser_route_from_browser_requires_base_url_and_jwt() -> None:
     assert browser_route_from_browser({**_fake_browser(), "cdp_ws_url": None}) is None
 
 
-def test_browser_routing_config_from_env_defaults_to_curl_telemetry_computer_and_playwright(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_browser_routing_config_from_env_defaults(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
     assert browser_routing_config_from_env().subresources == (
         "curl",
