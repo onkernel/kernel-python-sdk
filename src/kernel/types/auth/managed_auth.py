@@ -206,6 +206,9 @@ class Field(BaseModel):
     id: str
     """Stable field identifier for canonical submit."""
 
+    reason: Literal["missing", "rejected"]
+    """Why the field requires user input."""
+
     ref: str
     """Credential reference name to store the submitted value under."""
 
@@ -220,12 +223,6 @@ class Field(BaseModel):
 
     observed_selector: Optional[str] = None
     """Selector for the visible field, when available."""
-
-    replace_existing: Optional[bool] = None
-    """
-    Whether the submitted value must replace an existing credential after explicit
-    rejection.
-    """
 
     required: Optional[bool] = None
     """Whether this field is required."""
