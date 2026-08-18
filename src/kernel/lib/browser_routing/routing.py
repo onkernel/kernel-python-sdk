@@ -44,7 +44,7 @@ def browser_routing_config_from_env() -> BrowserRoutingConfig:
         # Path prefixes eligible for direct-to-VM routing. "telemetry/stream" is
         # the live SSE endpoint (VM); "telemetry/events" is a historical read
         # served by the control plane (S2) and must NOT be here.
-        return BrowserRoutingConfig(subresources=("curl", "telemetry/stream"))
+        return BrowserRoutingConfig(subresources=("curl", "telemetry/stream", "computer", "playwright"))
     if raw.strip() == "":
         return BrowserRoutingConfig()
 
