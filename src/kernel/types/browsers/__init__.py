@@ -42,6 +42,7 @@ from .telemetry_stream_params import TelemetryStreamParams as TelemetryStreamPar
 from .browser_telemetry_config import BrowserTelemetryConfig as BrowserTelemetryConfig
 from .browser_cdp_connect_event import BrowserCdpConnectEvent as BrowserCdpConnectEvent
 from .browser_console_log_event import BrowserConsoleLogEvent as BrowserConsoleLogEvent
+from .browser_proxy_error_event import BrowserProxyErrorEvent as BrowserProxyErrorEvent
 from .computer_press_key_params import ComputerPressKeyParams as ComputerPressKeyParams
 from .computer_type_text_params import ComputerTypeTextParams as ComputerTypeTextParams
 from .f_create_directory_params import FCreateDirectoryParams as FCreateDirectoryParams

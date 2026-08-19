@@ -146,6 +146,7 @@ from kernel.types.browsers import (
     BrowserPageNavigationEvent,
     BrowserPageNavigationSettledEvent,
     BrowserPageTabOpenedEvent,
+    BrowserProxyErrorEvent,
     BrowserServiceCrashedEvent,
     BrowserSystemOomKillEvent,
     BrowserTelemetryCategoriesConfig,

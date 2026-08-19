@@ -97,6 +97,9 @@ class ManagedAuthStateEventField(BaseModel):
     id: str
     """Stable field identifier for canonical submit."""
 
+    reason: Literal["missing", "rejected"]
+    """Why the field requires user input."""
+
     ref: str
     """Credential reference name to store the submitted value under."""
 
@@ -111,12 +114,6 @@ class ManagedAuthStateEventField(BaseModel):
 
     observed_selector: Optional[str] = None
     """Selector for the visible field, when available."""
-
-    replace_existing: Optional[bool] = None
-    """
-    Whether the submitted value must replace an existing credential after explicit
-    rejection.
-    """
 
     required: Optional[bool] = None
     """Whether this field is required."""
@@ -223,6 +220,13 @@ class ManagedAuthStateEvent(BaseModel):
 
     hosted_url: Optional[str] = None
     """URL to redirect user to for hosted login."""
+
+    interaction_id: Optional[str] = None
+    """Opaque identifier for the current canonical interaction.
+
+    Required when submitting fields or choices and changes for each new actionable
+    pause.
+    """
 
     live_view_url: Optional[str] = None
     """Browser live view URL for debugging."""
