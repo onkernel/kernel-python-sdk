@@ -501,6 +501,13 @@ class ManagedAuth(BaseModel):
     hosted_url: Optional[str] = None
     """URL to redirect user to for hosted login (present when flow in progress)"""
 
+    interaction_id: Optional[str] = None
+    """Opaque identifier for the current canonical interaction.
+
+    Required when submitting fields or choices and changes for each new actionable
+    pause.
+    """
+
     last_auth_at: Optional[datetime] = None
     """Deprecated alias for `last_auth_check_at`.
 

@@ -15,6 +15,12 @@ class ConnectionSubmitParams(TypedDict, total=False):
     fields: Dict[str, str]
     """Map of field name to value"""
 
+    interaction_id: str
+    """Opaque interaction ID returned with canonical fields and choices.
+
+    Required for canonical submissions.
+    """
+
     mfa_option_id: str
     """The MFA method type to select (when mfa_options were returned)"""
 

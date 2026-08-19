@@ -221,6 +221,13 @@ class ManagedAuthStateEvent(BaseModel):
     hosted_url: Optional[str] = None
     """URL to redirect user to for hosted login."""
 
+    interaction_id: Optional[str] = None
+    """Opaque identifier for the current canonical interaction.
+
+    Required when submitting fields or choices and changes for each new actionable
+    pause.
+    """
+
     live_view_url: Optional[str] = None
     """Browser live view URL for debugging."""
 
