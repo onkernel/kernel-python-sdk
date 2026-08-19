@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.93.0](https://github.com/kernel/kernel-python-sdk/compare/v0.92.0...v0.93.0) (2026-08-19)
+
+
+### Features
+
+* Add proxy_error to browser telemetry event schema ([5973ab6](https://github.com/kernel/kernel-python-sdk/commit/5973ab6c766ee31929a523e3ea21fb000bc6879a))
+* Bind managed auth submissions to interactions ([63fb060](https://github.com/kernel/kernel-python-sdk/commit/63fb0606910b17a99f7a584e425fbd77e2d562e5))
+* Harden canonical managed auth interactions ([3522fcb](https://github.com/kernel/kernel-python-sdk/commit/3522fcb9e70854ad2900585f5b37222e7f0e1b26))
+
 ## [0.92.0](https://github.com/kernel/kernel-python-sdk/compare/v0.91.0...v0.92.0) (2026-08-17)
 
 
