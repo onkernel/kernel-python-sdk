@@ -110,14 +110,18 @@ def maybe_populate_browser_route_cache_from_response(response: httpx.Response, *
 
 
 def maybe_evict_browser_route_from_response(response: httpx.Response, *, cache: BrowserRouteCache) -> None:
-    if not response.is_success:
+    if response.is_success:
+        session_id = _session_id_to_evict_from_response(response)
+        if session_id:
+            cache.delete(session_id)
         return
 
-    session_id = _session_id_to_evict_from_response(response)
-    if not session_id:
+    if response.status_code not in {401, 403}:
         return
 
-    cache.delete(session_id)
+    session_id = _session_id_from_direct_vm_response(response, cache=cache)
+    if session_id:
+        cache.delete(session_id)
 
 
 def populate_browser_route_cache_from_value(value: object, *, cache: BrowserRouteCache) -> None:
@@ -159,6 +163,20 @@ def _session_id_to_evict_from_response(response: httpx.Response) -> str | None:
         return _session_id_from_browser_pool_release_request(response.request, path)
 
     return None
+
+
+def _session_id_from_direct_vm_response(response: httpx.Response, *, cache: BrowserRouteCache) -> str | None:
+    raw = str(response.request.url)
+    for route in cache.values():
+        if raw.startswith(route.base_url.rstrip("/") + "/"):
+            return route.session_id
+    return None
+
+
+def should_retry_stale_direct_vm_auth(response: httpx.Response, *, cache: BrowserRouteCache) -> bool:
+    if response.status_code not in {401, 403}:
+        return False
+    return _session_id_from_direct_vm_response(response, cache=cache) is not None
 
 
 def _session_id_from_browser_delete_path(path: str) -> str | None:

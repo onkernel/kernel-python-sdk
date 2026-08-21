@@ -523,3 +523,26 @@ def test_process_fs_and_telemetry_events_stay_on_api_origin_by_default(
     assert process.called
     assert fs_read.called
     assert events.called
+
+
+@respx.mock
+def test_stale_direct_vm_jwt_evicts_cache_and_retries_control_plane(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    monkeypatch.setattr("kernel._base_client.SyncAPIClient._sleep_for_retry", lambda *args, **kwargs: None)
+    vm = respx.post("http://browser-session.test/browser/kernel/computer/screenshot").mock(
+        return_value=httpx.Response(401, text="Invalid JWT")
+    )
+    api = respx.post(f"{base_url}/browsers/sess-1/computer/screenshot").mock(
+        return_value=httpx.Response(200, content=b"png", headers={"content-type": "image/png"})
+    )
+    with Kernel(base_url=base_url, api_key=api_key, _strict_response_validation=True) as client:
+        _cache_browser(client)
+        client.browsers.computer.capture_screenshot("sess-1")
+        assert client.browser_route_cache.get("sess-1") is None
+
+    assert vm.called
+    assert api.called
+    api_req = cast(httpx.Request, cast(Any, api.calls[0]).request)
+    assert api_req.headers.get("Authorization") == f"Bearer {api_key}"
