@@ -530,6 +530,7 @@ class ConnectionsResource(SyncAPIResource):
         *,
         field_values: Dict[str, str] | Omit = omit,
         fields: Dict[str, str] | Omit = omit,
+        interaction_id: str | Omit = omit,
         mfa_option_id: str | Omit = omit,
         selected_choice_id: str | Omit = omit,
         sign_in_option_id: str | Omit = omit,
@@ -551,6 +552,9 @@ class ConnectionsResource(SyncAPIResource):
           field_values: Canonical map of field ID to submitted value.
 
           fields: Map of field name to value
+
+          interaction_id: Opaque interaction ID returned with canonical fields and choices. Required for
+              canonical submissions.
 
           mfa_option_id: The MFA method type to select (when mfa_options were returned)
 
@@ -580,6 +584,7 @@ class ConnectionsResource(SyncAPIResource):
                 {
                     "field_values": field_values,
                     "fields": fields,
+                    "interaction_id": interaction_id,
                     "mfa_option_id": mfa_option_id,
                     "selected_choice_id": selected_choice_id,
                     "sign_in_option_id": sign_in_option_id,
@@ -1143,6 +1148,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
         *,
         field_values: Dict[str, str] | Omit = omit,
         fields: Dict[str, str] | Omit = omit,
+        interaction_id: str | Omit = omit,
         mfa_option_id: str | Omit = omit,
         selected_choice_id: str | Omit = omit,
         sign_in_option_id: str | Omit = omit,
@@ -1164,6 +1170,9 @@ class AsyncConnectionsResource(AsyncAPIResource):
           field_values: Canonical map of field ID to submitted value.
 
           fields: Map of field name to value
+
+          interaction_id: Opaque interaction ID returned with canonical fields and choices. Required for
+              canonical submissions.
 
           mfa_option_id: The MFA method type to select (when mfa_options were returned)
 
@@ -1193,6 +1202,7 @@ class AsyncConnectionsResource(AsyncAPIResource):
                 {
                     "field_values": field_values,
                     "fields": fields,
+                    "interaction_id": interaction_id,
                     "mfa_option_id": mfa_option_id,
                     "selected_choice_id": selected_choice_id,
                     "sign_in_option_id": sign_in_option_id,
