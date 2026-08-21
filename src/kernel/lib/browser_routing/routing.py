@@ -69,6 +69,14 @@ class BrowserRouteCache:
     def delete(self, session_id: str) -> None:
         self._routes.pop(_normalize_session_id(session_id), None)
 
+    def delete_if_jwt(self, session_id: str, jwt: str) -> bool:
+        key = _normalize_session_id(session_id)
+        route = self._routes.get(key)
+        if route is None or route.jwt != jwt.strip():
+            return False
+        del self._routes[key]
+        return True
+
     def values(self) -> list[BrowserRoute]:
         return list(self._routes.values())
 
@@ -119,9 +127,10 @@ def maybe_evict_browser_route_from_response(response: httpx.Response, *, cache: 
     if not is_stale_direct_vm_auth_response(response):
         return
 
+    jwt = str(response.request.url.params.get("jwt") or "").strip()
     session_id = _session_id_from_direct_vm_response(response, cache=cache)
-    if session_id:
-        cache.delete(session_id)
+    if session_id and jwt:
+        cache.delete_if_jwt(session_id, jwt)
 
 
 def populate_browser_route_cache_from_value(value: object, *, cache: BrowserRouteCache) -> None:

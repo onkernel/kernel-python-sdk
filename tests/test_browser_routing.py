@@ -548,6 +548,37 @@ def test_stale_direct_vm_jwt_evicts_cache_and_retries_control_plane(
     assert api_req.headers.get("Authorization") == f"Bearer {api_key}"
 
 
+def test_stale_direct_vm_jwt_does_not_evict_refreshed_route() -> None:
+    from kernel.lib.browser_routing.routing import maybe_evict_browser_route_from_response
+
+    cache = BrowserRouteCache()
+    cache.set(
+        BrowserRoute(
+            session_id="sess-1",
+            base_url="http://browser-session.test/browser/kernel",
+            jwt="token-abc",
+        )
+    )
+    cache.set(
+        BrowserRoute(
+            session_id="sess-1",
+            base_url="http://browser-session.test/browser/kernel",
+            jwt="jwt-FRESH",
+        )
+    )
+    request = httpx.Request(
+        "POST",
+        "http://browser-session.test/browser/kernel/computer/screenshot?jwt=token-abc",
+    )
+    maybe_evict_browser_route_from_response(
+        httpx.Response(401, text="Invalid JWT", request=request),
+        cache=cache,
+    )
+    route = cache.get("sess-1")
+    assert route is not None
+    assert route.jwt == "jwt-FRESH"
+
+
 def test_stale_direct_vm_auth_retry_does_not_require_cached_route() -> None:
     from kernel.lib.browser_routing.routing import should_retry_stale_direct_vm_auth
 
