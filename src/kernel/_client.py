@@ -41,8 +41,8 @@ from .lib.browser_routing.routing import (
     strip_direct_vm_auth,
     rewrite_direct_vm_options,
     browser_routing_config_from_env,
-    maybe_evict_browser_route_from_response,
     should_retry_stale_direct_vm_auth,
+    maybe_evict_browser_route_from_response,
     maybe_populate_browser_route_cache_from_response,
 )
 

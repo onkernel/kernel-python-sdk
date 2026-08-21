@@ -432,9 +432,7 @@ def test_rewrite_direct_vm_options_keeps_telemetry_events_on_control_plane() -> 
     )
 
     cache = BrowserRouteCache()
-    cache.set(
-        BrowserRoute(session_id="sess-1", base_url="http://browser-session.test/browser/kernel", jwt="token-abc")
-    )
+    cache.set(BrowserRoute(session_id="sess-1", base_url="http://browser-session.test/browser/kernel", jwt="token-abc"))
     config = BrowserRoutingConfig(subresources=("curl", "telemetry/stream", "computer", "playwright"))
 
     events = rewrite_direct_vm_options(
@@ -511,9 +509,7 @@ def test_process_fs_and_telemetry_events_stay_on_api_origin_by_default(
     fs_read = respx.get(f"{base_url}/browsers/sess-1/fs/read_file").mock(
         return_value=httpx.Response(200, content=b"x", headers={"content-type": "application/octet-stream"})
     )
-    events = respx.get(f"{base_url}/browsers/sess-1/telemetry/events").mock(
-        return_value=httpx.Response(200, json=[])
-    )
+    events = respx.get(f"{base_url}/browsers/sess-1/telemetry/events").mock(return_value=httpx.Response(200, json=[]))
     with Kernel(base_url=base_url, api_key=api_key, _strict_response_validation=True) as client:
         _cache_browser(client)
         client.browsers.process.exec("sess-1", command="echo")
@@ -530,7 +526,11 @@ def test_stale_direct_vm_jwt_evicts_cache_and_retries_control_plane(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
-    monkeypatch.setattr("kernel._base_client.SyncAPIClient._sleep_for_retry", lambda *args, **kwargs: None)
+
+    def _skip_retry_sleep(_self: object, **_kwargs: object) -> None:
+        return None
+
+    monkeypatch.setattr("kernel._base_client.SyncAPIClient._sleep_for_retry", _skip_retry_sleep)
     vm = respx.post("http://browser-session.test/browser/kernel/computer/screenshot").mock(
         return_value=httpx.Response(401, text="Invalid JWT")
     )
