@@ -546,3 +546,16 @@ def test_stale_direct_vm_jwt_evicts_cache_and_retries_control_plane(
     assert api.called
     api_req = cast(httpx.Request, cast(Any, api.calls[0]).request)
     assert api_req.headers.get("Authorization") == f"Bearer {api_key}"
+
+
+def test_stale_direct_vm_auth_retry_does_not_require_cached_route() -> None:
+    from kernel.lib.browser_routing.routing import should_retry_stale_direct_vm_auth
+
+    request = httpx.Request(
+        "POST",
+        "http://browser-session.test/browser/kernel/computer/screenshot?jwt=token-abc",
+    )
+    response = httpx.Response(401, text="Invalid JWT", request=request)
+    empty = BrowserRouteCache()
+    assert should_retry_stale_direct_vm_auth(response) is True
+    assert empty.get("sess-1") is None

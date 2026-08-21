@@ -356,7 +356,7 @@ class Kernel(SyncAPIClient):
 
     @override
     def _should_retry(self, response: httpx.Response) -> bool:
-        if should_retry_stale_direct_vm_auth(response, cache=self.browser_route_cache):
+        if should_retry_stale_direct_vm_auth(response):
             maybe_evict_browser_route_from_response(response, cache=self.browser_route_cache)
             return True
         return super()._should_retry(response)
@@ -732,7 +732,7 @@ class AsyncKernel(AsyncAPIClient):
 
     @override
     def _should_retry(self, response: httpx.Response) -> bool:
-        if should_retry_stale_direct_vm_auth(response, cache=self.browser_route_cache):
+        if should_retry_stale_direct_vm_auth(response):
             maybe_evict_browser_route_from_response(response, cache=self.browser_route_cache)
             return True
         return super()._should_retry(response)

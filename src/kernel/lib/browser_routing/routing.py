@@ -116,7 +116,7 @@ def maybe_evict_browser_route_from_response(response: httpx.Response, *, cache: 
             cache.delete(session_id)
         return
 
-    if response.status_code not in {401, 403}:
+    if not is_stale_direct_vm_auth_response(response):
         return
 
     session_id = _session_id_from_direct_vm_response(response, cache=cache)
@@ -173,10 +173,14 @@ def _session_id_from_direct_vm_response(response: httpx.Response, *, cache: Brow
     return None
 
 
-def should_retry_stale_direct_vm_auth(response: httpx.Response, *, cache: BrowserRouteCache) -> bool:
+def is_stale_direct_vm_auth_response(response: httpx.Response) -> bool:
     if response.status_code not in {401, 403}:
         return False
-    return _session_id_from_direct_vm_response(response, cache=cache) is not None
+    return bool(response.request.url.params.get("jwt"))
+
+
+def should_retry_stale_direct_vm_auth(response: httpx.Response) -> bool:
+    return is_stale_direct_vm_auth_response(response)
 
 
 def _session_id_from_browser_delete_path(path: str) -> str | None:
