@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.94.0](https://github.com/kernel/kernel-python-sdk/compare/v0.93.0...v0.94.0) (2026-08-24)
+
+
+### Features
+
+* Mirror the control/platform telemetry split into the public API ([27c5a0a](https://github.com/kernel/kernel-python-sdk/commit/27c5a0a75ade568f1feb7e058070771ae1f6db60))
+* site configs: report proxy-restricted analyses ([7afcfc4](https://github.com/kernel/kernel-python-sdk/commit/7afcfc499d7008407c872d75bcc4d8a1604f7954))
+
 ## [0.93.0](https://github.com/kernel/kernel-python-sdk/compare/v0.92.0...v0.93.0) (2026-08-19)
 
 

@@ -74,6 +74,37 @@ Methods:
 - <code title="get /invocations/{id}/events">client.invocations.<a href="./src/kernel/resources/invocations.py">follow</a>(id, \*\*<a href="src/kernel/types/invocation_follow_params.py">params</a>) -> <a href="./src/kernel/types/invocation_follow_response.py">InvocationFollowResponse</a></code>
 - <code title="get /invocations/{id}/browsers">client.invocations.<a href="./src/kernel/resources/invocations.py">list_browsers</a>(id) -> <a href="./src/kernel/types/invocation_list_browsers_response.py">InvocationListBrowsersResponse</a></code>
 
+# SiteConfigs
+
+Types:
+
+```python
+from kernel.types import (
+    Analysis,
+    AnalysisSummary,
+    Browser,
+    Evidence,
+    LookupRequest,
+    LookupResponse,
+    NoRecommendation,
+    Proxy,
+    Recommendation,
+    RecommendationResult,
+    RecommendationSummary,
+    ResolveRequest,
+    SiteConfigResponse,
+    Target,
+)
+```
+
+Methods:
+
+- <code title="get /site-configs/{id}">client.site_configs.<a href="./src/kernel/resources/site_configs.py">retrieve</a>(id) -> <a href="./src/kernel/types/site_config_response.py">SiteConfigResponse</a></code>
+- <code title="get /site-configs">client.site_configs.<a href="./src/kernel/resources/site_configs.py">list</a>(\*\*<a href="src/kernel/types/site_config_list_params.py">params</a>) -> <a href="./src/kernel/types/analysis_summary.py">SyncOffsetPagination[AnalysisSummary]</a></code>
+- <code title="get /site-configs/recommendations">client.site_configs.<a href="./src/kernel/resources/site_configs.py">list_recommendations</a>(\*\*<a href="src/kernel/types/site_config_list_recommendations_params.py">params</a>) -> <a href="./src/kernel/types/recommendation_summary.py">SyncOffsetPagination[RecommendationSummary]</a></code>
+- <code title="post /site-configs/lookup">client.site_configs.<a href="./src/kernel/resources/site_configs.py">lookup</a>(\*\*<a href="src/kernel/types/site_config_lookup_params.py">params</a>) -> <a href="./src/kernel/types/lookup_response.py">LookupResponse</a></code>
+- <code title="post /site-configs/resolve">client.site_configs.<a href="./src/kernel/resources/site_configs.py">resolve</a>(\*\*<a href="src/kernel/types/site_config_resolve_params.py">params</a>) -> <a href="./src/kernel/types/site_config_response.py">SiteConfigResponse</a></code>
+
 # Browsers
 
 Types:
@@ -117,6 +148,8 @@ from kernel.types.browsers import (
     BrowserAPICallEvent,
     BrowserCallStack,
     BrowserCaptchaSolveResultEvent,
+    BrowserCdpCommandEvent,
+    BrowserCdpCommandMethod,
     BrowserCdpConnectEvent,
     BrowserCdpDisconnectEvent,
     BrowserConsoleErrorEvent,
@@ -138,6 +171,7 @@ from kernel.types.browsers import (
     BrowserNetworkLoadingFailedEvent,
     BrowserNetworkRequestEvent,
     BrowserNetworkResponseEvent,
+    BrowserPageCrashedEvent,
     BrowserPageDomContentLoadedEvent,
     BrowserPageLayoutSettledEvent,
     BrowserPageLayoutShiftEvent,
@@ -146,12 +180,15 @@ from kernel.types.browsers import (
     BrowserPageNavigationEvent,
     BrowserPageNavigationSettledEvent,
     BrowserPageTabOpenedEvent,
+    BrowserPlatformAPICallEvent,
     BrowserProxyErrorEvent,
     BrowserServiceCrashedEvent,
     BrowserSystemOomKillEvent,
     BrowserTelemetryCategoriesConfig,
     BrowserTelemetryCategoryConfig,
+    BrowserTelemetryCdpControlConfig,
     BrowserTelemetryConfig,
+    BrowserTelemetryControlConfig,
     BrowserTelemetryEvent,
     BrowserTelemetryExportConfig,
     BrowserTelemetryOtlpExportConfig,
