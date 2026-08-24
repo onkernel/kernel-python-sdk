@@ -61,6 +61,7 @@ if TYPE_CHECKING:
         deployments,
         invocations,
         organization,
+        site_configs,
         browser_pools,
         credential_providers,
     )
@@ -73,6 +74,7 @@ if TYPE_CHECKING:
     from .resources.credentials import CredentialsResource, AsyncCredentialsResource
     from .resources.deployments import DeploymentsResource, AsyncDeploymentsResource
     from .resources.invocations import InvocationsResource, AsyncInvocationsResource
+    from .resources.site_configs import SiteConfigsResource, AsyncSiteConfigsResource
     from .resources.browser_pools import BrowserPoolsResource, AsyncBrowserPoolsResource
     from .resources.browsers.browsers import BrowsersResource, AsyncBrowsersResource
     from .resources.projects.projects import ProjectsResource, AsyncProjectsResource
@@ -221,6 +223,13 @@ class Kernel(SyncAPIClient):
         from .resources.invocations import InvocationsResource
 
         return InvocationsResource(self)
+
+    @cached_property
+    def site_configs(self) -> SiteConfigsResource:
+        """Resolve browser and proxy recommendations for bot-protected sites."""
+        from .resources.site_configs import SiteConfigsResource
+
+        return SiteConfigsResource(self)
 
     @cached_property
     def browsers(self) -> BrowsersResource:
@@ -592,6 +601,13 @@ class AsyncKernel(AsyncAPIClient):
         return AsyncInvocationsResource(self)
 
     @cached_property
+    def site_configs(self) -> AsyncSiteConfigsResource:
+        """Resolve browser and proxy recommendations for bot-protected sites."""
+        from .resources.site_configs import AsyncSiteConfigsResource
+
+        return AsyncSiteConfigsResource(self)
+
+    @cached_property
     def browsers(self) -> AsyncBrowsersResource:
         """Create and manage browser sessions."""
         from .resources.browsers import AsyncBrowsersResource
@@ -865,6 +881,13 @@ class KernelWithRawResponse:
         return InvocationsResourceWithRawResponse(self._client.invocations)
 
     @cached_property
+    def site_configs(self) -> site_configs.SiteConfigsResourceWithRawResponse:
+        """Resolve browser and proxy recommendations for bot-protected sites."""
+        from .resources.site_configs import SiteConfigsResourceWithRawResponse
+
+        return SiteConfigsResourceWithRawResponse(self._client.site_configs)
+
+    @cached_property
     def browsers(self) -> browsers.BrowsersResourceWithRawResponse:
         """Create and manage browser sessions."""
         from .resources.browsers import BrowsersResourceWithRawResponse
@@ -983,6 +1006,13 @@ class AsyncKernelWithRawResponse:
         from .resources.invocations import AsyncInvocationsResourceWithRawResponse
 
         return AsyncInvocationsResourceWithRawResponse(self._client.invocations)
+
+    @cached_property
+    def site_configs(self) -> site_configs.AsyncSiteConfigsResourceWithRawResponse:
+        """Resolve browser and proxy recommendations for bot-protected sites."""
+        from .resources.site_configs import AsyncSiteConfigsResourceWithRawResponse
+
+        return AsyncSiteConfigsResourceWithRawResponse(self._client.site_configs)
 
     @cached_property
     def browsers(self) -> browsers.AsyncBrowsersResourceWithRawResponse:
@@ -1105,6 +1135,13 @@ class KernelWithStreamedResponse:
         return InvocationsResourceWithStreamingResponse(self._client.invocations)
 
     @cached_property
+    def site_configs(self) -> site_configs.SiteConfigsResourceWithStreamingResponse:
+        """Resolve browser and proxy recommendations for bot-protected sites."""
+        from .resources.site_configs import SiteConfigsResourceWithStreamingResponse
+
+        return SiteConfigsResourceWithStreamingResponse(self._client.site_configs)
+
+    @cached_property
     def browsers(self) -> browsers.BrowsersResourceWithStreamingResponse:
         """Create and manage browser sessions."""
         from .resources.browsers import BrowsersResourceWithStreamingResponse
@@ -1223,6 +1260,13 @@ class AsyncKernelWithStreamedResponse:
         from .resources.invocations import AsyncInvocationsResourceWithStreamingResponse
 
         return AsyncInvocationsResourceWithStreamingResponse(self._client.invocations)
+
+    @cached_property
+    def site_configs(self) -> site_configs.AsyncSiteConfigsResourceWithStreamingResponse:
+        """Resolve browser and proxy recommendations for bot-protected sites."""
+        from .resources.site_configs import AsyncSiteConfigsResourceWithStreamingResponse
+
+        return AsyncSiteConfigsResourceWithStreamingResponse(self._client.site_configs)
 
     @cached_property
     def browsers(self) -> browsers.AsyncBrowsersResourceWithStreamingResponse:
