@@ -5,6 +5,7 @@ from __future__ import annotations
 from . import browsers
 from .. import _compat
 from .tags import Tags as Tags
+from .proxy import Proxy as Proxy
 from .shared import (
     LogEvent as LogEvent,
     AppAction as AppAction,
@@ -16,20 +17,28 @@ from .shared import (
     BrowserViewport as BrowserViewport,
     BrowserExtension as BrowserExtension,
 )
+from .target import Target as Target
 from .api_key import APIKey as APIKey
+from .browser import Browser as Browser
 from .profile import Profile as Profile
 from .project import Project as Project
+from .analysis import Analysis as Analysis
+from .evidence import Evidence as Evidence
 from .credential import Credential as Credential
 from .tags_param import TagsParam as TagsParam
 from .browser_pool import BrowserPool as BrowserPool
 from .browser_proxy import BrowserProxy as BrowserProxy
 from .browser_usage import BrowserUsage as BrowserUsage
 from .browser_memory import BrowserMemory as BrowserMemory
+from .recommendation import Recommendation as Recommendation
 from .app_list_params import AppListParams as AppListParams
 from .audit_log_entry import AuditLogEntry as AuditLogEntry
 from .created_api_key import CreatedAPIKey as CreatedAPIKey
+from .lookup_response import LookupResponse as LookupResponse
+from .analysis_summary import AnalysisSummary as AnalysisSummary
 from .browser_pool_ref import BrowserPoolRef as BrowserPoolRef
 from .app_list_response import AppListResponse as AppListResponse
+from .no_recommendation import NoRecommendation as NoRecommendation
 from .proxy_list_params import ProxyListParams as ProxyListParams
 from .browser_proxy_mode import BrowserProxyMode as BrowserProxyMode
 from .proxy_check_params import ProxyCheckParams as ProxyCheckParams
@@ -44,6 +53,7 @@ from .proxy_list_response import ProxyListResponse as ProxyListResponse
 from .proxy_update_params import ProxyUpdateParams as ProxyUpdateParams
 from .browser_proxy_config import BrowserProxyConfig as BrowserProxyConfig
 from .proxy_check_response import ProxyCheckResponse as ProxyCheckResponse
+from .site_config_response import SiteConfigResponse as SiteConfigResponse
 from .api_key_create_params import APIKeyCreateParams as APIKeyCreateParams
 from .api_key_rotate_params import APIKeyRotateParams as APIKeyRotateParams
 from .api_key_update_params import APIKeyUpdateParams as APIKeyUpdateParams
@@ -59,6 +69,7 @@ from .project_create_params import ProjectCreateParams as ProjectCreateParams
 from .project_update_params import ProjectUpdateParams as ProjectUpdateParams
 from .proxy_create_response import ProxyCreateResponse as ProxyCreateResponse
 from .proxy_update_response import ProxyUpdateResponse as ProxyUpdateResponse
+from .recommendation_result import RecommendationResult as RecommendationResult
 from .browser_memory_request import BrowserMemoryRequest as BrowserMemoryRequest
 from .browser_network_config import BrowserNetworkConfig as BrowserNetworkConfig
 from .credential_list_params import CredentialListParams as CredentialListParams
@@ -67,6 +78,7 @@ from .deployment_state_event import DeploymentStateEvent as DeploymentStateEvent
 from .extension_get_response import ExtensionGetResponse as ExtensionGetResponse
 from .invocation_list_params import InvocationListParams as InvocationListParams
 from .invocation_state_event import InvocationStateEvent as InvocationStateEvent
+from .recommendation_summary import RecommendationSummary as RecommendationSummary
 from .api_key_retrieve_params import APIKeyRetrieveParams as APIKeyRetrieveParams
 from .browser_create_response import BrowserCreateResponse as BrowserCreateResponse
 from .browser_retrieve_params import BrowserRetrieveParams as BrowserRetrieveParams
@@ -75,6 +87,7 @@ from .extension_list_response import ExtensionListResponse as ExtensionListRespo
 from .extension_upload_params import ExtensionUploadParams as ExtensionUploadParams
 from .profile_download_params import ProfileDownloadParams as ProfileDownloadParams
 from .proxy_retrieve_response import ProxyRetrieveResponse as ProxyRetrieveResponse
+from .site_config_list_params import SiteConfigListParams as SiteConfigListParams
 from .browser_pool_list_params import BrowserPoolListParams as BrowserPoolListParams
 from .credential_create_params import CredentialCreateParams as CredentialCreateParams
 from .credential_provider_item import CredentialProviderItem as CredentialProviderItem
@@ -88,6 +101,7 @@ from .invocation_list_response import InvocationListResponse as InvocationListRe
 from .invocation_update_params import InvocationUpdateParams as InvocationUpdateParams
 from .browser_retrieve_response import BrowserRetrieveResponse as BrowserRetrieveResponse
 from .extension_upload_response import ExtensionUploadResponse as ExtensionUploadResponse
+from .site_config_lookup_params import SiteConfigLookupParams as SiteConfigLookupParams
 from .browser_pool_create_params import BrowserPoolCreateParams as BrowserPoolCreateParams
 from .browser_pool_delete_params import BrowserPoolDeleteParams as BrowserPoolDeleteParams
 from .browser_pool_update_params import BrowserPoolUpdateParams as BrowserPoolUpdateParams
@@ -97,6 +111,7 @@ from .deployment_follow_response import DeploymentFollowResponse as DeploymentFo
 from .invocation_create_response import InvocationCreateResponse as InvocationCreateResponse
 from .invocation_follow_response import InvocationFollowResponse as InvocationFollowResponse
 from .invocation_update_response import InvocationUpdateResponse as InvocationUpdateResponse
+from .site_config_resolve_params import SiteConfigResolveParams as SiteConfigResolveParams
 from .browser_pool_acquire_params import BrowserPoolAcquireParams as BrowserPoolAcquireParams
 from .browser_pool_release_params import BrowserPoolReleaseParams as BrowserPoolReleaseParams
 from .browser_network_config_param import BrowserNetworkConfigParam as BrowserNetworkConfigParam
@@ -113,6 +128,9 @@ from .credential_provider_update_params import CredentialProviderUpdateParams as
 from .invocation_list_browsers_response import InvocationListBrowsersResponse as InvocationListBrowsersResponse
 from .credential_provider_list_items_response import (
     CredentialProviderListItemsResponse as CredentialProviderListItemsResponse,
+)
+from .site_config_list_recommendations_params import (
+    SiteConfigListRecommendationsParams as SiteConfigListRecommendationsParams,
 )
 from .extension_download_from_chrome_store_params import (
     ExtensionDownloadFromChromeStoreParams as ExtensionDownloadFromChromeStoreParams,
