@@ -8,39 +8,39 @@ from .._models import BaseModel
 
 __all__ = [
     "Proxy",
-    "SiteConfigDirectProxy",
-    "SiteConfigManagedProxy",
-    "SiteConfigManagedProxyCreate",
-    "SiteConfigManagedProxyCreateConfig",
-    "SiteConfigManagedProxyCreateConfigDatacenterProxyConfig",
-    "SiteConfigManagedProxyCreateConfigIspProxyConfig",
-    "SiteConfigManagedProxyCreateConfigResidentialProxyConfig",
-    "SiteConfigManagedProxyCreateConfigMobileProxyConfig",
-    "SiteConfigManagedProxyCreateConfigCreateCustomProxyConfig",
+    "ConfigRegistryDirectProxy",
+    "ConfigRegistryManagedProxy",
+    "ConfigRegistryManagedProxyCreate",
+    "ConfigRegistryManagedProxyCreateConfig",
+    "ConfigRegistryManagedProxyCreateConfigDatacenterProxyConfig",
+    "ConfigRegistryManagedProxyCreateConfigIspProxyConfig",
+    "ConfigRegistryManagedProxyCreateConfigResidentialProxyConfig",
+    "ConfigRegistryManagedProxyCreateConfigMobileProxyConfig",
+    "ConfigRegistryManagedProxyCreateConfigCreateCustomProxyConfig",
 ]
 
 
-class SiteConfigDirectProxy(BaseModel):
+class ConfigRegistryDirectProxy(BaseModel):
     """Direct egress recipe. Pass `{ "mode": "direct" }` as the browser's `proxy`."""
 
     mode: Literal["direct"]
 
 
-class SiteConfigManagedProxyCreateConfigDatacenterProxyConfig(BaseModel):
+class ConfigRegistryManagedProxyCreateConfigDatacenterProxyConfig(BaseModel):
     """Configuration for a datacenter proxy."""
 
     country: Optional[str] = None
     """ISO 3166 country code. Defaults to US if not provided."""
 
 
-class SiteConfigManagedProxyCreateConfigIspProxyConfig(BaseModel):
+class ConfigRegistryManagedProxyCreateConfigIspProxyConfig(BaseModel):
     """Configuration for an ISP proxy."""
 
     country: Optional[str] = None
     """ISO 3166 country code. Defaults to US if not provided."""
 
 
-class SiteConfigManagedProxyCreateConfigResidentialProxyConfig(BaseModel):
+class ConfigRegistryManagedProxyCreateConfigResidentialProxyConfig(BaseModel):
     """Configuration for residential proxies."""
 
     asn: Optional[str] = None
@@ -65,7 +65,7 @@ class SiteConfigManagedProxyCreateConfigResidentialProxyConfig(BaseModel):
     """US ZIP code."""
 
 
-class SiteConfigManagedProxyCreateConfigMobileProxyConfig(BaseModel):
+class ConfigRegistryManagedProxyCreateConfigMobileProxyConfig(BaseModel):
     """Configuration for mobile proxies."""
 
     city: Optional[str] = None
@@ -78,7 +78,7 @@ class SiteConfigManagedProxyCreateConfigMobileProxyConfig(BaseModel):
     """US-only state code. Mobile carrier routing can make observed geo vary."""
 
 
-class SiteConfigManagedProxyCreateConfigCreateCustomProxyConfig(BaseModel):
+class ConfigRegistryManagedProxyCreateConfigCreateCustomProxyConfig(BaseModel):
     """Configuration for a custom proxy (e.g., private proxy server)."""
 
     host: str
@@ -101,16 +101,16 @@ class SiteConfigManagedProxyCreateConfigCreateCustomProxyConfig(BaseModel):
     """Username for proxy authentication."""
 
 
-SiteConfigManagedProxyCreateConfig: TypeAlias = Union[
-    SiteConfigManagedProxyCreateConfigDatacenterProxyConfig,
-    SiteConfigManagedProxyCreateConfigIspProxyConfig,
-    SiteConfigManagedProxyCreateConfigResidentialProxyConfig,
-    SiteConfigManagedProxyCreateConfigMobileProxyConfig,
-    SiteConfigManagedProxyCreateConfigCreateCustomProxyConfig,
+ConfigRegistryManagedProxyCreateConfig: TypeAlias = Union[
+    ConfigRegistryManagedProxyCreateConfigDatacenterProxyConfig,
+    ConfigRegistryManagedProxyCreateConfigIspProxyConfig,
+    ConfigRegistryManagedProxyCreateConfigResidentialProxyConfig,
+    ConfigRegistryManagedProxyCreateConfigMobileProxyConfig,
+    ConfigRegistryManagedProxyCreateConfigCreateCustomProxyConfig,
 ]
 
 
-class SiteConfigManagedProxyCreate(BaseModel):
+class ConfigRegistryManagedProxyCreate(BaseModel):
     """Configuration for routing traffic through a proxy."""
 
     type: Literal["datacenter", "isp", "residential", "mobile", "custom"]
@@ -123,7 +123,7 @@ class SiteConfigManagedProxyCreate(BaseModel):
     bypass_hosts: Optional[List[str]] = None
     """Hostnames that should bypass the parent proxy and connect directly."""
 
-    config: Optional[SiteConfigManagedProxyCreateConfig] = None
+    config: Optional[ConfigRegistryManagedProxyCreateConfig] = None
     """Configuration specific to the selected proxy `type`."""
 
     name: Optional[str] = None
@@ -133,7 +133,7 @@ class SiteConfigManagedProxyCreate(BaseModel):
     """Protocol to use for the proxy connection."""
 
 
-class SiteConfigManagedProxy(BaseModel):
+class ConfigRegistryManagedProxy(BaseModel):
     """Managed proxy recipe.
 
     `create` is a non-idempotent `POST /proxies` payload:
@@ -141,10 +141,12 @@ class SiteConfigManagedProxy(BaseModel):
     `proxy.id`. Do not submit this recipe before every browser session.
     """
 
-    create: SiteConfigManagedProxyCreate
+    create: ConfigRegistryManagedProxyCreate
     """Configuration for routing traffic through a proxy."""
 
     mode: Literal["managed"]
 
 
-Proxy: TypeAlias = Annotated[Union[SiteConfigDirectProxy, SiteConfigManagedProxy], PropertyInfo(discriminator="mode")]
+Proxy: TypeAlias = Annotated[
+    Union[ConfigRegistryDirectProxy, ConfigRegistryManagedProxy], PropertyInfo(discriminator="mode")
+]

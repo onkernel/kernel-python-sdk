@@ -53,7 +53,6 @@ from .proxy_list_response import ProxyListResponse as ProxyListResponse
 from .proxy_update_params import ProxyUpdateParams as ProxyUpdateParams
 from .browser_proxy_config import BrowserProxyConfig as BrowserProxyConfig
 from .proxy_check_response import ProxyCheckResponse as ProxyCheckResponse
-from .site_config_response import SiteConfigResponse as SiteConfigResponse
 from .api_key_create_params import APIKeyCreateParams as APIKeyCreateParams
 from .api_key_rotate_params import APIKeyRotateParams as APIKeyRotateParams
 from .api_key_update_params import APIKeyUpdateParams as APIKeyUpdateParams
@@ -87,8 +86,8 @@ from .extension_list_response import ExtensionListResponse as ExtensionListRespo
 from .extension_upload_params import ExtensionUploadParams as ExtensionUploadParams
 from .profile_download_params import ProfileDownloadParams as ProfileDownloadParams
 from .proxy_retrieve_response import ProxyRetrieveResponse as ProxyRetrieveResponse
-from .site_config_list_params import SiteConfigListParams as SiteConfigListParams
 from .browser_pool_list_params import BrowserPoolListParams as BrowserPoolListParams
+from .config_registry_response import ConfigRegistryResponse as ConfigRegistryResponse
 from .credential_create_params import CredentialCreateParams as CredentialCreateParams
 from .credential_provider_item import CredentialProviderItem as CredentialProviderItem
 from .credential_update_params import CredentialUpdateParams as CredentialUpdateParams
@@ -101,7 +100,6 @@ from .invocation_list_response import InvocationListResponse as InvocationListRe
 from .invocation_update_params import InvocationUpdateParams as InvocationUpdateParams
 from .browser_retrieve_response import BrowserRetrieveResponse as BrowserRetrieveResponse
 from .extension_upload_response import ExtensionUploadResponse as ExtensionUploadResponse
-from .site_config_lookup_params import SiteConfigLookupParams as SiteConfigLookupParams
 from .browser_pool_create_params import BrowserPoolCreateParams as BrowserPoolCreateParams
 from .browser_pool_delete_params import BrowserPoolDeleteParams as BrowserPoolDeleteParams
 from .browser_pool_update_params import BrowserPoolUpdateParams as BrowserPoolUpdateParams
@@ -111,16 +109,18 @@ from .deployment_follow_response import DeploymentFollowResponse as DeploymentFo
 from .invocation_create_response import InvocationCreateResponse as InvocationCreateResponse
 from .invocation_follow_response import InvocationFollowResponse as InvocationFollowResponse
 from .invocation_update_response import InvocationUpdateResponse as InvocationUpdateResponse
-from .site_config_resolve_params import SiteConfigResolveParams as SiteConfigResolveParams
 from .browser_pool_acquire_params import BrowserPoolAcquireParams as BrowserPoolAcquireParams
 from .browser_pool_release_params import BrowserPoolReleaseParams as BrowserPoolReleaseParams
+from .config_registry_list_params import ConfigRegistryListParams as ConfigRegistryListParams
 from .browser_network_config_param import BrowserNetworkConfigParam as BrowserNetworkConfigParam
 from .deployment_retrieve_response import DeploymentRetrieveResponse as DeploymentRetrieveResponse
 from .invocation_retrieve_response import InvocationRetrieveResponse as InvocationRetrieveResponse
 from .audit_log_export_chunk_params import AuditLogExportChunkParams as AuditLogExportChunkParams
 from .browser_pool_acquire_response import BrowserPoolAcquireResponse as BrowserPoolAcquireResponse
+from .config_registry_lookup_params import ConfigRegistryLookupParams as ConfigRegistryLookupParams
 from .credential_totp_code_response import CredentialTotpCodeResponse as CredentialTotpCodeResponse
 from .browser_load_extensions_params import BrowserLoadExtensionsParams as BrowserLoadExtensionsParams
+from .config_registry_resolve_params import ConfigRegistryResolveParams as ConfigRegistryResolveParams
 from .credential_provider_list_params import CredentialProviderListParams as CredentialProviderListParams
 from .credential_provider_test_result import CredentialProviderTestResult as CredentialProviderTestResult
 from .credential_provider_create_params import CredentialProviderCreateParams as CredentialProviderCreateParams
@@ -128,9 +128,6 @@ from .credential_provider_update_params import CredentialProviderUpdateParams as
 from .invocation_list_browsers_response import InvocationListBrowsersResponse as InvocationListBrowsersResponse
 from .credential_provider_list_items_response import (
     CredentialProviderListItemsResponse as CredentialProviderListItemsResponse,
-)
-from .site_config_list_recommendations_params import (
-    SiteConfigListRecommendationsParams as SiteConfigListRecommendationsParams,
 )
 from .extension_download_from_chrome_store_params import (
     ExtensionDownloadFromChromeStoreParams as ExtensionDownloadFromChromeStoreParams,

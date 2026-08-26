@@ -74,7 +74,7 @@ Methods:
 - <code title="get /invocations/{id}/events">client.invocations.<a href="./src/kernel/resources/invocations.py">follow</a>(id, \*\*<a href="src/kernel/types/invocation_follow_params.py">params</a>) -> <a href="./src/kernel/types/invocation_follow_response.py">InvocationFollowResponse</a></code>
 - <code title="get /invocations/{id}/browsers">client.invocations.<a href="./src/kernel/resources/invocations.py">list_browsers</a>(id) -> <a href="./src/kernel/types/invocation_list_browsers_response.py">InvocationListBrowsersResponse</a></code>
 
-# SiteConfigs
+# ConfigRegistry
 
 Types:
 
@@ -83,6 +83,7 @@ from kernel.types import (
     Analysis,
     AnalysisSummary,
     Browser,
+    ConfigRegistryResponse,
     Evidence,
     LookupRequest,
     LookupResponse,
@@ -92,18 +93,22 @@ from kernel.types import (
     RecommendationResult,
     RecommendationSummary,
     ResolveRequest,
-    SiteConfigResponse,
     Target,
 )
 ```
 
 Methods:
 
-- <code title="get /site-configs/{id}">client.site_configs.<a href="./src/kernel/resources/site_configs.py">retrieve</a>(id) -> <a href="./src/kernel/types/site_config_response.py">SiteConfigResponse</a></code>
-- <code title="get /site-configs">client.site_configs.<a href="./src/kernel/resources/site_configs.py">list</a>(\*\*<a href="src/kernel/types/site_config_list_params.py">params</a>) -> <a href="./src/kernel/types/analysis_summary.py">SyncOffsetPagination[AnalysisSummary]</a></code>
-- <code title="get /site-configs/recommendations">client.site_configs.<a href="./src/kernel/resources/site_configs.py">list_recommendations</a>(\*\*<a href="src/kernel/types/site_config_list_recommendations_params.py">params</a>) -> <a href="./src/kernel/types/recommendation_summary.py">SyncOffsetPagination[RecommendationSummary]</a></code>
-- <code title="post /site-configs/lookup">client.site_configs.<a href="./src/kernel/resources/site_configs.py">lookup</a>(\*\*<a href="src/kernel/types/site_config_lookup_params.py">params</a>) -> <a href="./src/kernel/types/lookup_response.py">LookupResponse</a></code>
-- <code title="post /site-configs/resolve">client.site_configs.<a href="./src/kernel/resources/site_configs.py">resolve</a>(\*\*<a href="src/kernel/types/site_config_resolve_params.py">params</a>) -> <a href="./src/kernel/types/site_config_response.py">SiteConfigResponse</a></code>
+- <code title="get /config-registry">client.config_registry.<a href="./src/kernel/resources/config_registry/config_registry.py">list</a>(\*\*<a href="src/kernel/types/config_registry_list_params.py">params</a>) -> <a href="./src/kernel/types/recommendation_summary.py">SyncOffsetPagination[RecommendationSummary]</a></code>
+- <code title="post /config-registry/lookup">client.config_registry.<a href="./src/kernel/resources/config_registry/config_registry.py">lookup</a>(\*\*<a href="src/kernel/types/config_registry_lookup_params.py">params</a>) -> <a href="./src/kernel/types/lookup_response.py">LookupResponse</a></code>
+- <code title="post /config-registry/resolve">client.config_registry.<a href="./src/kernel/resources/config_registry/config_registry.py">resolve</a>(\*\*<a href="src/kernel/types/config_registry_resolve_params.py">params</a>) -> <a href="./src/kernel/types/config_registry_response.py">ConfigRegistryResponse</a></code>
+
+## Analyses
+
+Methods:
+
+- <code title="get /config-registry/analyses/{id}">client.config_registry.analyses.<a href="./src/kernel/resources/config_registry/analyses.py">retrieve</a>(id) -> <a href="./src/kernel/types/config_registry_response.py">ConfigRegistryResponse</a></code>
+- <code title="get /config-registry/analyses">client.config_registry.analyses.<a href="./src/kernel/resources/config_registry/analyses.py">list</a>(\*\*<a href="src/kernel/types/config_registry/analysis_list_params.py">params</a>) -> <a href="./src/kernel/types/analysis_summary.py">SyncOffsetPagination[AnalysisSummary]</a></code>
 
 # Browsers
 

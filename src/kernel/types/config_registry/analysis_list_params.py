@@ -4,10 +4,13 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
-__all__ = ["SiteConfigListParams"]
+__all__ = ["AnalysisListParams"]
 
 
-class SiteConfigListParams(TypedDict, total=False):
+class AnalysisListParams(TypedDict, total=False):
     limit: int
 
     offset: int
+
+    search: str
+    """Case-insensitive substring search over requested URLs."""

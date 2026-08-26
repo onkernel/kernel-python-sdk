@@ -112,14 +112,6 @@ from .organization import (
     OrganizationResourceWithStreamingResponse,
     AsyncOrganizationResourceWithStreamingResponse,
 )
-from .site_configs import (
-    SiteConfigsResource,
-    AsyncSiteConfigsResource,
-    SiteConfigsResourceWithRawResponse,
-    AsyncSiteConfigsResourceWithRawResponse,
-    SiteConfigsResourceWithStreamingResponse,
-    AsyncSiteConfigsResourceWithStreamingResponse,
-)
 from .browser_pools import (
     BrowserPoolsResource,
     AsyncBrowserPoolsResource,
@@ -127,6 +119,14 @@ from .browser_pools import (
     AsyncBrowserPoolsResourceWithRawResponse,
     BrowserPoolsResourceWithStreamingResponse,
     AsyncBrowserPoolsResourceWithStreamingResponse,
+)
+from .config_registry import (
+    ConfigRegistryResource,
+    AsyncConfigRegistryResource,
+    ConfigRegistryResourceWithRawResponse,
+    AsyncConfigRegistryResourceWithRawResponse,
+    ConfigRegistryResourceWithStreamingResponse,
+    AsyncConfigRegistryResourceWithStreamingResponse,
 )
 from .credential_providers import (
     CredentialProvidersResource,
@@ -156,12 +156,12 @@ __all__ = [
     "AsyncInvocationsResourceWithRawResponse",
     "InvocationsResourceWithStreamingResponse",
     "AsyncInvocationsResourceWithStreamingResponse",
-    "SiteConfigsResource",
-    "AsyncSiteConfigsResource",
-    "SiteConfigsResourceWithRawResponse",
-    "AsyncSiteConfigsResourceWithRawResponse",
-    "SiteConfigsResourceWithStreamingResponse",
-    "AsyncSiteConfigsResourceWithStreamingResponse",
+    "ConfigRegistryResource",
+    "AsyncConfigRegistryResource",
+    "ConfigRegistryResourceWithRawResponse",
+    "AsyncConfigRegistryResourceWithRawResponse",
+    "ConfigRegistryResourceWithStreamingResponse",
+    "AsyncConfigRegistryResourceWithStreamingResponse",
     "BrowsersResource",
     "AsyncBrowsersResource",
     "BrowsersResourceWithRawResponse",

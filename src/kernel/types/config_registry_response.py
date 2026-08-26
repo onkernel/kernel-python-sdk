@@ -7,10 +7,10 @@ from .._models import BaseModel
 from .analysis import Analysis
 from .recommendation_result import RecommendationResult
 
-__all__ = ["SiteConfigResponse"]
+__all__ = ["ConfigRegistryResponse"]
 
 
-class SiteConfigResponse(BaseModel):
+class ConfigRegistryResponse(BaseModel):
     analysis: Optional[Analysis] = None
     """Pollable analysis after workflow submission is acknowledged.
 

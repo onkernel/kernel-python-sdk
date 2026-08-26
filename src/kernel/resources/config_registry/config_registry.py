@@ -6,137 +6,69 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import (
-    site_config_list_params,
-    site_config_lookup_params,
-    site_config_resolve_params,
-    site_config_list_recommendations_params,
+from ...types import config_registry_list_params, config_registry_lookup_params, config_registry_resolve_params
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
+from .analyses import (
+    AnalysesResource,
+    AsyncAnalysesResource,
+    AnalysesResourceWithRawResponse,
+    AsyncAnalysesResourceWithRawResponse,
+    AnalysesResourceWithStreamingResponse,
+    AsyncAnalysesResourceWithStreamingResponse,
 )
-from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncOffsetPagination, AsyncOffsetPagination
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.lookup_response import LookupResponse
-from ..types.analysis_summary import AnalysisSummary
-from ..types.site_config_response import SiteConfigResponse
-from ..types.recommendation_summary import RecommendationSummary
+from ...pagination import SyncOffsetPagination, AsyncOffsetPagination
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.lookup_response import LookupResponse
+from ...types.recommendation_summary import RecommendationSummary
+from ...types.config_registry_response import ConfigRegistryResponse
 
-__all__ = ["SiteConfigsResource", "AsyncSiteConfigsResource"]
+__all__ = ["ConfigRegistryResource", "AsyncConfigRegistryResource"]
 
 
-class SiteConfigsResource(SyncAPIResource):
+class ConfigRegistryResource(SyncAPIResource):
     """Resolve browser and proxy recommendations for bot-protected sites."""
 
     @cached_property
-    def with_raw_response(self) -> SiteConfigsResourceWithRawResponse:
+    def analyses(self) -> AnalysesResource:
+        """Resolve browser and proxy recommendations for bot-protected sites."""
+        return AnalysesResource(self._client)
+
+    @cached_property
+    def with_raw_response(self) -> ConfigRegistryResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/kernel/kernel-python-sdk#accessing-raw-response-data-eg-headers
         """
-        return SiteConfigsResourceWithRawResponse(self)
+        return ConfigRegistryResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> SiteConfigsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> ConfigRegistryResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/kernel/kernel-python-sdk#with_streaming_response
         """
-        return SiteConfigsResourceWithStreamingResponse(self)
-
-    def retrieve(
-        self,
-        id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SiteConfigResponse:
-        """
-        Returns a project-scoped historical analysis and the recommendation outcome
-        concluded by that run. Later knowledge does not change this response.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._get(
-            path_template("/site-configs/{id}", id=id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SiteConfigResponse,
-        )
+        return ConfigRegistryResourceWithStreamingResponse(self)
 
     def list(
         self,
         *,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncOffsetPagination[AnalysisSummary]:
-        """
-        Lists analyses for the selected project, newest first.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get_api_list(
-            "/site-configs",
-            page=SyncOffsetPagination[AnalysisSummary],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                    },
-                    site_config_list_params.SiteConfigListParams,
-                ),
-            ),
-            model=AnalysisSummary,
-        )
-
-    def list_recommendations(
-        self,
-        *,
-        limit: int | Omit = omit,
-        offset: int | Omit = omit,
-        sort_by: Literal["target", "recommended_config", "last_requested_at", "success_rate"] | Omit = omit,
+        search: str | Omit = omit,
+        sort_by: Literal["target", "analysis_status", "recommended_config", "last_requested_at", "success_rate"]
+        | Omit = omit,
         sort_order: Literal["asc", "desc"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -150,6 +82,9 @@ class SiteConfigsResource(SyncAPIResource):
         current domain-level recommendations.
 
         Args:
+          search: Case-insensitive domain search. Full URLs are reduced to their registrable
+              domain.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -159,7 +94,7 @@ class SiteConfigsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/site-configs/recommendations",
+            "/config-registry",
             page=SyncOffsetPagination[RecommendationSummary],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -170,10 +105,11 @@ class SiteConfigsResource(SyncAPIResource):
                     {
                         "limit": limit,
                         "offset": offset,
+                        "search": search,
                         "sort_by": sort_by,
                         "sort_order": sort_order,
                     },
-                    site_config_list_recommendations_params.SiteConfigListRecommendationsParams,
+                    config_registry_list_params.ConfigRegistryListParams,
                 ),
             ),
             model=RecommendationSummary,
@@ -193,7 +129,7 @@ class SiteConfigsResource(SyncAPIResource):
     ) -> LookupResponse:
         """
         Returns current global knowledge without resolving DNS, creating an analysis, or
-        updating Site Config data.
+        updating config registry data.
 
         Args:
           url: Public HTTP(S) URL to look up.
@@ -210,13 +146,13 @@ class SiteConfigsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/site-configs/lookup",
+            "/config-registry/lookup",
             body=maybe_transform(
                 {
                     "url": url,
                     "allowed_proxy_countries": allowed_proxy_countries,
                 },
-                site_config_lookup_params.SiteConfigLookupParams,
+                config_registry_lookup_params.ConfigRegistryLookupParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -235,11 +171,11 @@ class SiteConfigsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SiteConfigResponse:
+    ) -> ConfigRegistryResponse:
         """
         Explicitly starts or retries a project-scoped background analysis while
-        preserving current global knowledge when available. Use `/site-configs/lookup`
-        for side-effect-free reads.
+        preserving current global knowledge when available. Use
+        `/config-registry/lookup` for side-effect-free reads.
 
         Args:
           url: Public HTTP(S) URL to refresh.
@@ -257,126 +193,56 @@ class SiteConfigsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/site-configs/resolve",
+            "/config-registry/resolve",
             body=maybe_transform(
                 {
                     "url": url,
                     "allowed_proxy_countries": allowed_proxy_countries,
                 },
-                site_config_resolve_params.SiteConfigResolveParams,
+                config_registry_resolve_params.ConfigRegistryResolveParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SiteConfigResponse,
+            cast_to=ConfigRegistryResponse,
         )
 
 
-class AsyncSiteConfigsResource(AsyncAPIResource):
+class AsyncConfigRegistryResource(AsyncAPIResource):
     """Resolve browser and proxy recommendations for bot-protected sites."""
 
     @cached_property
-    def with_raw_response(self) -> AsyncSiteConfigsResourceWithRawResponse:
+    def analyses(self) -> AsyncAnalysesResource:
+        """Resolve browser and proxy recommendations for bot-protected sites."""
+        return AsyncAnalysesResource(self._client)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncConfigRegistryResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/kernel/kernel-python-sdk#accessing-raw-response-data-eg-headers
         """
-        return AsyncSiteConfigsResourceWithRawResponse(self)
+        return AsyncConfigRegistryResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncSiteConfigsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncConfigRegistryResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/kernel/kernel-python-sdk#with_streaming_response
         """
-        return AsyncSiteConfigsResourceWithStreamingResponse(self)
-
-    async def retrieve(
-        self,
-        id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SiteConfigResponse:
-        """
-        Returns a project-scoped historical analysis and the recommendation outcome
-        concluded by that run. Later knowledge does not change this response.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._get(
-            path_template("/site-configs/{id}", id=id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SiteConfigResponse,
-        )
+        return AsyncConfigRegistryResourceWithStreamingResponse(self)
 
     def list(
         self,
         *,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[AnalysisSummary, AsyncOffsetPagination[AnalysisSummary]]:
-        """
-        Lists analyses for the selected project, newest first.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get_api_list(
-            "/site-configs",
-            page=AsyncOffsetPagination[AnalysisSummary],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                    },
-                    site_config_list_params.SiteConfigListParams,
-                ),
-            ),
-            model=AnalysisSummary,
-        )
-
-    def list_recommendations(
-        self,
-        *,
-        limit: int | Omit = omit,
-        offset: int | Omit = omit,
-        sort_by: Literal["target", "recommended_config", "last_requested_at", "success_rate"] | Omit = omit,
+        search: str | Omit = omit,
+        sort_by: Literal["target", "analysis_status", "recommended_config", "last_requested_at", "success_rate"]
+        | Omit = omit,
         sort_order: Literal["asc", "desc"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -390,6 +256,9 @@ class AsyncSiteConfigsResource(AsyncAPIResource):
         current domain-level recommendations.
 
         Args:
+          search: Case-insensitive domain search. Full URLs are reduced to their registrable
+              domain.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -399,7 +268,7 @@ class AsyncSiteConfigsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/site-configs/recommendations",
+            "/config-registry",
             page=AsyncOffsetPagination[RecommendationSummary],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -410,10 +279,11 @@ class AsyncSiteConfigsResource(AsyncAPIResource):
                     {
                         "limit": limit,
                         "offset": offset,
+                        "search": search,
                         "sort_by": sort_by,
                         "sort_order": sort_order,
                     },
-                    site_config_list_recommendations_params.SiteConfigListRecommendationsParams,
+                    config_registry_list_params.ConfigRegistryListParams,
                 ),
             ),
             model=RecommendationSummary,
@@ -433,7 +303,7 @@ class AsyncSiteConfigsResource(AsyncAPIResource):
     ) -> LookupResponse:
         """
         Returns current global knowledge without resolving DNS, creating an analysis, or
-        updating Site Config data.
+        updating config registry data.
 
         Args:
           url: Public HTTP(S) URL to look up.
@@ -450,13 +320,13 @@ class AsyncSiteConfigsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/site-configs/lookup",
+            "/config-registry/lookup",
             body=await async_maybe_transform(
                 {
                     "url": url,
                     "allowed_proxy_countries": allowed_proxy_countries,
                 },
-                site_config_lookup_params.SiteConfigLookupParams,
+                config_registry_lookup_params.ConfigRegistryLookupParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -475,11 +345,11 @@ class AsyncSiteConfigsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SiteConfigResponse:
+    ) -> ConfigRegistryResponse:
         """
         Explicitly starts or retries a project-scoped background analysis while
-        preserving current global knowledge when available. Use `/site-configs/lookup`
-        for side-effect-free reads.
+        preserving current global knowledge when available. Use
+        `/config-registry/lookup` for side-effect-free reads.
 
         Args:
           url: Public HTTP(S) URL to refresh.
@@ -497,100 +367,96 @@ class AsyncSiteConfigsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/site-configs/resolve",
+            "/config-registry/resolve",
             body=await async_maybe_transform(
                 {
                     "url": url,
                     "allowed_proxy_countries": allowed_proxy_countries,
                 },
-                site_config_resolve_params.SiteConfigResolveParams,
+                config_registry_resolve_params.ConfigRegistryResolveParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SiteConfigResponse,
+            cast_to=ConfigRegistryResponse,
         )
 
 
-class SiteConfigsResourceWithRawResponse:
-    def __init__(self, site_configs: SiteConfigsResource) -> None:
-        self._site_configs = site_configs
+class ConfigRegistryResourceWithRawResponse:
+    def __init__(self, config_registry: ConfigRegistryResource) -> None:
+        self._config_registry = config_registry
 
-        self.retrieve = to_raw_response_wrapper(
-            site_configs.retrieve,
-        )
         self.list = to_raw_response_wrapper(
-            site_configs.list,
-        )
-        self.list_recommendations = to_raw_response_wrapper(
-            site_configs.list_recommendations,
+            config_registry.list,
         )
         self.lookup = to_raw_response_wrapper(
-            site_configs.lookup,
+            config_registry.lookup,
         )
         self.resolve = to_raw_response_wrapper(
-            site_configs.resolve,
+            config_registry.resolve,
         )
 
+    @cached_property
+    def analyses(self) -> AnalysesResourceWithRawResponse:
+        """Resolve browser and proxy recommendations for bot-protected sites."""
+        return AnalysesResourceWithRawResponse(self._config_registry.analyses)
 
-class AsyncSiteConfigsResourceWithRawResponse:
-    def __init__(self, site_configs: AsyncSiteConfigsResource) -> None:
-        self._site_configs = site_configs
 
-        self.retrieve = async_to_raw_response_wrapper(
-            site_configs.retrieve,
-        )
+class AsyncConfigRegistryResourceWithRawResponse:
+    def __init__(self, config_registry: AsyncConfigRegistryResource) -> None:
+        self._config_registry = config_registry
+
         self.list = async_to_raw_response_wrapper(
-            site_configs.list,
-        )
-        self.list_recommendations = async_to_raw_response_wrapper(
-            site_configs.list_recommendations,
+            config_registry.list,
         )
         self.lookup = async_to_raw_response_wrapper(
-            site_configs.lookup,
+            config_registry.lookup,
         )
         self.resolve = async_to_raw_response_wrapper(
-            site_configs.resolve,
+            config_registry.resolve,
         )
 
+    @cached_property
+    def analyses(self) -> AsyncAnalysesResourceWithRawResponse:
+        """Resolve browser and proxy recommendations for bot-protected sites."""
+        return AsyncAnalysesResourceWithRawResponse(self._config_registry.analyses)
 
-class SiteConfigsResourceWithStreamingResponse:
-    def __init__(self, site_configs: SiteConfigsResource) -> None:
-        self._site_configs = site_configs
 
-        self.retrieve = to_streamed_response_wrapper(
-            site_configs.retrieve,
-        )
+class ConfigRegistryResourceWithStreamingResponse:
+    def __init__(self, config_registry: ConfigRegistryResource) -> None:
+        self._config_registry = config_registry
+
         self.list = to_streamed_response_wrapper(
-            site_configs.list,
-        )
-        self.list_recommendations = to_streamed_response_wrapper(
-            site_configs.list_recommendations,
+            config_registry.list,
         )
         self.lookup = to_streamed_response_wrapper(
-            site_configs.lookup,
+            config_registry.lookup,
         )
         self.resolve = to_streamed_response_wrapper(
-            site_configs.resolve,
+            config_registry.resolve,
         )
 
+    @cached_property
+    def analyses(self) -> AnalysesResourceWithStreamingResponse:
+        """Resolve browser and proxy recommendations for bot-protected sites."""
+        return AnalysesResourceWithStreamingResponse(self._config_registry.analyses)
 
-class AsyncSiteConfigsResourceWithStreamingResponse:
-    def __init__(self, site_configs: AsyncSiteConfigsResource) -> None:
-        self._site_configs = site_configs
 
-        self.retrieve = async_to_streamed_response_wrapper(
-            site_configs.retrieve,
-        )
+class AsyncConfigRegistryResourceWithStreamingResponse:
+    def __init__(self, config_registry: AsyncConfigRegistryResource) -> None:
+        self._config_registry = config_registry
+
         self.list = async_to_streamed_response_wrapper(
-            site_configs.list,
-        )
-        self.list_recommendations = async_to_streamed_response_wrapper(
-            site_configs.list_recommendations,
+            config_registry.list,
         )
         self.lookup = async_to_streamed_response_wrapper(
-            site_configs.lookup,
+            config_registry.lookup,
         )
         self.resolve = async_to_streamed_response_wrapper(
-            site_configs.resolve,
+            config_registry.resolve,
         )
+
+    @cached_property
+    def analyses(self) -> AsyncAnalysesResourceWithStreamingResponse:
+        """Resolve browser and proxy recommendations for bot-protected sites."""
+        return AsyncAnalysesResourceWithStreamingResponse(self._config_registry.analyses)
