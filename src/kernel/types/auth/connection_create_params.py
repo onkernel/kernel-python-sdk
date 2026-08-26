@@ -31,9 +31,11 @@ class ConnectionCreateParams(TypedDict, total=False):
     """
 
     allowed_domains: SequenceNotStr[str]
-    """Additional domains valid for this auth flow (besides the primary domain).
+    """Additional hostname roots valid for this auth flow, besides the primary domain.
 
-    Useful when login pages redirect to different domains.
+    Each value allows credential entry on that exact hostname and its subdomains.
+    Leading `www.` and `*.` labels are normalized away. When omitted or empty,
+    credential entry is unrestricted.
 
     The following SSO/OAuth provider domains are automatically allowed by default
     and do not need to be specified:

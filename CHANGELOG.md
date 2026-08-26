@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.95.0](https://github.com/kernel/kernel-python-sdk/compare/v0.94.0...v0.95.0) (2026-08-26)
+
+
+### Features
+
+* Add OTLP destination delivery health storage ([516cbce](https://github.com/kernel/kernel-python-sdk/commit/516cbce77afab43b346d9e95df2e4a25757c474b))
+* route process calls directly to browser VMs ([f833c55](https://github.com/kernel/kernel-python-sdk/commit/f833c55fee9e7c33c444af6366890a9c876e149c))
+
 ## [0.94.0](https://github.com/kernel/kernel-python-sdk/compare/v0.93.0...v0.94.0) (2026-08-24)
 
 

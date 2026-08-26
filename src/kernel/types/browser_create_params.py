@@ -101,7 +101,7 @@ class BrowserCreateParams(TypedDict, total=False):
     favor of proxy.
     """
 
-    region: Literal["us-east", "eu-west"]
+    region: Literal["us-east", "eu-west", "ap-southeast"]
     """Geographic region for the browser session.
 
     It is fixed once the session is created. Region selection requires a Start-Up or
