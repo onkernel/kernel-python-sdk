@@ -31,7 +31,7 @@ class BrowserUpdateResponse(BaseModel):
     memory: BrowserMemory
     """Memory allocated to the browser session."""
 
-    region: Literal["us-east", "eu-west"]
+    region: Literal["us-east", "eu-west", "ap-southeast"]
     """Geographic region of the browser session. Fixed once the session is created."""
 
     session_id: str

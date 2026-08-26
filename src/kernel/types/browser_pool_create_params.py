@@ -87,7 +87,7 @@ class BrowserPoolCreateParams(TypedDict, total=False):
     creation, this defaults to true. Requires a profile to be set on the pool.
     """
 
-    region: Literal["us-east", "eu-west"]
+    region: Literal["us-east", "eu-west", "ap-southeast"]
     """Geographic region for the browser pool.
 
     It is fixed once the pool is created. Region selection requires a Start-Up or

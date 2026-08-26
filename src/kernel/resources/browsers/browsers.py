@@ -182,7 +182,7 @@ class BrowsersResource(SyncAPIResource):
         profile: BrowserProfile | Omit = omit,
         proxy: BrowserProxyConfigParam | Omit = omit,
         proxy_id: str | Omit = omit,
-        region: Literal["us-east", "eu-west"] | Omit = omit,
+        region: Literal["us-east", "eu-west", "ap-southeast"] | Omit = omit,
         start_url: str | Omit = omit,
         stealth: bool | Omit = omit,
         tags: TagsParam | Omit = omit,
@@ -459,7 +459,7 @@ class BrowsersResource(SyncAPIResource):
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         query: str | Omit = omit,
-        region: Literal["us-east", "eu-west"] | Omit = omit,
+        region: Literal["us-east", "eu-west", "ap-southeast"] | Omit = omit,
         status: Literal["active", "deleted", "all"] | Omit = omit,
         tags: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -694,8 +694,8 @@ class BrowsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Loads one or more unpacked extensions and restarts Chromium on the browser
-        instance.
+        Loads one or more unpacked extensions using live CDP activation when eligible.
+        Chromium restarts when enterprise policy requires it or live activation fails.
 
         Args:
           extensions: List of extensions to upload and activate
@@ -802,7 +802,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         profile: BrowserProfile | Omit = omit,
         proxy: BrowserProxyConfigParam | Omit = omit,
         proxy_id: str | Omit = omit,
-        region: Literal["us-east", "eu-west"] | Omit = omit,
+        region: Literal["us-east", "eu-west", "ap-southeast"] | Omit = omit,
         start_url: str | Omit = omit,
         stealth: bool | Omit = omit,
         tags: TagsParam | Omit = omit,
@@ -1079,7 +1079,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         query: str | Omit = omit,
-        region: Literal["us-east", "eu-west"] | Omit = omit,
+        region: Literal["us-east", "eu-west", "ap-southeast"] | Omit = omit,
         status: Literal["active", "deleted", "all"] | Omit = omit,
         tags: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1314,8 +1314,8 @@ class AsyncBrowsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Loads one or more unpacked extensions and restarts Chromium on the browser
-        instance.
+        Loads one or more unpacked extensions using live CDP activation when eligible.
+        Chromium restarts when enterprise policy requires it or live activation fails.
 
         Args:
           extensions: List of extensions to upload and activate
