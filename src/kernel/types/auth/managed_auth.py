@@ -309,9 +309,11 @@ class ManagedAuth(BaseModel):
     """Current authentication status of the managed profile"""
 
     allowed_domains: Optional[List[str]] = None
-    """
-    Additional domains that are valid for this auth flow (besides the primary
-    domain). Useful when login pages redirect to different domains.
+    """Additional hostname roots valid for this auth flow, besides the primary domain.
+
+    Each value allows credential entry on that exact hostname and its subdomains.
+    Leading `www.` and `*.` labels are normalized away. When omitted or empty,
+    credential entry is unrestricted.
 
     The following SSO/OAuth provider domains are automatically allowed by default
     and do not need to be specified:

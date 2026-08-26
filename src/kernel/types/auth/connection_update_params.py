@@ -22,7 +22,12 @@ __all__ = [
 
 class ConnectionUpdateParams(TypedDict, total=False):
     allowed_domains: SequenceNotStr[str]
-    """Additional domains valid for this auth flow (replaces existing list)"""
+    """Additional hostname roots valid for this auth flow.
+
+    Each value allows credential entry on that exact hostname and its subdomains;
+    leading `www.` and `*.` labels are normalized away. An empty list leaves
+    credential entry unrestricted. Replaces the existing list.
+    """
 
     auto_reauth: bool
     """Whether automatic re-authentication is permitted for this connection.

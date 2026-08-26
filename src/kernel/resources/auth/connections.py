@@ -95,8 +95,10 @@ class ConnectionsResource(SyncAPIResource):
           profile_name: Name of the profile to manage authentication for. If the profile does not exist,
               it is created automatically.
 
-          allowed_domains: Additional domains valid for this auth flow (besides the primary domain). Useful
-              when login pages redirect to different domains.
+          allowed_domains: Additional hostname roots valid for this auth flow, besides the primary domain.
+              Each value allows credential entry on that exact hostname and its subdomains.
+              Leading `www.` and `*.` labels are normalized away. When omitted or empty,
+              credential entry is unrestricted.
 
               The following SSO/OAuth provider domains are automatically allowed by default
               and do not need to be specified:
@@ -254,7 +256,10 @@ class ConnectionsResource(SyncAPIResource):
         updated.
 
         Args:
-          allowed_domains: Additional domains valid for this auth flow (replaces existing list)
+          allowed_domains: Additional hostname roots valid for this auth flow. Each value allows credential
+              entry on that exact hostname and its subdomains; leading `www.` and `*.` labels
+              are normalized away. An empty list leaves credential entry unrestricted.
+              Replaces the existing list.
 
           auto_reauth: Whether automatic re-authentication is permitted for this connection. This is an
               opt-in flag only — it does not check whether re-auth is actually feasible. Even
@@ -713,8 +718,10 @@ class AsyncConnectionsResource(AsyncAPIResource):
           profile_name: Name of the profile to manage authentication for. If the profile does not exist,
               it is created automatically.
 
-          allowed_domains: Additional domains valid for this auth flow (besides the primary domain). Useful
-              when login pages redirect to different domains.
+          allowed_domains: Additional hostname roots valid for this auth flow, besides the primary domain.
+              Each value allows credential entry on that exact hostname and its subdomains.
+              Leading `www.` and `*.` labels are normalized away. When omitted or empty,
+              credential entry is unrestricted.
 
               The following SSO/OAuth provider domains are automatically allowed by default
               and do not need to be specified:
@@ -872,7 +879,10 @@ class AsyncConnectionsResource(AsyncAPIResource):
         updated.
 
         Args:
-          allowed_domains: Additional domains valid for this auth flow (replaces existing list)
+          allowed_domains: Additional hostname roots valid for this auth flow. Each value allows credential
+              entry on that exact hostname and its subdomains; leading `www.` and `*.` labels
+              are normalized away. An empty list leaves credential entry unrestricted.
+              Replaces the existing list.
 
           auto_reauth: Whether automatic re-authentication is permitted for this connection. This is an
               opt-in flag only — it does not check whether re-auth is actually feasible. Even
