@@ -397,6 +397,7 @@ def test_browser_routing_config_from_env_defaults(monkeypatch: pytest.MonkeyPatc
         "telemetry/stream",
         "computer",
         "playwright",
+        "process",
     )
 
 
@@ -406,7 +407,7 @@ def test_direct_vm_routing_allowlist_segment_boundary() -> None:
     # stream-prefixed-but-different path is not matched.
     from kernel.lib.browser_routing.routing import _matches_direct_vm_prefix
 
-    prefixes = ("curl", "telemetry/stream", "computer", "playwright")
+    prefixes = ("curl", "telemetry/stream", "computer", "playwright", "process")
     assert _matches_direct_vm_prefix("telemetry/stream", prefixes) is True
     assert _matches_direct_vm_prefix("telemetry/stream/x", prefixes) is True
     assert _matches_direct_vm_prefix("telemetry/events", prefixes) is False
@@ -415,7 +416,8 @@ def test_direct_vm_routing_allowlist_segment_boundary() -> None:
     assert _matches_direct_vm_prefix("curl/raw", prefixes) is True
     assert _matches_direct_vm_prefix("computer/screenshot", prefixes) is True
     assert _matches_direct_vm_prefix("playwright/execute", prefixes) is True
-    assert _matches_direct_vm_prefix("process/exec", prefixes) is False
+    assert _matches_direct_vm_prefix("process/exec", prefixes) is True
+    assert _matches_direct_vm_prefix("process/proc-1/stdout/stream", prefixes) is True
     assert _matches_direct_vm_prefix("fs/read", prefixes) is False
 
 
@@ -433,7 +435,7 @@ def test_rewrite_direct_vm_options_keeps_telemetry_events_on_control_plane() -> 
 
     cache = BrowserRouteCache()
     cache.set(BrowserRoute(session_id="sess-1", base_url="http://browser-session.test/browser/kernel", jwt="token-abc"))
-    config = BrowserRoutingConfig(subresources=("curl", "telemetry/stream", "computer", "playwright"))
+    config = BrowserRoutingConfig(subresources=("curl", "telemetry/stream", "computer", "playwright", "process"))
 
     events = rewrite_direct_vm_options(
         FinalRequestOptions(method="get", url="/browsers/sess-1/telemetry/events"), cache=cache, config=config
@@ -458,7 +460,7 @@ def test_rewrite_direct_vm_options_keeps_telemetry_events_on_control_plane() -> 
     process = rewrite_direct_vm_options(
         FinalRequestOptions(method="post", url="/browsers/sess-1/process/exec"), cache=cache, config=config
     )
-    assert process.url == "/browsers/sess-1/process/exec"
+    assert str(process.url).startswith("http://browser-session.test/browser/kernel/process/exec")
 
     fs_read = rewrite_direct_vm_options(
         FinalRequestOptions(method="get", url="/browsers/sess-1/fs/read_file"), cache=cache, config=config
@@ -472,7 +474,7 @@ def test_browser_routing_config_from_env_empty_string_disables_routing(monkeypat
 
 
 @respx.mock
-def test_computer_screenshot_and_playwright_execute_route_to_vm_by_default(
+def test_default_browser_subresources_route_to_vm(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
@@ -482,10 +484,14 @@ def test_computer_screenshot_and_playwright_execute_route_to_vm_by_default(
     execute = respx.post("http://browser-session.test/browser/kernel/playwright/execute").mock(
         return_value=httpx.Response(200, json={"success": True})
     )
+    process = respx.post("http://browser-session.test/browser/kernel/process/exec").mock(
+        return_value=httpx.Response(200, json={"exit_code": 0, "stdout_b64": "", "stderr_b64": ""})
+    )
     with Kernel(base_url=base_url, api_key=api_key, _strict_response_validation=True) as client:
         _cache_browser(client)
         client.browsers.computer.capture_screenshot("sess-1")
         out = client.browsers.playwright.execute("sess-1", code="return 1")
+        process_out = client.browsers.process.exec("sess-1", command="echo")
 
     assert screenshot.called
     screenshot_req = cast(httpx.Request, cast(Any, screenshot.calls[0]).request)
@@ -495,28 +501,28 @@ def test_computer_screenshot_and_playwright_execute_route_to_vm_by_default(
     execute_req = cast(httpx.Request, cast(Any, execute.calls[0]).request)
     assert execute_req.url.params.get("jwt") == "token-abc"
     assert execute_req.headers.get("Authorization") is None
+    assert process.called
+    process_req = cast(httpx.Request, cast(Any, process.calls[0]).request)
+    assert process_req.url.params.get("jwt") == "token-abc"
+    assert process_req.headers.get("Authorization") is None
     assert out.success is True
+    assert process_out.exit_code == 0
 
 
 @respx.mock
-def test_process_fs_and_telemetry_events_stay_on_api_origin_by_default(
+def test_fs_and_telemetry_events_stay_on_api_origin_by_default(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
-    process = respx.post(f"{base_url}/browsers/sess-1/process/exec").mock(
-        return_value=httpx.Response(200, json={"exit_code": 0, "stdout_b64": "", "stderr_b64": ""})
-    )
     fs_read = respx.get(f"{base_url}/browsers/sess-1/fs/read_file").mock(
         return_value=httpx.Response(200, content=b"x", headers={"content-type": "application/octet-stream"})
     )
     events = respx.get(f"{base_url}/browsers/sess-1/telemetry/events").mock(return_value=httpx.Response(200, json=[]))
     with Kernel(base_url=base_url, api_key=api_key, _strict_response_validation=True) as client:
         _cache_browser(client)
-        client.browsers.process.exec("sess-1", command="echo")
         client.browsers.fs.read_file("sess-1", path="/tmp/x")
         client.browsers.telemetry.events("sess-1")
 
-    assert process.called
     assert fs_read.called
     assert events.called
 
