@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.96.0](https://github.com/kernel/kernel-python-sdk/compare/v0.95.0...v0.96.0) (2026-08-27)
+
+
+### Features
+
+* Rename the site configs API to config registry ([114c986](https://github.com/kernel/kernel-python-sdk/commit/114c986f0d771049ec09741c65e0be317c98f718))
+
 ## [0.95.0](https://github.com/kernel/kernel-python-sdk/compare/v0.94.0...v0.95.0) (2026-08-26)
 
 

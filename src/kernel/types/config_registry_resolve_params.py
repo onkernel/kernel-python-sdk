@@ -6,10 +6,10 @@ from typing_extensions import Required, TypedDict
 
 from .._types import SequenceNotStr
 
-__all__ = ["SiteConfigResolveParams"]
+__all__ = ["ConfigRegistryResolveParams"]
 
 
-class SiteConfigResolveParams(TypedDict, total=False):
+class ConfigRegistryResolveParams(TypedDict, total=False):
     url: Required[str]
     """Public HTTP(S) URL to refresh."""
 

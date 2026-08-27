@@ -10,8 +10,7 @@ __all__ = ["NoRecommendation"]
 class NoRecommendation(BaseModel):
     code: Literal["proxy_restricted", "no_working_configuration", "inconclusive"]
     """
-    Machine-readable reason Kernel cannot currently provide a Site Config
-    recommendation.
+    Machine-readable reason Kernel cannot currently provide a config recommendation.
     """
 
     message: str

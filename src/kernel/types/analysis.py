@@ -27,4 +27,4 @@ class Analysis(BaseModel):
     """Time the analysis reached a terminal status. Null while it is running."""
 
     status: Literal["running", "completed", "failed", "canceled"]
-    """Lifecycle status of the background analysis."""
+    """Lifecycle status of a background analysis."""

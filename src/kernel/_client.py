@@ -62,8 +62,8 @@ if TYPE_CHECKING:
         deployments,
         invocations,
         organization,
-        site_configs,
         browser_pools,
+        config_registry,
         credential_providers,
     )
     from .resources.apps import AppsResource, AsyncAppsResource
@@ -75,7 +75,6 @@ if TYPE_CHECKING:
     from .resources.credentials import CredentialsResource, AsyncCredentialsResource
     from .resources.deployments import DeploymentsResource, AsyncDeploymentsResource
     from .resources.invocations import InvocationsResource, AsyncInvocationsResource
-    from .resources.site_configs import SiteConfigsResource, AsyncSiteConfigsResource
     from .resources.browser_pools import BrowserPoolsResource, AsyncBrowserPoolsResource
     from .resources.browsers.browsers import BrowsersResource, AsyncBrowsersResource
     from .resources.projects.projects import ProjectsResource, AsyncProjectsResource
@@ -83,6 +82,7 @@ if TYPE_CHECKING:
     from .resources.credential_providers import CredentialProvidersResource, AsyncCredentialProvidersResource
     from .resources.audit_logs.audit_logs import AuditLogsResource, AsyncAuditLogsResource
     from .resources.organization.organization import OrganizationResource, AsyncOrganizationResource
+    from .resources.config_registry.config_registry import ConfigRegistryResource, AsyncConfigRegistryResource
 
 __all__ = [
     "ENVIRONMENTS",
@@ -226,11 +226,11 @@ class Kernel(SyncAPIClient):
         return InvocationsResource(self)
 
     @cached_property
-    def site_configs(self) -> SiteConfigsResource:
+    def config_registry(self) -> ConfigRegistryResource:
         """Resolve browser and proxy recommendations for bot-protected sites."""
-        from .resources.site_configs import SiteConfigsResource
+        from .resources.config_registry import ConfigRegistryResource
 
-        return SiteConfigsResource(self)
+        return ConfigRegistryResource(self)
 
     @cached_property
     def browsers(self) -> BrowsersResource:
@@ -609,11 +609,11 @@ class AsyncKernel(AsyncAPIClient):
         return AsyncInvocationsResource(self)
 
     @cached_property
-    def site_configs(self) -> AsyncSiteConfigsResource:
+    def config_registry(self) -> AsyncConfigRegistryResource:
         """Resolve browser and proxy recommendations for bot-protected sites."""
-        from .resources.site_configs import AsyncSiteConfigsResource
+        from .resources.config_registry import AsyncConfigRegistryResource
 
-        return AsyncSiteConfigsResource(self)
+        return AsyncConfigRegistryResource(self)
 
     @cached_property
     def browsers(self) -> AsyncBrowsersResource:
@@ -896,11 +896,11 @@ class KernelWithRawResponse:
         return InvocationsResourceWithRawResponse(self._client.invocations)
 
     @cached_property
-    def site_configs(self) -> site_configs.SiteConfigsResourceWithRawResponse:
+    def config_registry(self) -> config_registry.ConfigRegistryResourceWithRawResponse:
         """Resolve browser and proxy recommendations for bot-protected sites."""
-        from .resources.site_configs import SiteConfigsResourceWithRawResponse
+        from .resources.config_registry import ConfigRegistryResourceWithRawResponse
 
-        return SiteConfigsResourceWithRawResponse(self._client.site_configs)
+        return ConfigRegistryResourceWithRawResponse(self._client.config_registry)
 
     @cached_property
     def browsers(self) -> browsers.BrowsersResourceWithRawResponse:
@@ -1023,11 +1023,11 @@ class AsyncKernelWithRawResponse:
         return AsyncInvocationsResourceWithRawResponse(self._client.invocations)
 
     @cached_property
-    def site_configs(self) -> site_configs.AsyncSiteConfigsResourceWithRawResponse:
+    def config_registry(self) -> config_registry.AsyncConfigRegistryResourceWithRawResponse:
         """Resolve browser and proxy recommendations for bot-protected sites."""
-        from .resources.site_configs import AsyncSiteConfigsResourceWithRawResponse
+        from .resources.config_registry import AsyncConfigRegistryResourceWithRawResponse
 
-        return AsyncSiteConfigsResourceWithRawResponse(self._client.site_configs)
+        return AsyncConfigRegistryResourceWithRawResponse(self._client.config_registry)
 
     @cached_property
     def browsers(self) -> browsers.AsyncBrowsersResourceWithRawResponse:
@@ -1150,11 +1150,11 @@ class KernelWithStreamedResponse:
         return InvocationsResourceWithStreamingResponse(self._client.invocations)
 
     @cached_property
-    def site_configs(self) -> site_configs.SiteConfigsResourceWithStreamingResponse:
+    def config_registry(self) -> config_registry.ConfigRegistryResourceWithStreamingResponse:
         """Resolve browser and proxy recommendations for bot-protected sites."""
-        from .resources.site_configs import SiteConfigsResourceWithStreamingResponse
+        from .resources.config_registry import ConfigRegistryResourceWithStreamingResponse
 
-        return SiteConfigsResourceWithStreamingResponse(self._client.site_configs)
+        return ConfigRegistryResourceWithStreamingResponse(self._client.config_registry)
 
     @cached_property
     def browsers(self) -> browsers.BrowsersResourceWithStreamingResponse:
@@ -1277,11 +1277,11 @@ class AsyncKernelWithStreamedResponse:
         return AsyncInvocationsResourceWithStreamingResponse(self._client.invocations)
 
     @cached_property
-    def site_configs(self) -> site_configs.AsyncSiteConfigsResourceWithStreamingResponse:
+    def config_registry(self) -> config_registry.AsyncConfigRegistryResourceWithStreamingResponse:
         """Resolve browser and proxy recommendations for bot-protected sites."""
-        from .resources.site_configs import AsyncSiteConfigsResourceWithStreamingResponse
+        from .resources.config_registry import AsyncConfigRegistryResourceWithStreamingResponse
 
-        return AsyncSiteConfigsResourceWithStreamingResponse(self._client.site_configs)
+        return AsyncConfigRegistryResourceWithStreamingResponse(self._client.config_registry)
 
     @cached_property
     def browsers(self) -> browsers.AsyncBrowsersResourceWithStreamingResponse:

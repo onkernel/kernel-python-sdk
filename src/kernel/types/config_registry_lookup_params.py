@@ -6,10 +6,10 @@ from typing_extensions import Required, TypedDict
 
 from .._types import SequenceNotStr
 
-__all__ = ["SiteConfigLookupParams"]
+__all__ = ["ConfigRegistryLookupParams"]
 
 
-class SiteConfigLookupParams(TypedDict, total=False):
+class ConfigRegistryLookupParams(TypedDict, total=False):
     url: Required[str]
     """Public HTTP(S) URL to look up."""
 

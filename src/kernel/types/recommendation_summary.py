@@ -2,6 +2,7 @@
 
 from typing import Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .recommendation import Recommendation
@@ -10,6 +11,12 @@ __all__ = ["RecommendationSummary"]
 
 
 class RecommendationSummary(BaseModel):
+    analysis_id: str
+    """ID of the most recently requested analysis for this domain."""
+
+    analysis_status: Literal["running", "completed", "failed", "canceled"]
+    """Lifecycle status of the most recently requested analysis for this domain."""
+
     last_requested_at: datetime
     """Most recent time the selected project requested an analysis for this domain."""
 
