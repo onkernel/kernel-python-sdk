@@ -17,7 +17,7 @@ class BrowserTelemetryCategoriesConfigParam(TypedDict, total=False):
     """
 
     captcha: BrowserTelemetryCategoryConfigParam
-    """Captcha solve attempt outcomes. On by default."""
+    """Captcha solver tasks and visible challenge outcomes. On by default."""
 
     connection: BrowserTelemetryCategoryConfigParam
     """Client attach/detach lifecycle for the CDP proxy and live view. On by default."""

@@ -87,6 +87,7 @@ from .browser_captcha_solve_result_event import BrowserCaptchaSolveResultEvent a
 from .browser_live_view_disconnect_event import BrowserLiveViewDisconnectEvent as BrowserLiveViewDisconnectEvent
 from .browser_monitor_disconnected_event import BrowserMonitorDisconnectedEvent as BrowserMonitorDisconnectedEvent
 from .computer_capture_screenshot_params import ComputerCaptureScreenshotParams as ComputerCaptureScreenshotParams
+from .browser_captcha_solve_started_event import BrowserCaptchaSolveStartedEvent as BrowserCaptchaSolveStartedEvent
 from .browser_telemetry_categories_config import BrowserTelemetryCategoriesConfig as BrowserTelemetryCategoriesConfig
 from .browser_network_loading_failed_event import BrowserNetworkLoadingFailedEvent as BrowserNetworkLoadingFailedEvent
 from .browser_telemetry_cdp_control_config import BrowserTelemetryCdpControlConfig as BrowserTelemetryCdpControlConfig
@@ -98,6 +99,9 @@ from .browser_page_navigation_settled_event import (
 )
 from .computer_set_cursor_visibility_params import (
     ComputerSetCursorVisibilityParams as ComputerSetCursorVisibilityParams,
+)
+from .browser_captcha_challenge_result_event import (
+    BrowserCaptchaChallengeResultEvent as BrowserCaptchaChallengeResultEvent,
 )
 from .browser_monitor_reconnect_failed_event import (
     BrowserMonitorReconnectFailedEvent as BrowserMonitorReconnectFailedEvent,
