@@ -35,9 +35,11 @@ from .browser_page_layout_settled_event import BrowserPageLayoutSettledEvent
 from .browser_captcha_solve_result_event import BrowserCaptchaSolveResultEvent
 from .browser_live_view_disconnect_event import BrowserLiveViewDisconnectEvent
 from .browser_monitor_disconnected_event import BrowserMonitorDisconnectedEvent
+from .browser_captcha_solve_started_event import BrowserCaptchaSolveStartedEvent
 from .browser_network_loading_failed_event import BrowserNetworkLoadingFailedEvent
 from .browser_page_dom_content_loaded_event import BrowserPageDomContentLoadedEvent
 from .browser_page_navigation_settled_event import BrowserPageNavigationSettledEvent
+from .browser_captcha_challenge_result_event import BrowserCaptchaChallengeResultEvent
 from .browser_monitor_reconnect_failed_event import BrowserMonitorReconnectFailedEvent
 from .browser_interaction_scroll_settled_event import BrowserInteractionScrollSettledEvent
 
@@ -76,7 +78,9 @@ BrowserTelemetryEvent: TypeAlias = Annotated[
         BrowserCdpDisconnectEvent,
         BrowserLiveViewConnectEvent,
         BrowserLiveViewDisconnectEvent,
+        BrowserCaptchaSolveStartedEvent,
         BrowserCaptchaSolveResultEvent,
+        BrowserCaptchaChallengeResultEvent,
         BrowserSystemOomKillEvent,
         BrowserServiceCrashedEvent,
     ],

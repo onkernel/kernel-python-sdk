@@ -16,7 +16,7 @@ class BrowserTelemetryCategoriesConfig(BaseModel):
     """
 
     captcha: Optional[BrowserTelemetryCategoryConfig] = None
-    """Captcha solve attempt outcomes. On by default."""
+    """Captcha solver tasks and visible challenge outcomes. On by default."""
 
     connection: Optional[BrowserTelemetryCategoryConfig] = None
     """Client attach/detach lifecycle for the CDP proxy and live view. On by default."""

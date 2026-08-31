@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.97.0](https://github.com/kernel/kernel-python-sdk/compare/v0.96.0...v0.97.0) (2026-08-31)
+
+
+### Features
+
+* Expose captcha task and challenge outcomes ([42c33c6](https://github.com/kernel/kernel-python-sdk/commit/42c33c6e08ed6018cd93ddf6704ea70b206ca159))
+* Unify managed auth reauth eligibility and blockers ([8e11fb2](https://github.com/kernel/kernel-python-sdk/commit/8e11fb2ab0b6ddddcb28af0d503489b94cfba1f0))
+
 ## [0.96.0](https://github.com/kernel/kernel-python-sdk/compare/v0.95.0...v0.96.0) (2026-08-27)
 
 

@@ -152,7 +152,9 @@ Types:
 from kernel.types.browsers import (
     BrowserAPICallEvent,
     BrowserCallStack,
+    BrowserCaptchaChallengeResultEvent,
     BrowserCaptchaSolveResultEvent,
+    BrowserCaptchaSolveStartedEvent,
     BrowserCdpCommandEvent,
     BrowserCdpCommandMethod,
     BrowserCdpConnectEvent,
