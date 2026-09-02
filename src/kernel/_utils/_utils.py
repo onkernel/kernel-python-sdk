@@ -40,7 +40,7 @@ def extract_files(
     query: Mapping[str, object],
     *,
     paths: Sequence[Sequence[str]],
-    array_format: ArrayFormat = "indices",
+    array_format: ArrayFormat = "brackets",
 ) -> list[tuple[str, FileTypes]]:
     """Recursively extract files from the given dictionary based on specified paths.
 
@@ -48,9 +48,7 @@ def extract_files(
 
     ``array_format`` controls how ``<array>`` segments contribute to the emitted
     field name. Supported values: ``"brackets"`` (``foo[]``), ``"repeat"`` and
-    ``"comma"`` (``foo``), ``"indices"`` (``foo[0]``, ``foo[1]``). Indexed names are
-    the default so that a file part stays associated with the sibling fields of the
-    same array entry, which repeated ``foo[]`` names cannot express.
+    ``"comma"`` (``foo``), ``"indices"`` (``foo[0]``, ``foo[1]``).
 
     Note: this mutates the given dictionary.
     """

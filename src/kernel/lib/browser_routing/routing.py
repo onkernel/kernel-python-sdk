@@ -52,7 +52,7 @@ def browser_routing_config_from_env() -> BrowserRoutingConfig:
                 "playwright",
                 "process",
                 "fs",
-                "logs",
+                "logs/stream",
             )
         )
     if raw.strip() == "":
@@ -237,11 +237,40 @@ def _multipart_field_is_replayable(field: Any) -> bool:
         return True
     if getattr(file, "closed", False):
         return False
-    if not callable(getattr(file, "seek", None)):
+    return _rewind_succeeds(file)
+
+
+def _rewind_succeeds(file: Any) -> bool:
+    """Whether the file field can actually be rewound for another render.
+
+    `seekable()` is not proof: a wrapper can report True and still raise from
+    `seek()`, which would render the field as an empty part on the retry. The
+    only reliable check is to perform the rewind httpx would perform.
+    """
+    seek = getattr(file, "seek", None)
+    if not callable(seek):
         return False
-    seekable = getattr(file, "seekable", None)
-    # httpx rewinds seekable file fields before rendering them again.
-    return bool(seekable()) if callable(seekable) else True
+
+    position: object = None
+    tell = getattr(file, "tell", None)
+    if callable(tell):
+        try:
+            position = tell()
+        except Exception:
+            position = None
+
+    try:
+        seek(0)
+    except Exception:
+        return False
+
+    if isinstance(position, int) and position > 0:
+        try:
+            seek(position)
+        except Exception:
+            # The field is left rewound, which is where httpx renders it from anyway.
+            pass
+    return True
 
 
 def _session_id_from_browser_delete_path(path: str) -> str | None:

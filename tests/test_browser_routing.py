@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import io
 import os
 import asyncio
 from typing import Any, AsyncIterator, cast
@@ -10,7 +11,13 @@ import httpx
 import respx
 import pytest
 
-from kernel import Kernel, AsyncKernel, AuthenticationError, InternalServerError
+from kernel import (
+    Kernel,
+    AsyncKernel,
+    AuthenticationError,
+    InternalServerError,
+    PermissionDeniedError,
+)
 from kernel.lib.browser_routing.util import jwt_from_cdp_ws_url
 from kernel.lib.browser_routing.routing import (
     BrowserRoute,
@@ -42,22 +49,61 @@ def _skip_retry_sleep(_self: object, **_kwargs: object) -> None:
     return None
 
 
-class _UnseekableFile:
-    """A file-like upload body that cannot be rewound, e.g. a pipe."""
+class _UnseekableFile(io.RawIOBase):
+    """A file-like upload body that cannot be rewound, e.g. a pipe.
+
+    `claims_seekable` reproduces a wrapper whose `seekable()` says True while
+    `seek()` still raises, which would otherwise render as an empty part.
+    """
+
+    name = "one.txt"
+
+    def __init__(self, content: bytes, *, claims_seekable: bool = False) -> None:
+        self._content = content
+        self._claims_seekable = claims_seekable
+
+    @override
+    def readable(self) -> bool:
+        return True
+
+    @override
+    def read(self, size: int = -1) -> bytes:
+        chunk = self._content if size < 0 else self._content[:size]
+        self._content = b"" if size < 0 else self._content[size:]
+        return chunk
+
+    @override
+    def tell(self) -> int:
+        return 0
+
+    @override
+    def seekable(self) -> bool:
+        return self._claims_seekable
+
+    @override
+    def seek(self, _offset: int, _whence: int = 0) -> int:
+        raise io.UnsupportedOperation("not seekable")
+
+
+class _NoSeekableAttrFile(io.RawIOBase):
+    """A file-like upload body whose `seek()` raises and reports no seekability."""
 
     name = "one.txt"
 
     def __init__(self, content: bytes) -> None:
         self._content = content
 
+    @override
+    def readable(self) -> bool:
+        return True
+
+    @override
     def read(self, size: int = -1) -> bytes:
         chunk = self._content if size < 0 else self._content[:size]
         self._content = b"" if size < 0 else self._content[size:]
         return chunk
 
-    def seekable(self) -> bool:
-        return False
-
+    @override
     def seek(self, _offset: int, _whence: int = 0) -> int:
         raise OSError("not seekable")
 
@@ -424,7 +470,7 @@ def test_browser_routing_config_from_env_defaults(monkeypatch: pytest.MonkeyPatc
         "playwright",
         "process",
         "fs",
-        "logs",
+        "logs/stream",
     )
 
 
@@ -434,7 +480,7 @@ def test_direct_vm_routing_allowlist_segment_boundary() -> None:
     # stream-prefixed-but-different path is not matched.
     from kernel.lib.browser_routing.routing import _matches_direct_vm_prefix
 
-    prefixes = ("curl", "telemetry/stream", "computer", "playwright", "process", "fs", "logs")
+    prefixes = ("curl", "telemetry/stream", "computer", "playwright", "process", "fs", "logs/stream")
     assert _matches_direct_vm_prefix("telemetry/stream", prefixes) is True
     assert _matches_direct_vm_prefix("telemetry/stream/x", prefixes) is True
     assert _matches_direct_vm_prefix("telemetry/events", prefixes) is False
@@ -449,6 +495,9 @@ def test_direct_vm_routing_allowlist_segment_boundary() -> None:
     assert _matches_direct_vm_prefix("fs/watch/watch-1/events", prefixes) is True
     assert _matches_direct_vm_prefix("fsx/read_file", prefixes) is False
     assert _matches_direct_vm_prefix("logs/stream", prefixes) is True
+    assert _matches_direct_vm_prefix("logs/stream/x", prefixes) is True
+    assert _matches_direct_vm_prefix("logs", prefixes) is False
+    assert _matches_direct_vm_prefix("logs/history", prefixes) is False
     assert _matches_direct_vm_prefix("logstream", prefixes) is False
     assert _matches_direct_vm_prefix("extensions", prefixes) is False
     assert _matches_direct_vm_prefix("replays/rec-1", prefixes) is False
@@ -469,7 +518,7 @@ def test_rewrite_direct_vm_options_keeps_telemetry_events_on_control_plane() -> 
     cache = BrowserRouteCache()
     cache.set(BrowserRoute(session_id="sess-1", base_url="http://browser-session.test/browser/kernel", jwt="token-abc"))
     config = BrowserRoutingConfig(
-        subresources=("curl", "telemetry/stream", "computer", "playwright", "process", "fs", "logs")
+        subresources=("curl", "telemetry/stream", "computer", "playwright", "process", "fs", "logs/stream")
     )
 
     events = rewrite_direct_vm_options(
@@ -506,6 +555,16 @@ def test_rewrite_direct_vm_options_keeps_telemetry_events_on_control_plane() -> 
         FinalRequestOptions(method="get", url="/browsers/sess-1/logs/stream"), cache=cache, config=config
     )
     assert str(logs_stream.url).startswith("http://browser-session.test/browser/kernel/logs/stream")
+
+    logs_root = rewrite_direct_vm_options(
+        FinalRequestOptions(method="get", url="/browsers/sess-1/logs"), cache=cache, config=config
+    )
+    assert logs_root.url == "/browsers/sess-1/logs"
+
+    logs_history = rewrite_direct_vm_options(
+        FinalRequestOptions(method="get", url="/browsers/sess-1/logs/history"), cache=cache, config=config
+    )
+    assert logs_history.url == "/browsers/sess-1/logs/history"
 
     extensions = rewrite_direct_vm_options(
         FinalRequestOptions(method="post", url="/browsers/sess-1/extensions"), cache=cache, config=config
@@ -963,6 +1022,28 @@ def test_direct_vm_request_body_is_replayable_classification(tmp_path: Path) -> 
         )
         assert direct_vm_request_body_is_replayable(unseekable) is False
 
+        # seekable() is not proof: the rewind itself has to succeed.
+        lies_about_seekable = httpx.Request(
+            "POST",
+            "http://vm.test/fs/upload",
+            files=[("files[0][file]", cast(Any, _UnseekableFile(b"file-bytes", claims_seekable=True)))],
+        )
+        assert direct_vm_request_body_is_replayable(lies_about_seekable) is False
+
+        without_seekable_attr = httpx.Request(
+            "POST",
+            "http://vm.test/fs/upload",
+            files=[("files[0][file]", cast(Any, _NoSeekableAttrFile(b"file-bytes")))],
+        )
+        assert direct_vm_request_body_is_replayable(without_seekable_attr) is False
+
+        in_memory = io.BytesIO(b"file-bytes")
+        buffered = httpx.Request("POST", "http://vm.test/fs/upload", files=[("files[0][file]", in_memory)])
+        assert direct_vm_request_body_is_replayable(buffered) is True
+
+        in_memory.close()
+        assert direct_vm_request_body_is_replayable(buffered) is False
+
 
 @respx.mock
 def test_env_override_can_exclude_fs_and_logs(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -1001,3 +1082,180 @@ def test_empty_env_disables_fs_and_logs_routing(monkeypatch: pytest.MonkeyPatch)
     assert request.url.params.get("jwt") is None
     assert request.headers.get("Authorization") == f"Bearer {api_key}"
     assert response.read() == b"x"
+
+
+@respx.mock
+def test_stale_direct_vm_jwt_does_not_replay_multipart_that_cannot_rewind(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    monkeypatch.setattr("kernel._base_client.SyncAPIClient._sleep_for_retry", _skip_retry_sleep)
+    vm = respx.post("http://browser-session.test/browser/kernel/fs/upload").mock(
+        return_value=httpx.Response(401, text="Invalid JWT")
+    )
+    api = respx.post(f"{base_url}/browsers/sess-1/fs/upload").mock(return_value=httpx.Response(204))
+    with Kernel(base_url=base_url, api_key=api_key, _strict_response_validation=True) as client:
+        _cache_browser(client)
+        with pytest.raises(AuthenticationError):
+            client.browsers.fs.upload(
+                "sess-1",
+                files=[
+                    {
+                        "dest_path": "/tmp/one",
+                        "file": cast(Any, _UnseekableFile(b"file-bytes", claims_seekable=True)),
+                    }
+                ],
+            )
+        assert client.browser_route_cache.get("sess-1") is None
+
+    assert vm.call_count == 1
+    assert not api.called
+
+
+@pytest.mark.asyncio
+@respx.mock
+async def test_async_stale_direct_vm_jwt_does_not_replay_multipart_that_cannot_rewind(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    monkeypatch.setattr("kernel._base_client.AsyncAPIClient._sleep_for_retry", _skip_retry_sleep)
+    vm = respx.post("http://browser-session.test/browser/kernel/fs/upload").mock(
+        return_value=httpx.Response(403, text="Invalid JWT")
+    )
+    api = respx.post(f"{base_url}/browsers/sess-1/fs/upload").mock(return_value=httpx.Response(204))
+    async with AsyncKernel(base_url=base_url, api_key=api_key, _strict_response_validation=True) as client:
+        route = browser_route_from_browser(_fake_browser())
+        assert route is not None
+        client.browser_route_cache.set(route)
+        with pytest.raises(PermissionDeniedError):
+            await client.browsers.fs.upload(
+                "sess-1",
+                files=[
+                    {
+                        "dest_path": "/tmp/one",
+                        "file": cast(Any, _UnseekableFile(b"file-bytes", claims_seekable=True)),
+                    }
+                ],
+            )
+        assert client.browser_route_cache.get("sess-1") is None
+
+    assert vm.call_count == 1
+    assert not api.called
+
+
+@respx.mock
+def test_stale_direct_vm_jwt_evicts_route_without_retries_for_buffered_body(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    vm = respx.put("http://browser-session.test/browser/kernel/fs/write_file").mock(
+        return_value=httpx.Response(401, text="Invalid JWT")
+    )
+    api = respx.put(f"{base_url}/browsers/sess-1/fs/write_file").mock(return_value=httpx.Response(204))
+    with Kernel(base_url=base_url, api_key=api_key, max_retries=0, _strict_response_validation=True) as client:
+        _cache_browser(client)
+        with pytest.raises(AuthenticationError):
+            client.browsers.fs.write_file("sess-1", b"payload", path="/tmp/x")
+        assert client.browser_route_cache.get("sess-1") is None
+
+        # The caller's next attempt goes to the control plane.
+        client.browsers.fs.write_file("sess-1", b"payload", path="/tmp/x")
+
+    assert vm.call_count == 1
+    api_req = cast(httpx.Request, cast(Any, api.calls[0]).request)
+    assert api_req.content == b"payload"
+    assert api_req.url.params.get("jwt") is None
+    assert api_req.headers.get("Authorization") == f"Bearer {api_key}"
+
+
+@pytest.mark.asyncio
+@respx.mock
+async def test_async_stale_direct_vm_jwt_evicts_route_without_retries_for_streamed_body(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    vm = respx.put("http://browser-session.test/browser/kernel/fs/write_file").mock(
+        return_value=httpx.Response(403, text="Invalid JWT")
+    )
+    api = respx.put(f"{base_url}/browsers/sess-1/fs/write_file").mock(return_value=httpx.Response(204))
+
+    async def _chunks() -> AsyncIterator[bytes]:
+        yield b"chunk-one"
+
+    async with AsyncKernel(
+        base_url=base_url, api_key=api_key, max_retries=0, _strict_response_validation=True
+    ) as client:
+        route = browser_route_from_browser(_fake_browser())
+        assert route is not None
+        client.browser_route_cache.set(route)
+        with pytest.raises(PermissionDeniedError):
+            await client.browsers.fs.write_file("sess-1", _chunks(), path="/tmp/x")
+        assert client.browser_route_cache.get("sess-1") is None
+
+        await client.browsers.fs.write_file("sess-1", b"payload", path="/tmp/x")
+
+    assert vm.call_count == 1
+    api_req = cast(httpx.Request, cast(Any, api.calls[0]).request)
+    assert api_req.url.params.get("jwt") is None
+    assert api_req.headers.get("Authorization") == f"Bearer {api_key}"
+
+
+@respx.mock
+def test_load_extensions_multipart_encoding_is_unchanged(monkeypatch: pytest.MonkeyPatch) -> None:
+    # Indexed names are scoped to fs.upload; every other multipart endpoint keeps
+    # the client's generic array encoding.
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    extensions = respx.post(f"{base_url}/browsers/sess-1/extensions").mock(return_value=httpx.Response(204))
+    with Kernel(base_url=base_url, api_key=api_key, _strict_response_validation=True) as client:
+        _cache_browser(client)
+        client.browsers.load_extensions(
+            "sess-1",
+            extensions=[
+                {"name": "one", "zip_file": b"zip-one"},
+                {"name": "two", "zip_file": b"zip-two"},
+            ],
+        )
+
+    body = cast(httpx.Request, cast(Any, extensions.calls[0]).request).read()
+    assert b'name="extensions[][name]"' in body
+    assert b'name="extensions[][zip_file]"' in body
+    assert b"extensions[0]" not in body
+
+
+def test_generic_multipart_array_encoding_is_unchanged() -> None:
+    from kernel._models import FinalRequestOptions
+
+    with Kernel(base_url=base_url, api_key=api_key, _strict_response_validation=True) as client:
+        request = client._build_request(  # pyright: ignore[reportPrivateUsage]
+            FinalRequestOptions.construct(
+                method="post",
+                url="/foo",
+                headers={"Content-Type": "multipart/form-data; boundary=abc"},
+                json_data={"array": ["foo", "bar"]},
+                files=[("foo.txt", b"hello world")],
+            )
+        )
+
+    body = request.read()
+    assert b'name="array[]"' in body
+    assert b'name="array[0]"' not in body
+
+
+def test_indexed_multipart_body_flattens_only_given_values() -> None:
+    from kernel._types import omit
+    from kernel.lib.multipart import indexed_multipart_body
+
+    assert indexed_multipart_body(
+        {
+            "files": [
+                {"dest_path": "/tmp/one", "mode": omit},
+                {"dest_path": "/tmp/two"},
+            ],
+            "flag": True,
+            "skipped": omit,
+        }
+    ) == {
+        "files[0][dest_path]": "/tmp/one",
+        "files[1][dest_path]": "/tmp/two",
+        "flag": True,
+    }
