@@ -8,7 +8,7 @@ __all__ = ["ProcessKillParams"]
 
 
 class ProcessKillParams(TypedDict, total=False):
-    id: Required[str]
+    id_or_name: Required[str]
 
     signal: Required[Literal["TERM", "KILL", "INT", "HUP"]]
     """Signal to send."""

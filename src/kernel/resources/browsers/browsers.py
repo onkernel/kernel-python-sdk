@@ -24,6 +24,14 @@ from .fs.fs import (
     FsResourceWithStreamingResponse,
     AsyncFsResourceWithStreamingResponse,
 )
+from .webmcp import (
+    WebmcpResource,
+    AsyncWebmcpResource,
+    WebmcpResourceWithRawResponse,
+    AsyncWebmcpResourceWithRawResponse,
+    WebmcpResourceWithStreamingResponse,
+    AsyncWebmcpResourceWithStreamingResponse,
+)
 from ...types import (
     BrowserMemoryRequest,
     browser_curl_params,
@@ -147,6 +155,11 @@ class BrowsersResource(SyncAPIResource):
     def playwright(self) -> PlaywrightResource:
         """Execute Playwright code against the browser instance."""
         return PlaywrightResource(self._client)
+
+    @cached_property
+    def webmcp(self) -> WebmcpResource:
+        """Discover and invoke native page tools across the browser instance."""
+        return WebmcpResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> BrowsersResourceWithRawResponse:
@@ -527,7 +540,7 @@ class BrowsersResource(SyncAPIResource):
 
     def curl(
         self,
-        id: str,
+        id_or_name: str,
         *,
         url: str,
         body: str | Omit = omit,
@@ -568,10 +581,10 @@ class BrowsersResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._post(
-            path_template("/browsers/{id}/curl", id=id),
+            path_template("/browsers/{id_or_name}/curl", id_or_name=id_or_name),
             body=maybe_transform(
                 {
                     "url": url,
@@ -683,7 +696,7 @@ class BrowsersResource(SyncAPIResource):
 
     def load_extensions(
         self,
-        id: str,
+        id_or_name: str,
         *,
         extensions: Iterable[browser_load_extensions_params.Extension],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -708,8 +721,8 @@ class BrowsersResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         body = deepcopy_with_paths({"extensions": extensions}, [["extensions", "<array>", "zip_file"]])
         files = extract_files(cast(Mapping[str, object], body), paths=[["extensions", "<array>", "zip_file"]])
@@ -718,7 +731,7 @@ class BrowsersResource(SyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers["Content-Type"] = "multipart/form-data"
         return self._post(
-            path_template("/browsers/{id}/extensions", id=id),
+            path_template("/browsers/{id_or_name}/extensions", id_or_name=id_or_name),
             body=maybe_transform(body, browser_load_extensions_params.BrowserLoadExtensionsParams),
             files=files,
             options=make_request_options(
@@ -767,6 +780,11 @@ class AsyncBrowsersResource(AsyncAPIResource):
     def playwright(self) -> AsyncPlaywrightResource:
         """Execute Playwright code against the browser instance."""
         return AsyncPlaywrightResource(self._client)
+
+    @cached_property
+    def webmcp(self) -> AsyncWebmcpResource:
+        """Discover and invoke native page tools across the browser instance."""
+        return AsyncWebmcpResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncBrowsersResourceWithRawResponse:
@@ -1147,7 +1165,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
 
     async def curl(
         self,
-        id: str,
+        id_or_name: str,
         *,
         url: str,
         body: str | Omit = omit,
@@ -1188,10 +1206,10 @@ class AsyncBrowsersResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return await self._post(
-            path_template("/browsers/{id}/curl", id=id),
+            path_template("/browsers/{id_or_name}/curl", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {
                     "url": url,
@@ -1303,7 +1321,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
 
     async def load_extensions(
         self,
-        id: str,
+        id_or_name: str,
         *,
         extensions: Iterable[browser_load_extensions_params.Extension],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1328,8 +1346,8 @@ class AsyncBrowsersResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         body = deepcopy_with_paths({"extensions": extensions}, [["extensions", "<array>", "zip_file"]])
         files = extract_files(cast(Mapping[str, object], body), paths=[["extensions", "<array>", "zip_file"]])
@@ -1338,7 +1356,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers["Content-Type"] = "multipart/form-data"
         return await self._post(
-            path_template("/browsers/{id}/extensions", id=id),
+            path_template("/browsers/{id_or_name}/extensions", id_or_name=id_or_name),
             body=await async_maybe_transform(body, browser_load_extensions_params.BrowserLoadExtensionsParams),
             files=files,
             options=make_request_options(
@@ -1411,6 +1429,11 @@ class BrowsersResourceWithRawResponse:
         """Execute Playwright code against the browser instance."""
         return PlaywrightResourceWithRawResponse(self._browsers.playwright)
 
+    @cached_property
+    def webmcp(self) -> WebmcpResourceWithRawResponse:
+        """Discover and invoke native page tools across the browser instance."""
+        return WebmcpResourceWithRawResponse(self._browsers.webmcp)
+
 
 class AsyncBrowsersResourceWithRawResponse:
     def __init__(self, browsers: AsyncBrowsersResource) -> None:
@@ -1474,6 +1497,11 @@ class AsyncBrowsersResourceWithRawResponse:
     def playwright(self) -> AsyncPlaywrightResourceWithRawResponse:
         """Execute Playwright code against the browser instance."""
         return AsyncPlaywrightResourceWithRawResponse(self._browsers.playwright)
+
+    @cached_property
+    def webmcp(self) -> AsyncWebmcpResourceWithRawResponse:
+        """Discover and invoke native page tools across the browser instance."""
+        return AsyncWebmcpResourceWithRawResponse(self._browsers.webmcp)
 
 
 class BrowsersResourceWithStreamingResponse:
@@ -1539,6 +1567,11 @@ class BrowsersResourceWithStreamingResponse:
         """Execute Playwright code against the browser instance."""
         return PlaywrightResourceWithStreamingResponse(self._browsers.playwright)
 
+    @cached_property
+    def webmcp(self) -> WebmcpResourceWithStreamingResponse:
+        """Discover and invoke native page tools across the browser instance."""
+        return WebmcpResourceWithStreamingResponse(self._browsers.webmcp)
+
 
 class AsyncBrowsersResourceWithStreamingResponse:
     def __init__(self, browsers: AsyncBrowsersResource) -> None:
@@ -1602,3 +1635,8 @@ class AsyncBrowsersResourceWithStreamingResponse:
     def playwright(self) -> AsyncPlaywrightResourceWithStreamingResponse:
         """Execute Playwright code against the browser instance."""
         return AsyncPlaywrightResourceWithStreamingResponse(self._browsers.playwright)
+
+    @cached_property
+    def webmcp(self) -> AsyncWebmcpResourceWithStreamingResponse:
+        """Discover and invoke native page tools across the browser instance."""
+        return AsyncWebmcpResourceWithStreamingResponse(self._browsers.webmcp)

@@ -21,7 +21,7 @@ class TestPlaywright:
     @parametrize
     def test_method_execute(self, client: Kernel) -> None:
         playwright = client.browsers.playwright.execute(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             code="code",
         )
         assert_matches_type(PlaywrightExecuteResponse, playwright, path=["response"])
@@ -30,7 +30,7 @@ class TestPlaywright:
     @parametrize
     def test_method_execute_with_all_params(self, client: Kernel) -> None:
         playwright = client.browsers.playwright.execute(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             code="code",
             timeout_sec=1,
         )
@@ -40,7 +40,7 @@ class TestPlaywright:
     @parametrize
     def test_raw_response_execute(self, client: Kernel) -> None:
         response = client.browsers.playwright.with_raw_response.execute(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             code="code",
         )
 
@@ -53,7 +53,7 @@ class TestPlaywright:
     @parametrize
     def test_streaming_response_execute(self, client: Kernel) -> None:
         with client.browsers.playwright.with_streaming_response.execute(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             code="code",
         ) as response:
             assert not response.is_closed
@@ -67,9 +67,9 @@ class TestPlaywright:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_execute(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.playwright.with_raw_response.execute(
-                id="",
+                id_or_name="",
                 code="code",
             )
 
@@ -83,7 +83,7 @@ class TestAsyncPlaywright:
     @parametrize
     async def test_method_execute(self, async_client: AsyncKernel) -> None:
         playwright = await async_client.browsers.playwright.execute(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             code="code",
         )
         assert_matches_type(PlaywrightExecuteResponse, playwright, path=["response"])
@@ -92,7 +92,7 @@ class TestAsyncPlaywright:
     @parametrize
     async def test_method_execute_with_all_params(self, async_client: AsyncKernel) -> None:
         playwright = await async_client.browsers.playwright.execute(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             code="code",
             timeout_sec=1,
         )
@@ -102,7 +102,7 @@ class TestAsyncPlaywright:
     @parametrize
     async def test_raw_response_execute(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.playwright.with_raw_response.execute(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             code="code",
         )
 
@@ -115,7 +115,7 @@ class TestAsyncPlaywright:
     @parametrize
     async def test_streaming_response_execute(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.playwright.with_streaming_response.execute(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             code="code",
         ) as response:
             assert not response.is_closed
@@ -129,8 +129,8 @@ class TestAsyncPlaywright:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_execute(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.playwright.with_raw_response.execute(
-                id="",
+                id_or_name="",
                 code="code",
             )

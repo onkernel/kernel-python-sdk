@@ -49,7 +49,7 @@ class WatchResource(SyncAPIResource):
         self,
         watch_id: str,
         *,
-        id: str,
+        id_or_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -69,13 +69,15 @@ class WatchResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not watch_id:
             raise ValueError(f"Expected a non-empty value for `watch_id` but received {watch_id!r}")
         extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return self._get(
-            path_template("/browsers/{id}/fs/watch/{watch_id}/events", id=id, watch_id=watch_id),
+            path_template(
+                "/browsers/{id_or_name}/fs/watch/{watch_id}/events", id_or_name=id_or_name, watch_id=watch_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -86,7 +88,7 @@ class WatchResource(SyncAPIResource):
 
     def start(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: str,
         recursive: bool | Omit = omit,
@@ -113,10 +115,10 @@ class WatchResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._post(
-            path_template("/browsers/{id}/fs/watch", id=id),
+            path_template("/browsers/{id_or_name}/fs/watch", id_or_name=id_or_name),
             body=maybe_transform(
                 {
                     "path": path,
@@ -134,7 +136,7 @@ class WatchResource(SyncAPIResource):
         self,
         watch_id: str,
         *,
-        id: str,
+        id_or_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -154,13 +156,13 @@ class WatchResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not watch_id:
             raise ValueError(f"Expected a non-empty value for `watch_id` but received {watch_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            path_template("/browsers/{id}/fs/watch/{watch_id}", id=id, watch_id=watch_id),
+            path_template("/browsers/{id_or_name}/fs/watch/{watch_id}", id_or_name=id_or_name, watch_id=watch_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -194,7 +196,7 @@ class AsyncWatchResource(AsyncAPIResource):
         self,
         watch_id: str,
         *,
-        id: str,
+        id_or_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -214,13 +216,15 @@ class AsyncWatchResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not watch_id:
             raise ValueError(f"Expected a non-empty value for `watch_id` but received {watch_id!r}")
         extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return await self._get(
-            path_template("/browsers/{id}/fs/watch/{watch_id}/events", id=id, watch_id=watch_id),
+            path_template(
+                "/browsers/{id_or_name}/fs/watch/{watch_id}/events", id_or_name=id_or_name, watch_id=watch_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -231,7 +235,7 @@ class AsyncWatchResource(AsyncAPIResource):
 
     async def start(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: str,
         recursive: bool | Omit = omit,
@@ -258,10 +262,10 @@ class AsyncWatchResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return await self._post(
-            path_template("/browsers/{id}/fs/watch", id=id),
+            path_template("/browsers/{id_or_name}/fs/watch", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {
                     "path": path,
@@ -279,7 +283,7 @@ class AsyncWatchResource(AsyncAPIResource):
         self,
         watch_id: str,
         *,
-        id: str,
+        id_or_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -299,13 +303,13 @@ class AsyncWatchResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not watch_id:
             raise ValueError(f"Expected a non-empty value for `watch_id` but received {watch_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            path_template("/browsers/{id}/fs/watch/{watch_id}", id=id, watch_id=watch_id),
+            path_template("/browsers/{id_or_name}/fs/watch/{watch_id}", id_or_name=id_or_name, watch_id=watch_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

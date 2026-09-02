@@ -140,9 +140,9 @@ Methods:
 - <code title="get /browsers/{id_or_name}">client.browsers.<a href="./src/kernel/resources/browsers/browsers.py">retrieve</a>(id_or_name, \*\*<a href="src/kernel/types/browser_retrieve_params.py">params</a>) -> <a href="./src/kernel/types/browser_retrieve_response.py">BrowserRetrieveResponse</a></code>
 - <code title="patch /browsers/{id_or_name}">client.browsers.<a href="./src/kernel/resources/browsers/browsers.py">update</a>(id_or_name, \*\*<a href="src/kernel/types/browser_update_params.py">params</a>) -> <a href="./src/kernel/types/browser_update_response.py">BrowserUpdateResponse</a></code>
 - <code title="get /browsers">client.browsers.<a href="./src/kernel/resources/browsers/browsers.py">list</a>(\*\*<a href="src/kernel/types/browser_list_params.py">params</a>) -> <a href="./src/kernel/types/browser_list_response.py">SyncOffsetPagination[BrowserListResponse]</a></code>
-- <code title="post /browsers/{id}/curl">client.browsers.<a href="./src/kernel/resources/browsers/browsers.py">curl</a>(id, \*\*<a href="src/kernel/types/browser_curl_params.py">params</a>) -> <a href="./src/kernel/types/browser_curl_response.py">BrowserCurlResponse</a></code>
+- <code title="post /browsers/{id_or_name}/curl">client.browsers.<a href="./src/kernel/resources/browsers/browsers.py">curl</a>(id_or_name, \*\*<a href="src/kernel/types/browser_curl_params.py">params</a>) -> <a href="./src/kernel/types/browser_curl_response.py">BrowserCurlResponse</a></code>
 - <code title="delete /browsers/{id_or_name}">client.browsers.<a href="./src/kernel/resources/browsers/browsers.py">delete_by_id</a>(id_or_name) -> None</code>
-- <code title="post /browsers/{id}/extensions">client.browsers.<a href="./src/kernel/resources/browsers/browsers.py">load_extensions</a>(id, \*\*<a href="src/kernel/types/browser_load_extensions_params.py">params</a>) -> None</code>
+- <code title="post /browsers/{id_or_name}/extensions">client.browsers.<a href="./src/kernel/resources/browsers/browsers.py">load_extensions</a>(id_or_name, \*\*<a href="src/kernel/types/browser_load_extensions_params.py">params</a>) -> None</code>
 
 ## Telemetry
 
@@ -206,8 +206,8 @@ from kernel.types.browsers import (
 
 Methods:
 
-- <code title="get /browsers/{id}/telemetry/events">client.browsers.telemetry.<a href="./src/kernel/resources/browsers/telemetry.py">events</a>(id, \*\*<a href="src/kernel/types/browsers/telemetry_events_params.py">params</a>) -> <a href="./src/kernel/types/browsers/telemetry_events_response.py">SyncOffsetPagination[TelemetryEventsResponse]</a></code>
-- <code title="get /browsers/{id}/telemetry/stream">client.browsers.telemetry.<a href="./src/kernel/resources/browsers/telemetry.py">stream</a>(id, \*\*<a href="src/kernel/types/browsers/telemetry_stream_params.py">params</a>) -> <a href="./src/kernel/types/browsers/telemetry_stream_response.py">TelemetryStreamResponse</a></code>
+- <code title="get /browsers/{id_or_name}/telemetry/events">client.browsers.telemetry.<a href="./src/kernel/resources/browsers/telemetry.py">events</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/telemetry_events_params.py">params</a>) -> <a href="./src/kernel/types/browsers/telemetry_events_response.py">SyncOffsetPagination[TelemetryEventsResponse]</a></code>
+- <code title="get /browsers/{id_or_name}/telemetry/stream">client.browsers.telemetry.<a href="./src/kernel/resources/browsers/telemetry.py">stream</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/telemetry_stream_params.py">params</a>) -> <a href="./src/kernel/types/browsers/telemetry_stream_response.py">TelemetryStreamResponse</a></code>
 
 ## Replays
 
@@ -219,10 +219,10 @@ from kernel.types.browsers import ReplayListResponse, ReplayStartResponse
 
 Methods:
 
-- <code title="get /browsers/{id}/replays">client.browsers.replays.<a href="./src/kernel/resources/browsers/replays.py">list</a>(id) -> <a href="./src/kernel/types/browsers/replay_list_response.py">ReplayListResponse</a></code>
-- <code title="get /browsers/{id}/replays/{replay_id}">client.browsers.replays.<a href="./src/kernel/resources/browsers/replays.py">download</a>(replay_id, \*, id) -> BinaryAPIResponse</code>
-- <code title="post /browsers/{id}/replays">client.browsers.replays.<a href="./src/kernel/resources/browsers/replays.py">start</a>(id, \*\*<a href="src/kernel/types/browsers/replay_start_params.py">params</a>) -> <a href="./src/kernel/types/browsers/replay_start_response.py">ReplayStartResponse</a></code>
-- <code title="post /browsers/{id}/replays/{replay_id}/stop">client.browsers.replays.<a href="./src/kernel/resources/browsers/replays.py">stop</a>(replay_id, \*, id) -> None</code>
+- <code title="get /browsers/{id_or_name}/replays">client.browsers.replays.<a href="./src/kernel/resources/browsers/replays.py">list</a>(id_or_name) -> <a href="./src/kernel/types/browsers/replay_list_response.py">ReplayListResponse</a></code>
+- <code title="get /browsers/{id_or_name}/replays/{replay_id}">client.browsers.replays.<a href="./src/kernel/resources/browsers/replays.py">download</a>(replay_id, \*, id_or_name) -> BinaryAPIResponse</code>
+- <code title="post /browsers/{id_or_name}/replays">client.browsers.replays.<a href="./src/kernel/resources/browsers/replays.py">start</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/replay_start_params.py">params</a>) -> <a href="./src/kernel/types/browsers/replay_start_response.py">ReplayStartResponse</a></code>
+- <code title="post /browsers/{id_or_name}/replays/{replay_id}/stop">client.browsers.replays.<a href="./src/kernel/resources/browsers/replays.py">stop</a>(replay_id, \*, id_or_name) -> None</code>
 
 ## Fs
 
@@ -234,18 +234,18 @@ from kernel.types.browsers import FFileInfoResponse, FListFilesResponse
 
 Methods:
 
-- <code title="put /browsers/{id}/fs/create_directory">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">create_directory</a>(id, \*\*<a href="src/kernel/types/browsers/f_create_directory_params.py">params</a>) -> None</code>
-- <code title="put /browsers/{id}/fs/delete_directory">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">delete_directory</a>(id, \*\*<a href="src/kernel/types/browsers/f_delete_directory_params.py">params</a>) -> None</code>
-- <code title="put /browsers/{id}/fs/delete_file">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">delete_file</a>(id, \*\*<a href="src/kernel/types/browsers/f_delete_file_params.py">params</a>) -> None</code>
-- <code title="get /browsers/{id}/fs/download_dir_zip">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">download_dir_zip</a>(id, \*\*<a href="src/kernel/types/browsers/f_download_dir_zip_params.py">params</a>) -> BinaryAPIResponse</code>
-- <code title="get /browsers/{id}/fs/file_info">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">file_info</a>(id, \*\*<a href="src/kernel/types/browsers/f_file_info_params.py">params</a>) -> <a href="./src/kernel/types/browsers/f_file_info_response.py">FFileInfoResponse</a></code>
-- <code title="get /browsers/{id}/fs/list_files">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">list_files</a>(id, \*\*<a href="src/kernel/types/browsers/f_list_files_params.py">params</a>) -> <a href="./src/kernel/types/browsers/f_list_files_response.py">FListFilesResponse</a></code>
-- <code title="put /browsers/{id}/fs/move">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">move</a>(id, \*\*<a href="src/kernel/types/browsers/f_move_params.py">params</a>) -> None</code>
-- <code title="get /browsers/{id}/fs/read_file">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">read_file</a>(id, \*\*<a href="src/kernel/types/browsers/f_read_file_params.py">params</a>) -> BinaryAPIResponse</code>
-- <code title="put /browsers/{id}/fs/set_file_permissions">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">set_file_permissions</a>(id, \*\*<a href="src/kernel/types/browsers/f_set_file_permissions_params.py">params</a>) -> None</code>
-- <code title="post /browsers/{id}/fs/upload">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">upload</a>(id, \*\*<a href="src/kernel/types/browsers/f_upload_params.py">params</a>) -> None</code>
-- <code title="post /browsers/{id}/fs/upload_zip">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">upload_zip</a>(id, \*\*<a href="src/kernel/types/browsers/f_upload_zip_params.py">params</a>) -> None</code>
-- <code title="put /browsers/{id}/fs/write_file">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">write_file</a>(id, contents, \*\*<a href="src/kernel/types/browsers/f_write_file_params.py">params</a>) -> None</code>
+- <code title="put /browsers/{id_or_name}/fs/create_directory">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">create_directory</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/f_create_directory_params.py">params</a>) -> None</code>
+- <code title="put /browsers/{id_or_name}/fs/delete_directory">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">delete_directory</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/f_delete_directory_params.py">params</a>) -> None</code>
+- <code title="put /browsers/{id_or_name}/fs/delete_file">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">delete_file</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/f_delete_file_params.py">params</a>) -> None</code>
+- <code title="get /browsers/{id_or_name}/fs/download_dir_zip">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">download_dir_zip</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/f_download_dir_zip_params.py">params</a>) -> BinaryAPIResponse</code>
+- <code title="get /browsers/{id_or_name}/fs/file_info">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">file_info</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/f_file_info_params.py">params</a>) -> <a href="./src/kernel/types/browsers/f_file_info_response.py">FFileInfoResponse</a></code>
+- <code title="get /browsers/{id_or_name}/fs/list_files">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">list_files</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/f_list_files_params.py">params</a>) -> <a href="./src/kernel/types/browsers/f_list_files_response.py">FListFilesResponse</a></code>
+- <code title="put /browsers/{id_or_name}/fs/move">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">move</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/f_move_params.py">params</a>) -> None</code>
+- <code title="get /browsers/{id_or_name}/fs/read_file">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">read_file</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/f_read_file_params.py">params</a>) -> BinaryAPIResponse</code>
+- <code title="put /browsers/{id_or_name}/fs/set_file_permissions">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">set_file_permissions</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/f_set_file_permissions_params.py">params</a>) -> None</code>
+- <code title="post /browsers/{id_or_name}/fs/upload">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">upload</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/f_upload_params.py">params</a>) -> None</code>
+- <code title="post /browsers/{id_or_name}/fs/upload_zip">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">upload_zip</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/f_upload_zip_params.py">params</a>) -> None</code>
+- <code title="put /browsers/{id_or_name}/fs/write_file">client.browsers.fs.<a href="./src/kernel/resources/browsers/fs/fs.py">write_file</a>(id_or_name, contents, \*\*<a href="src/kernel/types/browsers/f_write_file_params.py">params</a>) -> None</code>
 
 ### Watch
 
@@ -257,9 +257,9 @@ from kernel.types.browsers.fs import WatchEventsResponse, WatchStartResponse
 
 Methods:
 
-- <code title="get /browsers/{id}/fs/watch/{watch_id}/events">client.browsers.fs.watch.<a href="./src/kernel/resources/browsers/fs/watch.py">events</a>(watch_id, \*, id) -> <a href="./src/kernel/types/browsers/fs/watch_events_response.py">WatchEventsResponse</a></code>
-- <code title="post /browsers/{id}/fs/watch">client.browsers.fs.watch.<a href="./src/kernel/resources/browsers/fs/watch.py">start</a>(id, \*\*<a href="src/kernel/types/browsers/fs/watch_start_params.py">params</a>) -> <a href="./src/kernel/types/browsers/fs/watch_start_response.py">WatchStartResponse</a></code>
-- <code title="delete /browsers/{id}/fs/watch/{watch_id}">client.browsers.fs.watch.<a href="./src/kernel/resources/browsers/fs/watch.py">stop</a>(watch_id, \*, id) -> None</code>
+- <code title="get /browsers/{id_or_name}/fs/watch/{watch_id}/events">client.browsers.fs.watch.<a href="./src/kernel/resources/browsers/fs/watch.py">events</a>(watch_id, \*, id_or_name) -> <a href="./src/kernel/types/browsers/fs/watch_events_response.py">WatchEventsResponse</a></code>
+- <code title="post /browsers/{id_or_name}/fs/watch">client.browsers.fs.watch.<a href="./src/kernel/resources/browsers/fs/watch.py">start</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/fs/watch_start_params.py">params</a>) -> <a href="./src/kernel/types/browsers/fs/watch_start_response.py">WatchStartResponse</a></code>
+- <code title="delete /browsers/{id_or_name}/fs/watch/{watch_id}">client.browsers.fs.watch.<a href="./src/kernel/resources/browsers/fs/watch.py">stop</a>(watch_id, \*, id_or_name) -> None</code>
 
 ## Process
 
@@ -279,19 +279,19 @@ from kernel.types.browsers import (
 
 Methods:
 
-- <code title="post /browsers/{id}/process/exec">client.browsers.process.<a href="./src/kernel/resources/browsers/process.py">exec</a>(id, \*\*<a href="src/kernel/types/browsers/process_exec_params.py">params</a>) -> <a href="./src/kernel/types/browsers/process_exec_response.py">ProcessExecResponse</a></code>
-- <code title="post /browsers/{id}/process/{process_id}/kill">client.browsers.process.<a href="./src/kernel/resources/browsers/process.py">kill</a>(process_id, \*, id, \*\*<a href="src/kernel/types/browsers/process_kill_params.py">params</a>) -> <a href="./src/kernel/types/browsers/process_kill_response.py">ProcessKillResponse</a></code>
-- <code title="post /browsers/{id}/process/{process_id}/resize">client.browsers.process.<a href="./src/kernel/resources/browsers/process.py">resize</a>(process_id, \*, id, \*\*<a href="src/kernel/types/browsers/process_resize_params.py">params</a>) -> <a href="./src/kernel/types/browsers/process_resize_response.py">ProcessResizeResponse</a></code>
-- <code title="post /browsers/{id}/process/spawn">client.browsers.process.<a href="./src/kernel/resources/browsers/process.py">spawn</a>(id, \*\*<a href="src/kernel/types/browsers/process_spawn_params.py">params</a>) -> <a href="./src/kernel/types/browsers/process_spawn_response.py">ProcessSpawnResponse</a></code>
-- <code title="get /browsers/{id}/process/{process_id}/status">client.browsers.process.<a href="./src/kernel/resources/browsers/process.py">status</a>(process_id, \*, id) -> <a href="./src/kernel/types/browsers/process_status_response.py">ProcessStatusResponse</a></code>
-- <code title="post /browsers/{id}/process/{process_id}/stdin">client.browsers.process.<a href="./src/kernel/resources/browsers/process.py">stdin</a>(process_id, \*, id, \*\*<a href="src/kernel/types/browsers/process_stdin_params.py">params</a>) -> <a href="./src/kernel/types/browsers/process_stdin_response.py">ProcessStdinResponse</a></code>
-- <code title="get /browsers/{id}/process/{process_id}/stdout/stream">client.browsers.process.<a href="./src/kernel/resources/browsers/process.py">stdout_stream</a>(process_id, \*, id) -> <a href="./src/kernel/types/browsers/process_stdout_stream_response.py">ProcessStdoutStreamResponse</a></code>
+- <code title="post /browsers/{id_or_name}/process/exec">client.browsers.process.<a href="./src/kernel/resources/browsers/process.py">exec</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/process_exec_params.py">params</a>) -> <a href="./src/kernel/types/browsers/process_exec_response.py">ProcessExecResponse</a></code>
+- <code title="post /browsers/{id_or_name}/process/{process_id}/kill">client.browsers.process.<a href="./src/kernel/resources/browsers/process.py">kill</a>(process_id, \*, id_or_name, \*\*<a href="src/kernel/types/browsers/process_kill_params.py">params</a>) -> <a href="./src/kernel/types/browsers/process_kill_response.py">ProcessKillResponse</a></code>
+- <code title="post /browsers/{id_or_name}/process/{process_id}/resize">client.browsers.process.<a href="./src/kernel/resources/browsers/process.py">resize</a>(process_id, \*, id_or_name, \*\*<a href="src/kernel/types/browsers/process_resize_params.py">params</a>) -> <a href="./src/kernel/types/browsers/process_resize_response.py">ProcessResizeResponse</a></code>
+- <code title="post /browsers/{id_or_name}/process/spawn">client.browsers.process.<a href="./src/kernel/resources/browsers/process.py">spawn</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/process_spawn_params.py">params</a>) -> <a href="./src/kernel/types/browsers/process_spawn_response.py">ProcessSpawnResponse</a></code>
+- <code title="get /browsers/{id_or_name}/process/{process_id}/status">client.browsers.process.<a href="./src/kernel/resources/browsers/process.py">status</a>(process_id, \*, id_or_name) -> <a href="./src/kernel/types/browsers/process_status_response.py">ProcessStatusResponse</a></code>
+- <code title="post /browsers/{id_or_name}/process/{process_id}/stdin">client.browsers.process.<a href="./src/kernel/resources/browsers/process.py">stdin</a>(process_id, \*, id_or_name, \*\*<a href="src/kernel/types/browsers/process_stdin_params.py">params</a>) -> <a href="./src/kernel/types/browsers/process_stdin_response.py">ProcessStdinResponse</a></code>
+- <code title="get /browsers/{id_or_name}/process/{process_id}/stdout/stream">client.browsers.process.<a href="./src/kernel/resources/browsers/process.py">stdout_stream</a>(process_id, \*, id_or_name) -> <a href="./src/kernel/types/browsers/process_stdout_stream_response.py">ProcessStdoutStreamResponse</a></code>
 
 ## Logs
 
 Methods:
 
-- <code title="get /browsers/{id}/logs/stream">client.browsers.logs.<a href="./src/kernel/resources/browsers/logs.py">stream</a>(id, \*\*<a href="src/kernel/types/browsers/log_stream_params.py">params</a>) -> <a href="./src/kernel/types/shared/log_event.py">LogEvent</a></code>
+- <code title="get /browsers/{id_or_name}/logs/stream">client.browsers.logs.<a href="./src/kernel/resources/browsers/logs.py">stream</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/log_stream_params.py">params</a>) -> <a href="./src/kernel/types/shared/log_event.py">LogEvent</a></code>
 
 ## Computer
 
@@ -307,18 +307,18 @@ from kernel.types.browsers import (
 
 Methods:
 
-- <code title="post /browsers/{id}/computer/batch">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">batch</a>(id, \*\*<a href="src/kernel/types/browsers/computer_batch_params.py">params</a>) -> None</code>
-- <code title="post /browsers/{id}/computer/screenshot">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">capture_screenshot</a>(id, \*\*<a href="src/kernel/types/browsers/computer_capture_screenshot_params.py">params</a>) -> BinaryAPIResponse</code>
-- <code title="post /browsers/{id}/computer/click_mouse">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">click_mouse</a>(id, \*\*<a href="src/kernel/types/browsers/computer_click_mouse_params.py">params</a>) -> None</code>
-- <code title="post /browsers/{id}/computer/drag_mouse">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">drag_mouse</a>(id, \*\*<a href="src/kernel/types/browsers/computer_drag_mouse_params.py">params</a>) -> None</code>
-- <code title="post /browsers/{id}/computer/get_mouse_position">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">get_mouse_position</a>(id) -> <a href="./src/kernel/types/browsers/computer_get_mouse_position_response.py">ComputerGetMousePositionResponse</a></code>
-- <code title="post /browsers/{id}/computer/move_mouse">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">move_mouse</a>(id, \*\*<a href="src/kernel/types/browsers/computer_move_mouse_params.py">params</a>) -> None</code>
-- <code title="post /browsers/{id}/computer/press_key">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">press_key</a>(id, \*\*<a href="src/kernel/types/browsers/computer_press_key_params.py">params</a>) -> None</code>
-- <code title="post /browsers/{id}/computer/clipboard/read">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">read_clipboard</a>(id) -> <a href="./src/kernel/types/browsers/computer_read_clipboard_response.py">ComputerReadClipboardResponse</a></code>
-- <code title="post /browsers/{id}/computer/scroll">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">scroll</a>(id, \*\*<a href="src/kernel/types/browsers/computer_scroll_params.py">params</a>) -> None</code>
-- <code title="post /browsers/{id}/computer/cursor">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">set_cursor_visibility</a>(id, \*\*<a href="src/kernel/types/browsers/computer_set_cursor_visibility_params.py">params</a>) -> <a href="./src/kernel/types/browsers/computer_set_cursor_visibility_response.py">ComputerSetCursorVisibilityResponse</a></code>
-- <code title="post /browsers/{id}/computer/type">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">type_text</a>(id, \*\*<a href="src/kernel/types/browsers/computer_type_text_params.py">params</a>) -> None</code>
-- <code title="post /browsers/{id}/computer/clipboard/write">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">write_clipboard</a>(id, \*\*<a href="src/kernel/types/browsers/computer_write_clipboard_params.py">params</a>) -> None</code>
+- <code title="post /browsers/{id_or_name}/computer/batch">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">batch</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/computer_batch_params.py">params</a>) -> None</code>
+- <code title="post /browsers/{id_or_name}/computer/screenshot">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">capture_screenshot</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/computer_capture_screenshot_params.py">params</a>) -> BinaryAPIResponse</code>
+- <code title="post /browsers/{id_or_name}/computer/click_mouse">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">click_mouse</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/computer_click_mouse_params.py">params</a>) -> None</code>
+- <code title="post /browsers/{id_or_name}/computer/drag_mouse">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">drag_mouse</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/computer_drag_mouse_params.py">params</a>) -> None</code>
+- <code title="post /browsers/{id_or_name}/computer/get_mouse_position">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">get_mouse_position</a>(id_or_name) -> <a href="./src/kernel/types/browsers/computer_get_mouse_position_response.py">ComputerGetMousePositionResponse</a></code>
+- <code title="post /browsers/{id_or_name}/computer/move_mouse">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">move_mouse</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/computer_move_mouse_params.py">params</a>) -> None</code>
+- <code title="post /browsers/{id_or_name}/computer/press_key">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">press_key</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/computer_press_key_params.py">params</a>) -> None</code>
+- <code title="post /browsers/{id_or_name}/computer/clipboard/read">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">read_clipboard</a>(id_or_name) -> <a href="./src/kernel/types/browsers/computer_read_clipboard_response.py">ComputerReadClipboardResponse</a></code>
+- <code title="post /browsers/{id_or_name}/computer/scroll">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">scroll</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/computer_scroll_params.py">params</a>) -> None</code>
+- <code title="post /browsers/{id_or_name}/computer/cursor">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">set_cursor_visibility</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/computer_set_cursor_visibility_params.py">params</a>) -> <a href="./src/kernel/types/browsers/computer_set_cursor_visibility_response.py">ComputerSetCursorVisibilityResponse</a></code>
+- <code title="post /browsers/{id_or_name}/computer/type">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">type_text</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/computer_type_text_params.py">params</a>) -> None</code>
+- <code title="post /browsers/{id_or_name}/computer/clipboard/write">client.browsers.computer.<a href="./src/kernel/resources/browsers/computer.py">write_clipboard</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/computer_write_clipboard_params.py">params</a>) -> None</code>
 
 ## Playwright
 
@@ -330,7 +330,29 @@ from kernel.types.browsers import PlaywrightExecuteResponse
 
 Methods:
 
-- <code title="post /browsers/{id}/playwright/execute">client.browsers.playwright.<a href="./src/kernel/resources/browsers/playwright.py">execute</a>(id, \*\*<a href="src/kernel/types/browsers/playwright_execute_params.py">params</a>) -> <a href="./src/kernel/types/browsers/playwright_execute_response.py">PlaywrightExecuteResponse</a></code>
+- <code title="post /browsers/{id_or_name}/playwright/execute">client.browsers.playwright.<a href="./src/kernel/resources/browsers/playwright.py">execute</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/playwright_execute_params.py">params</a>) -> <a href="./src/kernel/types/browsers/playwright_execute_response.py">PlaywrightExecuteResponse</a></code>
+
+## Webmcp
+
+Types:
+
+```python
+from kernel.types.browsers import (
+    InvocationFailure,
+    InvocationResult,
+    InvokeRequest,
+    Tool,
+    ToolAnnotations,
+    ToolFrame,
+    ToolSource,
+    ToolsResponse,
+)
+```
+
+Methods:
+
+- <code title="post /browsers/{id_or_name}/webmcp/invoke">client.browsers.webmcp.<a href="./src/kernel/resources/browsers/webmcp.py">invoke_tool</a>(id_or_name, \*\*<a href="src/kernel/types/browsers/webmcp_invoke_tool_params.py">params</a>) -> <a href="./src/kernel/types/browsers/invocation_result.py">InvocationResult</a></code>
+- <code title="get /browsers/{id_or_name}/webmcp/tools">client.browsers.webmcp.<a href="./src/kernel/resources/browsers/webmcp.py">list_tools</a>(id_or_name) -> <a href="./src/kernel/types/browsers/tools_response.py">ToolsResponse</a></code>
 
 # Profiles
 

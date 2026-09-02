@@ -45,7 +45,7 @@ class PlaywrightResource(SyncAPIResource):
 
     def execute(
         self,
-        id: str,
+        id_or_name: str,
         *,
         code: str,
         timeout_sec: int | Omit = omit,
@@ -59,8 +59,11 @@ class PlaywrightResource(SyncAPIResource):
         """
         Execute arbitrary Playwright code in a fresh execution context against the
         browser. The code runs in the same VM as the browser, minimizing latency and
-        maximizing throughput. It has access to 'page', 'context', and 'browser'
-        variables. It can `return` a value, and this value is returned in the response.
+        maximizing throughput. It has access to 'page', 'context', 'browser', and
+        'webmcp' variables. Use 'webmcp.listTools()' to discover browser-wide WebMCP
+        tools and 'webmcp.invokeTool(toolRef, input?, { timeoutSec? })' to invoke an
+        exact registration. It can `return` a value, and this value is returned in the
+        response.
 
         Args:
           code: TypeScript/JavaScript code to execute. The code has access to 'page', 'context',
@@ -79,10 +82,10 @@ class PlaywrightResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._post(
-            path_template("/browsers/{id}/playwright/execute", id=id),
+            path_template("/browsers/{id_or_name}/playwright/execute", id_or_name=id_or_name),
             body=maybe_transform(
                 {
                     "code": code,
@@ -121,7 +124,7 @@ class AsyncPlaywrightResource(AsyncAPIResource):
 
     async def execute(
         self,
-        id: str,
+        id_or_name: str,
         *,
         code: str,
         timeout_sec: int | Omit = omit,
@@ -135,8 +138,11 @@ class AsyncPlaywrightResource(AsyncAPIResource):
         """
         Execute arbitrary Playwright code in a fresh execution context against the
         browser. The code runs in the same VM as the browser, minimizing latency and
-        maximizing throughput. It has access to 'page', 'context', and 'browser'
-        variables. It can `return` a value, and this value is returned in the response.
+        maximizing throughput. It has access to 'page', 'context', 'browser', and
+        'webmcp' variables. Use 'webmcp.listTools()' to discover browser-wide WebMCP
+        tools and 'webmcp.invokeTool(toolRef, input?, { timeoutSec? })' to invoke an
+        exact registration. It can `return` a value, and this value is returned in the
+        response.
 
         Args:
           code: TypeScript/JavaScript code to execute. The code has access to 'page', 'context',
@@ -155,10 +161,10 @@ class AsyncPlaywrightResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return await self._post(
-            path_template("/browsers/{id}/playwright/execute", id=id),
+            path_template("/browsers/{id_or_name}/playwright/execute", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {
                     "code": code,

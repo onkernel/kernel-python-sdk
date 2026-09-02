@@ -61,7 +61,7 @@ class ProcessResource(SyncAPIResource):
 
     def exec(
         self,
-        id: str,
+        id_or_name: str,
         *,
         command: str,
         args: SequenceNotStr[str] | Omit = omit,
@@ -103,10 +103,10 @@ class ProcessResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._post(
-            path_template("/browsers/{id}/process/exec", id=id),
+            path_template("/browsers/{id_or_name}/process/exec", id_or_name=id_or_name),
             body=maybe_transform(
                 {
                     "command": command,
@@ -129,7 +129,7 @@ class ProcessResource(SyncAPIResource):
         self,
         process_id: str,
         *,
-        id: str,
+        id_or_name: str,
         signal: Literal["TERM", "KILL", "INT", "HUP"],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -152,12 +152,14 @@ class ProcessResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not process_id:
             raise ValueError(f"Expected a non-empty value for `process_id` but received {process_id!r}")
         return self._post(
-            path_template("/browsers/{id}/process/{process_id}/kill", id=id, process_id=process_id),
+            path_template(
+                "/browsers/{id_or_name}/process/{process_id}/kill", id_or_name=id_or_name, process_id=process_id
+            ),
             body=maybe_transform({"signal": signal}, process_kill_params.ProcessKillParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -169,7 +171,7 @@ class ProcessResource(SyncAPIResource):
         self,
         process_id: str,
         *,
-        id: str,
+        id_or_name: str,
         cols: int,
         rows: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -195,12 +197,14 @@ class ProcessResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not process_id:
             raise ValueError(f"Expected a non-empty value for `process_id` but received {process_id!r}")
         return self._post(
-            path_template("/browsers/{id}/process/{process_id}/resize", id=id, process_id=process_id),
+            path_template(
+                "/browsers/{id_or_name}/process/{process_id}/resize", id_or_name=id_or_name, process_id=process_id
+            ),
             body=maybe_transform(
                 {
                     "cols": cols,
@@ -216,7 +220,7 @@ class ProcessResource(SyncAPIResource):
 
     def spawn(
         self,
-        id: str,
+        id_or_name: str,
         *,
         command: str,
         allocate_tty: bool | Omit = omit,
@@ -267,10 +271,10 @@ class ProcessResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._post(
-            path_template("/browsers/{id}/process/spawn", id=id),
+            path_template("/browsers/{id_or_name}/process/spawn", id_or_name=id_or_name),
             body=maybe_transform(
                 {
                     "command": command,
@@ -296,7 +300,7 @@ class ProcessResource(SyncAPIResource):
         self,
         process_id: str,
         *,
-        id: str,
+        id_or_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -316,12 +320,14 @@ class ProcessResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not process_id:
             raise ValueError(f"Expected a non-empty value for `process_id` but received {process_id!r}")
         return self._get(
-            path_template("/browsers/{id}/process/{process_id}/status", id=id, process_id=process_id),
+            path_template(
+                "/browsers/{id_or_name}/process/{process_id}/status", id_or_name=id_or_name, process_id=process_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -332,7 +338,7 @@ class ProcessResource(SyncAPIResource):
         self,
         process_id: str,
         *,
-        id: str,
+        id_or_name: str,
         data_b64: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -355,12 +361,14 @@ class ProcessResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not process_id:
             raise ValueError(f"Expected a non-empty value for `process_id` but received {process_id!r}")
         return self._post(
-            path_template("/browsers/{id}/process/{process_id}/stdin", id=id, process_id=process_id),
+            path_template(
+                "/browsers/{id_or_name}/process/{process_id}/stdin", id_or_name=id_or_name, process_id=process_id
+            ),
             body=maybe_transform({"data_b64": data_b64}, process_stdin_params.ProcessStdinParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -372,7 +380,7 @@ class ProcessResource(SyncAPIResource):
         self,
         process_id: str,
         *,
-        id: str,
+        id_or_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -392,13 +400,17 @@ class ProcessResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not process_id:
             raise ValueError(f"Expected a non-empty value for `process_id` but received {process_id!r}")
         extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return self._get(
-            path_template("/browsers/{id}/process/{process_id}/stdout/stream", id=id, process_id=process_id),
+            path_template(
+                "/browsers/{id_or_name}/process/{process_id}/stdout/stream",
+                id_or_name=id_or_name,
+                process_id=process_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -432,7 +444,7 @@ class AsyncProcessResource(AsyncAPIResource):
 
     async def exec(
         self,
-        id: str,
+        id_or_name: str,
         *,
         command: str,
         args: SequenceNotStr[str] | Omit = omit,
@@ -474,10 +486,10 @@ class AsyncProcessResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return await self._post(
-            path_template("/browsers/{id}/process/exec", id=id),
+            path_template("/browsers/{id_or_name}/process/exec", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {
                     "command": command,
@@ -500,7 +512,7 @@ class AsyncProcessResource(AsyncAPIResource):
         self,
         process_id: str,
         *,
-        id: str,
+        id_or_name: str,
         signal: Literal["TERM", "KILL", "INT", "HUP"],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -523,12 +535,14 @@ class AsyncProcessResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not process_id:
             raise ValueError(f"Expected a non-empty value for `process_id` but received {process_id!r}")
         return await self._post(
-            path_template("/browsers/{id}/process/{process_id}/kill", id=id, process_id=process_id),
+            path_template(
+                "/browsers/{id_or_name}/process/{process_id}/kill", id_or_name=id_or_name, process_id=process_id
+            ),
             body=await async_maybe_transform({"signal": signal}, process_kill_params.ProcessKillParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -540,7 +554,7 @@ class AsyncProcessResource(AsyncAPIResource):
         self,
         process_id: str,
         *,
-        id: str,
+        id_or_name: str,
         cols: int,
         rows: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -566,12 +580,14 @@ class AsyncProcessResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not process_id:
             raise ValueError(f"Expected a non-empty value for `process_id` but received {process_id!r}")
         return await self._post(
-            path_template("/browsers/{id}/process/{process_id}/resize", id=id, process_id=process_id),
+            path_template(
+                "/browsers/{id_or_name}/process/{process_id}/resize", id_or_name=id_or_name, process_id=process_id
+            ),
             body=await async_maybe_transform(
                 {
                     "cols": cols,
@@ -587,7 +603,7 @@ class AsyncProcessResource(AsyncAPIResource):
 
     async def spawn(
         self,
-        id: str,
+        id_or_name: str,
         *,
         command: str,
         allocate_tty: bool | Omit = omit,
@@ -638,10 +654,10 @@ class AsyncProcessResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return await self._post(
-            path_template("/browsers/{id}/process/spawn", id=id),
+            path_template("/browsers/{id_or_name}/process/spawn", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {
                     "command": command,
@@ -667,7 +683,7 @@ class AsyncProcessResource(AsyncAPIResource):
         self,
         process_id: str,
         *,
-        id: str,
+        id_or_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -687,12 +703,14 @@ class AsyncProcessResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not process_id:
             raise ValueError(f"Expected a non-empty value for `process_id` but received {process_id!r}")
         return await self._get(
-            path_template("/browsers/{id}/process/{process_id}/status", id=id, process_id=process_id),
+            path_template(
+                "/browsers/{id_or_name}/process/{process_id}/status", id_or_name=id_or_name, process_id=process_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -703,7 +721,7 @@ class AsyncProcessResource(AsyncAPIResource):
         self,
         process_id: str,
         *,
-        id: str,
+        id_or_name: str,
         data_b64: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -726,12 +744,14 @@ class AsyncProcessResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not process_id:
             raise ValueError(f"Expected a non-empty value for `process_id` but received {process_id!r}")
         return await self._post(
-            path_template("/browsers/{id}/process/{process_id}/stdin", id=id, process_id=process_id),
+            path_template(
+                "/browsers/{id_or_name}/process/{process_id}/stdin", id_or_name=id_or_name, process_id=process_id
+            ),
             body=await async_maybe_transform({"data_b64": data_b64}, process_stdin_params.ProcessStdinParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -743,7 +763,7 @@ class AsyncProcessResource(AsyncAPIResource):
         self,
         process_id: str,
         *,
-        id: str,
+        id_or_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -763,13 +783,17 @@ class AsyncProcessResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not process_id:
             raise ValueError(f"Expected a non-empty value for `process_id` but received {process_id!r}")
         extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return await self._get(
-            path_template("/browsers/{id}/process/{process_id}/stdout/stream", id=id, process_id=process_id),
+            path_template(
+                "/browsers/{id_or_name}/process/{process_id}/stdout/stream",
+                id_or_name=id_or_name,
+                process_id=process_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

@@ -8,7 +8,7 @@ __all__ = ["ProcessResizeParams"]
 
 
 class ProcessResizeParams(TypedDict, total=False):
-    id: Required[str]
+    id_or_name: Required[str]
 
     cols: Required[int]
     """New terminal columns."""

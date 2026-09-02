@@ -25,12 +25,12 @@ class OtlpDestination(BaseModel):
     """Headers sent with each export request.
 
     Names are returned in canonical form (`Authorization`, not `authorization`).
-    Values are returned redacted as empty strings, so the keys are visible but the
-    credentials are not.
+    Non-dashboard reads return values redacted as empty strings, so the keys are
+    visible but the credentials are not. Dashboard reads return the stored values.
     """
 
     name: str
-    """Unique within the project.
+    """Unique within the organization.
 
     Usable in place of the ID when selecting a destination, so it cannot be shaped
     like an ID.

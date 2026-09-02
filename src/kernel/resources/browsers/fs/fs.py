@@ -97,7 +97,7 @@ class FsResource(SyncAPIResource):
 
     def create_directory(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: str,
         mode: str | Omit = omit,
@@ -124,11 +124,11 @@ class FsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._put(
-            path_template("/browsers/{id}/fs/create_directory", id=id),
+            path_template("/browsers/{id_or_name}/fs/create_directory", id_or_name=id_or_name),
             body=maybe_transform(
                 {
                     "path": path,
@@ -144,7 +144,7 @@ class FsResource(SyncAPIResource):
 
     def delete_directory(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -168,11 +168,11 @@ class FsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._put(
-            path_template("/browsers/{id}/fs/delete_directory", id=id),
+            path_template("/browsers/{id_or_name}/fs/delete_directory", id_or_name=id_or_name),
             body=maybe_transform({"path": path}, f_delete_directory_params.FDeleteDirectoryParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -182,7 +182,7 @@ class FsResource(SyncAPIResource):
 
     def delete_file(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -206,11 +206,11 @@ class FsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._put(
-            path_template("/browsers/{id}/fs/delete_file", id=id),
+            path_template("/browsers/{id_or_name}/fs/delete_file", id_or_name=id_or_name),
             body=maybe_transform({"path": path}, f_delete_file_params.FDeleteFileParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -220,7 +220,7 @@ class FsResource(SyncAPIResource):
 
     def download_dir_zip(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -244,11 +244,11 @@ class FsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "application/zip", **(extra_headers or {})}
         return self._get(
-            path_template("/browsers/{id}/fs/download_dir_zip", id=id),
+            path_template("/browsers/{id_or_name}/fs/download_dir_zip", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -261,7 +261,7 @@ class FsResource(SyncAPIResource):
 
     def file_info(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -285,10 +285,10 @@ class FsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._get(
-            path_template("/browsers/{id}/fs/file_info", id=id),
+            path_template("/browsers/{id_or_name}/fs/file_info", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -301,7 +301,7 @@ class FsResource(SyncAPIResource):
 
     def list_files(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -325,10 +325,10 @@ class FsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._get(
-            path_template("/browsers/{id}/fs/list_files", id=id),
+            path_template("/browsers/{id_or_name}/fs/list_files", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -341,7 +341,7 @@ class FsResource(SyncAPIResource):
 
     def move(
         self,
-        id: str,
+        id_or_name: str,
         *,
         dest_path: str,
         src_path: str,
@@ -368,11 +368,11 @@ class FsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._put(
-            path_template("/browsers/{id}/fs/move", id=id),
+            path_template("/browsers/{id_or_name}/fs/move", id_or_name=id_or_name),
             body=maybe_transform(
                 {
                     "dest_path": dest_path,
@@ -388,7 +388,7 @@ class FsResource(SyncAPIResource):
 
     def read_file(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -412,11 +412,11 @@ class FsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return self._get(
-            path_template("/browsers/{id}/fs/read_file", id=id),
+            path_template("/browsers/{id_or_name}/fs/read_file", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -429,7 +429,7 @@ class FsResource(SyncAPIResource):
 
     def set_file_permissions(
         self,
-        id: str,
+        id_or_name: str,
         *,
         mode: str,
         path: str,
@@ -462,11 +462,11 @@ class FsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._put(
-            path_template("/browsers/{id}/fs/set_file_permissions", id=id),
+            path_template("/browsers/{id_or_name}/fs/set_file_permissions", id_or_name=id_or_name),
             body=maybe_transform(
                 {
                     "mode": mode,
@@ -484,7 +484,7 @@ class FsResource(SyncAPIResource):
 
     def upload(
         self,
-        id: str,
+        id_or_name: str,
         *,
         files: Iterable[f_upload_params.File],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -506,8 +506,8 @@ class FsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         body = deepcopy_with_paths({"files": files}, [["files", "<array>", "file"]])
         extracted_files = extract_files(cast(Mapping[str, object], body), paths=[["files", "<array>", "file"]])
@@ -516,7 +516,7 @@ class FsResource(SyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers["Content-Type"] = "multipart/form-data"
         return self._post(
-            path_template("/browsers/{id}/fs/upload", id=id),
+            path_template("/browsers/{id_or_name}/fs/upload", id_or_name=id_or_name),
             body=maybe_transform(body, f_upload_params.FUploadParams),
             files=extracted_files,
             options=make_request_options(
@@ -527,7 +527,7 @@ class FsResource(SyncAPIResource):
 
     def upload_zip(
         self,
-        id: str,
+        id_or_name: str,
         *,
         dest_path: str,
         zip_file: FileTypes,
@@ -552,8 +552,8 @@ class FsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         body = deepcopy_with_paths(
             {
@@ -568,7 +568,7 @@ class FsResource(SyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers["Content-Type"] = "multipart/form-data"
         return self._post(
-            path_template("/browsers/{id}/fs/upload_zip", id=id),
+            path_template("/browsers/{id_or_name}/fs/upload_zip", id_or_name=id_or_name),
             body=maybe_transform(body, f_upload_zip_params.FUploadZipParams),
             files=files,
             options=make_request_options(
@@ -579,7 +579,7 @@ class FsResource(SyncAPIResource):
 
     def write_file(
         self,
-        id: str,
+        id_or_name: str,
         contents: FileContent | BinaryTypes,
         *,
         path: str,
@@ -607,12 +607,12 @@ class FsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         extra_headers["Content-Type"] = "application/octet-stream"
         return self._put(
-            path_template("/browsers/{id}/fs/write_file", id=id),
+            path_template("/browsers/{id_or_name}/fs/write_file", id_or_name=id_or_name),
             content=read_file_content(contents) if isinstance(contents, os.PathLike) else contents,
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -660,7 +660,7 @@ class AsyncFsResource(AsyncAPIResource):
 
     async def create_directory(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: str,
         mode: str | Omit = omit,
@@ -687,11 +687,11 @@ class AsyncFsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._put(
-            path_template("/browsers/{id}/fs/create_directory", id=id),
+            path_template("/browsers/{id_or_name}/fs/create_directory", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {
                     "path": path,
@@ -707,7 +707,7 @@ class AsyncFsResource(AsyncAPIResource):
 
     async def delete_directory(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -731,11 +731,11 @@ class AsyncFsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._put(
-            path_template("/browsers/{id}/fs/delete_directory", id=id),
+            path_template("/browsers/{id_or_name}/fs/delete_directory", id_or_name=id_or_name),
             body=await async_maybe_transform({"path": path}, f_delete_directory_params.FDeleteDirectoryParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -745,7 +745,7 @@ class AsyncFsResource(AsyncAPIResource):
 
     async def delete_file(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -769,11 +769,11 @@ class AsyncFsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._put(
-            path_template("/browsers/{id}/fs/delete_file", id=id),
+            path_template("/browsers/{id_or_name}/fs/delete_file", id_or_name=id_or_name),
             body=await async_maybe_transform({"path": path}, f_delete_file_params.FDeleteFileParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -783,7 +783,7 @@ class AsyncFsResource(AsyncAPIResource):
 
     async def download_dir_zip(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -807,11 +807,11 @@ class AsyncFsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "application/zip", **(extra_headers or {})}
         return await self._get(
-            path_template("/browsers/{id}/fs/download_dir_zip", id=id),
+            path_template("/browsers/{id_or_name}/fs/download_dir_zip", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -824,7 +824,7 @@ class AsyncFsResource(AsyncAPIResource):
 
     async def file_info(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -848,10 +848,10 @@ class AsyncFsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return await self._get(
-            path_template("/browsers/{id}/fs/file_info", id=id),
+            path_template("/browsers/{id_or_name}/fs/file_info", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -864,7 +864,7 @@ class AsyncFsResource(AsyncAPIResource):
 
     async def list_files(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -888,10 +888,10 @@ class AsyncFsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return await self._get(
-            path_template("/browsers/{id}/fs/list_files", id=id),
+            path_template("/browsers/{id_or_name}/fs/list_files", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -904,7 +904,7 @@ class AsyncFsResource(AsyncAPIResource):
 
     async def move(
         self,
-        id: str,
+        id_or_name: str,
         *,
         dest_path: str,
         src_path: str,
@@ -931,11 +931,11 @@ class AsyncFsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._put(
-            path_template("/browsers/{id}/fs/move", id=id),
+            path_template("/browsers/{id_or_name}/fs/move", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {
                     "dest_path": dest_path,
@@ -951,7 +951,7 @@ class AsyncFsResource(AsyncAPIResource):
 
     async def read_file(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -975,11 +975,11 @@ class AsyncFsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return await self._get(
-            path_template("/browsers/{id}/fs/read_file", id=id),
+            path_template("/browsers/{id_or_name}/fs/read_file", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -992,7 +992,7 @@ class AsyncFsResource(AsyncAPIResource):
 
     async def set_file_permissions(
         self,
-        id: str,
+        id_or_name: str,
         *,
         mode: str,
         path: str,
@@ -1025,11 +1025,11 @@ class AsyncFsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._put(
-            path_template("/browsers/{id}/fs/set_file_permissions", id=id),
+            path_template("/browsers/{id_or_name}/fs/set_file_permissions", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {
                     "mode": mode,
@@ -1047,7 +1047,7 @@ class AsyncFsResource(AsyncAPIResource):
 
     async def upload(
         self,
-        id: str,
+        id_or_name: str,
         *,
         files: Iterable[f_upload_params.File],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1069,8 +1069,8 @@ class AsyncFsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         body = deepcopy_with_paths({"files": files}, [["files", "<array>", "file"]])
         extracted_files = extract_files(cast(Mapping[str, object], body), paths=[["files", "<array>", "file"]])
@@ -1079,7 +1079,7 @@ class AsyncFsResource(AsyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers["Content-Type"] = "multipart/form-data"
         return await self._post(
-            path_template("/browsers/{id}/fs/upload", id=id),
+            path_template("/browsers/{id_or_name}/fs/upload", id_or_name=id_or_name),
             body=await async_maybe_transform(body, f_upload_params.FUploadParams),
             files=extracted_files,
             options=make_request_options(
@@ -1090,7 +1090,7 @@ class AsyncFsResource(AsyncAPIResource):
 
     async def upload_zip(
         self,
-        id: str,
+        id_or_name: str,
         *,
         dest_path: str,
         zip_file: FileTypes,
@@ -1115,8 +1115,8 @@ class AsyncFsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         body = deepcopy_with_paths(
             {
@@ -1131,7 +1131,7 @@ class AsyncFsResource(AsyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers["Content-Type"] = "multipart/form-data"
         return await self._post(
-            path_template("/browsers/{id}/fs/upload_zip", id=id),
+            path_template("/browsers/{id_or_name}/fs/upload_zip", id_or_name=id_or_name),
             body=await async_maybe_transform(body, f_upload_zip_params.FUploadZipParams),
             files=files,
             options=make_request_options(
@@ -1142,7 +1142,7 @@ class AsyncFsResource(AsyncAPIResource):
 
     async def write_file(
         self,
-        id: str,
+        id_or_name: str,
         contents: FileContent | AsyncBinaryTypes,
         *,
         path: str,
@@ -1170,12 +1170,12 @@ class AsyncFsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         extra_headers["Content-Type"] = "application/octet-stream"
         return await self._put(
-            path_template("/browsers/{id}/fs/write_file", id=id),
+            path_template("/browsers/{id_or_name}/fs/write_file", id_or_name=id_or_name),
             content=await async_read_file_content(contents) if isinstance(contents, os.PathLike) else contents,
             options=make_request_options(
                 extra_headers=extra_headers,

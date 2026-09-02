@@ -19,7 +19,7 @@ class TestLogs:
     @parametrize
     def test_method_stream(self, client: Kernel) -> None:
         log_stream = client.browsers.logs.stream(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             source="path",
         )
         log_stream.response.close()
@@ -28,7 +28,7 @@ class TestLogs:
     @parametrize
     def test_method_stream_with_all_params(self, client: Kernel) -> None:
         log_stream = client.browsers.logs.stream(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             source="path",
             follow=True,
             path="path",
@@ -40,7 +40,7 @@ class TestLogs:
     @parametrize
     def test_raw_response_stream(self, client: Kernel) -> None:
         response = client.browsers.logs.with_raw_response.stream(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             source="path",
         )
 
@@ -52,7 +52,7 @@ class TestLogs:
     @parametrize
     def test_streaming_response_stream(self, client: Kernel) -> None:
         with client.browsers.logs.with_streaming_response.stream(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             source="path",
         ) as response:
             assert not response.is_closed
@@ -66,9 +66,9 @@ class TestLogs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_stream(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.logs.with_raw_response.stream(
-                id="",
+                id_or_name="",
                 source="path",
             )
 
@@ -82,7 +82,7 @@ class TestAsyncLogs:
     @parametrize
     async def test_method_stream(self, async_client: AsyncKernel) -> None:
         log_stream = await async_client.browsers.logs.stream(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             source="path",
         )
         await log_stream.response.aclose()
@@ -91,7 +91,7 @@ class TestAsyncLogs:
     @parametrize
     async def test_method_stream_with_all_params(self, async_client: AsyncKernel) -> None:
         log_stream = await async_client.browsers.logs.stream(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             source="path",
             follow=True,
             path="path",
@@ -103,7 +103,7 @@ class TestAsyncLogs:
     @parametrize
     async def test_raw_response_stream(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.logs.with_raw_response.stream(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             source="path",
         )
 
@@ -115,7 +115,7 @@ class TestAsyncLogs:
     @parametrize
     async def test_streaming_response_stream(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.logs.with_streaming_response.stream(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             source="path",
         ) as response:
             assert not response.is_closed
@@ -129,8 +129,8 @@ class TestAsyncLogs:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_stream(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.logs.with_raw_response.stream(
-                id="",
+                id_or_name="",
                 source="path",
             )

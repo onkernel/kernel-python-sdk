@@ -69,7 +69,7 @@ class ComputerResource(SyncAPIResource):
 
     def batch(
         self,
-        id: str,
+        id_or_name: str,
         *,
         actions: Iterable[computer_batch_params.Action],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -95,11 +95,11 @@ class ComputerResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            path_template("/browsers/{id}/computer/batch", id=id),
+            path_template("/browsers/{id_or_name}/computer/batch", id_or_name=id_or_name),
             body=maybe_transform({"actions": actions}, computer_batch_params.ComputerBatchParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -109,7 +109,7 @@ class ComputerResource(SyncAPIResource):
 
     def capture_screenshot(
         self,
-        id: str,
+        id_or_name: str,
         *,
         region: computer_capture_screenshot_params.Region | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -131,11 +131,11 @@ class ComputerResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "image/png", **(extra_headers or {})}
         return self._post(
-            path_template("/browsers/{id}/computer/screenshot", id=id),
+            path_template("/browsers/{id_or_name}/computer/screenshot", id_or_name=id_or_name),
             body=maybe_transform(
                 {"region": region}, computer_capture_screenshot_params.ComputerCaptureScreenshotParams
             ),
@@ -147,7 +147,7 @@ class ComputerResource(SyncAPIResource):
 
     def click_mouse(
         self,
-        id: str,
+        id_or_name: str,
         *,
         x: int,
         y: int,
@@ -186,11 +186,11 @@ class ComputerResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            path_template("/browsers/{id}/computer/click_mouse", id=id),
+            path_template("/browsers/{id_or_name}/computer/click_mouse", id_or_name=id_or_name),
             body=maybe_transform(
                 {
                     "x": x,
@@ -210,7 +210,7 @@ class ComputerResource(SyncAPIResource):
 
     def drag_mouse(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: Iterable[Iterable[int]],
         button: Literal["left", "middle", "right"] | Omit = omit,
@@ -259,11 +259,11 @@ class ComputerResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            path_template("/browsers/{id}/computer/drag_mouse", id=id),
+            path_template("/browsers/{id_or_name}/computer/drag_mouse", id_or_name=id_or_name),
             body=maybe_transform(
                 {
                     "path": path,
@@ -285,7 +285,7 @@ class ComputerResource(SyncAPIResource):
 
     def get_mouse_position(
         self,
-        id: str,
+        id_or_name: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -306,10 +306,10 @@ class ComputerResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._post(
-            path_template("/browsers/{id}/computer/get_mouse_position", id=id),
+            path_template("/browsers/{id_or_name}/computer/get_mouse_position", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -318,7 +318,7 @@ class ComputerResource(SyncAPIResource):
 
     def move_mouse(
         self,
-        id: str,
+        id_or_name: str,
         *,
         x: int,
         y: int,
@@ -355,11 +355,11 @@ class ComputerResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            path_template("/browsers/{id}/computer/move_mouse", id=id),
+            path_template("/browsers/{id_or_name}/computer/move_mouse", id_or_name=id_or_name),
             body=maybe_transform(
                 {
                     "x": x,
@@ -378,7 +378,7 @@ class ComputerResource(SyncAPIResource):
 
     def press_key(
         self,
-        id: str,
+        id_or_name: str,
         *,
         keys: SequenceNotStr[str],
         duration: int | Omit = omit,
@@ -412,11 +412,11 @@ class ComputerResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            path_template("/browsers/{id}/computer/press_key", id=id),
+            path_template("/browsers/{id_or_name}/computer/press_key", id_or_name=id_or_name),
             body=maybe_transform(
                 {
                     "keys": keys,
@@ -433,7 +433,7 @@ class ComputerResource(SyncAPIResource):
 
     def read_clipboard(
         self,
-        id: str,
+        id_or_name: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -454,10 +454,10 @@ class ComputerResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._post(
-            path_template("/browsers/{id}/computer/clipboard/read", id=id),
+            path_template("/browsers/{id_or_name}/computer/clipboard/read", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -466,7 +466,7 @@ class ComputerResource(SyncAPIResource):
 
     def scroll(
         self,
-        id: str,
+        id_or_name: str,
         *,
         x: int,
         y: int,
@@ -504,11 +504,11 @@ class ComputerResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            path_template("/browsers/{id}/computer/scroll", id=id),
+            path_template("/browsers/{id_or_name}/computer/scroll", id_or_name=id_or_name),
             body=maybe_transform(
                 {
                     "x": x,
@@ -527,7 +527,7 @@ class ComputerResource(SyncAPIResource):
 
     def set_cursor_visibility(
         self,
-        id: str,
+        id_or_name: str,
         *,
         hidden: bool,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -551,10 +551,10 @@ class ComputerResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._post(
-            path_template("/browsers/{id}/computer/cursor", id=id),
+            path_template("/browsers/{id_or_name}/computer/cursor", id_or_name=id_or_name),
             body=maybe_transform(
                 {"hidden": hidden}, computer_set_cursor_visibility_params.ComputerSetCursorVisibilityParams
             ),
@@ -566,7 +566,7 @@ class ComputerResource(SyncAPIResource):
 
     def type_text(
         self,
-        id: str,
+        id_or_name: str,
         *,
         text: str,
         delay: int | Omit = omit,
@@ -593,11 +593,11 @@ class ComputerResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            path_template("/browsers/{id}/computer/type", id=id),
+            path_template("/browsers/{id_or_name}/computer/type", id_or_name=id_or_name),
             body=maybe_transform(
                 {
                     "text": text,
@@ -613,7 +613,7 @@ class ComputerResource(SyncAPIResource):
 
     def write_clipboard(
         self,
-        id: str,
+        id_or_name: str,
         *,
         text: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -637,11 +637,11 @@ class ComputerResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            path_template("/browsers/{id}/computer/clipboard/write", id=id),
+            path_template("/browsers/{id_or_name}/computer/clipboard/write", id_or_name=id_or_name),
             body=maybe_transform({"text": text}, computer_write_clipboard_params.ComputerWriteClipboardParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -674,7 +674,7 @@ class AsyncComputerResource(AsyncAPIResource):
 
     async def batch(
         self,
-        id: str,
+        id_or_name: str,
         *,
         actions: Iterable[computer_batch_params.Action],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -700,11 +700,11 @@ class AsyncComputerResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            path_template("/browsers/{id}/computer/batch", id=id),
+            path_template("/browsers/{id_or_name}/computer/batch", id_or_name=id_or_name),
             body=await async_maybe_transform({"actions": actions}, computer_batch_params.ComputerBatchParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -714,7 +714,7 @@ class AsyncComputerResource(AsyncAPIResource):
 
     async def capture_screenshot(
         self,
-        id: str,
+        id_or_name: str,
         *,
         region: computer_capture_screenshot_params.Region | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -736,11 +736,11 @@ class AsyncComputerResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "image/png", **(extra_headers or {})}
         return await self._post(
-            path_template("/browsers/{id}/computer/screenshot", id=id),
+            path_template("/browsers/{id_or_name}/computer/screenshot", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {"region": region}, computer_capture_screenshot_params.ComputerCaptureScreenshotParams
             ),
@@ -752,7 +752,7 @@ class AsyncComputerResource(AsyncAPIResource):
 
     async def click_mouse(
         self,
-        id: str,
+        id_or_name: str,
         *,
         x: int,
         y: int,
@@ -791,11 +791,11 @@ class AsyncComputerResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            path_template("/browsers/{id}/computer/click_mouse", id=id),
+            path_template("/browsers/{id_or_name}/computer/click_mouse", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {
                     "x": x,
@@ -815,7 +815,7 @@ class AsyncComputerResource(AsyncAPIResource):
 
     async def drag_mouse(
         self,
-        id: str,
+        id_or_name: str,
         *,
         path: Iterable[Iterable[int]],
         button: Literal["left", "middle", "right"] | Omit = omit,
@@ -864,11 +864,11 @@ class AsyncComputerResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            path_template("/browsers/{id}/computer/drag_mouse", id=id),
+            path_template("/browsers/{id_or_name}/computer/drag_mouse", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {
                     "path": path,
@@ -890,7 +890,7 @@ class AsyncComputerResource(AsyncAPIResource):
 
     async def get_mouse_position(
         self,
-        id: str,
+        id_or_name: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -911,10 +911,10 @@ class AsyncComputerResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return await self._post(
-            path_template("/browsers/{id}/computer/get_mouse_position", id=id),
+            path_template("/browsers/{id_or_name}/computer/get_mouse_position", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -923,7 +923,7 @@ class AsyncComputerResource(AsyncAPIResource):
 
     async def move_mouse(
         self,
-        id: str,
+        id_or_name: str,
         *,
         x: int,
         y: int,
@@ -960,11 +960,11 @@ class AsyncComputerResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            path_template("/browsers/{id}/computer/move_mouse", id=id),
+            path_template("/browsers/{id_or_name}/computer/move_mouse", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {
                     "x": x,
@@ -983,7 +983,7 @@ class AsyncComputerResource(AsyncAPIResource):
 
     async def press_key(
         self,
-        id: str,
+        id_or_name: str,
         *,
         keys: SequenceNotStr[str],
         duration: int | Omit = omit,
@@ -1017,11 +1017,11 @@ class AsyncComputerResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            path_template("/browsers/{id}/computer/press_key", id=id),
+            path_template("/browsers/{id_or_name}/computer/press_key", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {
                     "keys": keys,
@@ -1038,7 +1038,7 @@ class AsyncComputerResource(AsyncAPIResource):
 
     async def read_clipboard(
         self,
-        id: str,
+        id_or_name: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1059,10 +1059,10 @@ class AsyncComputerResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return await self._post(
-            path_template("/browsers/{id}/computer/clipboard/read", id=id),
+            path_template("/browsers/{id_or_name}/computer/clipboard/read", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1071,7 +1071,7 @@ class AsyncComputerResource(AsyncAPIResource):
 
     async def scroll(
         self,
-        id: str,
+        id_or_name: str,
         *,
         x: int,
         y: int,
@@ -1109,11 +1109,11 @@ class AsyncComputerResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            path_template("/browsers/{id}/computer/scroll", id=id),
+            path_template("/browsers/{id_or_name}/computer/scroll", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {
                     "x": x,
@@ -1132,7 +1132,7 @@ class AsyncComputerResource(AsyncAPIResource):
 
     async def set_cursor_visibility(
         self,
-        id: str,
+        id_or_name: str,
         *,
         hidden: bool,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1156,10 +1156,10 @@ class AsyncComputerResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return await self._post(
-            path_template("/browsers/{id}/computer/cursor", id=id),
+            path_template("/browsers/{id_or_name}/computer/cursor", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {"hidden": hidden}, computer_set_cursor_visibility_params.ComputerSetCursorVisibilityParams
             ),
@@ -1171,7 +1171,7 @@ class AsyncComputerResource(AsyncAPIResource):
 
     async def type_text(
         self,
-        id: str,
+        id_or_name: str,
         *,
         text: str,
         delay: int | Omit = omit,
@@ -1198,11 +1198,11 @@ class AsyncComputerResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            path_template("/browsers/{id}/computer/type", id=id),
+            path_template("/browsers/{id_or_name}/computer/type", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {
                     "text": text,
@@ -1218,7 +1218,7 @@ class AsyncComputerResource(AsyncAPIResource):
 
     async def write_clipboard(
         self,
-        id: str,
+        id_or_name: str,
         *,
         text: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1242,11 +1242,11 @@ class AsyncComputerResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            path_template("/browsers/{id}/computer/clipboard/write", id=id),
+            path_template("/browsers/{id_or_name}/computer/clipboard/write", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {"text": text}, computer_write_clipboard_params.ComputerWriteClipboardParams
             ),

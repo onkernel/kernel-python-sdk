@@ -33,7 +33,7 @@ class TestComputer:
     @parametrize
     def test_method_batch(self, client: Kernel) -> None:
         computer = client.browsers.computer.batch(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             actions=[{"type": "click_mouse"}],
         )
         assert computer is None
@@ -42,7 +42,7 @@ class TestComputer:
     @parametrize
     def test_raw_response_batch(self, client: Kernel) -> None:
         response = client.browsers.computer.with_raw_response.batch(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             actions=[{"type": "click_mouse"}],
         )
 
@@ -55,7 +55,7 @@ class TestComputer:
     @parametrize
     def test_streaming_response_batch(self, client: Kernel) -> None:
         with client.browsers.computer.with_streaming_response.batch(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             actions=[{"type": "click_mouse"}],
         ) as response:
             assert not response.is_closed
@@ -69,18 +69,20 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_batch(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.computer.with_raw_response.batch(
-                id="",
+                id_or_name="",
                 actions=[{"type": "click_mouse"}],
             )
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_method_capture_screenshot(self, client: Kernel, respx_mock: MockRouter) -> None:
-        respx_mock.post("/browsers/id/computer/screenshot").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.post("/browsers/htzv5orfit78e1m2biiifpbv/computer/screenshot").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
         computer = client.browsers.computer.capture_screenshot(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
         assert computer.is_closed
         assert computer.json() == {"foo": "bar"}
@@ -90,9 +92,11 @@ class TestComputer:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_method_capture_screenshot_with_all_params(self, client: Kernel, respx_mock: MockRouter) -> None:
-        respx_mock.post("/browsers/id/computer/screenshot").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.post("/browsers/htzv5orfit78e1m2biiifpbv/computer/screenshot").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
         computer = client.browsers.computer.capture_screenshot(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             region={
                 "height": 0,
                 "width": 0,
@@ -108,10 +112,12 @@ class TestComputer:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response_capture_screenshot(self, client: Kernel, respx_mock: MockRouter) -> None:
-        respx_mock.post("/browsers/id/computer/screenshot").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.post("/browsers/htzv5orfit78e1m2biiifpbv/computer/screenshot").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
 
         computer = client.browsers.computer.with_raw_response.capture_screenshot(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
 
         assert computer.is_closed is True
@@ -122,9 +128,11 @@ class TestComputer:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_streaming_response_capture_screenshot(self, client: Kernel, respx_mock: MockRouter) -> None:
-        respx_mock.post("/browsers/id/computer/screenshot").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.post("/browsers/htzv5orfit78e1m2biiifpbv/computer/screenshot").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
         with client.browsers.computer.with_streaming_response.capture_screenshot(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         ) as computer:
             assert not computer.is_closed
             assert computer.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -138,16 +146,16 @@ class TestComputer:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_path_params_capture_screenshot(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.computer.with_raw_response.capture_screenshot(
-                id="",
+                id_or_name="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_click_mouse(self, client: Kernel) -> None:
         computer = client.browsers.computer.click_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         )
@@ -157,7 +165,7 @@ class TestComputer:
     @parametrize
     def test_method_click_mouse_with_all_params(self, client: Kernel) -> None:
         computer = client.browsers.computer.click_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
             button="left",
@@ -171,7 +179,7 @@ class TestComputer:
     @parametrize
     def test_raw_response_click_mouse(self, client: Kernel) -> None:
         response = client.browsers.computer.with_raw_response.click_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         )
@@ -185,7 +193,7 @@ class TestComputer:
     @parametrize
     def test_streaming_response_click_mouse(self, client: Kernel) -> None:
         with client.browsers.computer.with_streaming_response.click_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         ) as response:
@@ -200,9 +208,9 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_click_mouse(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.computer.with_raw_response.click_mouse(
-                id="",
+                id_or_name="",
                 x=0,
                 y=0,
             )
@@ -211,7 +219,7 @@ class TestComputer:
     @parametrize
     def test_method_drag_mouse(self, client: Kernel) -> None:
         computer = client.browsers.computer.drag_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             path=[[0, 0], [0, 0]],
         )
         assert computer is None
@@ -220,7 +228,7 @@ class TestComputer:
     @parametrize
     def test_method_drag_mouse_with_all_params(self, client: Kernel) -> None:
         computer = client.browsers.computer.drag_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             path=[[0, 0], [0, 0]],
             button="left",
             delay=0,
@@ -236,7 +244,7 @@ class TestComputer:
     @parametrize
     def test_raw_response_drag_mouse(self, client: Kernel) -> None:
         response = client.browsers.computer.with_raw_response.drag_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             path=[[0, 0], [0, 0]],
         )
 
@@ -249,7 +257,7 @@ class TestComputer:
     @parametrize
     def test_streaming_response_drag_mouse(self, client: Kernel) -> None:
         with client.browsers.computer.with_streaming_response.drag_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             path=[[0, 0], [0, 0]],
         ) as response:
             assert not response.is_closed
@@ -263,9 +271,9 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_drag_mouse(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.computer.with_raw_response.drag_mouse(
-                id="",
+                id_or_name="",
                 path=[[0, 0], [0, 0]],
             )
 
@@ -273,7 +281,7 @@ class TestComputer:
     @parametrize
     def test_method_get_mouse_position(self, client: Kernel) -> None:
         computer = client.browsers.computer.get_mouse_position(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         )
         assert_matches_type(ComputerGetMousePositionResponse, computer, path=["response"])
 
@@ -281,7 +289,7 @@ class TestComputer:
     @parametrize
     def test_raw_response_get_mouse_position(self, client: Kernel) -> None:
         response = client.browsers.computer.with_raw_response.get_mouse_position(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         )
 
         assert response.is_closed is True
@@ -293,7 +301,7 @@ class TestComputer:
     @parametrize
     def test_streaming_response_get_mouse_position(self, client: Kernel) -> None:
         with client.browsers.computer.with_streaming_response.get_mouse_position(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -306,7 +314,7 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_get_mouse_position(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.computer.with_raw_response.get_mouse_position(
                 "",
             )
@@ -315,7 +323,7 @@ class TestComputer:
     @parametrize
     def test_method_move_mouse(self, client: Kernel) -> None:
         computer = client.browsers.computer.move_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         )
@@ -325,7 +333,7 @@ class TestComputer:
     @parametrize
     def test_method_move_mouse_with_all_params(self, client: Kernel) -> None:
         computer = client.browsers.computer.move_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
             duration_ms=50,
@@ -338,7 +346,7 @@ class TestComputer:
     @parametrize
     def test_raw_response_move_mouse(self, client: Kernel) -> None:
         response = client.browsers.computer.with_raw_response.move_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         )
@@ -352,7 +360,7 @@ class TestComputer:
     @parametrize
     def test_streaming_response_move_mouse(self, client: Kernel) -> None:
         with client.browsers.computer.with_streaming_response.move_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         ) as response:
@@ -367,9 +375,9 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_move_mouse(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.computer.with_raw_response.move_mouse(
-                id="",
+                id_or_name="",
                 x=0,
                 y=0,
             )
@@ -378,7 +386,7 @@ class TestComputer:
     @parametrize
     def test_method_press_key(self, client: Kernel) -> None:
         computer = client.browsers.computer.press_key(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             keys=["string"],
         )
         assert computer is None
@@ -387,7 +395,7 @@ class TestComputer:
     @parametrize
     def test_method_press_key_with_all_params(self, client: Kernel) -> None:
         computer = client.browsers.computer.press_key(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             keys=["string"],
             duration=0,
             hold_keys=["string"],
@@ -398,7 +406,7 @@ class TestComputer:
     @parametrize
     def test_raw_response_press_key(self, client: Kernel) -> None:
         response = client.browsers.computer.with_raw_response.press_key(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             keys=["string"],
         )
 
@@ -411,7 +419,7 @@ class TestComputer:
     @parametrize
     def test_streaming_response_press_key(self, client: Kernel) -> None:
         with client.browsers.computer.with_streaming_response.press_key(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             keys=["string"],
         ) as response:
             assert not response.is_closed
@@ -425,9 +433,9 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_press_key(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.computer.with_raw_response.press_key(
-                id="",
+                id_or_name="",
                 keys=["string"],
             )
 
@@ -435,7 +443,7 @@ class TestComputer:
     @parametrize
     def test_method_read_clipboard(self, client: Kernel) -> None:
         computer = client.browsers.computer.read_clipboard(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         )
         assert_matches_type(ComputerReadClipboardResponse, computer, path=["response"])
 
@@ -443,7 +451,7 @@ class TestComputer:
     @parametrize
     def test_raw_response_read_clipboard(self, client: Kernel) -> None:
         response = client.browsers.computer.with_raw_response.read_clipboard(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         )
 
         assert response.is_closed is True
@@ -455,7 +463,7 @@ class TestComputer:
     @parametrize
     def test_streaming_response_read_clipboard(self, client: Kernel) -> None:
         with client.browsers.computer.with_streaming_response.read_clipboard(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -468,7 +476,7 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_read_clipboard(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.computer.with_raw_response.read_clipboard(
                 "",
             )
@@ -477,7 +485,7 @@ class TestComputer:
     @parametrize
     def test_method_scroll(self, client: Kernel) -> None:
         computer = client.browsers.computer.scroll(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         )
@@ -487,7 +495,7 @@ class TestComputer:
     @parametrize
     def test_method_scroll_with_all_params(self, client: Kernel) -> None:
         computer = client.browsers.computer.scroll(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
             delta_x=0,
@@ -500,7 +508,7 @@ class TestComputer:
     @parametrize
     def test_raw_response_scroll(self, client: Kernel) -> None:
         response = client.browsers.computer.with_raw_response.scroll(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         )
@@ -514,7 +522,7 @@ class TestComputer:
     @parametrize
     def test_streaming_response_scroll(self, client: Kernel) -> None:
         with client.browsers.computer.with_streaming_response.scroll(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         ) as response:
@@ -529,9 +537,9 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_scroll(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.computer.with_raw_response.scroll(
-                id="",
+                id_or_name="",
                 x=0,
                 y=0,
             )
@@ -540,7 +548,7 @@ class TestComputer:
     @parametrize
     def test_method_set_cursor_visibility(self, client: Kernel) -> None:
         computer = client.browsers.computer.set_cursor_visibility(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             hidden=True,
         )
         assert_matches_type(ComputerSetCursorVisibilityResponse, computer, path=["response"])
@@ -549,7 +557,7 @@ class TestComputer:
     @parametrize
     def test_raw_response_set_cursor_visibility(self, client: Kernel) -> None:
         response = client.browsers.computer.with_raw_response.set_cursor_visibility(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             hidden=True,
         )
 
@@ -562,7 +570,7 @@ class TestComputer:
     @parametrize
     def test_streaming_response_set_cursor_visibility(self, client: Kernel) -> None:
         with client.browsers.computer.with_streaming_response.set_cursor_visibility(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             hidden=True,
         ) as response:
             assert not response.is_closed
@@ -576,9 +584,9 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_set_cursor_visibility(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.computer.with_raw_response.set_cursor_visibility(
-                id="",
+                id_or_name="",
                 hidden=True,
             )
 
@@ -586,7 +594,7 @@ class TestComputer:
     @parametrize
     def test_method_type_text(self, client: Kernel) -> None:
         computer = client.browsers.computer.type_text(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             text="text",
         )
         assert computer is None
@@ -595,7 +603,7 @@ class TestComputer:
     @parametrize
     def test_method_type_text_with_all_params(self, client: Kernel) -> None:
         computer = client.browsers.computer.type_text(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             text="text",
             delay=0,
         )
@@ -605,7 +613,7 @@ class TestComputer:
     @parametrize
     def test_raw_response_type_text(self, client: Kernel) -> None:
         response = client.browsers.computer.with_raw_response.type_text(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             text="text",
         )
 
@@ -618,7 +626,7 @@ class TestComputer:
     @parametrize
     def test_streaming_response_type_text(self, client: Kernel) -> None:
         with client.browsers.computer.with_streaming_response.type_text(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             text="text",
         ) as response:
             assert not response.is_closed
@@ -632,9 +640,9 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_type_text(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.computer.with_raw_response.type_text(
-                id="",
+                id_or_name="",
                 text="text",
             )
 
@@ -642,7 +650,7 @@ class TestComputer:
     @parametrize
     def test_method_write_clipboard(self, client: Kernel) -> None:
         computer = client.browsers.computer.write_clipboard(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             text="text",
         )
         assert computer is None
@@ -651,7 +659,7 @@ class TestComputer:
     @parametrize
     def test_raw_response_write_clipboard(self, client: Kernel) -> None:
         response = client.browsers.computer.with_raw_response.write_clipboard(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             text="text",
         )
 
@@ -664,7 +672,7 @@ class TestComputer:
     @parametrize
     def test_streaming_response_write_clipboard(self, client: Kernel) -> None:
         with client.browsers.computer.with_streaming_response.write_clipboard(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             text="text",
         ) as response:
             assert not response.is_closed
@@ -678,9 +686,9 @@ class TestComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_write_clipboard(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.computer.with_raw_response.write_clipboard(
-                id="",
+                id_or_name="",
                 text="text",
             )
 
@@ -694,7 +702,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_method_batch(self, async_client: AsyncKernel) -> None:
         computer = await async_client.browsers.computer.batch(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             actions=[{"type": "click_mouse"}],
         )
         assert computer is None
@@ -703,7 +711,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_raw_response_batch(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.computer.with_raw_response.batch(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             actions=[{"type": "click_mouse"}],
         )
 
@@ -716,7 +724,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_streaming_response_batch(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.computer.with_streaming_response.batch(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             actions=[{"type": "click_mouse"}],
         ) as response:
             assert not response.is_closed
@@ -730,18 +738,20 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_batch(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.computer.with_raw_response.batch(
-                id="",
+                id_or_name="",
                 actions=[{"type": "click_mouse"}],
             )
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_method_capture_screenshot(self, async_client: AsyncKernel, respx_mock: MockRouter) -> None:
-        respx_mock.post("/browsers/id/computer/screenshot").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.post("/browsers/htzv5orfit78e1m2biiifpbv/computer/screenshot").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
         computer = await async_client.browsers.computer.capture_screenshot(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
         assert computer.is_closed
         assert await computer.json() == {"foo": "bar"}
@@ -753,9 +763,11 @@ class TestAsyncComputer:
     async def test_method_capture_screenshot_with_all_params(
         self, async_client: AsyncKernel, respx_mock: MockRouter
     ) -> None:
-        respx_mock.post("/browsers/id/computer/screenshot").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.post("/browsers/htzv5orfit78e1m2biiifpbv/computer/screenshot").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
         computer = await async_client.browsers.computer.capture_screenshot(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             region={
                 "height": 0,
                 "width": 0,
@@ -771,10 +783,12 @@ class TestAsyncComputer:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_raw_response_capture_screenshot(self, async_client: AsyncKernel, respx_mock: MockRouter) -> None:
-        respx_mock.post("/browsers/id/computer/screenshot").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.post("/browsers/htzv5orfit78e1m2biiifpbv/computer/screenshot").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
 
         computer = await async_client.browsers.computer.with_raw_response.capture_screenshot(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
 
         assert computer.is_closed is True
@@ -787,9 +801,11 @@ class TestAsyncComputer:
     async def test_streaming_response_capture_screenshot(
         self, async_client: AsyncKernel, respx_mock: MockRouter
     ) -> None:
-        respx_mock.post("/browsers/id/computer/screenshot").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.post("/browsers/htzv5orfit78e1m2biiifpbv/computer/screenshot").mock(
+            return_value=httpx.Response(200, json={"foo": "bar"})
+        )
         async with async_client.browsers.computer.with_streaming_response.capture_screenshot(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         ) as computer:
             assert not computer.is_closed
             assert computer.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -803,16 +819,16 @@ class TestAsyncComputer:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_path_params_capture_screenshot(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.computer.with_raw_response.capture_screenshot(
-                id="",
+                id_or_name="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_click_mouse(self, async_client: AsyncKernel) -> None:
         computer = await async_client.browsers.computer.click_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         )
@@ -822,7 +838,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_method_click_mouse_with_all_params(self, async_client: AsyncKernel) -> None:
         computer = await async_client.browsers.computer.click_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
             button="left",
@@ -836,7 +852,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_raw_response_click_mouse(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.computer.with_raw_response.click_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         )
@@ -850,7 +866,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_streaming_response_click_mouse(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.computer.with_streaming_response.click_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         ) as response:
@@ -865,9 +881,9 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_click_mouse(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.computer.with_raw_response.click_mouse(
-                id="",
+                id_or_name="",
                 x=0,
                 y=0,
             )
@@ -876,7 +892,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_method_drag_mouse(self, async_client: AsyncKernel) -> None:
         computer = await async_client.browsers.computer.drag_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             path=[[0, 0], [0, 0]],
         )
         assert computer is None
@@ -885,7 +901,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_method_drag_mouse_with_all_params(self, async_client: AsyncKernel) -> None:
         computer = await async_client.browsers.computer.drag_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             path=[[0, 0], [0, 0]],
             button="left",
             delay=0,
@@ -901,7 +917,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_raw_response_drag_mouse(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.computer.with_raw_response.drag_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             path=[[0, 0], [0, 0]],
         )
 
@@ -914,7 +930,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_streaming_response_drag_mouse(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.computer.with_streaming_response.drag_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             path=[[0, 0], [0, 0]],
         ) as response:
             assert not response.is_closed
@@ -928,9 +944,9 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_drag_mouse(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.computer.with_raw_response.drag_mouse(
-                id="",
+                id_or_name="",
                 path=[[0, 0], [0, 0]],
             )
 
@@ -938,7 +954,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_method_get_mouse_position(self, async_client: AsyncKernel) -> None:
         computer = await async_client.browsers.computer.get_mouse_position(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         )
         assert_matches_type(ComputerGetMousePositionResponse, computer, path=["response"])
 
@@ -946,7 +962,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_raw_response_get_mouse_position(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.computer.with_raw_response.get_mouse_position(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         )
 
         assert response.is_closed is True
@@ -958,7 +974,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_streaming_response_get_mouse_position(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.computer.with_streaming_response.get_mouse_position(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -971,7 +987,7 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_get_mouse_position(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.computer.with_raw_response.get_mouse_position(
                 "",
             )
@@ -980,7 +996,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_method_move_mouse(self, async_client: AsyncKernel) -> None:
         computer = await async_client.browsers.computer.move_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         )
@@ -990,7 +1006,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_method_move_mouse_with_all_params(self, async_client: AsyncKernel) -> None:
         computer = await async_client.browsers.computer.move_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
             duration_ms=50,
@@ -1003,7 +1019,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_raw_response_move_mouse(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.computer.with_raw_response.move_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         )
@@ -1017,7 +1033,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_streaming_response_move_mouse(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.computer.with_streaming_response.move_mouse(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         ) as response:
@@ -1032,9 +1048,9 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_move_mouse(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.computer.with_raw_response.move_mouse(
-                id="",
+                id_or_name="",
                 x=0,
                 y=0,
             )
@@ -1043,7 +1059,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_method_press_key(self, async_client: AsyncKernel) -> None:
         computer = await async_client.browsers.computer.press_key(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             keys=["string"],
         )
         assert computer is None
@@ -1052,7 +1068,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_method_press_key_with_all_params(self, async_client: AsyncKernel) -> None:
         computer = await async_client.browsers.computer.press_key(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             keys=["string"],
             duration=0,
             hold_keys=["string"],
@@ -1063,7 +1079,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_raw_response_press_key(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.computer.with_raw_response.press_key(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             keys=["string"],
         )
 
@@ -1076,7 +1092,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_streaming_response_press_key(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.computer.with_streaming_response.press_key(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             keys=["string"],
         ) as response:
             assert not response.is_closed
@@ -1090,9 +1106,9 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_press_key(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.computer.with_raw_response.press_key(
-                id="",
+                id_or_name="",
                 keys=["string"],
             )
 
@@ -1100,7 +1116,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_method_read_clipboard(self, async_client: AsyncKernel) -> None:
         computer = await async_client.browsers.computer.read_clipboard(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         )
         assert_matches_type(ComputerReadClipboardResponse, computer, path=["response"])
 
@@ -1108,7 +1124,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_raw_response_read_clipboard(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.computer.with_raw_response.read_clipboard(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         )
 
         assert response.is_closed is True
@@ -1120,7 +1136,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_streaming_response_read_clipboard(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.computer.with_streaming_response.read_clipboard(
-            "id",
+            "htzv5orfit78e1m2biiifpbv",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1133,7 +1149,7 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_read_clipboard(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.computer.with_raw_response.read_clipboard(
                 "",
             )
@@ -1142,7 +1158,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_method_scroll(self, async_client: AsyncKernel) -> None:
         computer = await async_client.browsers.computer.scroll(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         )
@@ -1152,7 +1168,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_method_scroll_with_all_params(self, async_client: AsyncKernel) -> None:
         computer = await async_client.browsers.computer.scroll(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
             delta_x=0,
@@ -1165,7 +1181,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_raw_response_scroll(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.computer.with_raw_response.scroll(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         )
@@ -1179,7 +1195,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_streaming_response_scroll(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.computer.with_streaming_response.scroll(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             x=0,
             y=0,
         ) as response:
@@ -1194,9 +1210,9 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_scroll(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.computer.with_raw_response.scroll(
-                id="",
+                id_or_name="",
                 x=0,
                 y=0,
             )
@@ -1205,7 +1221,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_method_set_cursor_visibility(self, async_client: AsyncKernel) -> None:
         computer = await async_client.browsers.computer.set_cursor_visibility(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             hidden=True,
         )
         assert_matches_type(ComputerSetCursorVisibilityResponse, computer, path=["response"])
@@ -1214,7 +1230,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_raw_response_set_cursor_visibility(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.computer.with_raw_response.set_cursor_visibility(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             hidden=True,
         )
 
@@ -1227,7 +1243,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_streaming_response_set_cursor_visibility(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.computer.with_streaming_response.set_cursor_visibility(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             hidden=True,
         ) as response:
             assert not response.is_closed
@@ -1241,9 +1257,9 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_set_cursor_visibility(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.computer.with_raw_response.set_cursor_visibility(
-                id="",
+                id_or_name="",
                 hidden=True,
             )
 
@@ -1251,7 +1267,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_method_type_text(self, async_client: AsyncKernel) -> None:
         computer = await async_client.browsers.computer.type_text(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             text="text",
         )
         assert computer is None
@@ -1260,7 +1276,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_method_type_text_with_all_params(self, async_client: AsyncKernel) -> None:
         computer = await async_client.browsers.computer.type_text(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             text="text",
             delay=0,
         )
@@ -1270,7 +1286,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_raw_response_type_text(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.computer.with_raw_response.type_text(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             text="text",
         )
 
@@ -1283,7 +1299,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_streaming_response_type_text(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.computer.with_streaming_response.type_text(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             text="text",
         ) as response:
             assert not response.is_closed
@@ -1297,9 +1313,9 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_type_text(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.computer.with_raw_response.type_text(
-                id="",
+                id_or_name="",
                 text="text",
             )
 
@@ -1307,7 +1323,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_method_write_clipboard(self, async_client: AsyncKernel) -> None:
         computer = await async_client.browsers.computer.write_clipboard(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             text="text",
         )
         assert computer is None
@@ -1316,7 +1332,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_raw_response_write_clipboard(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.computer.with_raw_response.write_clipboard(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             text="text",
         )
 
@@ -1329,7 +1345,7 @@ class TestAsyncComputer:
     @parametrize
     async def test_streaming_response_write_clipboard(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.computer.with_streaming_response.write_clipboard(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             text="text",
         ) as response:
             assert not response.is_closed
@@ -1343,8 +1359,8 @@ class TestAsyncComputer:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_write_clipboard(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.computer.with_raw_response.write_clipboard(
-                id="",
+                id_or_name="",
                 text="text",
             )
