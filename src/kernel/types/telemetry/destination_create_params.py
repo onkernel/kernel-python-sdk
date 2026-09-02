@@ -25,7 +25,7 @@ class DestinationCreateParams(TypedDict, total=False):
     """
 
     name: Required[str]
-    """Unique within the project."""
+    """Unique within the organization."""
 
     description: str
 

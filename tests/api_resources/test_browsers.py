@@ -321,7 +321,7 @@ class TestBrowsers:
     @parametrize
     def test_method_curl(self, client: Kernel) -> None:
         browser = client.browsers.curl(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             url="url",
         )
         assert_matches_type(BrowserCurlResponse, browser, path=["response"])
@@ -330,7 +330,7 @@ class TestBrowsers:
     @parametrize
     def test_method_curl_with_all_params(self, client: Kernel) -> None:
         browser = client.browsers.curl(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             url="url",
             body="body",
             headers={"foo": "string"},
@@ -344,7 +344,7 @@ class TestBrowsers:
     @parametrize
     def test_raw_response_curl(self, client: Kernel) -> None:
         response = client.browsers.with_raw_response.curl(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             url="url",
         )
 
@@ -357,7 +357,7 @@ class TestBrowsers:
     @parametrize
     def test_streaming_response_curl(self, client: Kernel) -> None:
         with client.browsers.with_streaming_response.curl(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             url="url",
         ) as response:
             assert not response.is_closed
@@ -371,9 +371,9 @@ class TestBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_curl(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.with_raw_response.curl(
-                id="",
+                id_or_name="",
                 url="url",
             )
 
@@ -423,7 +423,7 @@ class TestBrowsers:
     @parametrize
     def test_method_load_extensions(self, client: Kernel) -> None:
         browser = client.browsers.load_extensions(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             extensions=[
                 {
                     "name": "name",
@@ -437,7 +437,7 @@ class TestBrowsers:
     @parametrize
     def test_raw_response_load_extensions(self, client: Kernel) -> None:
         response = client.browsers.with_raw_response.load_extensions(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             extensions=[
                 {
                     "name": "name",
@@ -455,7 +455,7 @@ class TestBrowsers:
     @parametrize
     def test_streaming_response_load_extensions(self, client: Kernel) -> None:
         with client.browsers.with_streaming_response.load_extensions(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             extensions=[
                 {
                     "name": "name",
@@ -474,9 +474,9 @@ class TestBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_load_extensions(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.with_raw_response.load_extensions(
-                id="",
+                id_or_name="",
                 extensions=[
                     {
                         "name": "name",
@@ -788,7 +788,7 @@ class TestAsyncBrowsers:
     @parametrize
     async def test_method_curl(self, async_client: AsyncKernel) -> None:
         browser = await async_client.browsers.curl(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             url="url",
         )
         assert_matches_type(BrowserCurlResponse, browser, path=["response"])
@@ -797,7 +797,7 @@ class TestAsyncBrowsers:
     @parametrize
     async def test_method_curl_with_all_params(self, async_client: AsyncKernel) -> None:
         browser = await async_client.browsers.curl(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             url="url",
             body="body",
             headers={"foo": "string"},
@@ -811,7 +811,7 @@ class TestAsyncBrowsers:
     @parametrize
     async def test_raw_response_curl(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.with_raw_response.curl(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             url="url",
         )
 
@@ -824,7 +824,7 @@ class TestAsyncBrowsers:
     @parametrize
     async def test_streaming_response_curl(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.with_streaming_response.curl(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             url="url",
         ) as response:
             assert not response.is_closed
@@ -838,9 +838,9 @@ class TestAsyncBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_curl(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.with_raw_response.curl(
-                id="",
+                id_or_name="",
                 url="url",
             )
 
@@ -890,7 +890,7 @@ class TestAsyncBrowsers:
     @parametrize
     async def test_method_load_extensions(self, async_client: AsyncKernel) -> None:
         browser = await async_client.browsers.load_extensions(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             extensions=[
                 {
                     "name": "name",
@@ -904,7 +904,7 @@ class TestAsyncBrowsers:
     @parametrize
     async def test_raw_response_load_extensions(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.with_raw_response.load_extensions(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             extensions=[
                 {
                     "name": "name",
@@ -922,7 +922,7 @@ class TestAsyncBrowsers:
     @parametrize
     async def test_streaming_response_load_extensions(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.with_streaming_response.load_extensions(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             extensions=[
                 {
                     "name": "name",
@@ -941,9 +941,9 @@ class TestAsyncBrowsers:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_load_extensions(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.with_raw_response.load_extensions(
-                id="",
+                id_or_name="",
                 extensions=[
                     {
                         "name": "name",

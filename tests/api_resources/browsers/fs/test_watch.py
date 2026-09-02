@@ -22,7 +22,7 @@ class TestWatch:
     def test_method_events(self, client: Kernel) -> None:
         watch_stream = client.browsers.fs.watch.events(
             watch_id="watch_id",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
         watch_stream.response.close()
 
@@ -31,7 +31,7 @@ class TestWatch:
     def test_raw_response_events(self, client: Kernel) -> None:
         response = client.browsers.fs.watch.with_raw_response.events(
             watch_id="watch_id",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
 
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -43,7 +43,7 @@ class TestWatch:
     def test_streaming_response_events(self, client: Kernel) -> None:
         with client.browsers.fs.watch.with_streaming_response.events(
             watch_id="watch_id",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -56,23 +56,23 @@ class TestWatch:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_events(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.fs.watch.with_raw_response.events(
                 watch_id="watch_id",
-                id="",
+                id_or_name="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `watch_id` but received ''"):
             client.browsers.fs.watch.with_raw_response.events(
                 watch_id="",
-                id="id",
+                id_or_name="htzv5orfit78e1m2biiifpbv",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_start(self, client: Kernel) -> None:
         watch = client.browsers.fs.watch.start(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             path="path",
         )
         assert_matches_type(WatchStartResponse, watch, path=["response"])
@@ -81,7 +81,7 @@ class TestWatch:
     @parametrize
     def test_method_start_with_all_params(self, client: Kernel) -> None:
         watch = client.browsers.fs.watch.start(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             path="path",
             recursive=True,
         )
@@ -91,7 +91,7 @@ class TestWatch:
     @parametrize
     def test_raw_response_start(self, client: Kernel) -> None:
         response = client.browsers.fs.watch.with_raw_response.start(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             path="path",
         )
 
@@ -104,7 +104,7 @@ class TestWatch:
     @parametrize
     def test_streaming_response_start(self, client: Kernel) -> None:
         with client.browsers.fs.watch.with_streaming_response.start(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             path="path",
         ) as response:
             assert not response.is_closed
@@ -118,9 +118,9 @@ class TestWatch:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_start(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.fs.watch.with_raw_response.start(
-                id="",
+                id_or_name="",
                 path="path",
             )
 
@@ -129,7 +129,7 @@ class TestWatch:
     def test_method_stop(self, client: Kernel) -> None:
         watch = client.browsers.fs.watch.stop(
             watch_id="watch_id",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
         assert watch is None
 
@@ -138,7 +138,7 @@ class TestWatch:
     def test_raw_response_stop(self, client: Kernel) -> None:
         response = client.browsers.fs.watch.with_raw_response.stop(
             watch_id="watch_id",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
 
         assert response.is_closed is True
@@ -151,7 +151,7 @@ class TestWatch:
     def test_streaming_response_stop(self, client: Kernel) -> None:
         with client.browsers.fs.watch.with_streaming_response.stop(
             watch_id="watch_id",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -164,16 +164,16 @@ class TestWatch:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_stop(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.fs.watch.with_raw_response.stop(
                 watch_id="watch_id",
-                id="",
+                id_or_name="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `watch_id` but received ''"):
             client.browsers.fs.watch.with_raw_response.stop(
                 watch_id="",
-                id="id",
+                id_or_name="htzv5orfit78e1m2biiifpbv",
             )
 
 
@@ -187,7 +187,7 @@ class TestAsyncWatch:
     async def test_method_events(self, async_client: AsyncKernel) -> None:
         watch_stream = await async_client.browsers.fs.watch.events(
             watch_id="watch_id",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
         await watch_stream.response.aclose()
 
@@ -196,7 +196,7 @@ class TestAsyncWatch:
     async def test_raw_response_events(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.fs.watch.with_raw_response.events(
             watch_id="watch_id",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
 
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -208,7 +208,7 @@ class TestAsyncWatch:
     async def test_streaming_response_events(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.fs.watch.with_streaming_response.events(
             watch_id="watch_id",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -221,23 +221,23 @@ class TestAsyncWatch:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_events(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.fs.watch.with_raw_response.events(
                 watch_id="watch_id",
-                id="",
+                id_or_name="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `watch_id` but received ''"):
             await async_client.browsers.fs.watch.with_raw_response.events(
                 watch_id="",
-                id="id",
+                id_or_name="htzv5orfit78e1m2biiifpbv",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_start(self, async_client: AsyncKernel) -> None:
         watch = await async_client.browsers.fs.watch.start(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             path="path",
         )
         assert_matches_type(WatchStartResponse, watch, path=["response"])
@@ -246,7 +246,7 @@ class TestAsyncWatch:
     @parametrize
     async def test_method_start_with_all_params(self, async_client: AsyncKernel) -> None:
         watch = await async_client.browsers.fs.watch.start(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             path="path",
             recursive=True,
         )
@@ -256,7 +256,7 @@ class TestAsyncWatch:
     @parametrize
     async def test_raw_response_start(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.fs.watch.with_raw_response.start(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             path="path",
         )
 
@@ -269,7 +269,7 @@ class TestAsyncWatch:
     @parametrize
     async def test_streaming_response_start(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.fs.watch.with_streaming_response.start(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             path="path",
         ) as response:
             assert not response.is_closed
@@ -283,9 +283,9 @@ class TestAsyncWatch:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_start(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.fs.watch.with_raw_response.start(
-                id="",
+                id_or_name="",
                 path="path",
             )
 
@@ -294,7 +294,7 @@ class TestAsyncWatch:
     async def test_method_stop(self, async_client: AsyncKernel) -> None:
         watch = await async_client.browsers.fs.watch.stop(
             watch_id="watch_id",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
         assert watch is None
 
@@ -303,7 +303,7 @@ class TestAsyncWatch:
     async def test_raw_response_stop(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.fs.watch.with_raw_response.stop(
             watch_id="watch_id",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
 
         assert response.is_closed is True
@@ -316,7 +316,7 @@ class TestAsyncWatch:
     async def test_streaming_response_stop(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.fs.watch.with_streaming_response.stop(
             watch_id="watch_id",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -329,14 +329,14 @@ class TestAsyncWatch:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_stop(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.fs.watch.with_raw_response.stop(
                 watch_id="watch_id",
-                id="",
+                id_or_name="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `watch_id` but received ''"):
             await async_client.browsers.fs.watch.with_raw_response.stop(
                 watch_id="",
-                id="id",
+                id_or_name="htzv5orfit78e1m2biiifpbv",
             )

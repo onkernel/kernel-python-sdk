@@ -48,7 +48,7 @@ class LogsResource(SyncAPIResource):
 
     def stream(
         self,
-        id: str,
+        id_or_name: str,
         *,
         source: Literal["path", "supervisor"],
         follow: bool | Omit = omit,
@@ -77,11 +77,11 @@ class LogsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return self._get(
-            path_template("/browsers/{id}/logs/stream", id=id),
+            path_template("/browsers/{id_or_name}/logs/stream", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -127,7 +127,7 @@ class AsyncLogsResource(AsyncAPIResource):
 
     async def stream(
         self,
-        id: str,
+        id_or_name: str,
         *,
         source: Literal["path", "supervisor"],
         follow: bool | Omit = omit,
@@ -156,11 +156,11 @@ class AsyncLogsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return await self._get(
-            path_template("/browsers/{id}/logs/stream", id=id),
+            path_template("/browsers/{id_or_name}/logs/stream", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

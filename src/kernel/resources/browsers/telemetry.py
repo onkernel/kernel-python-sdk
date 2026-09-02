@@ -53,7 +53,7 @@ class TelemetryResource(SyncAPIResource):
 
     def events(
         self,
-        id: str,
+        id_or_name: str,
         *,
         category: List[
             Literal[
@@ -122,10 +122,10 @@ class TelemetryResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._get_api_list(
-            path_template("/browsers/{id}/telemetry/events", id=id),
+            path_template("/browsers/{id_or_name}/telemetry/events", id_or_name=id_or_name),
             page=SyncOffsetPagination[TelemetryEventsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -149,7 +149,7 @@ class TelemetryResource(SyncAPIResource):
 
     def stream(
         self,
-        id: str,
+        id_or_name: str,
         *,
         replay: str | Omit = omit,
         last_event_id: str | Omit = omit,
@@ -185,12 +185,12 @@ class TelemetryResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         extra_headers = {**strip_not_given({"Last-Event-ID": last_event_id}), **(extra_headers or {})}
         return self._get(
-            path_template("/browsers/{id}/telemetry/stream", id=id),
+            path_template("/browsers/{id_or_name}/telemetry/stream", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -230,7 +230,7 @@ class AsyncTelemetryResource(AsyncAPIResource):
 
     def events(
         self,
-        id: str,
+        id_or_name: str,
         *,
         category: List[
             Literal[
@@ -299,10 +299,10 @@ class AsyncTelemetryResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._get_api_list(
-            path_template("/browsers/{id}/telemetry/events", id=id),
+            path_template("/browsers/{id_or_name}/telemetry/events", id_or_name=id_or_name),
             page=AsyncOffsetPagination[TelemetryEventsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -326,7 +326,7 @@ class AsyncTelemetryResource(AsyncAPIResource):
 
     async def stream(
         self,
-        id: str,
+        id_or_name: str,
         *,
         replay: str | Omit = omit,
         last_event_id: str | Omit = omit,
@@ -362,12 +362,12 @@ class AsyncTelemetryResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         extra_headers = {**strip_not_given({"Last-Event-ID": last_event_id}), **(extra_headers or {})}
         return await self._get(
-            path_template("/browsers/{id}/telemetry/stream", id=id),
+            path_template("/browsers/{id_or_name}/telemetry/stream", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

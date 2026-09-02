@@ -54,7 +54,7 @@ class ReplaysResource(SyncAPIResource):
 
     def list(
         self,
-        id: str,
+        id_or_name: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -75,10 +75,10 @@ class ReplaysResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._get(
-            path_template("/browsers/{id}/replays", id=id),
+            path_template("/browsers/{id_or_name}/replays", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -89,7 +89,7 @@ class ReplaysResource(SyncAPIResource):
         self,
         replay_id: str,
         *,
-        id: str,
+        id_or_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -109,13 +109,13 @@ class ReplaysResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not replay_id:
             raise ValueError(f"Expected a non-empty value for `replay_id` but received {replay_id!r}")
         extra_headers = {"Accept": "video/mp4", **(extra_headers or {})}
         return self._get(
-            path_template("/browsers/{id}/replays/{replay_id}", id=id, replay_id=replay_id),
+            path_template("/browsers/{id_or_name}/replays/{replay_id}", id_or_name=id_or_name, replay_id=replay_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -124,7 +124,7 @@ class ReplaysResource(SyncAPIResource):
 
     def start(
         self,
-        id: str,
+        id_or_name: str,
         *,
         framerate: int | Omit = omit,
         max_duration_in_seconds: int | Omit = omit,
@@ -156,10 +156,10 @@ class ReplaysResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return self._post(
-            path_template("/browsers/{id}/replays", id=id),
+            path_template("/browsers/{id_or_name}/replays", id_or_name=id_or_name),
             body=maybe_transform(
                 {
                     "framerate": framerate,
@@ -178,7 +178,7 @@ class ReplaysResource(SyncAPIResource):
         self,
         replay_id: str,
         *,
-        id: str,
+        id_or_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -198,13 +198,15 @@ class ReplaysResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not replay_id:
             raise ValueError(f"Expected a non-empty value for `replay_id` but received {replay_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            path_template("/browsers/{id}/replays/{replay_id}/stop", id=id, replay_id=replay_id),
+            path_template(
+                "/browsers/{id_or_name}/replays/{replay_id}/stop", id_or_name=id_or_name, replay_id=replay_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -236,7 +238,7 @@ class AsyncReplaysResource(AsyncAPIResource):
 
     async def list(
         self,
-        id: str,
+        id_or_name: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -257,10 +259,10 @@ class AsyncReplaysResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return await self._get(
-            path_template("/browsers/{id}/replays", id=id),
+            path_template("/browsers/{id_or_name}/replays", id_or_name=id_or_name),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -271,7 +273,7 @@ class AsyncReplaysResource(AsyncAPIResource):
         self,
         replay_id: str,
         *,
-        id: str,
+        id_or_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -291,13 +293,13 @@ class AsyncReplaysResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not replay_id:
             raise ValueError(f"Expected a non-empty value for `replay_id` but received {replay_id!r}")
         extra_headers = {"Accept": "video/mp4", **(extra_headers or {})}
         return await self._get(
-            path_template("/browsers/{id}/replays/{replay_id}", id=id, replay_id=replay_id),
+            path_template("/browsers/{id_or_name}/replays/{replay_id}", id_or_name=id_or_name, replay_id=replay_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -306,7 +308,7 @@ class AsyncReplaysResource(AsyncAPIResource):
 
     async def start(
         self,
-        id: str,
+        id_or_name: str,
         *,
         framerate: int | Omit = omit,
         max_duration_in_seconds: int | Omit = omit,
@@ -338,10 +340,10 @@ class AsyncReplaysResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         return await self._post(
-            path_template("/browsers/{id}/replays", id=id),
+            path_template("/browsers/{id_or_name}/replays", id_or_name=id_or_name),
             body=await async_maybe_transform(
                 {
                     "framerate": framerate,
@@ -360,7 +362,7 @@ class AsyncReplaysResource(AsyncAPIResource):
         self,
         replay_id: str,
         *,
-        id: str,
+        id_or_name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -380,13 +382,15 @@ class AsyncReplaysResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not id_or_name:
+            raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         if not replay_id:
             raise ValueError(f"Expected a non-empty value for `replay_id` but received {replay_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            path_template("/browsers/{id}/replays/{replay_id}/stop", id=id, replay_id=replay_id),
+            path_template(
+                "/browsers/{id_or_name}/replays/{replay_id}/stop", id_or_name=id_or_name, replay_id=replay_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

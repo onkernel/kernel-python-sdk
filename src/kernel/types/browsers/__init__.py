@@ -2,8 +2,14 @@
 
 from __future__ import annotations
 
+from .tool import Tool as Tool
+from .tool_frame import ToolFrame as ToolFrame
+from .tool_source import ToolSource as ToolSource
 from .f_move_params import FMoveParams as FMoveParams
+from .tools_response import ToolsResponse as ToolsResponse
 from .f_upload_params import FUploadParams as FUploadParams
+from .tool_annotations import ToolAnnotations as ToolAnnotations
+from .invocation_result import InvocationResult as InvocationResult
 from .log_stream_params import LogStreamParams as LogStreamParams
 from .browser_call_stack import BrowserCallStack as BrowserCallStack
 from .f_file_info_params import FFileInfoParams as FFileInfoParams
@@ -52,6 +58,7 @@ from .f_download_dir_zip_params import FDownloadDirZipParams as FDownloadDirZipP
 from .playwright_execute_params import PlaywrightExecuteParams as PlaywrightExecuteParams
 from .telemetry_events_response import TelemetryEventsResponse as TelemetryEventsResponse
 from .telemetry_stream_response import TelemetryStreamResponse as TelemetryStreamResponse
+from .webmcp_invoke_tool_params import WebmcpInvokeToolParams as WebmcpInvokeToolParams
 from .browser_cdp_command_method import BrowserCdpCommandMethod as BrowserCdpCommandMethod
 from .browser_network_idle_event import BrowserNetworkIdleEvent as BrowserNetworkIdleEvent
 from .browser_page_crashed_event import BrowserPageCrashedEvent as BrowserPageCrashedEvent

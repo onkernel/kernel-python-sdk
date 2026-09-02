@@ -16,6 +16,14 @@ from .logs import (
     LogsResourceWithStreamingResponse,
     AsyncLogsResourceWithStreamingResponse,
 )
+from .webmcp import (
+    WebmcpResource,
+    AsyncWebmcpResource,
+    WebmcpResourceWithRawResponse,
+    AsyncWebmcpResourceWithRawResponse,
+    WebmcpResourceWithStreamingResponse,
+    AsyncWebmcpResourceWithStreamingResponse,
+)
 from .process import (
     ProcessResource,
     AsyncProcessResource,
@@ -108,6 +116,12 @@ __all__ = [
     "AsyncPlaywrightResourceWithRawResponse",
     "PlaywrightResourceWithStreamingResponse",
     "AsyncPlaywrightResourceWithStreamingResponse",
+    "WebmcpResource",
+    "AsyncWebmcpResource",
+    "WebmcpResourceWithRawResponse",
+    "AsyncWebmcpResourceWithRawResponse",
+    "WebmcpResourceWithStreamingResponse",
+    "AsyncWebmcpResourceWithStreamingResponse",
     "BrowsersResource",
     "AsyncBrowsersResource",
     "BrowsersResourceWithRawResponse",

@@ -62,10 +62,11 @@ class DestinationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> OtlpDestination:
-        """Create an OTLP export destination in the resolved project.
+        """Create an OTLP export destination in the authenticated organization.
 
-        Names must be unique
-        within the project.
+        Names must
+        be unique within the organization. Requires an organization-scoped credential or
+        dashboard authentication; project-scoped credentials receive a 403.
 
         Args:
           endpoint: Base endpoint of the OTLP/HTTP collector, without a signal path. Kernel appends
@@ -80,7 +81,7 @@ class DestinationsResource(SyncAPIResource):
               `https://otlp.datadoghq.com` (Datadog's OTLP intake for US1, not its logs
               intake).
 
-          name: Unique within the project.
+          name: Unique within the organization.
 
           headers: Headers sent with each export request, typically an ingestion key. Encrypted at
               rest and returned redacted. Names and values must be valid HTTP header tokens,
@@ -125,7 +126,10 @@ class DestinationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> OtlpDestination:
         """
-        Retrieve a single OTLP destination in the resolved project by its ID or name.
+        Retrieve a customer-visible OTLP destination in the authenticated organization
+        by its ID or name. Project-scoped credentials can retrieve these destinations
+        for selection by workloads in their project. Non-dashboard reads return header
+        values redacted.
 
         Args:
           extra_headers: Send extra headers
@@ -167,10 +171,11 @@ class DestinationsResource(SyncAPIResource):
         values without restarting, which makes this the way to rotate credentials
         without interrupting export.
 
-        Names must be unique within the project. Renaming is refused with a 409 while a
-        managed auth connection selects this destination by name, since that connection
-        resolves the name on every login. Every other field, including `headers`, stays
-        editable.
+        Names must be unique within the organization. Renaming is refused with a 409
+        while a managed auth connection selects this destination by name, since that
+        connection resolves the name on every login. Every other field, including
+        `headers`, stays editable. Requires an organization-scoped credential or
+        dashboard authentication; project-scoped credentials receive a 403.
 
         Args:
           endpoint: Base endpoint of the OTLP/HTTP collector, without a signal path. Same rules as
@@ -225,8 +230,12 @@ class DestinationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncOffsetPagination[OtlpDestination]:
-        """
-        List OTLP export destinations in the resolved project.
+        """List customer-visible OTLP export destinations in the authenticated
+        organization.
+
+        Project-scoped credentials can list these destinations for
+        selection by workloads in their project. Non-dashboard reads return header
+        values redacted.
 
         Args:
           limit: Limit the number of destinations to return.
@@ -286,6 +295,8 @@ class DestinationsResource(SyncAPIResource):
         end or delete them first. It is refused the same way while a managed auth
         connection still selects it, because that connection re-resolves the destination
         on every login, and while a managed auth login using it is still in progress.
+        Requires an organization-scoped credential or dashboard authentication;
+        project-scoped credentials receive a 403.
 
         Args:
           extra_headers: Send extra headers
@@ -346,10 +357,11 @@ class AsyncDestinationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> OtlpDestination:
-        """Create an OTLP export destination in the resolved project.
+        """Create an OTLP export destination in the authenticated organization.
 
-        Names must be unique
-        within the project.
+        Names must
+        be unique within the organization. Requires an organization-scoped credential or
+        dashboard authentication; project-scoped credentials receive a 403.
 
         Args:
           endpoint: Base endpoint of the OTLP/HTTP collector, without a signal path. Kernel appends
@@ -364,7 +376,7 @@ class AsyncDestinationsResource(AsyncAPIResource):
               `https://otlp.datadoghq.com` (Datadog's OTLP intake for US1, not its logs
               intake).
 
-          name: Unique within the project.
+          name: Unique within the organization.
 
           headers: Headers sent with each export request, typically an ingestion key. Encrypted at
               rest and returned redacted. Names and values must be valid HTTP header tokens,
@@ -409,7 +421,10 @@ class AsyncDestinationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> OtlpDestination:
         """
-        Retrieve a single OTLP destination in the resolved project by its ID or name.
+        Retrieve a customer-visible OTLP destination in the authenticated organization
+        by its ID or name. Project-scoped credentials can retrieve these destinations
+        for selection by workloads in their project. Non-dashboard reads return header
+        values redacted.
 
         Args:
           extra_headers: Send extra headers
@@ -451,10 +466,11 @@ class AsyncDestinationsResource(AsyncAPIResource):
         values without restarting, which makes this the way to rotate credentials
         without interrupting export.
 
-        Names must be unique within the project. Renaming is refused with a 409 while a
-        managed auth connection selects this destination by name, since that connection
-        resolves the name on every login. Every other field, including `headers`, stays
-        editable.
+        Names must be unique within the organization. Renaming is refused with a 409
+        while a managed auth connection selects this destination by name, since that
+        connection resolves the name on every login. Every other field, including
+        `headers`, stays editable. Requires an organization-scoped credential or
+        dashboard authentication; project-scoped credentials receive a 403.
 
         Args:
           endpoint: Base endpoint of the OTLP/HTTP collector, without a signal path. Same rules as
@@ -509,8 +525,12 @@ class AsyncDestinationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[OtlpDestination, AsyncOffsetPagination[OtlpDestination]]:
-        """
-        List OTLP export destinations in the resolved project.
+        """List customer-visible OTLP export destinations in the authenticated
+        organization.
+
+        Project-scoped credentials can list these destinations for
+        selection by workloads in their project. Non-dashboard reads return header
+        values redacted.
 
         Args:
           limit: Limit the number of destinations to return.
@@ -570,6 +590,8 @@ class AsyncDestinationsResource(AsyncAPIResource):
         end or delete them first. It is refused the same way while a managed auth
         connection still selects it, because that connection re-resolves the destination
         on every login, and while a managed auth login using it is still in progress.
+        Requires an organization-scoped credential or dashboard authentication;
+        project-scoped credentials receive a 403.
 
         Args:
           extra_headers: Send extra headers

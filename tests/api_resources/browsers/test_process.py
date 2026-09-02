@@ -28,7 +28,7 @@ class TestProcess:
     @parametrize
     def test_method_exec(self, client: Kernel) -> None:
         process = client.browsers.process.exec(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             command="command",
         )
         assert_matches_type(ProcessExecResponse, process, path=["response"])
@@ -37,7 +37,7 @@ class TestProcess:
     @parametrize
     def test_method_exec_with_all_params(self, client: Kernel) -> None:
         process = client.browsers.process.exec(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             command="command",
             args=["string"],
             as_root=True,
@@ -52,7 +52,7 @@ class TestProcess:
     @parametrize
     def test_raw_response_exec(self, client: Kernel) -> None:
         response = client.browsers.process.with_raw_response.exec(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             command="command",
         )
 
@@ -65,7 +65,7 @@ class TestProcess:
     @parametrize
     def test_streaming_response_exec(self, client: Kernel) -> None:
         with client.browsers.process.with_streaming_response.exec(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             command="command",
         ) as response:
             assert not response.is_closed
@@ -79,9 +79,9 @@ class TestProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_exec(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.process.with_raw_response.exec(
-                id="",
+                id_or_name="",
                 command="command",
             )
 
@@ -90,7 +90,7 @@ class TestProcess:
     def test_method_kill(self, client: Kernel) -> None:
         process = client.browsers.process.kill(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             signal="TERM",
         )
         assert_matches_type(ProcessKillResponse, process, path=["response"])
@@ -100,7 +100,7 @@ class TestProcess:
     def test_raw_response_kill(self, client: Kernel) -> None:
         response = client.browsers.process.with_raw_response.kill(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             signal="TERM",
         )
 
@@ -114,7 +114,7 @@ class TestProcess:
     def test_streaming_response_kill(self, client: Kernel) -> None:
         with client.browsers.process.with_streaming_response.kill(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             signal="TERM",
         ) as response:
             assert not response.is_closed
@@ -128,17 +128,17 @@ class TestProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_kill(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.process.with_raw_response.kill(
                 process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                id="",
+                id_or_name="",
                 signal="TERM",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `process_id` but received ''"):
             client.browsers.process.with_raw_response.kill(
                 process_id="",
-                id="id",
+                id_or_name="htzv5orfit78e1m2biiifpbv",
                 signal="TERM",
             )
 
@@ -147,7 +147,7 @@ class TestProcess:
     def test_method_resize(self, client: Kernel) -> None:
         process = client.browsers.process.resize(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             cols=1,
             rows=1,
         )
@@ -158,7 +158,7 @@ class TestProcess:
     def test_raw_response_resize(self, client: Kernel) -> None:
         response = client.browsers.process.with_raw_response.resize(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             cols=1,
             rows=1,
         )
@@ -173,7 +173,7 @@ class TestProcess:
     def test_streaming_response_resize(self, client: Kernel) -> None:
         with client.browsers.process.with_streaming_response.resize(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             cols=1,
             rows=1,
         ) as response:
@@ -188,10 +188,10 @@ class TestProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_resize(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.process.with_raw_response.resize(
                 process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                id="",
+                id_or_name="",
                 cols=1,
                 rows=1,
             )
@@ -199,7 +199,7 @@ class TestProcess:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `process_id` but received ''"):
             client.browsers.process.with_raw_response.resize(
                 process_id="",
-                id="id",
+                id_or_name="htzv5orfit78e1m2biiifpbv",
                 cols=1,
                 rows=1,
             )
@@ -208,7 +208,7 @@ class TestProcess:
     @parametrize
     def test_method_spawn(self, client: Kernel) -> None:
         process = client.browsers.process.spawn(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             command="command",
         )
         assert_matches_type(ProcessSpawnResponse, process, path=["response"])
@@ -217,7 +217,7 @@ class TestProcess:
     @parametrize
     def test_method_spawn_with_all_params(self, client: Kernel) -> None:
         process = client.browsers.process.spawn(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             command="command",
             allocate_tty=True,
             args=["string"],
@@ -235,7 +235,7 @@ class TestProcess:
     @parametrize
     def test_raw_response_spawn(self, client: Kernel) -> None:
         response = client.browsers.process.with_raw_response.spawn(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             command="command",
         )
 
@@ -248,7 +248,7 @@ class TestProcess:
     @parametrize
     def test_streaming_response_spawn(self, client: Kernel) -> None:
         with client.browsers.process.with_streaming_response.spawn(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             command="command",
         ) as response:
             assert not response.is_closed
@@ -262,9 +262,9 @@ class TestProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_spawn(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.process.with_raw_response.spawn(
-                id="",
+                id_or_name="",
                 command="command",
             )
 
@@ -273,7 +273,7 @@ class TestProcess:
     def test_method_status(self, client: Kernel) -> None:
         process = client.browsers.process.status(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
         assert_matches_type(ProcessStatusResponse, process, path=["response"])
 
@@ -282,7 +282,7 @@ class TestProcess:
     def test_raw_response_status(self, client: Kernel) -> None:
         response = client.browsers.process.with_raw_response.status(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
 
         assert response.is_closed is True
@@ -295,7 +295,7 @@ class TestProcess:
     def test_streaming_response_status(self, client: Kernel) -> None:
         with client.browsers.process.with_streaming_response.status(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -308,16 +308,16 @@ class TestProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_status(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.process.with_raw_response.status(
                 process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                id="",
+                id_or_name="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `process_id` but received ''"):
             client.browsers.process.with_raw_response.status(
                 process_id="",
-                id="id",
+                id_or_name="htzv5orfit78e1m2biiifpbv",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -325,7 +325,7 @@ class TestProcess:
     def test_method_stdin(self, client: Kernel) -> None:
         process = client.browsers.process.stdin(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             data_b64="data_b64",
         )
         assert_matches_type(ProcessStdinResponse, process, path=["response"])
@@ -335,7 +335,7 @@ class TestProcess:
     def test_raw_response_stdin(self, client: Kernel) -> None:
         response = client.browsers.process.with_raw_response.stdin(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             data_b64="data_b64",
         )
 
@@ -349,7 +349,7 @@ class TestProcess:
     def test_streaming_response_stdin(self, client: Kernel) -> None:
         with client.browsers.process.with_streaming_response.stdin(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             data_b64="data_b64",
         ) as response:
             assert not response.is_closed
@@ -363,17 +363,17 @@ class TestProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_stdin(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.process.with_raw_response.stdin(
                 process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                id="",
+                id_or_name="",
                 data_b64="data_b64",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `process_id` but received ''"):
             client.browsers.process.with_raw_response.stdin(
                 process_id="",
-                id="id",
+                id_or_name="htzv5orfit78e1m2biiifpbv",
                 data_b64="data_b64",
             )
 
@@ -382,7 +382,7 @@ class TestProcess:
     def test_method_stdout_stream(self, client: Kernel) -> None:
         process_stream = client.browsers.process.stdout_stream(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
         process_stream.response.close()
 
@@ -391,7 +391,7 @@ class TestProcess:
     def test_raw_response_stdout_stream(self, client: Kernel) -> None:
         response = client.browsers.process.with_raw_response.stdout_stream(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
 
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -403,7 +403,7 @@ class TestProcess:
     def test_streaming_response_stdout_stream(self, client: Kernel) -> None:
         with client.browsers.process.with_streaming_response.stdout_stream(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -416,16 +416,16 @@ class TestProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_stdout_stream(self, client: Kernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             client.browsers.process.with_raw_response.stdout_stream(
                 process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                id="",
+                id_or_name="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `process_id` but received ''"):
             client.browsers.process.with_raw_response.stdout_stream(
                 process_id="",
-                id="id",
+                id_or_name="htzv5orfit78e1m2biiifpbv",
             )
 
 
@@ -438,7 +438,7 @@ class TestAsyncProcess:
     @parametrize
     async def test_method_exec(self, async_client: AsyncKernel) -> None:
         process = await async_client.browsers.process.exec(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             command="command",
         )
         assert_matches_type(ProcessExecResponse, process, path=["response"])
@@ -447,7 +447,7 @@ class TestAsyncProcess:
     @parametrize
     async def test_method_exec_with_all_params(self, async_client: AsyncKernel) -> None:
         process = await async_client.browsers.process.exec(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             command="command",
             args=["string"],
             as_root=True,
@@ -462,7 +462,7 @@ class TestAsyncProcess:
     @parametrize
     async def test_raw_response_exec(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.process.with_raw_response.exec(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             command="command",
         )
 
@@ -475,7 +475,7 @@ class TestAsyncProcess:
     @parametrize
     async def test_streaming_response_exec(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.process.with_streaming_response.exec(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             command="command",
         ) as response:
             assert not response.is_closed
@@ -489,9 +489,9 @@ class TestAsyncProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_exec(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.process.with_raw_response.exec(
-                id="",
+                id_or_name="",
                 command="command",
             )
 
@@ -500,7 +500,7 @@ class TestAsyncProcess:
     async def test_method_kill(self, async_client: AsyncKernel) -> None:
         process = await async_client.browsers.process.kill(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             signal="TERM",
         )
         assert_matches_type(ProcessKillResponse, process, path=["response"])
@@ -510,7 +510,7 @@ class TestAsyncProcess:
     async def test_raw_response_kill(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.process.with_raw_response.kill(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             signal="TERM",
         )
 
@@ -524,7 +524,7 @@ class TestAsyncProcess:
     async def test_streaming_response_kill(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.process.with_streaming_response.kill(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             signal="TERM",
         ) as response:
             assert not response.is_closed
@@ -538,17 +538,17 @@ class TestAsyncProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_kill(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.process.with_raw_response.kill(
                 process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                id="",
+                id_or_name="",
                 signal="TERM",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `process_id` but received ''"):
             await async_client.browsers.process.with_raw_response.kill(
                 process_id="",
-                id="id",
+                id_or_name="htzv5orfit78e1m2biiifpbv",
                 signal="TERM",
             )
 
@@ -557,7 +557,7 @@ class TestAsyncProcess:
     async def test_method_resize(self, async_client: AsyncKernel) -> None:
         process = await async_client.browsers.process.resize(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             cols=1,
             rows=1,
         )
@@ -568,7 +568,7 @@ class TestAsyncProcess:
     async def test_raw_response_resize(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.process.with_raw_response.resize(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             cols=1,
             rows=1,
         )
@@ -583,7 +583,7 @@ class TestAsyncProcess:
     async def test_streaming_response_resize(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.process.with_streaming_response.resize(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             cols=1,
             rows=1,
         ) as response:
@@ -598,10 +598,10 @@ class TestAsyncProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_resize(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.process.with_raw_response.resize(
                 process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                id="",
+                id_or_name="",
                 cols=1,
                 rows=1,
             )
@@ -609,7 +609,7 @@ class TestAsyncProcess:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `process_id` but received ''"):
             await async_client.browsers.process.with_raw_response.resize(
                 process_id="",
-                id="id",
+                id_or_name="htzv5orfit78e1m2biiifpbv",
                 cols=1,
                 rows=1,
             )
@@ -618,7 +618,7 @@ class TestAsyncProcess:
     @parametrize
     async def test_method_spawn(self, async_client: AsyncKernel) -> None:
         process = await async_client.browsers.process.spawn(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             command="command",
         )
         assert_matches_type(ProcessSpawnResponse, process, path=["response"])
@@ -627,7 +627,7 @@ class TestAsyncProcess:
     @parametrize
     async def test_method_spawn_with_all_params(self, async_client: AsyncKernel) -> None:
         process = await async_client.browsers.process.spawn(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             command="command",
             allocate_tty=True,
             args=["string"],
@@ -645,7 +645,7 @@ class TestAsyncProcess:
     @parametrize
     async def test_raw_response_spawn(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.process.with_raw_response.spawn(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             command="command",
         )
 
@@ -658,7 +658,7 @@ class TestAsyncProcess:
     @parametrize
     async def test_streaming_response_spawn(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.process.with_streaming_response.spawn(
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             command="command",
         ) as response:
             assert not response.is_closed
@@ -672,9 +672,9 @@ class TestAsyncProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_spawn(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.process.with_raw_response.spawn(
-                id="",
+                id_or_name="",
                 command="command",
             )
 
@@ -683,7 +683,7 @@ class TestAsyncProcess:
     async def test_method_status(self, async_client: AsyncKernel) -> None:
         process = await async_client.browsers.process.status(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
         assert_matches_type(ProcessStatusResponse, process, path=["response"])
 
@@ -692,7 +692,7 @@ class TestAsyncProcess:
     async def test_raw_response_status(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.process.with_raw_response.status(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
 
         assert response.is_closed is True
@@ -705,7 +705,7 @@ class TestAsyncProcess:
     async def test_streaming_response_status(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.process.with_streaming_response.status(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -718,16 +718,16 @@ class TestAsyncProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_status(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.process.with_raw_response.status(
                 process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                id="",
+                id_or_name="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `process_id` but received ''"):
             await async_client.browsers.process.with_raw_response.status(
                 process_id="",
-                id="id",
+                id_or_name="htzv5orfit78e1m2biiifpbv",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -735,7 +735,7 @@ class TestAsyncProcess:
     async def test_method_stdin(self, async_client: AsyncKernel) -> None:
         process = await async_client.browsers.process.stdin(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             data_b64="data_b64",
         )
         assert_matches_type(ProcessStdinResponse, process, path=["response"])
@@ -745,7 +745,7 @@ class TestAsyncProcess:
     async def test_raw_response_stdin(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.process.with_raw_response.stdin(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             data_b64="data_b64",
         )
 
@@ -759,7 +759,7 @@ class TestAsyncProcess:
     async def test_streaming_response_stdin(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.process.with_streaming_response.stdin(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
             data_b64="data_b64",
         ) as response:
             assert not response.is_closed
@@ -773,17 +773,17 @@ class TestAsyncProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_stdin(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.process.with_raw_response.stdin(
                 process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                id="",
+                id_or_name="",
                 data_b64="data_b64",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `process_id` but received ''"):
             await async_client.browsers.process.with_raw_response.stdin(
                 process_id="",
-                id="id",
+                id_or_name="htzv5orfit78e1m2biiifpbv",
                 data_b64="data_b64",
             )
 
@@ -792,7 +792,7 @@ class TestAsyncProcess:
     async def test_method_stdout_stream(self, async_client: AsyncKernel) -> None:
         process_stream = await async_client.browsers.process.stdout_stream(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
         await process_stream.response.aclose()
 
@@ -801,7 +801,7 @@ class TestAsyncProcess:
     async def test_raw_response_stdout_stream(self, async_client: AsyncKernel) -> None:
         response = await async_client.browsers.process.with_raw_response.stdout_stream(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         )
 
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -813,7 +813,7 @@ class TestAsyncProcess:
     async def test_streaming_response_stdout_stream(self, async_client: AsyncKernel) -> None:
         async with async_client.browsers.process.with_streaming_response.stdout_stream(
             process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            id="id",
+            id_or_name="htzv5orfit78e1m2biiifpbv",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -826,14 +826,14 @@ class TestAsyncProcess:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_stdout_stream(self, async_client: AsyncKernel) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id_or_name` but received ''"):
             await async_client.browsers.process.with_raw_response.stdout_stream(
                 process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                id="",
+                id_or_name="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `process_id` but received ''"):
             await async_client.browsers.process.with_raw_response.stdout_stream(
                 process_id="",
-                id="id",
+                id_or_name="htzv5orfit78e1m2biiifpbv",
             )

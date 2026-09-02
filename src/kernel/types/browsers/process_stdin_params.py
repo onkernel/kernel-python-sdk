@@ -8,7 +8,7 @@ __all__ = ["ProcessStdinParams"]
 
 
 class ProcessStdinParams(TypedDict, total=False):
-    id: Required[str]
+    id_or_name: Required[str]
 
     data_b64: Required[str]
     """Base64-encoded data to write."""
