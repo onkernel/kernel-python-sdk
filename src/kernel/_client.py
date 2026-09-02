@@ -41,6 +41,7 @@ from .lib.browser_routing.routing import (
     strip_direct_vm_auth,
     rewrite_direct_vm_options,
     browser_routing_config_from_env,
+    is_stale_direct_vm_auth_response,
     should_retry_stale_direct_vm_auth,
     maybe_evict_browser_route_from_response,
     maybe_populate_browser_route_cache_from_response,
@@ -365,9 +366,12 @@ class Kernel(SyncAPIClient):
 
     @override
     def _should_retry(self, response: httpx.Response) -> bool:
-        if should_retry_stale_direct_vm_auth(response):
+        if is_stale_direct_vm_auth_response(response):
             maybe_evict_browser_route_from_response(response, cache=self.browser_route_cache)
-            return True
+            # The route is evicted either way; only retry when the body can be
+            # rebuilt, otherwise the caller sees the original auth failure and a
+            # later call goes to the control plane.
+            return should_retry_stale_direct_vm_auth(response)
         return super()._should_retry(response)
 
     @override
@@ -748,9 +752,12 @@ class AsyncKernel(AsyncAPIClient):
 
     @override
     def _should_retry(self, response: httpx.Response) -> bool:
-        if should_retry_stale_direct_vm_auth(response):
+        if is_stale_direct_vm_auth_response(response):
             maybe_evict_browser_route_from_response(response, cache=self.browser_route_cache)
-            return True
+            # The route is evicted either way; only retry when the body can be
+            # rebuilt, otherwise the caller sees the original auth failure and a
+            # later call goes to the control plane.
+            return should_retry_stale_direct_vm_auth(response)
         return super()._should_retry(response)
 
     @override

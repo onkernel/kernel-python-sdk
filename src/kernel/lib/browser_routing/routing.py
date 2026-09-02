@@ -44,7 +44,17 @@ def browser_routing_config_from_env() -> BrowserRoutingConfig:
         # Path prefixes eligible for direct-to-VM routing. "telemetry/stream" is
         # the live SSE endpoint (VM); "telemetry/events" is a historical read
         # served by the control plane (S2) and must NOT be here.
-        return BrowserRoutingConfig(subresources=("curl", "telemetry/stream", "computer", "playwright", "process"))
+        return BrowserRoutingConfig(
+            subresources=(
+                "curl",
+                "telemetry/stream",
+                "computer",
+                "playwright",
+                "process",
+                "fs",
+                "logs",
+            )
+        )
     if raw.strip() == "":
         return BrowserRoutingConfig()
 
@@ -189,7 +199,49 @@ def is_stale_direct_vm_auth_response(response: httpx.Response) -> bool:
 
 
 def should_retry_stale_direct_vm_auth(response: httpx.Response) -> bool:
-    return is_stale_direct_vm_auth_response(response)
+    """Whether a stale direct-to-VM auth failure can be retried on the control plane.
+
+    A retry rebuilds the request from the original options, so it is only safe when
+    the body can be serialized again byte for byte. Streamed bodies (e.g. a file
+    object passed to fs.write_file) are consumed by the direct request, so retrying
+    would send a truncated or empty body to the control plane.
+    """
+    if not is_stale_direct_vm_auth_response(response):
+        return False
+    return direct_vm_request_body_is_replayable(response.request)
+
+
+def direct_vm_request_body_is_replayable(request: httpx.Request) -> bool:
+    try:
+        _ = request.content
+    except httpx.RequestNotRead:
+        pass
+    else:
+        # httpx already buffered the body, so rebuilding it yields the same bytes.
+        return True
+
+    # httpx encodes multipart bodies as a stream of fields it re-renders per attempt.
+    fields = getattr(request.stream, "fields", None)
+    if fields is None:
+        # A streamed body (file object, iterator or async iterator) cannot be replayed.
+        return False
+    return all(_multipart_field_is_replayable(field) for field in cast("list[Any]", fields))
+
+
+def _multipart_field_is_replayable(field: Any) -> bool:
+    file = getattr(field, "file", None)
+    if file is None:
+        # A data field renders from an in-memory value.
+        return True
+    if isinstance(file, (bytes, str)):
+        return True
+    if getattr(file, "closed", False):
+        return False
+    if not callable(getattr(file, "seek", None)):
+        return False
+    seekable = getattr(file, "seekable", None)
+    # httpx rewinds seekable file fields before rendering them again.
+    return bool(seekable()) if callable(seekable) else True
 
 
 def _session_id_from_browser_delete_path(path: str) -> str | None:

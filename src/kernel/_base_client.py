@@ -587,7 +587,10 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
             # TODO: type ignore is required as stringify_items is well typed but we can't be
             # well typed without heavy validation.
             data,  # type: ignore
-            array_format="brackets",
+            # Indexed names (`files[0][dest_path]`) keep each array entry's fields
+            # grouped together; repeated `files[][dest_path]` parts cannot be
+            # matched back to their file part. `extract_files` uses the same format.
+            array_format="indices",
         )
         serialized: dict[str, object] = {}
         for key, value in items:
