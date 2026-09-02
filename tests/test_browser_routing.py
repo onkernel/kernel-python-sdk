@@ -1353,3 +1353,113 @@ def test_copied_client_registers_one_route_eviction_hook() -> None:
         assert copied.browser_route_cache is client.browser_route_cache
         hooks = client._client.event_hooks["response"]  # pyright: ignore[reportPrivateUsage]
         assert len(hooks) == 1
+
+
+def test_route_eviction_hook_runs_before_caller_response_hooks(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    requests: list[httpx.Request] = []
+    caller_hook_statuses: list[int] = []
+
+    def handle_request(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        if "browser-session.test" in str(request.url):
+            return httpx.Response(401, stream=_FailingSyncStream(), headers={"content-type": "text/plain"})
+        return httpx.Response(200, content=b"png", headers={"content-type": "image/png"})
+
+    def caller_hook(response: httpx.Response) -> None:
+        caller_hook_statuses.append(response.status_code)
+        if response.status_code in {401, 403}:
+            # Reading a failing body raises out of the hook chain, which would
+            # skip any eviction hook registered after this one.
+            response.read()
+
+    http_client = httpx.Client(
+        transport=httpx.MockTransport(handle_request),
+        event_hooks={"response": [caller_hook]},
+    )
+    with Kernel(
+        base_url=base_url,
+        api_key=api_key,
+        max_retries=0,
+        http_client=http_client,
+        _strict_response_validation=True,
+    ) as client:
+        _cache_browser(client)
+        assert http_client.event_hooks["response"][-1] is caller_hook
+        with pytest.raises(APIConnectionError):
+            client.browsers.computer.capture_screenshot("sess-1")
+        assert caller_hook_statuses == [401]
+        assert client.browser_route_cache.get("sess-1") is None
+
+        client.browsers.computer.capture_screenshot("sess-1")
+
+    assert str(requests[0].url).startswith("http://browser-session.test/browser/kernel/computer/screenshot")
+    assert requests[1].url == httpx.URL(f"{base_url}/browsers/sess-1/computer/screenshot")
+    assert requests[1].url.params.get("jwt") is None
+    assert requests[1].headers.get("Authorization") == f"Bearer {api_key}"
+
+
+@pytest.mark.asyncio
+async def test_async_route_eviction_hook_runs_before_caller_response_hooks(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    requests: list[httpx.Request] = []
+    caller_hook_statuses: list[int] = []
+
+    async def handle_request(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        if "browser-session.test" in str(request.url):
+            return httpx.Response(403, stream=_FailingAsyncStream(), headers={"content-type": "text/plain"})
+        return httpx.Response(200, content=b"png", headers={"content-type": "image/png"})
+
+    async def caller_hook(response: httpx.Response) -> None:
+        caller_hook_statuses.append(response.status_code)
+        if response.status_code in {401, 403}:
+            await response.aread()
+
+    http_client = httpx.AsyncClient(
+        transport=httpx.MockTransport(handle_request),
+        event_hooks={"response": [caller_hook]},
+    )
+    async with AsyncKernel(
+        base_url=base_url,
+        api_key=api_key,
+        max_retries=0,
+        http_client=http_client,
+        _strict_response_validation=True,
+    ) as client:
+        route = browser_route_from_browser(_fake_browser())
+        assert route is not None
+        client.browser_route_cache.set(route)
+        assert http_client.event_hooks["response"][-1] is caller_hook
+        with pytest.raises(APIConnectionError):
+            await client.browsers.computer.capture_screenshot("sess-1")
+        assert caller_hook_statuses == [403]
+        assert client.browser_route_cache.get("sess-1") is None
+
+        await client.browsers.computer.capture_screenshot("sess-1")
+
+    assert str(requests[0].url).startswith("http://browser-session.test/browser/kernel/computer/screenshot")
+    assert requests[1].url == httpx.URL(f"{base_url}/browsers/sess-1/computer/screenshot")
+    assert requests[1].url.params.get("jwt") is None
+    assert requests[1].headers.get("Authorization") == f"Bearer {api_key}"
+
+
+def test_route_eviction_hook_is_registered_once_before_caller_hooks() -> None:
+    def caller_hook(_response: httpx.Response) -> None:  # pragma: no cover - never invoked
+        return None
+
+    http_client = httpx.Client(event_hooks={"response": [caller_hook]})
+    with Kernel(
+        base_url=base_url,
+        api_key=api_key,
+        http_client=http_client,
+        _strict_response_validation=True,
+    ) as client:
+        client.copy(api_key="sk-456")
+        hooks = http_client.event_hooks["response"]
+        assert len(hooks) == 2
+        assert hooks[1] is caller_hook

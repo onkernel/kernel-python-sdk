@@ -209,7 +209,8 @@ def install_stale_direct_vm_auth_eviction(client: httpx.Client, *, cache: Browse
     whose body read fails — the read error surfaces from `send()` instead and the
     dead route would stay cached, wedging every later call for that session. A
     response event hook runs after the status is known and before any body is
-    read, which keeps eviction independent of the body.
+    read, which keeps eviction independent of the body. It is prepended so that a
+    caller-supplied hook cannot pre-empt it by reading a failing body or raising.
     """
     hooks = client.event_hooks.setdefault("response", [])
     if _has_eviction_hook(hooks, cache):
@@ -220,7 +221,7 @@ def install_stale_direct_vm_auth_eviction(client: httpx.Client, *, cache: Browse
             maybe_evict_browser_route_from_response(response, cache=cache)
 
     setattr(evict, _EVICTION_HOOK_CACHE_ATTR, cache)
-    hooks.append(evict)
+    hooks.insert(0, evict)
 
 
 def install_async_stale_direct_vm_auth_eviction(client: httpx.AsyncClient, *, cache: BrowserRouteCache) -> None:
@@ -234,7 +235,7 @@ def install_async_stale_direct_vm_auth_eviction(client: httpx.AsyncClient, *, ca
             maybe_evict_browser_route_from_response(response, cache=cache)
 
     setattr(evict, _EVICTION_HOOK_CACHE_ATTR, cache)
-    hooks.append(evict)
+    hooks.insert(0, evict)
 
 
 def _has_eviction_hook(hooks: list[Any], cache: BrowserRouteCache) -> bool:
