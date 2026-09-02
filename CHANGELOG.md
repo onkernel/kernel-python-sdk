@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.98.0](https://github.com/kernel/kernel-python-sdk/compare/v0.97.0...v0.98.0) (2026-09-02)
+
+
+### Features
+
+* Accept browser session name on all /browsers/{id_or_name} sub-resource routes ([a60fa2b](https://github.com/kernel/kernel-python-sdk/commit/a60fa2bd48b06c8ca61005c3e29c42918ee371f2))
+
 ## [0.97.0](https://github.com/kernel/kernel-python-sdk/compare/v0.96.0...v0.97.0) (2026-08-31)
 
 
