@@ -32,6 +32,9 @@ class BrowserRoutingConfig:
     subresources: tuple[str, ...] = field(default_factory=tuple)
 
 
+_EVICTION_HOOK_CACHE_ATTR = "_kernel_browser_route_cache"
+
+
 _BROWSER_ROUTE_CACHEABLE_PATH = re.compile(r"^/(?:v\d+/)?browsers(?:/[^/]+)?/?$")
 _BROWSER_DELETE_BY_ID_PATH = re.compile(r"^/(?:v\d+/)?browsers/([^/]+)/?$")
 _BROWSER_POOL_ACQUIRE_PATH = re.compile(r"^/(?:v\d+/)?browser_pools/[^/]+/acquire/?$")
@@ -196,6 +199,48 @@ def is_stale_direct_vm_auth_response(response: httpx.Response) -> bool:
     if response.status_code not in {401, 403}:
         return False
     return bool(response.request.url.params.get("jwt"))
+
+
+def install_stale_direct_vm_auth_eviction(client: httpx.Client, *, cache: BrowserRouteCache) -> None:
+    """Evict stale direct-to-VM routes as soon as the response status is known.
+
+    httpx reads the body of a non-streamed response inside `send()`, so a caller
+    that only inspects the returned response never learns the status of a 401/403
+    whose body read fails — the read error surfaces from `send()` instead and the
+    dead route would stay cached, wedging every later call for that session. A
+    response event hook runs after the status is known and before any body is
+    read, which keeps eviction independent of the body.
+    """
+    hooks = client.event_hooks.setdefault("response", [])
+    if _has_eviction_hook(hooks, cache):
+        return
+
+    def evict(response: httpx.Response) -> None:
+        if is_stale_direct_vm_auth_response(response):
+            maybe_evict_browser_route_from_response(response, cache=cache)
+
+    setattr(evict, _EVICTION_HOOK_CACHE_ATTR, cache)
+    hooks.append(evict)
+
+
+def install_async_stale_direct_vm_auth_eviction(client: httpx.AsyncClient, *, cache: BrowserRouteCache) -> None:
+    """Async counterpart of `install_stale_direct_vm_auth_eviction`."""
+    hooks = client.event_hooks.setdefault("response", [])
+    if _has_eviction_hook(hooks, cache):
+        return
+
+    async def evict(response: httpx.Response) -> None:
+        if is_stale_direct_vm_auth_response(response):
+            maybe_evict_browser_route_from_response(response, cache=cache)
+
+    setattr(evict, _EVICTION_HOOK_CACHE_ATTR, cache)
+    hooks.append(evict)
+
+
+def _has_eviction_hook(hooks: list[Any], cache: BrowserRouteCache) -> bool:
+    # A copied client shares both the httpx client and the route cache, so the
+    # hook is registered once per cache instead of once per client.
+    return any(getattr(hook, _EVICTION_HOOK_CACHE_ATTR, None) is cache for hook in hooks)
 
 
 def should_retry_stale_direct_vm_auth(response: httpx.Response) -> bool:

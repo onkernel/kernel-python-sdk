@@ -3,7 +3,7 @@ from __future__ import annotations
 import io
 import os
 import asyncio
-from typing import Any, AsyncIterator, cast
+from typing import Any, Iterator, AsyncIterator, cast
 from pathlib import Path
 from typing_extensions import override
 
@@ -14,6 +14,7 @@ import pytest
 from kernel import (
     Kernel,
     AsyncKernel,
+    APIConnectionError,
     AuthenticationError,
     InternalServerError,
     PermissionDeniedError,
@@ -1259,3 +1260,96 @@ def test_indexed_multipart_body_flattens_only_given_values() -> None:
         "files[1][dest_path]": "/tmp/two",
         "flag": True,
     }
+
+
+class _FailingSyncStream(httpx.SyncByteStream):
+    """A response body that fails while it is being read."""
+
+    @override
+    def __iter__(self) -> Iterator[bytes]:
+        raise httpx.ReadError("connection reset while reading the error body")
+
+
+class _FailingAsyncStream(httpx.AsyncByteStream):
+    @override
+    async def __aiter__(self) -> AsyncIterator[bytes]:
+        raise httpx.ReadError("connection reset while reading the error body")
+        yield b""  # pragma: no cover - unreachable, keeps this an async generator
+
+
+def test_stale_direct_vm_jwt_evicts_route_when_error_body_read_fails(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    requests: list[httpx.Request] = []
+
+    def handle_request(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        if "browser-session.test" in str(request.url):
+            return httpx.Response(401, stream=_FailingSyncStream(), headers={"content-type": "text/plain"})
+        return httpx.Response(200, content=b"png", headers={"content-type": "image/png"})
+
+    http_client = httpx.Client(transport=httpx.MockTransport(handle_request))
+    with Kernel(
+        base_url=base_url,
+        api_key=api_key,
+        max_retries=0,
+        http_client=http_client,
+        _strict_response_validation=True,
+    ) as client:
+        _cache_browser(client)
+        with pytest.raises(APIConnectionError):
+            client.browsers.computer.capture_screenshot("sess-1")
+        # The status was known before the body read failed, so the dead route is gone.
+        assert client.browser_route_cache.get("sess-1") is None
+
+        client.browsers.computer.capture_screenshot("sess-1")
+
+    assert str(requests[0].url).startswith("http://browser-session.test/browser/kernel/computer/screenshot")
+    assert requests[1].url == httpx.URL(f"{base_url}/browsers/sess-1/computer/screenshot")
+    assert requests[1].url.params.get("jwt") is None
+    assert requests[1].headers.get("Authorization") == f"Bearer {api_key}"
+
+
+@pytest.mark.asyncio
+async def test_async_stale_direct_vm_jwt_evicts_route_when_error_body_read_fails(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    requests: list[httpx.Request] = []
+
+    async def handle_request(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        if "browser-session.test" in str(request.url):
+            return httpx.Response(403, stream=_FailingAsyncStream(), headers={"content-type": "text/plain"})
+        return httpx.Response(200, content=b"png", headers={"content-type": "image/png"})
+
+    http_client = httpx.AsyncClient(transport=httpx.MockTransport(handle_request))
+    async with AsyncKernel(
+        base_url=base_url,
+        api_key=api_key,
+        max_retries=0,
+        http_client=http_client,
+        _strict_response_validation=True,
+    ) as client:
+        route = browser_route_from_browser(_fake_browser())
+        assert route is not None
+        client.browser_route_cache.set(route)
+        with pytest.raises(APIConnectionError):
+            await client.browsers.computer.capture_screenshot("sess-1")
+        assert client.browser_route_cache.get("sess-1") is None
+
+        await client.browsers.computer.capture_screenshot("sess-1")
+
+    assert str(requests[0].url).startswith("http://browser-session.test/browser/kernel/computer/screenshot")
+    assert requests[1].url == httpx.URL(f"{base_url}/browsers/sess-1/computer/screenshot")
+    assert requests[1].url.params.get("jwt") is None
+    assert requests[1].headers.get("Authorization") == f"Bearer {api_key}"
+
+
+def test_copied_client_registers_one_route_eviction_hook() -> None:
+    with Kernel(base_url=base_url, api_key=api_key, _strict_response_validation=True) as client:
+        copied = client.copy(api_key="sk-456")
+        assert copied.browser_route_cache is client.browser_route_cache
+        hooks = client._client.event_hooks["response"]  # pyright: ignore[reportPrivateUsage]
+        assert len(hooks) == 1
