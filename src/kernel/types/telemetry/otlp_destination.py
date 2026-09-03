@@ -16,6 +16,13 @@ class OtlpDestination(BaseModel):
 
     id: str
 
+    consecutive_failures: int
+    """
+    Failed deliveries since the last success, as observed by the relay process that
+    wrote the latest outcome. Zero means the most recently recorded outcome
+    succeeded.
+    """
+
     created_at: datetime
 
     endpoint: str
@@ -39,3 +46,21 @@ class OtlpDestination(BaseModel):
     updated_at: datetime
 
     description: Optional[str] = None
+
+    last_error: Optional[str] = None
+    """Sanitized class of the delivery failure recorded at `last_error_at`.
+
+    It is retained after a later success, so its presence does not mean the
+    destination is currently failing. Response bodies, endpoint URLs, credentials,
+    and raw transport errors are never returned.
+    """
+
+    last_error_at: Optional[datetime] = None
+    """Timestamp of the most recent failed delivery.
+
+    It is retained after a later success, so it can predate `last_export_at`. Read
+    `consecutive_failures` to tell whether the destination is currently failing.
+    """
+
+    last_export_at: Optional[datetime] = None
+    """Timestamp of the most recent successful delivery. Moves only on success."""
