@@ -56,6 +56,8 @@ class LinkCardVaultItemSpecTotal(BaseModel):
 
 
 class LinkCardVaultItemSpec(BaseModel):
+    """Live payment card. Test-mode card creation is not supported."""
+
     amount: int
     """Integer amount in minor currency units."""
 
@@ -76,12 +78,6 @@ class LinkCardVaultItemSpec(BaseModel):
 
     provider: Literal["link"]
 
-    test: bool
-    """
-    Whether Link should return test credentials instead of a live payment
-    credential.
-    """
-
     wallet: str
     """Wallet item key used to mint this card."""
 
@@ -95,9 +91,9 @@ class LinkCardVaultItemSpec(BaseModel):
 
 
 class AgentCardCardVaultItemSpec(BaseModel):
-    """AgentCard reusable card.
+    """AgentCard reusable live payment card.
 
-    Each checkout creates an approval-gated authorization for spec.merchant / spec.amount. The card stays ready after each authorization.
+    Test-mode card creation is not supported. Each checkout creates an approval-gated authorization for spec.merchant / spec.amount. The card stays ready after each authorization.
     """
 
     amount: int

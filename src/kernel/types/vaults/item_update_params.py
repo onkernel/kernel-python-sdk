@@ -13,8 +13,4 @@ class ItemUpdateParams(TypedDict, total=False):
     id_or_name: Required[str]
 
     spec: Required[CardVaultItemSpecParam]
-    """AgentCard reusable card.
-
-    Each checkout creates an approval-gated authorization for spec.merchant /
-    spec.amount. The card stays ready after each authorization.
-    """
+    """Live payment card. Test-mode card creation is not supported."""

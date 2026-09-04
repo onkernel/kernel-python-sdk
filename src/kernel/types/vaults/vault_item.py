@@ -120,11 +120,7 @@ class CardVaultItem(BaseModel):
     """Immutable item key assigned when the item is created."""
 
     spec: CardVaultItemSpec
-    """AgentCard reusable card.
-
-    Each checkout creates an approval-gated authorization for spec.merchant /
-    spec.amount. The card stays ready after each authorization.
-    """
+    """Live payment card. Test-mode card creation is not supported."""
 
     state: CardVaultItemState
 
