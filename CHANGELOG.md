@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.100.0](https://github.com/kernel/kernel-python-sdk/compare/v0.99.0...v0.100.0) (2026-09-04)
+
+
+### Features
+
+* Fix vault provider errors and remove test card mode ([043d252](https://github.com/kernel/kernel-python-sdk/commit/043d2521509d4e44a4b3e43694db3a77bd6fe546))
+
 ## [0.99.0](https://github.com/kernel/kernel-python-sdk/compare/v0.98.0...v0.99.0) (2026-09-04)
 
 
