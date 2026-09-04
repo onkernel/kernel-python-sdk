@@ -97,6 +97,7 @@ from ..._base_client import AsyncPaginator, make_request_options
 from ...types.tags_param import TagsParam
 from ...types.browser_curl_response import BrowserCurlResponse
 from ...types.browser_list_response import BrowserListResponse
+from ...types.vault_reference_param import VaultReferenceParam
 from ...lib.browser_routing.raw_http import (
     stream_via_browser_route,
     request_via_browser_route,
@@ -201,6 +202,7 @@ class BrowsersResource(SyncAPIResource):
         tags: TagsParam | Omit = omit,
         telemetry: Optional[browser_create_params.Telemetry] | Omit = omit,
         timeout_seconds: int | Omit = omit,
+        vaults: Iterable[VaultReferenceParam] | Omit = omit,
         viewport: BrowserViewport | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -284,6 +286,9 @@ class BrowsersResource(SyncAPIResource):
               check for inactivity every 5 seconds, so the actual timeout behavior you will
               see is +/- 5 seconds around the specified value.
 
+          vaults: Project-scoped vaults to link to the browser session. Links are immutable after
+              creation.
+
           viewport: Initial browser window size in pixels with optional refresh rate. If omitted,
               image defaults apply (1920x1080@25). For GPU images, the default is
               1920x1080@60. Arbitrary viewport dimensions and refresh rates are accepted.
@@ -327,6 +332,7 @@ class BrowsersResource(SyncAPIResource):
                     "tags": tags,
                     "telemetry": telemetry,
                     "timeout_seconds": timeout_seconds,
+                    "vaults": vaults,
                     "viewport": viewport,
                 },
                 browser_create_params.BrowserCreateParams,
@@ -826,6 +832,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
         tags: TagsParam | Omit = omit,
         telemetry: Optional[browser_create_params.Telemetry] | Omit = omit,
         timeout_seconds: int | Omit = omit,
+        vaults: Iterable[VaultReferenceParam] | Omit = omit,
         viewport: BrowserViewport | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -909,6 +916,9 @@ class AsyncBrowsersResource(AsyncAPIResource):
               check for inactivity every 5 seconds, so the actual timeout behavior you will
               see is +/- 5 seconds around the specified value.
 
+          vaults: Project-scoped vaults to link to the browser session. Links are immutable after
+              creation.
+
           viewport: Initial browser window size in pixels with optional refresh rate. If omitted,
               image defaults apply (1920x1080@25). For GPU images, the default is
               1920x1080@60. Arbitrary viewport dimensions and refresh rates are accepted.
@@ -952,6 +962,7 @@ class AsyncBrowsersResource(AsyncAPIResource):
                     "tags": tags,
                     "telemetry": telemetry,
                     "timeout_seconds": timeout_seconds,
+                    "vaults": vaults,
                     "viewport": viewport,
                 },
                 browser_create_params.BrowserCreateParams,

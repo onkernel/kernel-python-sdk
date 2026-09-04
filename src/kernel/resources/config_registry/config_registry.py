@@ -78,12 +78,12 @@ class ConfigRegistryResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncOffsetPagination[RecommendationSummary]:
         """
-        Lists unique domains previously analyzed by the selected project with their
-        current domain-level recommendations.
+        Lists unique exact targets previously analyzed by the selected project with the
+        recommendation produced by each target's latest analysis.
 
         Args:
-          search: Case-insensitive domain search. Full URLs are reduced to their registrable
-              domain.
+          search: Case-insensitive substring search over normalized targets, including domain,
+              subdomain, and path.
 
           extra_headers: Send extra headers
 
@@ -252,12 +252,12 @@ class AsyncConfigRegistryResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[RecommendationSummary, AsyncOffsetPagination[RecommendationSummary]]:
         """
-        Lists unique domains previously analyzed by the selected project with their
-        current domain-level recommendations.
+        Lists unique exact targets previously analyzed by the selected project with the
+        recommendation produced by each target's latest analysis.
 
         Args:
-          search: Case-insensitive domain search. Full URLs are reduced to their registrable
-              domain.
+          search: Case-insensitive substring search over normalized targets, including domain,
+              subdomain, and path.
 
           extra_headers: Send extra headers
 

@@ -6,6 +6,7 @@ from typing import Dict, Iterable, Optional
 from typing_extensions import Literal, TypedDict
 
 from .tags_param import TagsParam
+from .vault_reference_param import VaultReferenceParam
 from .browser_memory_request import BrowserMemoryRequest
 from .browser_proxy_config_param import BrowserProxyConfigParam
 from .browser_network_config_param import BrowserNetworkConfigParam
@@ -147,6 +148,12 @@ class BrowserCreateParams(TypedDict, total=False):
     seconds. Minimum allowed is 10 seconds. Maximum allowed is 259200 (72 hours). We
     check for inactivity every 5 seconds, so the actual timeout behavior you will
     see is +/- 5 seconds around the specified value.
+    """
+
+    vaults: Iterable[VaultReferenceParam]
+    """Project-scoped vaults to link to the browser session.
+
+    Links are immutable after creation.
     """
 
     viewport: BrowserViewport

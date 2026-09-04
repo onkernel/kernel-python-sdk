@@ -94,6 +94,12 @@ class TestBrowsers:
                 },
             },
             timeout_seconds=10,
+            vaults=[
+                {
+                    "id": "id",
+                    "name": "x",
+                }
+            ],
             viewport={
                 "height": 800,
                 "width": 1280,
@@ -561,6 +567,12 @@ class TestAsyncBrowsers:
                 },
             },
             timeout_seconds=10,
+            vaults=[
+                {
+                    "id": "id",
+                    "name": "x",
+                }
+            ],
             viewport={
                 "height": 800,
                 "width": 1280,
