@@ -16,6 +16,14 @@ from .auth import (
     AuthResourceWithStreamingResponse,
     AsyncAuthResourceWithStreamingResponse,
 )
+from .vaults import (
+    VaultsResource,
+    AsyncVaultsResource,
+    VaultsResourceWithRawResponse,
+    AsyncVaultsResourceWithRawResponse,
+    VaultsResourceWithStreamingResponse,
+    AsyncVaultsResourceWithStreamingResponse,
+)
 from .proxies import (
     ProxiesResource,
     AsyncProxiesResource,
@@ -204,6 +212,12 @@ __all__ = [
     "AsyncBrowserPoolsResourceWithRawResponse",
     "BrowserPoolsResourceWithStreamingResponse",
     "AsyncBrowserPoolsResourceWithStreamingResponse",
+    "VaultsResource",
+    "AsyncVaultsResource",
+    "VaultsResourceWithRawResponse",
+    "AsyncVaultsResourceWithRawResponse",
+    "VaultsResourceWithStreamingResponse",
+    "AsyncVaultsResourceWithStreamingResponse",
     "CredentialsResource",
     "AsyncCredentialsResource",
     "CredentialsResourceWithRawResponse",

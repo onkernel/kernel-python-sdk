@@ -12,16 +12,22 @@ __all__ = ["RecommendationSummary"]
 
 class RecommendationSummary(BaseModel):
     analysis_id: str
-    """ID of the most recently requested analysis for this domain."""
+    """ID of the most recently requested analysis for this exact target."""
 
     analysis_status: Literal["running", "completed", "failed", "canceled"]
-    """Lifecycle status of the most recently requested analysis for this domain."""
+    """Lifecycle status of the most recently requested analysis for this exact target."""
 
     last_requested_at: datetime
-    """Most recent time the selected project requested an analysis for this domain."""
+    """
+    Most recent time the selected project requested an analysis for this exact
+    target.
+    """
 
     recommendation: Optional[Recommendation] = None
-    """Current domain-level recommendation. Null when no eligible knowledge exists."""
+    """Recommendation produced by the latest analysis.
+
+    Null when that analysis did not produce one.
+    """
 
     recommended_config_label: Optional[str] = None
     """Display label for the recommended browser configuration."""
@@ -29,8 +35,11 @@ class RecommendationSummary(BaseModel):
     success_rate: Optional[float] = None
     """Success rate for the recommended configuration.
 
-    Null when no eligible knowledge exists.
+    Null when the latest analysis did not produce one.
     """
 
     target: str
-    """Registrable domain previously analyzed by the selected project."""
+    """
+    Normalized exact target previously analyzed by the selected project, including
+    scheme, host, port, and path.
+    """

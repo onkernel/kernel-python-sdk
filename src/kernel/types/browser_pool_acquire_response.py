@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -10,6 +10,7 @@ from .._models import BaseModel
 from .browser_proxy import BrowserProxy
 from .browser_usage import BrowserUsage
 from .browser_memory import BrowserMemory
+from .vault_reference import VaultReference
 from .browser_pool_ref import BrowserPoolRef
 from .browser_network_config import BrowserNetworkConfig
 from .shared.browser_viewport import BrowserViewport
@@ -124,6 +125,15 @@ class BrowserPoolAcquireResponse(BaseModel):
 
     usage: Optional[BrowserUsage] = None
     """Session usage metrics."""
+
+    usage_status: Optional[Literal["pending", "ready"]] = None
+    """Whether final usage billing is still pending or complete.
+
+    Only present for deleted sessions.
+    """
+
+    vaults: Optional[List[VaultReference]] = None
+    """Vaults linked when the browser session was created."""
 
     viewport: Optional[BrowserViewport] = None
     """

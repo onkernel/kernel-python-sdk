@@ -6,6 +6,7 @@ from . import browsers
 from .. import _compat
 from .tags import Tags as Tags
 from .proxy import Proxy as Proxy
+from .vault import Vault as Vault
 from .shared import (
     LogEvent as LogEvent,
     AppAction as AppAction,
@@ -35,11 +36,13 @@ from .app_list_params import AppListParams as AppListParams
 from .audit_log_entry import AuditLogEntry as AuditLogEntry
 from .created_api_key import CreatedAPIKey as CreatedAPIKey
 from .lookup_response import LookupResponse as LookupResponse
+from .vault_reference import VaultReference as VaultReference
 from .analysis_summary import AnalysisSummary as AnalysisSummary
 from .browser_pool_ref import BrowserPoolRef as BrowserPoolRef
 from .app_list_response import AppListResponse as AppListResponse
 from .no_recommendation import NoRecommendation as NoRecommendation
 from .proxy_list_params import ProxyListParams as ProxyListParams
+from .vault_list_params import VaultListParams as VaultListParams
 from .browser_proxy_mode import BrowserProxyMode as BrowserProxyMode
 from .proxy_check_params import ProxyCheckParams as ProxyCheckParams
 from .api_key_list_params import APIKeyListParams as APIKeyListParams
@@ -51,6 +54,7 @@ from .project_list_params import ProjectListParams as ProjectListParams
 from .proxy_create_params import ProxyCreateParams as ProxyCreateParams
 from .proxy_list_response import ProxyListResponse as ProxyListResponse
 from .proxy_update_params import ProxyUpdateParams as ProxyUpdateParams
+from .vault_upsert_params import VaultUpsertParams as VaultUpsertParams
 from .browser_proxy_config import BrowserProxyConfig as BrowserProxyConfig
 from .proxy_check_response import ProxyCheckResponse as ProxyCheckResponse
 from .api_key_create_params import APIKeyCreateParams as APIKeyCreateParams
@@ -69,6 +73,7 @@ from .project_update_params import ProjectUpdateParams as ProjectUpdateParams
 from .proxy_create_response import ProxyCreateResponse as ProxyCreateResponse
 from .proxy_update_response import ProxyUpdateResponse as ProxyUpdateResponse
 from .recommendation_result import RecommendationResult as RecommendationResult
+from .vault_reference_param import VaultReferenceParam as VaultReferenceParam
 from .browser_memory_request import BrowserMemoryRequest as BrowserMemoryRequest
 from .browser_network_config import BrowserNetworkConfig as BrowserNetworkConfig
 from .credential_list_params import CredentialListParams as CredentialListParams

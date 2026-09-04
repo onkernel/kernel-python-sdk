@@ -50,6 +50,7 @@ if TYPE_CHECKING:
     from .resources import (
         apps,
         auth,
+        vaults,
         proxies,
         api_keys,
         browsers,
@@ -76,6 +77,7 @@ if TYPE_CHECKING:
     from .resources.deployments import DeploymentsResource, AsyncDeploymentsResource
     from .resources.invocations import InvocationsResource, AsyncInvocationsResource
     from .resources.browser_pools import BrowserPoolsResource, AsyncBrowserPoolsResource
+    from .resources.vaults.vaults import VaultsResource, AsyncVaultsResource
     from .resources.browsers.browsers import BrowsersResource, AsyncBrowsersResource
     from .resources.projects.projects import ProjectsResource, AsyncProjectsResource
     from .resources.telemetry.telemetry import TelemetryResource, AsyncTelemetryResource
@@ -278,6 +280,12 @@ class Kernel(SyncAPIClient):
         from .resources.browser_pools import BrowserPoolsResource
 
         return BrowserPoolsResource(self)
+
+    @cached_property
+    def vaults(self) -> VaultsResource:
+        from .resources.vaults import VaultsResource
+
+        return VaultsResource(self)
 
     @cached_property
     def credentials(self) -> CredentialsResource:
@@ -663,6 +671,12 @@ class AsyncKernel(AsyncAPIClient):
         return AsyncBrowserPoolsResource(self)
 
     @cached_property
+    def vaults(self) -> AsyncVaultsResource:
+        from .resources.vaults import AsyncVaultsResource
+
+        return AsyncVaultsResource(self)
+
+    @cached_property
     def credentials(self) -> AsyncCredentialsResource:
         """Create and manage credentials for authentication."""
         from .resources.credentials import AsyncCredentialsResource
@@ -950,6 +964,12 @@ class KernelWithRawResponse:
         return BrowserPoolsResourceWithRawResponse(self._client.browser_pools)
 
     @cached_property
+    def vaults(self) -> vaults.VaultsResourceWithRawResponse:
+        from .resources.vaults import VaultsResourceWithRawResponse
+
+        return VaultsResourceWithRawResponse(self._client.vaults)
+
+    @cached_property
     def credentials(self) -> credentials.CredentialsResourceWithRawResponse:
         """Create and manage credentials for authentication."""
         from .resources.credentials import CredentialsResourceWithRawResponse
@@ -1075,6 +1095,12 @@ class AsyncKernelWithRawResponse:
         from .resources.browser_pools import AsyncBrowserPoolsResourceWithRawResponse
 
         return AsyncBrowserPoolsResourceWithRawResponse(self._client.browser_pools)
+
+    @cached_property
+    def vaults(self) -> vaults.AsyncVaultsResourceWithRawResponse:
+        from .resources.vaults import AsyncVaultsResourceWithRawResponse
+
+        return AsyncVaultsResourceWithRawResponse(self._client.vaults)
 
     @cached_property
     def credentials(self) -> credentials.AsyncCredentialsResourceWithRawResponse:
@@ -1204,6 +1230,12 @@ class KernelWithStreamedResponse:
         return BrowserPoolsResourceWithStreamingResponse(self._client.browser_pools)
 
     @cached_property
+    def vaults(self) -> vaults.VaultsResourceWithStreamingResponse:
+        from .resources.vaults import VaultsResourceWithStreamingResponse
+
+        return VaultsResourceWithStreamingResponse(self._client.vaults)
+
+    @cached_property
     def credentials(self) -> credentials.CredentialsResourceWithStreamingResponse:
         """Create and manage credentials for authentication."""
         from .resources.credentials import CredentialsResourceWithStreamingResponse
@@ -1329,6 +1361,12 @@ class AsyncKernelWithStreamedResponse:
         from .resources.browser_pools import AsyncBrowserPoolsResourceWithStreamingResponse
 
         return AsyncBrowserPoolsResourceWithStreamingResponse(self._client.browser_pools)
+
+    @cached_property
+    def vaults(self) -> vaults.AsyncVaultsResourceWithStreamingResponse:
+        from .resources.vaults import AsyncVaultsResourceWithStreamingResponse
+
+        return AsyncVaultsResourceWithStreamingResponse(self._client.vaults)
 
     @cached_property
     def credentials(self) -> credentials.AsyncCredentialsResourceWithStreamingResponse:
