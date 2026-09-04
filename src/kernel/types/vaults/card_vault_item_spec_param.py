@@ -55,6 +55,8 @@ class LinkCardVaultItemSpecTotal(TypedDict, total=False):
 
 
 class LinkCardVaultItemSpec(TypedDict, total=False):
+    """Live payment card. Test-mode card creation is not supported."""
+
     amount: Required[int]
     """Integer amount in minor currency units."""
 
@@ -75,12 +77,6 @@ class LinkCardVaultItemSpec(TypedDict, total=False):
 
     provider: Required[Literal["link"]]
 
-    test: Required[bool]
-    """
-    Whether Link should return test credentials instead of a live payment
-    credential.
-    """
-
     wallet: Required[str]
     """Wallet item key used to mint this card."""
 
@@ -94,9 +90,9 @@ class LinkCardVaultItemSpec(TypedDict, total=False):
 
 
 class AgentCardCardVaultItemSpec(TypedDict, total=False):
-    """AgentCard reusable card.
+    """AgentCard reusable live payment card.
 
-    Each checkout creates an approval-gated authorization for spec.merchant / spec.amount. The card stays ready after each authorization.
+    Test-mode card creation is not supported. Each checkout creates an approval-gated authorization for spec.merchant / spec.amount. The card stays ready after each authorization.
     """
 
     amount: Required[int]

@@ -131,8 +131,7 @@ class ItemsResource(SyncAPIResource):
         Update a card specification before or between authorizations
 
         Args:
-          spec: AgentCard reusable card. Each checkout creates an approval-gated authorization
-              for spec.merchant / spec.amount. The card stays ready after each authorization.
+          spec: Live payment card. Test-mode card creation is not supported.
 
           extra_headers: Send extra headers
 
@@ -296,7 +295,9 @@ class ItemsResource(SyncAPIResource):
         """
         Retrieve the item first and invoke only an operation listed in
         `available_operations`, following its natural-language description. Operations
-        may call an external provider and can return the item's updated state.
+        may call an external provider and can return the item's updated state. If the
+        provider rate limits spend-request creation, returns HTTP 429 with code
+        `spend_request_rate_limited`; stop and back off before retrying.
 
         Args:
           extra_headers: Send extra headers
@@ -375,8 +376,7 @@ class ItemsResource(SyncAPIResource):
         Create or retrieve an identical vault item by immutable key
 
         Args:
-          spec: AgentCard reusable card. Each checkout creates an approval-gated authorization
-              for spec.merchant / spec.amount. The card stays ready after each authorization.
+          spec: Live payment card. Test-mode card creation is not supported.
 
           extra_headers: Send extra headers
 
@@ -523,8 +523,7 @@ class AsyncItemsResource(AsyncAPIResource):
         Update a card specification before or between authorizations
 
         Args:
-          spec: AgentCard reusable card. Each checkout creates an approval-gated authorization
-              for spec.merchant / spec.amount. The card stays ready after each authorization.
+          spec: Live payment card. Test-mode card creation is not supported.
 
           extra_headers: Send extra headers
 
@@ -688,7 +687,9 @@ class AsyncItemsResource(AsyncAPIResource):
         """
         Retrieve the item first and invoke only an operation listed in
         `available_operations`, following its natural-language description. Operations
-        may call an external provider and can return the item's updated state.
+        may call an external provider and can return the item's updated state. If the
+        provider rate limits spend-request creation, returns HTTP 429 with code
+        `spend_request_rate_limited`; stop and back off before retrying.
 
         Args:
           extra_headers: Send extra headers
@@ -769,8 +770,7 @@ class AsyncItemsResource(AsyncAPIResource):
         Create or retrieve an identical vault item by immutable key
 
         Args:
-          spec: AgentCard reusable card. Each checkout creates an approval-gated authorization
-              for spec.merchant / spec.amount. The card stays ready after each authorization.
+          spec: Live payment card. Test-mode card creation is not supported.
 
           extra_headers: Send extra headers
 

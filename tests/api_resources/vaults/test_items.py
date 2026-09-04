@@ -98,7 +98,6 @@ class TestItems:
                 "merchant_url": "https://example.com",
                 "payment_method_id": "x",
                 "provider": "link",
-                "test": True,
                 "wallet": "wallet",
             },
         )
@@ -118,7 +117,6 @@ class TestItems:
                 "merchant_url": "https://example.com",
                 "payment_method_id": "x",
                 "provider": "link",
-                "test": True,
                 "wallet": "wallet",
                 "expires_at": 0,
                 "line_items": [
@@ -166,7 +164,6 @@ class TestItems:
                 "merchant_url": "https://example.com",
                 "payment_method_id": "x",
                 "provider": "link",
-                "test": True,
                 "wallet": "wallet",
             },
         )
@@ -190,7 +187,6 @@ class TestItems:
                 "merchant_url": "https://example.com",
                 "payment_method_id": "x",
                 "provider": "link",
-                "test": True,
                 "wallet": "wallet",
             },
         ) as response:
@@ -217,7 +213,6 @@ class TestItems:
                     "merchant_url": "https://example.com",
                     "payment_method_id": "x",
                     "provider": "link",
-                    "test": True,
                     "wallet": "wallet",
                 },
             )
@@ -234,7 +229,6 @@ class TestItems:
                     "merchant_url": "https://example.com",
                     "payment_method_id": "x",
                     "provider": "link",
-                    "test": True,
                     "wallet": "wallet",
                 },
             )
@@ -576,7 +570,6 @@ class TestItems:
                 "merchant_url": "https://example.com",
                 "payment_method_id": "x",
                 "provider": "link",
-                "test": True,
                 "wallet": "wallet",
             },
             type="card",
@@ -597,7 +590,6 @@ class TestItems:
                 "merchant_url": "https://example.com",
                 "payment_method_id": "x",
                 "provider": "link",
-                "test": True,
                 "wallet": "wallet",
                 "expires_at": 0,
                 "line_items": [
@@ -646,7 +638,6 @@ class TestItems:
                 "merchant_url": "https://example.com",
                 "payment_method_id": "x",
                 "provider": "link",
-                "test": True,
                 "wallet": "wallet",
             },
             type="card",
@@ -671,7 +662,6 @@ class TestItems:
                 "merchant_url": "https://example.com",
                 "payment_method_id": "x",
                 "provider": "link",
-                "test": True,
                 "wallet": "wallet",
             },
             type="card",
@@ -699,7 +689,6 @@ class TestItems:
                     "merchant_url": "https://example.com",
                     "payment_method_id": "x",
                     "provider": "link",
-                    "test": True,
                     "wallet": "wallet",
                 },
                 type="card",
@@ -717,7 +706,6 @@ class TestItems:
                     "merchant_url": "https://example.com",
                     "payment_method_id": "x",
                     "provider": "link",
-                    "test": True,
                     "wallet": "wallet",
                 },
                 type="card",
@@ -806,7 +794,6 @@ class TestAsyncItems:
                 "merchant_url": "https://example.com",
                 "payment_method_id": "x",
                 "provider": "link",
-                "test": True,
                 "wallet": "wallet",
             },
         )
@@ -826,7 +813,6 @@ class TestAsyncItems:
                 "merchant_url": "https://example.com",
                 "payment_method_id": "x",
                 "provider": "link",
-                "test": True,
                 "wallet": "wallet",
                 "expires_at": 0,
                 "line_items": [
@@ -874,7 +860,6 @@ class TestAsyncItems:
                 "merchant_url": "https://example.com",
                 "payment_method_id": "x",
                 "provider": "link",
-                "test": True,
                 "wallet": "wallet",
             },
         )
@@ -898,7 +883,6 @@ class TestAsyncItems:
                 "merchant_url": "https://example.com",
                 "payment_method_id": "x",
                 "provider": "link",
-                "test": True,
                 "wallet": "wallet",
             },
         ) as response:
@@ -925,7 +909,6 @@ class TestAsyncItems:
                     "merchant_url": "https://example.com",
                     "payment_method_id": "x",
                     "provider": "link",
-                    "test": True,
                     "wallet": "wallet",
                 },
             )
@@ -942,7 +925,6 @@ class TestAsyncItems:
                     "merchant_url": "https://example.com",
                     "payment_method_id": "x",
                     "provider": "link",
-                    "test": True,
                     "wallet": "wallet",
                 },
             )
@@ -1284,7 +1266,6 @@ class TestAsyncItems:
                 "merchant_url": "https://example.com",
                 "payment_method_id": "x",
                 "provider": "link",
-                "test": True,
                 "wallet": "wallet",
             },
             type="card",
@@ -1305,7 +1286,6 @@ class TestAsyncItems:
                 "merchant_url": "https://example.com",
                 "payment_method_id": "x",
                 "provider": "link",
-                "test": True,
                 "wallet": "wallet",
                 "expires_at": 0,
                 "line_items": [
@@ -1354,7 +1334,6 @@ class TestAsyncItems:
                 "merchant_url": "https://example.com",
                 "payment_method_id": "x",
                 "provider": "link",
-                "test": True,
                 "wallet": "wallet",
             },
             type="card",
@@ -1379,7 +1358,6 @@ class TestAsyncItems:
                 "merchant_url": "https://example.com",
                 "payment_method_id": "x",
                 "provider": "link",
-                "test": True,
                 "wallet": "wallet",
             },
             type="card",
@@ -1407,7 +1385,6 @@ class TestAsyncItems:
                     "merchant_url": "https://example.com",
                     "payment_method_id": "x",
                     "provider": "link",
-                    "test": True,
                     "wallet": "wallet",
                 },
                 type="card",
@@ -1425,7 +1402,6 @@ class TestAsyncItems:
                     "merchant_url": "https://example.com",
                     "payment_method_id": "x",
                     "provider": "link",
-                    "test": True,
                     "wallet": "wallet",
                 },
                 type="card",
