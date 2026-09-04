@@ -751,7 +751,7 @@ def test_fs_read_file_routes_binary_response_from_vm(monkeypatch: pytest.MonkeyP
 def test_fs_write_file_routes_binary_body_to_vm(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
     write_file = respx.put("http://browser-session.test/browser/kernel/fs/write_file").mock(
-        return_value=httpx.Response(204)
+        return_value=httpx.Response(201)
     )
     with Kernel(base_url=base_url, api_key=api_key, _strict_response_validation=True) as client:
         _cache_browser(client)
@@ -769,7 +769,7 @@ def test_fs_write_file_routes_binary_body_to_vm(monkeypatch: pytest.MonkeyPatch)
 @respx.mock
 def test_fs_upload_routes_indexed_multipart_to_vm(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
-    upload = respx.post("http://browser-session.test/browser/kernel/fs/upload").mock(return_value=httpx.Response(204))
+    upload = respx.post("http://browser-session.test/browser/kernel/fs/upload").mock(return_value=httpx.Response(201))
     with Kernel(base_url=base_url, api_key=api_key, _strict_response_validation=True) as client:
         _cache_browser(client)
         client.browsers.fs.upload(
@@ -905,7 +905,7 @@ def test_stale_direct_vm_jwt_replays_buffered_fs_body_on_control_plane(
     vm = respx.put("http://browser-session.test/browser/kernel/fs/write_file").mock(
         return_value=httpx.Response(401, text="Invalid JWT")
     )
-    api = respx.put(f"{base_url}/browsers/sess-1/fs/write_file").mock(return_value=httpx.Response(204))
+    api = respx.put(f"{base_url}/browsers/sess-1/fs/write_file").mock(return_value=httpx.Response(201))
     with Kernel(base_url=base_url, api_key=api_key, _strict_response_validation=True) as client:
         _cache_browser(client)
         client.browsers.fs.write_file("sess-1", b"payload", path="/tmp/x")
@@ -928,7 +928,7 @@ def test_stale_direct_vm_jwt_does_not_replay_streamed_fs_body(
     vm = respx.put("http://browser-session.test/browser/kernel/fs/write_file").mock(
         return_value=httpx.Response(401, text="Invalid JWT")
     )
-    api = respx.put(f"{base_url}/browsers/sess-1/fs/write_file").mock(return_value=httpx.Response(204))
+    api = respx.put(f"{base_url}/browsers/sess-1/fs/write_file").mock(return_value=httpx.Response(201))
     with Kernel(base_url=base_url, api_key=api_key, _strict_response_validation=True) as client:
         _cache_browser(client)
         with pytest.raises(AuthenticationError):
@@ -950,7 +950,7 @@ async def test_async_stale_direct_vm_jwt_does_not_replay_streamed_fs_body(
     vm = respx.put("http://browser-session.test/browser/kernel/fs/write_file").mock(
         return_value=httpx.Response(401, text="Invalid JWT")
     )
-    api = respx.put(f"{base_url}/browsers/sess-1/fs/write_file").mock(return_value=httpx.Response(204))
+    api = respx.put(f"{base_url}/browsers/sess-1/fs/write_file").mock(return_value=httpx.Response(201))
 
     async def _chunks() -> AsyncIterator[bytes]:
         yield b"chunk-one"
@@ -978,7 +978,7 @@ def test_stale_direct_vm_jwt_replays_multipart_upload_on_control_plane(
     vm = respx.post("http://browser-session.test/browser/kernel/fs/upload").mock(
         return_value=httpx.Response(403, text="Invalid JWT")
     )
-    api = respx.post(f"{base_url}/browsers/sess-1/fs/upload").mock(return_value=httpx.Response(204))
+    api = respx.post(f"{base_url}/browsers/sess-1/fs/upload").mock(return_value=httpx.Response(201))
     upload = tmp_path / "one.txt"
     upload.write_bytes(b"file-bytes")
 
@@ -1094,7 +1094,7 @@ def test_stale_direct_vm_jwt_does_not_replay_multipart_that_cannot_rewind(
     vm = respx.post("http://browser-session.test/browser/kernel/fs/upload").mock(
         return_value=httpx.Response(401, text="Invalid JWT")
     )
-    api = respx.post(f"{base_url}/browsers/sess-1/fs/upload").mock(return_value=httpx.Response(204))
+    api = respx.post(f"{base_url}/browsers/sess-1/fs/upload").mock(return_value=httpx.Response(201))
     with Kernel(base_url=base_url, api_key=api_key, _strict_response_validation=True) as client:
         _cache_browser(client)
         with pytest.raises(AuthenticationError):
@@ -1123,7 +1123,7 @@ async def test_async_stale_direct_vm_jwt_does_not_replay_multipart_that_cannot_r
     vm = respx.post("http://browser-session.test/browser/kernel/fs/upload").mock(
         return_value=httpx.Response(403, text="Invalid JWT")
     )
-    api = respx.post(f"{base_url}/browsers/sess-1/fs/upload").mock(return_value=httpx.Response(204))
+    api = respx.post(f"{base_url}/browsers/sess-1/fs/upload").mock(return_value=httpx.Response(201))
     async with AsyncKernel(base_url=base_url, api_key=api_key, _strict_response_validation=True) as client:
         route = browser_route_from_browser(_fake_browser())
         assert route is not None
@@ -1152,7 +1152,7 @@ def test_stale_direct_vm_jwt_evicts_route_without_retries_for_buffered_body(
     vm = respx.put("http://browser-session.test/browser/kernel/fs/write_file").mock(
         return_value=httpx.Response(401, text="Invalid JWT")
     )
-    api = respx.put(f"{base_url}/browsers/sess-1/fs/write_file").mock(return_value=httpx.Response(204))
+    api = respx.put(f"{base_url}/browsers/sess-1/fs/write_file").mock(return_value=httpx.Response(201))
     with Kernel(base_url=base_url, api_key=api_key, max_retries=0, _strict_response_validation=True) as client:
         _cache_browser(client)
         with pytest.raises(AuthenticationError):
@@ -1178,7 +1178,7 @@ async def test_async_stale_direct_vm_jwt_evicts_route_without_retries_for_stream
     vm = respx.put("http://browser-session.test/browser/kernel/fs/write_file").mock(
         return_value=httpx.Response(403, text="Invalid JWT")
     )
-    api = respx.put(f"{base_url}/browsers/sess-1/fs/write_file").mock(return_value=httpx.Response(204))
+    api = respx.put(f"{base_url}/browsers/sess-1/fs/write_file").mock(return_value=httpx.Response(201))
 
     async def _chunks() -> AsyncIterator[bytes]:
         yield b"chunk-one"
