@@ -172,6 +172,12 @@ class Limits(BaseModel):
     max_concurrent_invocations: int
     """Effective organization-wide concurrent app invocation ceiling."""
 
+    max_vaults: Optional[int] = None
+    """Maximum non-deleted vaults allowed org-wide across all projects.
+
+    Null means unlimited. The vaults feature flag still controls access.
+    """
+
 
 class Plan(BaseModel):
     id: Literal["FREE", "HOBBYIST", "START_UP", "ENTERPRISE"]
