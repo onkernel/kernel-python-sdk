@@ -176,7 +176,9 @@ class VaultsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Vault:
         """
-        Create or retrieve a vault by immutable name
+        Free organizations can store up to 3 non-deleted vaults across all projects.
+        Paid plans and active trials have no vault cap. Retrieving an existing vault by
+        name succeeds even at the limit.
 
         Args:
           name: Immutable name used to create or retrieve the vault.
@@ -345,7 +347,9 @@ class AsyncVaultsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Vault:
         """
-        Create or retrieve a vault by immutable name
+        Free organizations can store up to 3 non-deleted vaults across all projects.
+        Paid plans and active trials have no vault cap. Retrieving an existing vault by
+        name succeeds even at the limit.
 
         Args:
           name: Immutable name used to create or retrieve the vault.
