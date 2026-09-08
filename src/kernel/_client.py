@@ -47,6 +47,7 @@ from .lib.browser_routing.routing import (
     maybe_evict_browser_route_from_response,
     should_retry_direct_vm_connection_error,
     install_async_stale_direct_vm_auth_eviction,
+    direct_vm_request_body_is_known_unreplayable,
     maybe_populate_browser_route_cache_from_response,
 )
 
@@ -382,6 +383,8 @@ class Kernel(SyncAPIClient):
 
     @override
     def _should_retry(self, response: httpx.Response) -> bool:
+        if direct_vm_request_body_is_known_unreplayable(response.request):
+            return False
         if is_stale_direct_vm_auth_response(response):
             # The route was already evicted by the response hook; retry only when
             # the body can be rebuilt, otherwise the caller sees the original auth
@@ -778,6 +781,8 @@ class AsyncKernel(AsyncAPIClient):
 
     @override
     def _should_retry(self, response: httpx.Response) -> bool:
+        if direct_vm_request_body_is_known_unreplayable(response.request):
+            return False
         if is_stale_direct_vm_auth_response(response):
             # The route was already evicted by the response hook; retry only when
             # the body can be rebuilt, otherwise the caller sees the original auth

@@ -251,13 +251,9 @@ def _has_eviction_hook(hooks: list[Any], cache: BrowserRouteCache) -> bool:
 
 
 def should_retry_direct_vm_connection_error(request: httpx.Request) -> bool:
-    """Prevent generic retries from replaying a stream after stale VM auth.
-
-    httpx may raise while eagerly reading the error response body, before the
-    SDK can pass the response to `_should_retry`. The response hook records the
-    known stale-auth status on the request so this connection-error path can
-    apply the same body replay check.
-    """
+    """Prevent connection retries from replaying an unreplayable VM request body."""
+    if direct_vm_request_body_is_known_unreplayable(request):
+        return False
     if not request.extensions.get(_STALE_DIRECT_VM_AUTH_REQUEST_EXTENSION):
         return True
     return direct_vm_request_body_is_replayable(request)
@@ -274,6 +270,10 @@ def should_retry_stale_direct_vm_auth(response: httpx.Response) -> bool:
     if not is_stale_direct_vm_auth_response(response):
         return False
     return direct_vm_request_body_is_replayable(response.request)
+
+
+def direct_vm_request_body_is_known_unreplayable(request: httpx.Request) -> bool:
+    return request.extensions.get(_DIRECT_VM_BODY_REPLAYABLE_REQUEST_EXTENSION) is False
 
 
 def direct_vm_request_body_is_replayable(request: httpx.Request) -> bool:
