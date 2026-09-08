@@ -1359,7 +1359,7 @@ def test_stale_direct_vm_auth_body_read_failure_does_not_retry_unreplayable_writ
     requests: list[tuple[httpx.URL, bytes]] = []
 
     def handle_request(request: httpx.Request) -> httpx.Response:
-        body = b"".join(request.stream)
+        body = b"".join(cast(Iterator[bytes], request.stream))
         requests.append((request.url, body))
         if "browser-session.test" in str(request.url):
             return httpx.Response(401, stream=_FailingSyncStream(), headers={"content-type": "text/plain"})
@@ -1403,7 +1403,7 @@ async def test_async_stale_direct_vm_auth_body_read_failure_does_not_retry_unrep
     requests: list[tuple[httpx.URL, bytes]] = []
 
     async def handle_request(request: httpx.Request) -> httpx.Response:
-        body = b"".join([chunk async for chunk in request.stream])
+        body = b"".join([chunk async for chunk in cast(AsyncIterator[bytes], request.stream)])
         requests.append((request.url, body))
         if "browser-session.test" in str(request.url):
             return httpx.Response(403, stream=_FailingAsyncStream(), headers={"content-type": "text/plain"})
