@@ -13,9 +13,9 @@ class ConfigRegistryListParams(TypedDict, total=False):
     offset: int
 
     search: str
-    """Case-insensitive domain search.
-
-    Full URLs are reduced to their registrable domain.
+    """
+    Case-insensitive substring search over normalized targets, including domain,
+    subdomain, and path.
     """
 
     sort_by: Literal["target", "analysis_status", "recommended_config", "last_requested_at", "success_rate"]

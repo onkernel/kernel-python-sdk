@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.100.0](https://github.com/kernel/kernel-python-sdk/compare/v0.99.0...v0.100.0) (2026-09-04)
+
+
+### Features
+
+* Fix vault provider errors and remove test card mode ([043d252](https://github.com/kernel/kernel-python-sdk/commit/043d2521509d4e44a4b3e43694db3a77bd6fe546))
+
+## [0.99.0](https://github.com/kernel/kernel-python-sdk/compare/v0.98.0...v0.99.0) (2026-09-04)
+
+
+### Features
+
+* Expose OTLP destination delivery health ([9ab1d58](https://github.com/kernel/kernel-python-sdk/commit/9ab1d583d7bb4dabba5a640883dda9f2ac248f18))
+* Repair Vault SDK custom-code seals ([645ce00](https://github.com/kernel/kernel-python-sdk/commit/645ce00d68172a323d11b7e4dd4f3997cc287fe0))
+
 ## [0.98.0](https://github.com/kernel/kernel-python-sdk/compare/v0.97.0...v0.98.0) (2026-09-02)
 
 
