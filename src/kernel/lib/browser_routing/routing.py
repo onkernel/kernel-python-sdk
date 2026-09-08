@@ -34,6 +34,7 @@ class BrowserRoutingConfig:
 
 _EVICTION_HOOK_CACHE_ATTR = "_kernel_browser_route_cache"
 _STALE_DIRECT_VM_AUTH_REQUEST_EXTENSION = "kernel_stale_direct_vm_auth"
+_DIRECT_VM_BODY_REPLAYABLE_REQUEST_EXTENSION = "kernel_direct_vm_body_replayable"
 
 
 _BROWSER_ROUTE_CACHEABLE_PATH = re.compile(r"^/(?:v\d+/)?browsers(?:/[^/]+)?/?$")
@@ -276,12 +277,18 @@ def should_retry_stale_direct_vm_auth(response: httpx.Response) -> bool:
 
 
 def direct_vm_request_body_is_replayable(request: httpx.Request) -> bool:
+    replayable = request.extensions.get(_DIRECT_VM_BODY_REPLAYABLE_REQUEST_EXTENSION)
+    if isinstance(replayable, bool):
+        return replayable
+    return _classify_direct_vm_request_body_replayability(request)
+
+
+def _classify_direct_vm_request_body_replayability(request: httpx.Request) -> bool:
     try:
         _ = request.content
     except httpx.RequestNotRead:
         pass
     else:
-        # httpx already buffered the body, so rebuilding it yields the same bytes.
         return True
 
     # httpx encodes multipart bodies as a stream of fields it re-renders per attempt.
@@ -410,10 +417,15 @@ def rewrite_direct_vm_options(
     return rewritten
 
 
-def strip_direct_vm_auth(request: httpx.Request, *, cache: BrowserRouteCache) -> None:
+def prepare_direct_vm_request(request: httpx.Request, *, cache: BrowserRouteCache) -> None:
     raw = str(request.url)
     for route in cache.values():
         if raw.startswith(route.base_url.rstrip("/") + "/"):
+            # Request hooks and custom auth can buffer this request while consuming
+            # the original body that the SDK would use to build a retry.
+            request.extensions[_DIRECT_VM_BODY_REPLAYABLE_REQUEST_EXTENSION] = (
+                _classify_direct_vm_request_body_replayability(request)
+            )
             request.headers.pop("Authorization", None)
             return
 

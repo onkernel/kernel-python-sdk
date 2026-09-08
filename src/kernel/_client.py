@@ -38,7 +38,7 @@ from ._base_client import (
 from .lib.browser_routing.routing import (
     BrowserRouteCache,
     BrowserRoutingConfig,
-    strip_direct_vm_auth,
+    prepare_direct_vm_request,
     rewrite_direct_vm_options,
     browser_routing_config_from_env,
     is_stale_direct_vm_auth_response,
@@ -374,7 +374,7 @@ class Kernel(SyncAPIClient):
 
     @override
     def _prepare_request(self, request: httpx.Request) -> None:
-        strip_direct_vm_auth(request, cache=self.browser_route_cache)
+        prepare_direct_vm_request(request, cache=self.browser_route_cache)
 
     @override
     def _should_retry_on_connection_error(self, request: httpx.Request) -> bool:
@@ -770,7 +770,7 @@ class AsyncKernel(AsyncAPIClient):
 
     @override
     async def _prepare_request(self, request: httpx.Request) -> None:
-        strip_direct_vm_auth(request, cache=self.browser_route_cache)
+        prepare_direct_vm_request(request, cache=self.browser_route_cache)
 
     @override
     def _should_retry_on_connection_error(self, request: httpx.Request) -> bool:

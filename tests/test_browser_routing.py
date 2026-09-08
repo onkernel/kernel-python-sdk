@@ -14,6 +14,7 @@ import pytest
 from kernel import (
     Kernel,
     AsyncKernel,
+    APITimeoutError,
     APIConnectionError,
     AuthenticationError,
     InternalServerError,
@@ -1269,15 +1270,21 @@ def test_indexed_multipart_body_flattens_only_given_values() -> None:
 class _FailingSyncStream(httpx.SyncByteStream):
     """A response body that fails while it is being read."""
 
+    def __init__(self, error_type: type[httpx.TransportError] = httpx.ReadError) -> None:
+        self.error_type = error_type
+
     @override
     def __iter__(self) -> Iterator[bytes]:
-        raise httpx.ReadError("connection reset while reading the error body")
+        raise self.error_type("connection failed while reading the error body")
 
 
 class _FailingAsyncStream(httpx.AsyncByteStream):
+    def __init__(self, error_type: type[httpx.TransportError] = httpx.ReadError) -> None:
+        self.error_type = error_type
+
     @override
     async def __aiter__(self) -> AsyncIterator[bytes]:
-        raise httpx.ReadError("connection reset while reading the error body")
+        raise self.error_type("connection failed while reading the error body")
         yield b""  # pragma: no cover - unreachable, keeps this an async generator
 
 
@@ -1351,8 +1358,14 @@ async def test_async_stale_direct_vm_jwt_evicts_route_when_error_body_read_fails
     assert requests[1].headers.get("Authorization") == f"Bearer {api_key}"
 
 
+@pytest.mark.parametrize(
+    ("error_type", "expected_error"),
+    [(httpx.ReadError, APIConnectionError), (httpx.ReadTimeout, APITimeoutError)],
+)
 def test_stale_direct_vm_auth_body_read_failure_does_not_retry_unreplayable_write(
     monkeypatch: pytest.MonkeyPatch,
+    error_type: type[httpx.TransportError],
+    expected_error: type[Exception],
 ) -> None:
     monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
     monkeypatch.setattr("kernel._base_client.SyncAPIClient._sleep_for_retry", _skip_retry_sleep)
@@ -1362,15 +1375,18 @@ def test_stale_direct_vm_auth_body_read_failure_does_not_retry_unreplayable_writ
         body = b"".join(cast(Iterator[bytes], request.stream))
         requests.append((request.url, body))
         if "browser-session.test" in str(request.url):
-            return httpx.Response(401, stream=_FailingSyncStream(), headers={"content-type": "text/plain"})
+            return httpx.Response(401, stream=_FailingSyncStream(error_type), headers={"content-type": "text/plain"})
         return httpx.Response(201)
+
+    def read_request(request: httpx.Request) -> None:
+        request.read()
 
     class Transport(httpx.BaseTransport):
         @override
         def handle_request(self, request: httpx.Request) -> httpx.Response:
             return handle_request(request)
 
-    http_client = httpx.Client(transport=Transport())
+    http_client = httpx.Client(transport=Transport(), event_hooks={"request": [read_request]})
     with Kernel(
         base_url=base_url,
         api_key=api_key,
@@ -1378,7 +1394,7 @@ def test_stale_direct_vm_auth_body_read_failure_does_not_retry_unreplayable_writ
         _strict_response_validation=True,
     ) as client:
         _cache_browser(client)
-        with pytest.raises(APIConnectionError):
+        with pytest.raises(expected_error):
             client.browsers.fs.write_file("sess-1", _UnseekableFile(b"payload"), path="/tmp/x")
 
         assert requests == [
@@ -1395,8 +1411,14 @@ def test_stale_direct_vm_auth_body_read_failure_does_not_retry_unreplayable_writ
 
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ("error_type", "expected_error"),
+    [(httpx.ReadError, APIConnectionError), (httpx.ReadTimeout, APITimeoutError)],
+)
 async def test_async_stale_direct_vm_auth_body_read_failure_does_not_retry_unreplayable_write(
     monkeypatch: pytest.MonkeyPatch,
+    error_type: type[httpx.TransportError],
+    expected_error: type[Exception],
 ) -> None:
     monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
     monkeypatch.setattr("kernel._base_client.AsyncAPIClient._sleep_for_retry", _skip_async_retry_sleep)
@@ -1406,8 +1428,11 @@ async def test_async_stale_direct_vm_auth_body_read_failure_does_not_retry_unrep
         body = b"".join([chunk async for chunk in cast(AsyncIterator[bytes], request.stream)])
         requests.append((request.url, body))
         if "browser-session.test" in str(request.url):
-            return httpx.Response(403, stream=_FailingAsyncStream(), headers={"content-type": "text/plain"})
+            return httpx.Response(403, stream=_FailingAsyncStream(error_type), headers={"content-type": "text/plain"})
         return httpx.Response(201)
+
+    async def read_request(request: httpx.Request) -> None:
+        await request.aread()
 
     async def payload() -> AsyncIterator[bytes]:
         yield b"payload"
@@ -1417,7 +1442,7 @@ async def test_async_stale_direct_vm_auth_body_read_failure_does_not_retry_unrep
         async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
             return await handle_request(request)
 
-    http_client = httpx.AsyncClient(transport=Transport())
+    http_client = httpx.AsyncClient(transport=Transport(), event_hooks={"request": [read_request]})
     async with AsyncKernel(
         base_url=base_url,
         api_key=api_key,
@@ -1427,7 +1452,7 @@ async def test_async_stale_direct_vm_auth_body_read_failure_does_not_retry_unrep
         route = browser_route_from_browser(_fake_browser())
         assert route is not None
         client.browser_route_cache.set(route)
-        with pytest.raises(APIConnectionError):
+        with pytest.raises(expected_error):
             await client.browsers.fs.write_file("sess-1", cast(Any, payload()), path="/tmp/x")
 
         assert requests == [
