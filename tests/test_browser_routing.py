@@ -50,6 +50,10 @@ def _skip_retry_sleep(_self: object, **_kwargs: object) -> None:
     return None
 
 
+async def _skip_async_retry_sleep(_self: object, **_kwargs: object) -> None:
+    return None
+
+
 class _UnseekableFile(io.RawIOBase):
     """A file-like upload body that cannot be rewound, e.g. a pipe.
 
@@ -1345,6 +1349,98 @@ async def test_async_stale_direct_vm_jwt_evicts_route_when_error_body_read_fails
     assert requests[1].url == httpx.URL(f"{base_url}/browsers/sess-1/computer/screenshot")
     assert requests[1].url.params.get("jwt") is None
     assert requests[1].headers.get("Authorization") == f"Bearer {api_key}"
+
+
+def test_stale_direct_vm_auth_body_read_failure_does_not_retry_unreplayable_write(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    monkeypatch.setattr("kernel._base_client.SyncAPIClient._sleep_for_retry", _skip_retry_sleep)
+    requests: list[tuple[httpx.URL, bytes]] = []
+
+    def handle_request(request: httpx.Request) -> httpx.Response:
+        body = b"".join(request.stream)
+        requests.append((request.url, body))
+        if "browser-session.test" in str(request.url):
+            return httpx.Response(401, stream=_FailingSyncStream(), headers={"content-type": "text/plain"})
+        return httpx.Response(201)
+
+    class Transport(httpx.BaseTransport):
+        @override
+        def handle_request(self, request: httpx.Request) -> httpx.Response:
+            return handle_request(request)
+
+    http_client = httpx.Client(transport=Transport())
+    with Kernel(
+        base_url=base_url,
+        api_key=api_key,
+        http_client=http_client,
+        _strict_response_validation=True,
+    ) as client:
+        _cache_browser(client)
+        with pytest.raises(APIConnectionError):
+            client.browsers.fs.write_file("sess-1", _UnseekableFile(b"payload"), path="/tmp/x")
+
+        assert requests == [
+            (
+                httpx.URL("http://browser-session.test/browser/kernel/fs/write_file?path=%2Ftmp%2Fx&jwt=token-abc"),
+                b"payload",
+            )
+        ]
+        assert client.browser_route_cache.get("sess-1") is None
+
+        client.browsers.fs.write_file("sess-1", b"next", path="/tmp/x")
+
+    assert requests[1] == (httpx.URL(f"{base_url}/browsers/sess-1/fs/write_file?path=%2Ftmp%2Fx"), b"next")
+
+
+@pytest.mark.asyncio
+async def test_async_stale_direct_vm_auth_body_read_failure_does_not_retry_unreplayable_write(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    monkeypatch.setattr("kernel._base_client.AsyncAPIClient._sleep_for_retry", _skip_async_retry_sleep)
+    requests: list[tuple[httpx.URL, bytes]] = []
+
+    async def handle_request(request: httpx.Request) -> httpx.Response:
+        body = b"".join([chunk async for chunk in request.stream])
+        requests.append((request.url, body))
+        if "browser-session.test" in str(request.url):
+            return httpx.Response(403, stream=_FailingAsyncStream(), headers={"content-type": "text/plain"})
+        return httpx.Response(201)
+
+    async def payload() -> AsyncIterator[bytes]:
+        yield b"payload"
+
+    class Transport(httpx.AsyncBaseTransport):
+        @override
+        async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
+            return await handle_request(request)
+
+    http_client = httpx.AsyncClient(transport=Transport())
+    async with AsyncKernel(
+        base_url=base_url,
+        api_key=api_key,
+        http_client=http_client,
+        _strict_response_validation=True,
+    ) as client:
+        route = browser_route_from_browser(_fake_browser())
+        assert route is not None
+        client.browser_route_cache.set(route)
+        with pytest.raises(APIConnectionError):
+            await client.browsers.fs.write_file("sess-1", cast(Any, payload()), path="/tmp/x")
+
+        assert requests == [
+            (
+                httpx.URL("http://browser-session.test/browser/kernel/fs/write_file?path=%2Ftmp%2Fx&jwt=token-abc"),
+                b"payload",
+            )
+        ]
+        assert client.browser_route_cache.get("sess-1") is None
+
+        await client.browsers.fs.write_file("sess-1", b"next", path="/tmp/x")
+
+    assert requests[1] == (httpx.URL(f"{base_url}/browsers/sess-1/fs/write_file?path=%2Ftmp%2Fx"), b"next")
 
 
 def test_copied_client_registers_one_route_eviction_hook() -> None:

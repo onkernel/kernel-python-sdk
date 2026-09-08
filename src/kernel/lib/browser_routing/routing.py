@@ -33,6 +33,7 @@ class BrowserRoutingConfig:
 
 
 _EVICTION_HOOK_CACHE_ATTR = "_kernel_browser_route_cache"
+_STALE_DIRECT_VM_AUTH_REQUEST_EXTENSION = "kernel_stale_direct_vm_auth"
 
 
 _BROWSER_ROUTE_CACHEABLE_PATH = re.compile(r"^/(?:v\d+/)?browsers(?:/[^/]+)?/?$")
@@ -220,6 +221,7 @@ def install_stale_direct_vm_auth_eviction(client: httpx.Client, *, cache: Browse
 
     def evict(response: httpx.Response) -> None:
         if is_stale_direct_vm_auth_response(response):
+            response.request.extensions[_STALE_DIRECT_VM_AUTH_REQUEST_EXTENSION] = True
             maybe_evict_browser_route_from_response(response, cache=cache)
 
     setattr(evict, _EVICTION_HOOK_CACHE_ATTR, cache)
@@ -234,6 +236,7 @@ def install_async_stale_direct_vm_auth_eviction(client: httpx.AsyncClient, *, ca
 
     async def evict(response: httpx.Response) -> None:
         if is_stale_direct_vm_auth_response(response):
+            response.request.extensions[_STALE_DIRECT_VM_AUTH_REQUEST_EXTENSION] = True
             maybe_evict_browser_route_from_response(response, cache=cache)
 
     setattr(evict, _EVICTION_HOOK_CACHE_ATTR, cache)
@@ -244,6 +247,19 @@ def _has_eviction_hook(hooks: list[Any], cache: BrowserRouteCache) -> bool:
     # A copied client shares both the httpx client and the route cache, so the
     # hook is registered once per cache instead of once per client.
     return any(getattr(hook, _EVICTION_HOOK_CACHE_ATTR, None) is cache for hook in hooks)
+
+
+def should_retry_direct_vm_connection_error(request: httpx.Request) -> bool:
+    """Prevent generic retries from replaying a stream after stale VM auth.
+
+    httpx may raise while eagerly reading the error response body, before the
+    SDK can pass the response to `_should_retry`. The response hook records the
+    known stale-auth status on the request so this connection-error path can
+    apply the same body replay check.
+    """
+    if not request.extensions.get(_STALE_DIRECT_VM_AUTH_REQUEST_EXTENSION):
+        return True
+    return direct_vm_request_body_is_replayable(request)
 
 
 def should_retry_stale_direct_vm_auth(response: httpx.Response) -> bool:
