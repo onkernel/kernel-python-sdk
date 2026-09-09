@@ -3,7 +3,7 @@ from __future__ import annotations
 import io
 import os
 import asyncio
-from typing import Any, Iterator, AsyncIterator, cast
+from typing import Any, Iterable, Iterator, AsyncIterator, cast
 from pathlib import Path
 from typing_extensions import override
 
@@ -27,6 +27,7 @@ from kernel.lib.browser_routing.routing import (
     browser_route_from_browser,
     browser_routing_config_from_env,
 )
+from kernel.types.browsers.f_upload_params import File as UploadFile
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 api_key = "sk-123"
@@ -89,6 +90,19 @@ class _UnseekableFile(io.RawIOBase):
     @override
     def seek(self, _offset: int, _whence: int = 0) -> int:
         raise io.UnsupportedOperation("not seekable")
+
+
+class _UnreplayableAsyncBody:
+    def __init__(self, content: bytes) -> None:
+        self._content = content
+
+    def __aiter__(self) -> AsyncIterator[bytes]:
+        return self._iterate()
+
+    async def _iterate(self) -> AsyncIterator[bytes]:
+        if self._content:
+            content, self._content = self._content, b""
+            yield content
 
 
 class _NoSeekableAttrFile(io.RawIOBase):
@@ -794,6 +808,65 @@ def test_fs_upload_routes_indexed_multipart_to_vm(monkeypatch: pytest.MonkeyPatc
     assert b'name="files[1][dest_path]"' in body
     assert b'name="files[1][file]"' in body
     assert b"files[][" not in body
+
+
+@pytest.mark.parametrize("container", ["tuple", "generator"])
+def test_fs_upload_accepts_iterable_files(monkeypatch: pytest.MonkeyPatch, container: str) -> None:
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    requests: list[httpx.Request] = []
+
+    def handle_request(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        return httpx.Response(201)
+
+    entries: tuple[UploadFile, ...] = ({"dest_path": "/tmp/one", "file": b"abc"},)
+    files: Iterable[UploadFile] = entries if container == "tuple" else iter(entries)
+    http_client = httpx.Client(transport=httpx.MockTransport(handle_request))
+    with Kernel(
+        base_url=base_url,
+        api_key=api_key,
+        http_client=http_client,
+        _strict_response_validation=True,
+    ) as client:
+        _cache_browser(client)
+        client.browsers.fs.upload("sess-1", files=files)
+
+    body = requests[0].content
+    assert b'name="files[0][dest_path]"' in body
+    assert b'name="files[0][file]"; filename="upload"' in body
+    assert b"\r\nabc\r\n" in body
+    assert b"\r\nb'abc'\r\n" not in body
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("container", ["tuple", "generator"])
+async def test_async_fs_upload_accepts_iterable_files(monkeypatch: pytest.MonkeyPatch, container: str) -> None:
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    requests: list[httpx.Request] = []
+
+    async def handle_request(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        return httpx.Response(201)
+
+    entries: tuple[UploadFile, ...] = ({"dest_path": "/tmp/one", "file": b"abc"},)
+    files: Iterable[UploadFile] = entries if container == "tuple" else iter(entries)
+    http_client = httpx.AsyncClient(transport=httpx.MockTransport(handle_request))
+    async with AsyncKernel(
+        base_url=base_url,
+        api_key=api_key,
+        http_client=http_client,
+        _strict_response_validation=True,
+    ) as client:
+        route = browser_route_from_browser(_fake_browser())
+        assert route is not None
+        client.browser_route_cache.set(route)
+        await client.browsers.fs.upload("sess-1", files=files)
+
+    body = requests[0].content
+    assert b'name="files[0][dest_path]"' in body
+    assert b'name="files[0][file]"; filename="upload"' in body
+    assert b"\r\nabc\r\n" in body
+    assert b"\r\nb'abc'\r\n" not in body
 
 
 @respx.mock
@@ -1568,12 +1641,204 @@ async def test_async_direct_vm_failure_does_not_retry_unreplayable_write(
     ]
 
 
-def test_copied_client_registers_one_route_eviction_hook() -> None:
+@pytest.mark.parametrize("status_code", [307, 308])
+def test_direct_vm_redirect_does_not_replay_unreplayable_write(
+    monkeypatch: pytest.MonkeyPatch,
+    status_code: int,
+) -> None:
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    monkeypatch.setattr("kernel._base_client.SyncAPIClient._sleep_for_retry", _skip_retry_sleep)
+    requests: list[tuple[httpx.URL, bytes]] = []
+
+    class Transport(httpx.BaseTransport):
+        @override
+        def handle_request(self, request: httpx.Request) -> httpx.Response:
+            body = b"".join(cast(Iterator[bytes], request.stream))
+            requests.append((request.url, body))
+            return httpx.Response(
+                status_code,
+                headers={"location": "http://other-vm.test/browser/kernel/fs/write_file"},
+            )
+
+    http_client = httpx.Client(transport=Transport(), follow_redirects=True)
+    with Kernel(
+        base_url=base_url,
+        api_key=api_key,
+        http_client=http_client,
+        _strict_response_validation=True,
+    ) as client:
+        _cache_browser(client)
+        with pytest.raises(APIConnectionError):
+            client.browsers.fs.write_file("sess-1", _UnseekableFile(b"payload"), path="/tmp/x")
+        assert client.browser_route_cache.get("sess-1") is None
+
+    assert requests == [
+        (
+            httpx.URL("http://browser-session.test/browser/kernel/fs/write_file?path=%2Ftmp%2Fx&jwt=token-abc"),
+            b"payload",
+        )
+    ]
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("status_code", [307, 308])
+async def test_async_direct_vm_redirect_does_not_replay_unreplayable_write(
+    monkeypatch: pytest.MonkeyPatch,
+    status_code: int,
+) -> None:
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    monkeypatch.setattr("kernel._base_client.AsyncAPIClient._sleep_for_retry", _skip_async_retry_sleep)
+    requests: list[tuple[httpx.URL, bytes]] = []
+
+    class Transport(httpx.AsyncBaseTransport):
+        @override
+        async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
+            body = b"".join([chunk async for chunk in cast(AsyncIterator[bytes], request.stream)])
+            requests.append((request.url, body))
+            return httpx.Response(
+                status_code,
+                headers={"location": "http://other-vm.test/browser/kernel/fs/write_file"},
+            )
+
+    http_client = httpx.AsyncClient(transport=Transport(), follow_redirects=True)
+    async with AsyncKernel(
+        base_url=base_url,
+        api_key=api_key,
+        http_client=http_client,
+        _strict_response_validation=True,
+    ) as client:
+        route = browser_route_from_browser(_fake_browser())
+        assert route is not None
+        client.browser_route_cache.set(route)
+        with pytest.raises(APIConnectionError):
+            await client.browsers.fs.write_file(
+                "sess-1",
+                cast(Any, _UnreplayableAsyncBody(b"payload")),
+                path="/tmp/x",
+            )
+        assert client.browser_route_cache.get("sess-1") is None
+
+    assert requests == [
+        (
+            httpx.URL("http://browser-session.test/browser/kernel/fs/write_file?path=%2Ftmp%2Fx&jwt=token-abc"),
+            b"payload",
+        )
+    ]
+
+
+def test_direct_vm_auth_is_removed_after_httpx_and_request_hooks(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    requests: list[httpx.Request] = []
+
+    def add_auth(request: httpx.Request) -> None:
+        request.headers["Authorization"] = "Bearer from-hook"
+
+    def handle_request(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        return httpx.Response(200, json=[])
+
+    http_client = httpx.Client(
+        transport=httpx.MockTransport(handle_request),
+        auth=("user", "password"),
+        event_hooks={"request": [add_auth]},
+    )
+    with Kernel(
+        base_url=base_url,
+        api_key=api_key,
+        http_client=http_client,
+        _strict_response_validation=True,
+    ) as client:
+        _cache_browser(client)
+        client.browsers.fs.list_files("sess-1", path="/tmp")
+        client.browser_route_cache.delete("sess-1")
+        client.browsers.fs.list_files("sess-1", path="/tmp")
+
+    assert requests[0].headers.get("Authorization") is None
+    assert requests[0].headers.get("x-kernel-direct-vm-request") is None
+    assert requests[1].headers.get("Authorization") == "Bearer from-hook"
+
+
+@pytest.mark.asyncio
+async def test_async_direct_vm_auth_is_removed_after_httpx_and_request_hooks(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    requests: list[httpx.Request] = []
+
+    async def add_auth(request: httpx.Request) -> None:
+        request.headers["Authorization"] = "Bearer from-hook"
+
+    async def handle_request(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        return httpx.Response(200, json=[])
+
+    http_client = httpx.AsyncClient(
+        transport=httpx.MockTransport(handle_request),
+        auth=("user", "password"),
+        event_hooks={"request": [add_auth]},
+    )
+    async with AsyncKernel(
+        base_url=base_url,
+        api_key=api_key,
+        http_client=http_client,
+        _strict_response_validation=True,
+    ) as client:
+        route = browser_route_from_browser(_fake_browser())
+        assert route is not None
+        client.browser_route_cache.set(route)
+        await client.browsers.fs.list_files("sess-1", path="/tmp")
+        client.browser_route_cache.delete("sess-1")
+        await client.browsers.fs.list_files("sess-1", path="/tmp")
+
+    assert requests[0].headers.get("Authorization") is None
+    assert requests[0].headers.get("x-kernel-direct-vm-request") is None
+    assert requests[1].headers.get("Authorization") == "Bearer from-hook"
+
+
+def test_direct_vm_preparation_survives_route_eviction(monkeypatch: pytest.MonkeyPatch) -> None:
+    from kernel.lib.browser_routing.routing import direct_vm_request_body_is_known_unreplayable
+
+    monkeypatch.delenv("KERNEL_BROWSER_ROUTING_SUBRESOURCES", raising=False)
+    requests: list[tuple[httpx.Request, bytes]] = []
+
+    class EvictingKernel(Kernel):
+        @override
+        def _prepare_request(self, request: httpx.Request) -> None:
+            self.browser_route_cache.delete("sess-1")
+            super()._prepare_request(request)
+
+    def handle_request(request: httpx.Request) -> httpx.Response:
+        body = b"".join(cast(Iterator[bytes], request.stream))
+        requests.append((request, body))
+        return httpx.Response(201)
+
+    http_client = httpx.Client(transport=httpx.MockTransport(handle_request))
+    with EvictingKernel(
+        base_url=base_url,
+        api_key=api_key,
+        http_client=http_client,
+        _strict_response_validation=True,
+    ) as client:
+        _cache_browser(client)
+        client.browsers.fs.write_file("sess-1", _UnseekableFile(b"payload"), path="/tmp/x")
+
+    request, body = requests[0]
+    assert request.url.host == "browser-session.test"
+    assert request.url.params.get("jwt") == "token-abc"
+    assert request.headers.get("Authorization") is None
+    assert request.headers.get("x-kernel-direct-vm-request") is None
+    assert direct_vm_request_body_is_known_unreplayable(request)
+    assert body == b"payload"
+
+
+def test_copied_client_registers_one_direct_vm_hook_per_phase() -> None:
     with Kernel(base_url=base_url, api_key=api_key, _strict_response_validation=True) as client:
         copied = client.copy(api_key="sk-456")
         assert copied.browser_route_cache is client.browser_route_cache
-        hooks = client._client.event_hooks["response"]  # pyright: ignore[reportPrivateUsage]
-        assert len(hooks) == 1
+        response_hooks = client._client.event_hooks["response"]  # pyright: ignore[reportPrivateUsage]
+        request_hooks = client._client.event_hooks["request"]  # pyright: ignore[reportPrivateUsage]
+        assert len(response_hooks) == 1
+        assert len(request_hooks) == 1
 
 
 def test_route_eviction_hook_runs_before_caller_response_hooks(

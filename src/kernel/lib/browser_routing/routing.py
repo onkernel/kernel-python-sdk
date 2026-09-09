@@ -15,6 +15,7 @@ from .util import (
     cdp_ws_url_from_browser_like,
     session_id_from_browser_like,
 )
+from ..._utils import is_given
 from ..._compat import model_copy
 from ..._models import FinalRequestOptions
 from ..._constants import RAW_RESPONSE_HEADER
@@ -33,6 +34,8 @@ class BrowserRoutingConfig:
 
 
 _EVICTION_HOOK_CACHE_ATTR = "_kernel_browser_route_cache"
+_DIRECT_VM_AUTH_HOOK_ATTR = "_kernel_direct_vm_auth_hook"
+_DIRECT_VM_REQUEST_MARKER_HEADER = "x-kernel-direct-vm-request"
 _STALE_DIRECT_VM_AUTH_REQUEST_EXTENSION = "kernel_stale_direct_vm_auth"
 _DIRECT_VM_BODY_REPLAYABLE_REQUEST_EXTENSION = "kernel_direct_vm_body_replayable"
 
@@ -211,22 +214,24 @@ def install_stale_direct_vm_auth_eviction(client: httpx.Client, *, cache: Browse
     whose body read fails — the read error surfaces from `send()` instead and the
     dead route would stay cached, wedging every later call for that session. A
     response event hook runs after the status is known and before any body is
-    read, which keeps eviction independent of the body. For a caller-supplied
+    read, which keeps eviction independent of the body. It also rejects redirects
+    before httpx can replay an unreplayable direct request body. For a caller-supplied
     `http_client`, the hook is installed into that client's `event_hooks` and
-    prepended so an existing hook cannot pre-empt eviction by reading a failing
-    body or raising.
+    prepended so an existing hook cannot pre-empt these safeguards by reading a
+    failing body or raising.
     """
     hooks = client.event_hooks.setdefault("response", [])
     if _has_eviction_hook(hooks, cache):
         return
 
-    def evict(response: httpx.Response) -> None:
+    def handle_response(response: httpx.Response) -> None:
+        _reject_unreplayable_direct_vm_redirect(response, cache=cache)
         if is_stale_direct_vm_auth_response(response):
             response.request.extensions[_STALE_DIRECT_VM_AUTH_REQUEST_EXTENSION] = True
             maybe_evict_browser_route_from_response(response, cache=cache)
 
-    setattr(evict, _EVICTION_HOOK_CACHE_ATTR, cache)
-    hooks.insert(0, evict)
+    setattr(handle_response, _EVICTION_HOOK_CACHE_ATTR, cache)
+    hooks.insert(0, handle_response)
 
 
 def install_async_stale_direct_vm_auth_eviction(client: httpx.AsyncClient, *, cache: BrowserRouteCache) -> None:
@@ -235,19 +240,59 @@ def install_async_stale_direct_vm_auth_eviction(client: httpx.AsyncClient, *, ca
     if _has_eviction_hook(hooks, cache):
         return
 
-    async def evict(response: httpx.Response) -> None:
+    async def handle_response(response: httpx.Response) -> None:
+        _reject_unreplayable_direct_vm_redirect(response, cache=cache)
         if is_stale_direct_vm_auth_response(response):
             response.request.extensions[_STALE_DIRECT_VM_AUTH_REQUEST_EXTENSION] = True
             maybe_evict_browser_route_from_response(response, cache=cache)
 
-    setattr(evict, _EVICTION_HOOK_CACHE_ATTR, cache)
-    hooks.insert(0, evict)
+    setattr(handle_response, _EVICTION_HOOK_CACHE_ATTR, cache)
+    hooks.insert(0, handle_response)
+
+
+def install_direct_vm_auth_stripping(client: httpx.Client) -> None:
+    """Remove Authorization after httpx auth and existing request hooks run."""
+    hooks = client.event_hooks.setdefault("request", [])
+    if any(getattr(hook, _DIRECT_VM_AUTH_HOOK_ATTR, False) for hook in hooks):
+        return
+
+    def strip_auth(request: httpx.Request) -> None:
+        if _is_direct_vm_request(request):
+            request.headers.pop("Authorization", None)
+
+    setattr(strip_auth, _DIRECT_VM_AUTH_HOOK_ATTR, True)
+    hooks.append(strip_auth)
+
+
+def install_async_direct_vm_auth_stripping(client: httpx.AsyncClient) -> None:
+    """Async counterpart of `install_direct_vm_auth_stripping`."""
+    hooks = client.event_hooks.setdefault("request", [])
+    if any(getattr(hook, _DIRECT_VM_AUTH_HOOK_ATTR, False) for hook in hooks):
+        return
+
+    async def strip_auth(request: httpx.Request) -> None:
+        if _is_direct_vm_request(request):
+            request.headers.pop("Authorization", None)
+
+    setattr(strip_auth, _DIRECT_VM_AUTH_HOOK_ATTR, True)
+    hooks.append(strip_auth)
 
 
 def _has_eviction_hook(hooks: list[Any], cache: BrowserRouteCache) -> bool:
     # A copied client shares both the httpx client and the route cache, so the
     # hook is registered once per cache instead of once per client.
     return any(getattr(hook, _EVICTION_HOOK_CACHE_ATTR, None) is cache for hook in hooks)
+
+
+def _reject_unreplayable_direct_vm_redirect(response: httpx.Response, *, cache: BrowserRouteCache) -> None:
+    if not response.has_redirect_location or not direct_vm_request_body_is_known_unreplayable(response.request):
+        return
+
+    jwt = str(response.request.url.params.get("jwt") or "").strip()
+    session_id = _session_id_from_direct_vm_response(response, cache=cache)
+    if session_id and jwt:
+        cache.delete_if_jwt(session_id, jwt)
+    raise httpx.RequestError("Cannot safely redirect an unreplayable direct VM request", request=response.request)
 
 
 def should_retry_direct_vm_connection_error(request: httpx.Request) -> bool:
@@ -414,20 +459,27 @@ def rewrite_direct_vm_options(
     params.update(options.params)
     params["jwt"] = route.jwt
     rewritten.params = params or options.params
+
+    headers = dict(options.headers) if is_given(options.headers) else {}
+    headers[_DIRECT_VM_REQUEST_MARKER_HEADER] = "true"
+    rewritten.headers = headers
     return rewritten
 
 
-def prepare_direct_vm_request(request: httpx.Request, *, cache: BrowserRouteCache) -> None:
-    raw = str(request.url)
-    for route in cache.values():
-        if raw.startswith(route.base_url.rstrip("/") + "/"):
-            # Request hooks and custom auth can buffer this request while consuming
-            # the original body that the SDK would use to build a retry.
-            request.extensions[_DIRECT_VM_BODY_REPLAYABLE_REQUEST_EXTENSION] = (
-                _classify_direct_vm_request_body_replayability(request)
-            )
-            request.headers.pop("Authorization", None)
-            return
+def prepare_direct_vm_request(request: httpx.Request) -> None:
+    if request.headers.pop(_DIRECT_VM_REQUEST_MARKER_HEADER, None) is None:
+        return
+
+    # Request hooks and custom auth can buffer this request while consuming
+    # the original body that the SDK would use to build a retry.
+    request.extensions[_DIRECT_VM_BODY_REPLAYABLE_REQUEST_EXTENSION] = _classify_direct_vm_request_body_replayability(
+        request
+    )
+    request.headers.pop("Authorization", None)
+
+
+def _is_direct_vm_request(request: httpx.Request) -> bool:
+    return isinstance(request.extensions.get(_DIRECT_VM_BODY_REPLAYABLE_REQUEST_EXTENSION), bool)
 
 
 def match_direct_vm_path(path: str) -> tuple[str, str, str] | None:

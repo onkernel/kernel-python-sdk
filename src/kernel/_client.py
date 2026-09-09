@@ -41,9 +41,11 @@ from .lib.browser_routing.routing import (
     prepare_direct_vm_request,
     rewrite_direct_vm_options,
     browser_routing_config_from_env,
+    install_direct_vm_auth_stripping,
     is_stale_direct_vm_auth_response,
     should_retry_stale_direct_vm_auth,
     install_stale_direct_vm_auth_eviction,
+    install_async_direct_vm_auth_stripping,
     maybe_evict_browser_route_from_response,
     should_retry_direct_vm_connection_error,
     install_async_stale_direct_vm_auth_eviction,
@@ -210,6 +212,7 @@ class Kernel(SyncAPIClient):
         )
         self.browser_route_cache = _browser_route_cache or BrowserRouteCache()
         self._browser_routing = browser_routing_config_from_env()
+        install_direct_vm_auth_stripping(self._client)
         install_stale_direct_vm_auth_eviction(self._client, cache=self.browser_route_cache)
 
     @cached_property
@@ -375,7 +378,7 @@ class Kernel(SyncAPIClient):
 
     @override
     def _prepare_request(self, request: httpx.Request) -> None:
-        prepare_direct_vm_request(request, cache=self.browser_route_cache)
+        prepare_direct_vm_request(request)
 
     @override
     def _should_retry_on_connection_error(self, request: httpx.Request) -> bool:
@@ -608,6 +611,7 @@ class AsyncKernel(AsyncAPIClient):
         )
         self.browser_route_cache = _browser_route_cache or BrowserRouteCache()
         self._browser_routing = browser_routing_config_from_env()
+        install_async_direct_vm_auth_stripping(self._client)
         install_async_stale_direct_vm_auth_eviction(self._client, cache=self.browser_route_cache)
 
     @cached_property
@@ -773,7 +777,7 @@ class AsyncKernel(AsyncAPIClient):
 
     @override
     async def _prepare_request(self, request: httpx.Request) -> None:
-        prepare_direct_vm_request(request, cache=self.browser_route_cache)
+        prepare_direct_vm_request(request)
 
     @override
     def _should_retry_on_connection_error(self, request: httpx.Request) -> bool:

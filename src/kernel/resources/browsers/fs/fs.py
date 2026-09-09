@@ -510,7 +510,7 @@ class FsResource(SyncAPIResource):
         if not id_or_name:
             raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        body = deepcopy_with_paths({"files": files}, [["files", "<array>", "file"]])
+        body = deepcopy_with_paths({"files": list(files)}, [["files", "<array>", "file"]])
         # The remote filesystem pairs each file part with the sibling fields of the
         # same array entry, so both halves of the form use indexed names
         # (`files[0][file]`, `files[0][dest_path]`).
@@ -1078,7 +1078,7 @@ class AsyncFsResource(AsyncAPIResource):
         if not id_or_name:
             raise ValueError(f"Expected a non-empty value for `id_or_name` but received {id_or_name!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        body = deepcopy_with_paths({"files": files}, [["files", "<array>", "file"]])
+        body = deepcopy_with_paths({"files": list(files)}, [["files", "<array>", "file"]])
         # The remote filesystem pairs each file part with the sibling fields of the
         # same array entry, so both halves of the form use indexed names
         # (`files[0][file]`, `files[0][dest_path]`).
